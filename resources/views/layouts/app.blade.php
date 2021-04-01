@@ -11,12 +11,23 @@
 
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
+    
+
     @yield('third_party_stylesheets')
     @stack('page_css')
 
     <style type="text/css">
         .col-form-label{
             font-weight: normal !important;
+        }
+        .card-title{
+            font-weight: bold;
         }
     </style>
 
@@ -35,10 +46,12 @@
 
         <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown user-menu">
+                
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                     <img src="{{ asset('image/default-user.png') }}" class="user-image img-circle elevation-2" alt="User Image">
                     <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
                 </a>
+
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                     <!-- User image -->
                     <li class="user-header bg-primary">
@@ -105,10 +118,39 @@
 </div>
 
 <script src="{{ mix('js/app.js') }}" defer></script>
-
 @yield('third_party_scripts')
-
 @stack('page_scripts')
-<script src="https://use.fontawesome.com/cc6b4f0737.js"></script>
+    <script src="https://use.fontawesome.com/cc6b4f0737.js"></script>
+@include('sweetalert::alert')
+
+</script>
+<script type="text/javascript">
+$('.itempack').select2({
+  placeholder: 'Select package',
+  allowClear:true
+});
+</script>
+
+<script type="text/javascript">
+$('#update_loadpacklist').select2({
+  placeholder: 'Select package',
+  ajax: {
+    url:  '{{ route("datapackage") }}',
+    dataType: 'json',
+    delay: 250,
+    processResults: function (data) {
+      return {
+        results:  $.map(data, function (item) {
+              return {
+                  text: item.package,
+                  id: item.package
+              }
+          })
+      };
+    },
+    cache: true
+  }
+});
+</script>
 </body>
 </html>

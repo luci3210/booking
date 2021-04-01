@@ -1,0 +1,139 @@
+#header.header-transparent
+{
+  background: #1e4356 !important;
+}/*
+.breadcrumbs
+{
+  background-color: #fff;
+}*/
+.contact .php-email-form input
+{
+  padding: 0px 10px !important;
+}
+.contact .form-border
+{
+  box-shadow: 0 0 30px rgba(214, 215, 216, 0.6);
+  padding: 30px;
+  margin-bottom: 30px;
+}
+.uk-select 
+{
+  font-size: 13px;
+}
+.uk-placeholder
+{
+  font-weight: bold;
+  margin-top: -40px;
+  margin-bottom: 1px !important;
+  padding: 10px 10px !important;
+  border: none !important;
+}
+.uk-tab
+{
+  margin-left: -10px !important;
+}
+.uk-accordion-content
+{
+  margin-left: 24px;
+ }
+.uk-accordion-content a
+{
+  text-decoration: none;
+  padding-bottom: 15px;
+  color: #8c8c8c;
+}
+.form-control
+{
+  transition: border-color .1s ease-in-out,box-shadow .1s ease-in-out !important;
+}
+.uk-accordion {
+  margin-left: 5px;
+}
+.card{
+  margin: 10px 0 10px 0;
+}
+.list-group-item
+{
+  padding: none !important;
+}
+.p-list-group-item
+{
+  display: block;
+  margin: 7px auto;
+}
+
+.file-preview{
+height: 100%;
+}
+.file-drop-zone{
+  margin: 12px 15px 12px 12px !important;
+  height: 100%;
+}
+     .col-form-label
+    {
+      font-size: 14px;
+      /*font-weight: normal !important;*/
+    }
+    .services .icon-box
+    {
+      padding:30px 7px 30px 7px !important;
+    }
+    .pricing-title
+    {
+      text-align: center;
+      margin: 10px 0px 0px 0px;
+    }
+    .section-title
+    {
+      margin: 30px 0px -40px 0px;
+    }
+    .services .description
+    {
+    font-size: 14px !important;
+    line-height: 1px !important;
+    margin-bottom: 0 !important;
+    }
+    .uk-accordion-title
+    {
+      font-size: 16px;
+    }
+    .uk-list-spc-acco
+    {
+      margin: 20px 50px 0px 0px !important;
+      text-decoration: none; 
+    }
+    .uk-list-spc
+    {
+      margin: 17px 0 17px 0;
+      text-decoration: none;
+    }
+    .uk-list-spc :hover
+    {
+      text-decoration: none;
+      color: #777575;
+
+    }
+    .uk-list-a
+    {
+      color: #353434;
+      margin-left: 5px;
+    }
+.labelcoz
+{
+  font-size: 13px;
+  font-weight: bold;
+  margin: 0px 0px 5px 2px;
+}
+.hrmargin
+{
+  margin: 30px 0px 15px 0px; 
+}
+
+    .contact .info-box-ext {
+    color: #444;
+    text-align: left;
+    margin: 0px 20px 0px 20px;
+    /*text-align: center;*/
+    /*box-shadow: 0 0 30px rgb(214 215 216 / 60%);*/
+    padding: 20px 0 30px 0;
+    margin-bottom: 30px;

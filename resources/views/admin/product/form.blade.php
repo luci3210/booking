@@ -3,9 +3,9 @@
 @section('content')
 
 <section class="content">
-  <div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-3 col-6">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-3 col-6">
         
             <div class="small-box bg-info">
               <div class="inner">
@@ -16,7 +16,7 @@
               <div class="icon">
                 <i class="ion ion-bag"></i>
               </div>
-              <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+
             </div>
           </div>
           
@@ -31,12 +31,12 @@
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+
             </div>
           </div>
-          <!-- ./col -->
+          
           <div class="col-lg-3 col-6">
-            <!-- small box -->
+
             <div class="small-box bg-warning">
               <div class="inner">
                 <h4>44</h4>
@@ -46,12 +46,11 @@
               <div class="icon">
                 <i class="ion ion-person-add"></i>
               </div>
-              <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
             </div>
           </div>
-          <!-- ./col -->
+          
           <div class="col-lg-3 col-6">
-            <!-- small box -->
+
             <div class="small-box bg-danger">
               <div class="inner">
                 <h4>65</h4>
@@ -61,64 +60,58 @@
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
               </div>
-              <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
             </div>
           </div>
-          <!-- ./col -->
         </div>
         
 
 <div class="row">
   <div class="col-12">
+
+
     <div class="card">
-      
+    
       <div class="card-header">
         <h3 class="card-title">Tourismo Product » <a href="" class="py-0">create</a></h3>
       </div>
 
-    <div class="card-body">
-        <table class="table table-bordered">
+      <!-- <form role="form" id="form_valid"> -->
+        <form role="form" method="post" action="{{ route('product-store-save') }}" id="form_valid">
+        @csrf
+      <div class="card-body">
         
-        <thead>                  
-            <tr>
-              <th style="width: 10px">#</th>
-              <th>Name</th>
-              <th>Description</th>
-              <th style="width: 180px" class="text-center">Action</th>
-            </tr>
-        </thead>
+        <div class="form-group">
+          <label class="col-form-label">
+          Product Name 
+          <small class="text-danger has-error">{{ $errors->has('product_name') ?  $errors->first('product_name') : '' }}</small>
+        </label>
+          <input type="text" name="product_name" class="form-control" placeholder="Product Name">
+        </div>
         
-        <tbody>
-          @forelse($products as $product)
-            <tr>
-              <td>{{ $loop->index + 1 }}</td>
-              <td>{{ $product->name }}</td>
-              <td>{{ $product->description }}</td>
-              <td class="text-center">
-                <a href="" class="btn btn-sm btn-primary py-0">Edit »</a>
-                <a href="" onclick="if(confirm('Do you want to delete this customer?'))event.preventDefault(); document.getElementById('delete-{{$product->id}}').submit();" class="btn btn-sm btn-danger py-0">Delete »</a>
-                  <form id="delete-{{$product->id}}" method="post" action="" style="display: none;">
-                  @csrf
-                </form>
-              </td>
-            </tr>
-          @empty
-            <p> No listing found!</p> 
-          @endforelse
-        </tbody>
-        
-        </table>
-    </div>
-        
-      <div class="card-footer clearfix">
-        <ul class="pagination pagination-sm m-0 float-right">
-          <li class="page-item"><a class="page-link" href="#">«</a></li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item"><a class="page-link" href="#">»</a></li>
-        </ul>
+        <div class="form-group">
+          <label class="col-form-label">
+          Product Description
+          <small class="text-danger has-error">{{ $errors->has('product_description') ?  $errors->first('product_description') : '' }}</small>
+        </label>
+          <input type="text" name="product_description" class="form-control"placeholder="Product Description">
+        </div>
+      
+        <div class="form-group">
+          <label class="col-form-label">
+          Status
+          <small class="text-danger has-error">{{ $errors->has('product_status') ?  $errors->first('product_status') : '' }}</small>
+        </label>
+          <input type="text" name="product_status" class="form-control" placeholder="Product Status">
+        </div>
+
       </div>
+
+      <div class="card-footer">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+
+      </form>
+        
 
     </div>
   </div>
