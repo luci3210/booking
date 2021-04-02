@@ -79,15 +79,30 @@
       </div>
 
     <div class="card-body">
+<!-- 
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    
+    @forelse($get_location_id as $location)
+    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">{{ $location->name }}</a>
+    @empty
+    <p> No data  found!</p> 
+    @endforelse
+
+  </div>
+</nav> -->
 
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
+
     <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Data</a>
 
     <a class="nav-item nav-link" id="nav-building-tab" data-toggle="tab" href="#nav-building-facilities" role="tab" aria-controls="nav-building-facilities" aria-selected="false">Form</a>
 
   </div>
-</nav><br>
+</nav>
+
+<br>
 
 <div class="tab-content" id="nav-tabContent">
   <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
@@ -112,15 +127,12 @@
             <tr>
               <td>{{ $loop->index + 1 }}</td>
               <td><b>{{ $country->country }}</b></td>
-              <td>
-                @if(!empty($country->region))
-                  {{ $country->region }}
-                 @endif
-              </td>
-              <td>{{ $country->country }}</td>
-              <td>{{ $country->country }}</td>
-              <td>{{ $country->country }}</td>
-              <td>{{ $country->country }}</td>
+              <td>null</td>
+              <td>null</td>
+              <td>null</td>
+              <td>null</td>
+              <td>null</td>
+              
               <td class="text-center">
                 <div class="uk-button-group">
                   <a href="{{ route('profile-contact-edit',$country->id) }}" class="uk-button uk-button-primary uk-button-small">Edit</a>
@@ -171,18 +183,15 @@
   </div>
 
 </div>
-
-
-
-
     </div>
         
-      <div class="card-footer clearfix">
-    
+       <div class="card-footer clearfix">
+      
+
         <ul class="pagination pagination-sm m-0 float-left">
+            {{ $getcountry->links() }}
         </ul>
       </div>
-
     </div>
   </div>
 </div>
