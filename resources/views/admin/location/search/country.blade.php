@@ -75,22 +75,10 @@
     <div class="card">
 
       <div class="card-header">
-        <h3 class="card-title"><i class="nav-icon fa fa-product-hunt" aria-hidden="true"></i> {{ $locations->names }} </h3>
+        <h3 class="card-title"><i class="nav-icon fa fa-product-hunt" aria-hidden="true"></i> {{ $locations[0]->name }} </h3>
       </div>
 
     <div class="card-body">
-<!-- 
-<nav>
-  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-    
-    @forelse($get_location_id as $location)
-    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">{{ $location->name }}</a>
-    @empty
-    <p> No data  found!</p> 
-    @endforelse
-
-  </div>
-</nav> -->
 
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -104,13 +92,12 @@
 
 <br>
 
-<form name="search_country" method="GET" action="{{ route('search_country',$getcountry[0]->id) }}">
-  @csrf
+<form name="search_country" method="post" action="">
 
 <div class="input-group mb-3">
                   <input type="text" class="form-control" name="search" placeholder="Search Country">
                   <span class="input-group-append">
-                    <button type="submit" class="btn btn-info">Search!</button>
+                    <button type="button" class="btn btn-info">Search!</button>
                   </span>
                 </div>
 
@@ -151,7 +138,7 @@
                   
                 <a href="http://127.0.0.1:8000/admin/tourismo/ph/page/4/inclusion/14" class="btn btn-sm btn-primary py-0">Edit »</a>
                 <a href="" onclick="if(confirm('Do you want to delete this product?'))event.preventDefault(); document.getElementById('delete-14').submit();" class="btn btn-sm btn-danger py-0">» Delete</a>
-                <form id="delete-{{$country->id}}" method="get" action="" style="display: none;">
+                <form id="delete-{{$country->id}}" method="get" action="{{ route('profile-contact-delete',$country->id) }}" style="display: none;">
 
               @csrf
               </form>
@@ -168,45 +155,12 @@
       </table>
   </div>
 <div class="tab-pane fade" id="nav-building-facilities" role="tabpanel" aria-labelledby="nav-building-tab">    
-<form role="form" method="post" action="{{ route('store_country_state',$locations->id) }}" id="form_valid">
-@csrf
-<div class="row">
-<div class="col-sm-8">
-<div class="form-group">
-<label>Country/Region</label>
-<input type="text" class="form-control" name="country" placeholder="Country/Region">
-</div>
-</div>
-    
-<div class="col-sm-4">
-<div class="form-group">
-<label>Status</label>
-<select class="form-control" name="status">
-  <option value="1">Active</option>
-  <option value="2">Inactive</option>
-</select>
-</div>
-</div>
-</div>
-<button type="submit" class="btn btn-info float-right">Save</button>
-<br>
-<br>
-<br>
-
-</form>
 
   </div>
 
 </div>
     </div>
         
-       <div class="card-footer clearfix">
-      
-
-        <ul class="pagination pagination-sm m-0 float-left">
-            {{ $getcountry->links() }}
-        </ul>
-      </div>
     </div>
   </div>
 </div>

@@ -28,7 +28,16 @@ class LocationController extends Controller
     {
         $this->middleware('auth:admin');
     }
-    public function get_location_list()
+    public function get_country_search($id)
+    {
+        $locations = LocationModel::where('locations.id',$id)->orWhere('temp_status',1)->get();
+
+        $search = $_GET['search'];
+        $getcountry = LocationCountyModel::where('country','LIKE','%'.$search.'%')->get();
+
+        return view('admin.location.search.country',compact(['locations','getcountry']));
+    }
+    public function get_location_id()
     {
         return LocationModel::where('temp_status',1)->get();
     }
@@ -43,7 +52,7 @@ class LocationController extends Controller
     {
     	   $locations = LocationModel::join('temp_status','temp_status.id','=','locations.temp_status')->where('locations.id',$id)->where('temp_status.status','active')->get(['locations.id as locid','locations.name as names','temp_status.id','temp_status.status'])->first();
 
-            $get_location_id    = $this->get_location_list();
+            $get_location_id    = $this->get_location_id();
             $getcountry         = $this->get_location_country();
 
             switch ($locations->locid) {
