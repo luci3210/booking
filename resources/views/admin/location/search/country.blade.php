@@ -98,6 +98,7 @@
                   <input type="text" class="form-control" name="search" placeholder="Search Country">
                   <span class="input-group-append">
                     <button type="button" class="btn btn-info">Search!</button>
+                    <a href="{{ route('locations',$locations[0]->id) }}" class="btn btn-info active">Refresh</a>
                   </span>
                 </div>
 
@@ -155,7 +156,32 @@
       </table>
   </div>
 <div class="tab-pane fade" id="nav-building-facilities" role="tabpanel" aria-labelledby="nav-building-tab">    
+<form role="form" method="post" action="{{ route('store_country_state',$locations[0]->id) }}" id="form_valid">
+@csrf
+<div class="row">
+<div class="col-sm-8">
+<div class="form-group">
+<label>Country/Region</label>
+<input type="text" class="form-control" name="country" placeholder="Country/Region">
+</div>
+</div>
+    
+<div class="col-sm-4">
+<div class="form-group">
+<label>Status</label>
+<select class="form-control" name="status">
+  <option value="1">Active</option>
+  <option value="2">Inactive</option>
+</select>
+</div>
+</div>
+</div>
+<button type="submit" class="btn btn-info float-right">Save</button>
+<br>
+<br>
+<br>
 
+</form>
   </div>
 
 </div>

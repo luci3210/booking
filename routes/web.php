@@ -108,8 +108,9 @@ Route::prefix('admin')->group(function () {
     //location
     Route::get('/tourismo/ph/page/5/location/{id}', 'Admin\LocationController@index')->name('locations');
     Route::post('/tourismo/ph/page/5/location/submit/{id}', 'Admin\LocationController@store_country_state')->name('store_country_state');
-
     Route::get('/tourismo/ph/page/5/location/{id}/search_result', 'Admin\LocationController@get_country_search')->name('search_country');
+    Route::post('/tourismo/ph/page/5/location/submit/region/{id}', 'Admin\LocationController@store_region')->name('submit_region');
+    
 
    
     // Route::get('/tourismo/ph/page/4/inclusion/{id}/www/facilities/edit/{idt}', 'Admin\InclusionController@roomfacilities_edit')->name('facilities_edit');

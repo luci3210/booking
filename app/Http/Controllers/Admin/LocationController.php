@@ -37,6 +37,7 @@ class LocationController extends Controller
 
         return view('admin.location.search.country',compact(['locations','getcountry']));
     }
+
     public function get_location_id()
     {
         return LocationModel::where('temp_status',1)->get();
@@ -60,8 +61,8 @@ class LocationController extends Controller
                     return view('admin.location.index',compact(['locations','getcountry','get_location_id']));
                         break;
 
-                case '1':
-                    return view('admin.location.index',compact(['locations','getcountry','get_location_id']));
+                case '2':
+                    return view('admin.location.region',compact(['locations','getcountry','get_location_id']));
                         break;
 
                 case '2':
@@ -79,16 +80,26 @@ class LocationController extends Controller
     }
     public function store_country_state(Request $request, $id)
     {
-        $rules = [
-            'country' => 'required',
-            'status' => 'required'
-        ];
-
+        $rules = ['country' => 'required',
+                    'status' => 'required'];
+        
         $errMessage = ['required' => '* Enter your :attribute'];
-
         $this->validate($request, $rules, $errMessage);   
 
-        LocationCountyModel::updateOrInsert(['location_id' => $id,'country' => $request->country,'temp_status' => $request->status]);
+        LocationCountyModel::updateOrInsert(['location_id' => 1,'country' => $request->country,'temp_status' => $request->status]);
+        return back()->withSuccess('Successfully added!');
+    }
+
+    public function store_region(Request $request, $id)
+    {
+        $rules = ['country' => 'required',
+                    'region' => 'required',
+                        'status' => 'required'];
+
+        $errMessage = ['required' => '* Enter your :attribute'];
+        $this->validate($request, $rules, $errMessage);   
+
+        LocationRegionModel::updateOrInsert(['location_id' => 2,'country_id' => $request->country,'region' => $request->region,'temp_status' => $request->status]);
         return back()->withSuccess('Successfully added!');
     }
 

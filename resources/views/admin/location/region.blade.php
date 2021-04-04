@@ -169,13 +169,22 @@
       </table>
   </div>
 <div class="tab-pane fade" id="nav-building-facilities" role="tabpanel" aria-labelledby="nav-building-tab">    
-<form role="form" method="post" action="{{ route('store_country_state',$locations->id) }}" id="form_valid">
+<form role="form" method="post" action="{{ route('submit_region',$locations->id) }}" id="form_valid">
 @csrf
 <div class="row">
-<div class="col-sm-8">
+
+  
+<div class="col-sm-4">
 <div class="form-group">
-<label>Country/Region</label>
-<input type="text" class="form-control" name="country" placeholder="Country/Region">
+<label>Country/State</label>
+<input type="text" class="form-control" name="country" placeholder="Country">
+</div>
+</div>
+
+<div class="col-sm-4">
+<div class="form-group">
+<label>Region</label>
+<input type="text" class="form-control" name="region" placeholder="Region">
 </div>
 </div>
     
