@@ -37,11 +37,44 @@ class LocationController extends Controller
 
         return view('admin.location.search.country',compact(['locations','getcountry']));
     }
+    public function get_region_search($id)
+    {
+        $get_country = $this->get_country(); 
+        $locations = LocationModel::join('temp_status','temp_status.id','=','locations.temp_status')->where('locations.id',$id)->where('temp_status.status','active')->get(['locations.id as locid','locations.name as names','temp_status.id','temp_status.status'])->first();
+
+        $search = $_GET['search'];
+        $in_region_and_country = LocationRegionModel::join('location_country','location_country.id','locations_region.country_id')->where('locations_region.region','LIKE','%'.$search.'%')->where('location_country.temp_status',1)->where('location_country.temp_status',1)->orderBy('locations_region.region','asc')->select('locations_region.region','locations_region.location_id as region_location_id','location_country.country')->get();
+
+        return view('admin.location.search.region',compact(['locations','in_region_and_country','get_country']));
+    }
+
+
+
+
+
+
 
     public function get_location_id()
     {
         return LocationModel::where('temp_status',1)->get();
     }
+
+    public function get_country()
+    {
+        return LocationCountyModel::where('temp_status',1)->orderBy('country')->get();
+    }
+    public function in_region_and_country()
+    {
+        return LocationRegionModel::join('location_country','locations_region.country_id','location_country.id')->where('location_country.temp_status',1)->where('location_country.temp_status',1)->orderBy('locations_region.region','asc')
+            ->select('locations_region.region','locations_region.location_id as region_location_id','location_country.country')->paginate(15);
+    }
+    public function in_distric_region_and_country()
+    {
+        return LocationRegionModel::join('location_country','locations_region.country_id','location_country.id')->where('location_country.temp_status',1)->where('location_country.temp_status',1)->orderBy('locations_region.region','asc')
+            ->select('locations_region.region','locations_region.location_id as region_location_id','location_country.country')->paginate(15);
+    }
+
+
     public function get_location_country()
     {
         return $getcountry = LocationModel::join('location_country as country','country.location_id','locations.id')
@@ -53,8 +86,12 @@ class LocationController extends Controller
     {
     	   $locations = LocationModel::join('temp_status','temp_status.id','=','locations.temp_status')->where('locations.id',$id)->where('temp_status.status','active')->get(['locations.id as locid','locations.name as names','temp_status.id','temp_status.status'])->first();
 
-            $get_location_id    = $this->get_location_id();
-            $getcountry         = $this->get_location_country();
+            $get_location_id                = $this->get_location_id();
+            $get_country                    = $this->get_country(); 
+            $in_region_and_country          = $this->in_region_and_country();
+            $in_distric_region_and_country  = $this->in_distric_region_and_country();
+            $getcountry                     = $this->get_location_country();
+
 
             switch ($locations->locid) {
                 case '1':
@@ -62,14 +99,22 @@ class LocationController extends Controller
                         break;
 
                 case '2':
-                    return view('admin.location.region',compact(['locations','getcountry','get_location_id']));
-                        break;
-
-                case '2':
-                    return view('admin.location.index',compact(['locations','getcountry','get_location_id']));
+                    return view('admin.location.region',compact(
+                        ['locations',
+                            'get_location_id',
+                                'get_country',
+                                    'in_region_and_country']));
                         break;
 
                 case '3':
+                    return view('admin.location.district',compact(
+                        ['locations',
+                            'get_location_id',
+                                'get_country',
+                                    'in_distric_region_and_country']));
+                        break;
+
+                case '4':
                     return view('admin.location.index',compact(['locations','getcountry','get_location_id']));
                         break;
 
