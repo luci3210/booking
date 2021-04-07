@@ -79,18 +79,6 @@
       </div>
 
     <div class="card-body">
-<!-- 
-<nav>
-  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-    
-    @forelse($get_location_id as $location)
-    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">{{ $location->name }}</a>
-    @empty
-    <p> No data  found!</p> 
-    @endforelse
-
-  </div>
-</nav> -->
 
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">

@@ -107,12 +107,20 @@ Route::prefix('admin')->group(function () {
 
     //location
     Route::get('/tourismo/ph/page/5/location/{id}', 'Admin\LocationController@index')->name('locations');
-    
+
     Route::post('/tourismo/ph/page/5/location/submit/{id}', 'Admin\LocationController@store_country_state')->name('store_country_state');
     Route::post('/tourismo/ph/page/5/location/submit/region/{id}', 'Admin\LocationController@store_region')->name('submit_region');
+    Route::post('/tourismo/ph/page/5/location/submit/district/{id}', 'Admin\LocationController@store_district')->name('store_district');
+
 
     Route::get('/tourismo/ph/page/5/location/{id}/search_result/1', 'Admin\LocationController@get_country_search')->name('search_country');
     Route::get('/tourismo/ph/page/5/location/{id}/search_result/2', 'Admin\LocationController@get_region_search')->name('search_region');
+    
+    Route::get('/location/region/select/{id}', 'Admin\LocationController@find_region_id')->name('find_region_id');
+
+    // Route::get('/location/region/selecta', [\App\Http\Livewire\Location::class,'render'])->name('asas.ss');
+
+    
     
 
    

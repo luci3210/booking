@@ -140,8 +140,6 @@
               <td>null</td>
               <td>null</td>
               <td>null</td>
-
-              
               <td class="text-center">
                 <div class="uk-button-group">
                   
@@ -171,52 +169,65 @@
 
   </div>
 <div class="tab-pane fade" id="nav-building-facilities" role="tabpanel" aria-labelledby="nav-building-tab">    
-<form role="form" method="post" action="{{ route('submit_region',$locations->id) }}" id="form_valid">
+<form role="form" method="post" action="{{ route('store_district',$locations->id) }}" id="form_valid">
 @csrf
 <div class="row">
 
-<div class="col-sm-4">
+<div class="col-sm-3">
 <div class="form-group">
+
 <label>Country</label>
-<select class="form-control" name="country">
+<select class="form-control country" name="country" id="countryid">
+  <option value="0" disabled="true" selected="true">-Select Country-</option>
   @forelse($get_country as $country)
   <option value="{{ $country->id }}">{{ $country->country }}</option>
    @empty
     <option>No data found!</option>
   @endforelse
 </select>
+
 </div>
 </div>
 
-<div class="col-sm-4">
+<div class="col-sm-3">
 <div class="form-group">
-<label>Region</label>
-<input type="text" class="form-control" name="region" placeholder="Region">
+  <label>Region</label>
+<select class="form-control" name="region" id="regionid">
+  <option value="0" disabled="true" selected="true">-Select Region-</option>
+</select>
 </div>
 </div>
-    
-<div class="col-sm-4">
+
+<div class="col-sm-3">
+<div class="form-group">
+<label>District</label>
+<input type="text" name="disctrict" class="form-control" placeholder="District">
+</div>
+</div>
+
+
+<div class="col-sm-3">
 <div class="form-group">
 <label>Status</label>
 <select class="form-control" name="status">
+  <option value="0" disabled="true" selected="true">-Select Status-</option>
   <option value="1">Active</option>
   <option value="2">Inactive</option>
 </select>
 </div>
 </div>
+
 </div>
 <button type="submit" class="btn btn-info float-right">Save</button>
 <br>
 <br>
 <br>
-
 </form>
 
 </div>
 
 </div>
     </div>
-        
        <div class="card-footer clearfix">
       
       </div>
@@ -226,4 +237,29 @@
 </div>
 </section>
 
+@endsection
+@section('third_party_scripts')
+<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
+<script>
+      $(document).ready(function () {
+      $('#countryid').on('change', function () {
+      let id = $(this).val();
+      $('#regionid').empty();
+      $('#regionid').append(`<option value="0" disabled selected>Searching . . .</option>`);
+      $.ajax({
+      type: 'GET',
+      url: '/admin/location/region/select/' + id,
+      success: function (response) {
+      var response = JSON.parse(response);
+      console.log(response);   
+      $('#regionid').empty();
+      $('#regionid').append(`<option value="0" disabled selected>-Select Region-</option>`);
+      response.forEach(element => {
+          $('#regionid').append(`<option value="${element['id']}">${element['region']}</option>`);
+          });
+      }
+  });
+});
+});
+</script>
 @endsection

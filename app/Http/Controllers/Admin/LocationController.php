@@ -9,8 +9,9 @@ use Illuminate\Http\Request;
 use App\Model\Admin\AdminLogModel;
 use App\Model\Admin\LocationCountyModel;
 use App\Model\Admin\LocationRegionModel;
-// use App\Model\Admin\LocationRegionModel;
+use App\Model\Admin\LocationDistrictModel;
 
+// use App\Model\Admin\LocationRegionModel;
 use App\Model\Admin\LocationModel; 
 // use App\Model\Admin\PlanModel;
 // use App\Model\Admin\ProductModel;
@@ -48,7 +49,13 @@ class LocationController extends Controller
         return view('admin.location.search.region',compact(['locations','in_region_and_country','get_country']));
     }
 
+    public function find_region_id($id)
+    {
+        return json_encode(LocationRegionModel::select()->where('country_id',$id)->get());
+    }
 
+     
+    
 
 
 
@@ -59,10 +66,14 @@ class LocationController extends Controller
         return LocationModel::where('temp_status',1)->get();
     }
 
+
+
     public function get_country()
     {
         return LocationCountyModel::where('temp_status',1)->orderBy('country')->get();
     }
+
+
     public function in_region_and_country()
     {
         return LocationRegionModel::join('location_country','locations_region.country_id','location_country.id')->where('location_country.temp_status',1)->where('location_country.temp_status',1)->orderBy('locations_region.region','asc')
@@ -148,6 +159,24 @@ class LocationController extends Controller
         return back()->withSuccess('Successfully added!');
     }
 
+    public function store_district(Request $request, $id)
+    {
+        $rules = ['country' => 'required',
+                    'region' => 'required',
+                        'district' => 'required',
+                            'status' => 'required'];
+
+        $errMessage = ['required' => '* Enter your :attribute'];
+        $this->validate($request, $rules, $errMessage);   
+
+        LocationDistrictModel::updateOrInsert(
+            ['location_id' => 3,
+                'country_id' => $request->country,
+                    'region_id' => $request->region,
+                        'district' => $request->district,
+                            'temp_status' => $request->status]);
+        return back()->withSuccess('Successfully added!');
+    }
     // public function roomfacilities_save(Request $request)
     // {
     // 	$rules = [
