@@ -10,7 +10,7 @@ use App\Model\Admin\AdminLogModel;
 use App\Model\Admin\LocationCountyModel;
 use App\Model\Admin\LocationRegionModel;
 use App\Model\Admin\LocationDistrictModel;
-
+use App\Model\Admin\LocationCityModel;
 // use App\Model\Admin\LocationRegionModel;
 use App\Model\Admin\LocationModel; 
 // use App\Model\Admin\PlanModel;
@@ -53,26 +53,22 @@ class LocationController extends Controller
     {
         return json_encode(LocationRegionModel::select()->where('country_id',$id)->get());
     }
+    public function find_district_id($id)
+    {
+        return json_encode(LocationDistrictModel::select()->where('region_id',$id)->get());
+    }
 
      
-    
-
-
-
-
 
     public function get_location_id()
     {
         return LocationModel::where('temp_status',1)->get();
     }
 
-
-
     public function get_country()
     {
         return LocationCountyModel::where('temp_status',1)->orderBy('country')->get();
     }
-
 
     public function in_region_and_country()
     {
@@ -82,6 +78,17 @@ class LocationController extends Controller
     public function in_distric_region_and_country()
     {
         return LocationDistrictModel::join('locations_region','locations_region.id','locations_district.region_id')
+            ->join('location_country','locations_region.country_id','location_country.id')
+            ->where('locations_district.temp_status',1)
+            ->Where('locations_region.temp_status',1)
+            ->Where('location_country.temp_status',1)
+            ->orderBy('locations_district.district','asc')
+            ->select('locations_district.id as district_id','locations_district.district','locations_region.region','locations_region.location_id as region_location_id','location_country.country')->paginate(15);
+    }
+    public function in_city_distric_region_and_country()
+    {
+        return LocationDistrictModel::join()
+            ->join('locations_region','locations_region.id','locations_district.region_id')
             ->join('location_country','locations_region.country_id','location_country.id')
             ->where('locations_district.temp_status',1)
             ->Where('locations_region.temp_status',1)
@@ -186,6 +193,28 @@ class LocationController extends Controller
                             'temp_status' => $request->status]);
         return back()->withSuccess('Successfully added!');
     }
+
+    public function store_city(Request $request, $id)
+    {
+        $rules = ['country' => 'required',
+                    'region' => 'required', 
+                        'district' => 'required',
+                            'city' => 'required',
+                                'status' => 'required'];
+
+        $errMessage = ['required' => '* Enter your :attribute'];
+        $this->validate($request, $rules, $errMessage);   
+
+        LocationCityModel::updateOrInsert(
+            ['location_id' => 3,
+                'country_id' => $request->country,
+                    'region_id' => $request->region,
+                        'district_id' => $request->district,
+                            'city' => $request->city,
+                                'temp_status' => $request->status]);
+        return back()->withSuccess('Successfully added!');
+    }
+
     // public function roomfacilities_save(Request $request)
     // {
     // 	$rules = [

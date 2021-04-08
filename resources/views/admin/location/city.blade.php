@@ -169,14 +169,14 @@
 
   </div>
 <div class="tab-pane fade" id="nav-building-facilities" role="tabpanel" aria-labelledby="nav-building-tab">    
-<form role="form" method="post" action="{{ route('submit_district',$locations->id) }}" id="form_valid">
+<form role="form" method="post" action="{{ route('submit_city',$locations->locid) }}" id="form_valid">
 @csrf
 <div class="row">
 
-<div class="col-sm-3">
+<div class="col-sm-4">
 <div class="form-group">
 
-<label>Country {{ $locations->id }}</label>
+<label>Country</label>
 <select class="form-control country" name="country" id="countryid">
   <option value="0" disabled="true" selected="true">-Select Country-</option>
   @forelse($get_country as $country)
@@ -189,7 +189,7 @@
 </div>
 </div>
 
-<div class="col-sm-3">
+<div class="col-sm-4">
 <div class="form-group">
   <label>Region</label>
 <select class="form-control" name="region" id="regionid">
@@ -198,15 +198,24 @@
 </div>
 </div>
 
-<div class="col-sm-3">
+<div class="col-sm-4">
 <div class="form-group">
 <label>District</label>
-<input type="text" name="district" class="form-control" placeholder="District">
+<select class="form-control" name="district" id="districtid">
+  <option value="0" disabled="true" selected="true">-Select District-</option>
+</select>
 </div>
 </div>
 
 
-<div class="col-sm-3">
+<div class="col-sm-4">
+<div class="form-group">
+<label>City</label>
+<input type="text" name="city" class="form-control" placeholder="City">
+</div>
+</div>
+
+<div class="col-sm-6">
 <div class="form-group">
 <label>Status</label>
 <select class="form-control" name="status">
@@ -242,26 +251,66 @@
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 <script>
       $(document).ready(function () {
-      $('#countryid').on('change', function () {
-      let id = $(this).val();
-      $('#regionid').empty();
-      $('#regionid').append(`<option value="0" disabled selected>Searching . . .</option>`);
-      $.ajax({
-      type: 'GET',
-      url: '/admin/location/region/select/' + id,
-      success: function (response) {
-      var response = JSON.parse(response);
-      console.log(response);   
-      $('#regionid').empty();
       
-      $('#regionid').append(`<option value="0" disabled selected>-Select Region-</option>`);
-      response.forEach(element => {
-          $('#regionid').append(`<option value="${element['id']}">${element['region']}</option>`);
+      $('#countryid').on('change', function () {
+
+        let id = $(this).val();
+        
+        $('#regionid').empty();
+        $('#regionid').append(`<option value="0" disabled selected>Searching . . .</option>`);
+        $.ajax( {
+           type: 'GET',
+           url: '/admin/location/region/select/' + id,
+           
+            success: function (response) {
+            var response = JSON.parse(response);
+            console.log(response);   
+            
+            $('#regionid').empty();
+      
+            $('#regionid').append(`<option value="0" disabled selected>-Select Region-</option>`);
+            response.forEach(element => {
+            $('#regionid').append(`<option value="${element['id']}">${element['region']}</option>`);
           });
       
       }
   });
 });
+
+
+
+
+      $('#regionid').on('change', function () {
+
+        let id = $(this).val();
+        
+        $('#districtid').empty();
+        $('#districtid').append(`<option value="0" disabled selected>Searching . . .</option>`);
+        $.ajax( {
+           type: 'GET',
+           url: '/admin/location/district/select/' + id,
+           
+            success: function (response) {
+            var response = JSON.parse(response);
+            console.log(response);   
+            
+            $('#districtid').empty();
+      
+            $('#districtid').append(`<option value="0" disabled selected>-Select District-</option>`);
+            response.forEach(element => {
+            $('#districtid').append(`<option value="${element['id']}">${element['district']}</option>`);
+          });
+      
+      }
+  });
 });
+
+
+
+
+
+});
+
+
 </script>
 @endsection
