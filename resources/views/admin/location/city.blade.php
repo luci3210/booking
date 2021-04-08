@@ -101,13 +101,13 @@
 <br>
 
 
-<form name="search_region" method="GET" action="{{ route('search_region',$in_region_and_country[0]->region_location_id) }}">
+<form name="search_region" method="GET" action="{{ route('search_region',$locations->locid) }}">
   @csrf
 <div class="input-group mb-3">
     <input type="text" class="form-control" name="search" placeholder="Search Country">
     <span class="input-group-append">
-      <button type="submit" class="btn btn-info">Search!</button>
-      <a href="{{ route('locations',$locations->id) }}" class="btn btn-info active">Refresh</a>
+      <button type="submit" class="btn btn-info">Search</button>
+      <a href="{{ route('locations',$locations->locid) }}" class="btn btn-info active">Refresh</a>
     </span>
   </div>
 </form>
@@ -131,23 +131,21 @@
         </thead>
 
         <tbody>
-            @forelse($in_region_and_country as $region)
+            @forelse($in_distric_region_and_country as $list)
             <tr>
               <td>{{ $loop->index + 1 }}</td>
-              <td>{{ $region->country }}</td>
-              <td><b>{{ $region->region }}</b></td>
+              <td>{{ $list->country }}</td>
+              <td>{{ $list->region }}</td>
+              <td><b>{{ $list->district }}</b></td>
               <td>null</td>
               <td>null</td>
               <td>null</td>
-              <td>null</td>
-
-              
               <td class="text-center">
                 <div class="uk-button-group">
                   
                 <a href="http://127.0.0.1:8000/admin/tourismo/ph/page/4/inclusion/14" class="btn btn-sm btn-primary py-0">Edit »</a>
                 <a href="" onclick="if(confirm('Do you want to delete this product?'))event.preventDefault(); document.getElementById('delete-14').submit();" class="btn btn-sm btn-danger py-0">» Delete</a>
-                <form id="delete-{{$region->id}}" method="get" action="" style="display: none;">
+                <form id="delete-{{$list->district_id}}" method="get" action="" style="display: none;">
 
               @csrf
               </form>
@@ -165,58 +163,71 @@
 
 
         <ul class="pagination pagination-sm m-0 float-left">
-            {{ $in_region_and_country->links() }}
+            {{ $in_distric_region_and_country->links() }}
         </ul>
 
 
   </div>
 <div class="tab-pane fade" id="nav-building-facilities" role="tabpanel" aria-labelledby="nav-building-tab">    
-<form role="form" method="post" action="{{ route('submit_region',$locations->id) }}" id="form_valid">
+<form role="form" method="post" action="{{ route('submit_district',$locations->id) }}" id="form_valid">
 @csrf
 <div class="row">
 
-<div class="col-sm-4">
+<div class="col-sm-3">
 <div class="form-group">
+
 <label>Country {{ $locations->id }}</label>
-<select class="form-control" name="country">
+<select class="form-control country" name="country" id="countryid">
+  <option value="0" disabled="true" selected="true">-Select Country-</option>
   @forelse($get_country as $country)
   <option value="{{ $country->id }}">{{ $country->country }}</option>
    @empty
     <option>No data found!</option>
   @endforelse
 </select>
+
 </div>
 </div>
 
-<div class="col-sm-4">
+<div class="col-sm-3">
 <div class="form-group">
-<label>Region</label>
-<input type="text" class="form-control" name="region" placeholder="Region">
+  <label>Region</label>
+<select class="form-control" name="region" id="regionid">
+  <option value="0" disabled="true" selected="true">-Select Region-</option>
+</select>
 </div>
 </div>
-    
-<div class="col-sm-4">
+
+<div class="col-sm-3">
+<div class="form-group">
+<label>District</label>
+<input type="text" name="district" class="form-control" placeholder="District">
+</div>
+</div>
+
+
+<div class="col-sm-3">
 <div class="form-group">
 <label>Status</label>
 <select class="form-control" name="status">
+  <option value="0" disabled="true" selected="true">-Select Status-</option>
   <option value="1">Active</option>
   <option value="2">Inactive</option>
 </select>
 </div>
 </div>
+
 </div>
 <button type="submit" class="btn btn-info float-right">Save</button>
 <br>
 <br>
 <br>
-
 </form>
 
 </div>
 
 </div>
     </div>
-        
        <div class="card-footer clearfix">
       
       </div>
@@ -226,4 +237,31 @@
 </div>
 </section>
 
+@endsection
+@section('third_party_scripts')
+<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
+<script>
+      $(document).ready(function () {
+      $('#countryid').on('change', function () {
+      let id = $(this).val();
+      $('#regionid').empty();
+      $('#regionid').append(`<option value="0" disabled selected>Searching . . .</option>`);
+      $.ajax({
+      type: 'GET',
+      url: '/admin/location/region/select/' + id,
+      success: function (response) {
+      var response = JSON.parse(response);
+      console.log(response);   
+      $('#regionid').empty();
+      
+      $('#regionid').append(`<option value="0" disabled selected>-Select Region-</option>`);
+      response.forEach(element => {
+          $('#regionid').append(`<option value="${element['id']}">${element['region']}</option>`);
+          });
+      
+      }
+  });
+});
+});
+</script>
 @endsection

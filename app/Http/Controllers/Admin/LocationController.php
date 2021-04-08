@@ -81,8 +81,13 @@ class LocationController extends Controller
     }
     public function in_distric_region_and_country()
     {
-        return LocationRegionModel::join('location_country','locations_region.country_id','location_country.id')->where('location_country.temp_status',1)->where('location_country.temp_status',1)->orderBy('locations_region.region','asc')
-            ->select('locations_region.region','locations_region.location_id as region_location_id','location_country.country')->paginate(15);
+        return LocationDistrictModel::join('locations_region','locations_region.id','locations_district.region_id')
+            ->join('location_country','locations_region.country_id','location_country.id')
+            ->where('locations_district.temp_status',1)
+            ->Where('locations_region.temp_status',1)
+            ->Where('location_country.temp_status',1)
+            ->orderBy('locations_district.district','asc')
+            ->select('locations_district.id as district_id','locations_district.district','locations_region.region','locations_region.location_id as region_location_id','location_country.country')->paginate(15);
     }
 
 
@@ -95,7 +100,7 @@ class LocationController extends Controller
     }
     public function index($id)
     {
-    	   $locations = LocationModel::join('temp_status','temp_status.id','=','locations.temp_status')->where('locations.id',$id)->where('temp_status.status','active')->get(['locations.id as locid','locations.name as names','temp_status.id','temp_status.status'])->first();
+    	    $locations = LocationModel::join('temp_status','temp_status.id','=','locations.temp_status')->where('locations.id',$id)->where('temp_status.status','active')->get(['locations.id as locid','locations.name as names','temp_status.id','temp_status.status'])->first();
 
             $get_location_id                = $this->get_location_id();
             $get_country                    = $this->get_country(); 
@@ -126,7 +131,11 @@ class LocationController extends Controller
                         break;
 
                 case '4':
-                    return view('admin.location.index',compact(['locations','getcountry','get_location_id']));
+                    return view('admin.location.city',compact(
+                        ['locations',
+                            'get_location_id',
+                                'get_country',
+                                    'in_distric_region_and_country']));
                         break;
 
                 default:
@@ -162,7 +171,7 @@ class LocationController extends Controller
     public function store_district(Request $request, $id)
     {
         $rules = ['country' => 'required',
-                    'region' => 'required',
+                    'region' => 'required', 
                         'district' => 'required',
                             'status' => 'required'];
 

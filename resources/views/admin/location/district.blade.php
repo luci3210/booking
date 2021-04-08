@@ -101,13 +101,13 @@
 <br>
 
 
-<form name="search_region" method="GET" action="{{ route('search_region',$in_distric_region_and_country[0]->region_location_id) }}">
+<form name="search_region" method="GET" action="{{ route('search_region',$locations->locid) }}">
   @csrf
 <div class="input-group mb-3">
     <input type="text" class="form-control" name="search" placeholder="Search Country">
     <span class="input-group-append">
-      <button type="submit" class="btn btn-info">Search!</button>
-      <a href="{{ route('locations',$locations->id) }}" class="btn btn-info active">Refresh</a>
+      <button type="submit" class="btn btn-info">Search</button>
+      <a href="{{ route('locations',$locations->locid) }}" class="btn btn-info active">Refresh</a>
     </span>
   </div>
 </form>
@@ -131,12 +131,12 @@
         </thead>
 
         <tbody>
-            @forelse($in_distric_region_and_country as $region)
+            @forelse($in_distric_region_and_country as $list)
             <tr>
               <td>{{ $loop->index + 1 }}</td>
-              <td>{{ $region->country }}</td>
-              <td><b>{{ $region->region }}</b></td>
-              <td>null</td>
+              <td>{{ $list->country }}</td>
+              <td>{{ $list->region }}</td>
+              <td><b>{{ $list->district }}</b></td>
               <td>null</td>
               <td>null</td>
               <td>null</td>
@@ -145,7 +145,7 @@
                   
                 <a href="http://127.0.0.1:8000/admin/tourismo/ph/page/4/inclusion/14" class="btn btn-sm btn-primary py-0">Edit »</a>
                 <a href="" onclick="if(confirm('Do you want to delete this product?'))event.preventDefault(); document.getElementById('delete-14').submit();" class="btn btn-sm btn-danger py-0">» Delete</a>
-                <form id="delete-{{$region->id}}" method="get" action="" style="display: none;">
+                <form id="delete-{{$list->district_id}}" method="get" action="" style="display: none;">
 
               @csrf
               </form>
@@ -169,14 +169,14 @@
 
   </div>
 <div class="tab-pane fade" id="nav-building-facilities" role="tabpanel" aria-labelledby="nav-building-tab">    
-<form role="form" method="post" action="{{ route('store_district',$locations->id) }}" id="form_valid">
+<form role="form" method="post" action="{{ route('submit_district',$locations->id) }}" id="form_valid">
 @csrf
 <div class="row">
 
 <div class="col-sm-3">
 <div class="form-group">
 
-<label>Country</label>
+<label>Country {{ $locations->id }}</label>
 <select class="form-control country" name="country" id="countryid">
   <option value="0" disabled="true" selected="true">-Select Country-</option>
   @forelse($get_country as $country)
@@ -201,7 +201,7 @@
 <div class="col-sm-3">
 <div class="form-group">
 <label>District</label>
-<input type="text" name="disctrict" class="form-control" placeholder="District">
+<input type="text" name="district" class="form-control" placeholder="District">
 </div>
 </div>
 
