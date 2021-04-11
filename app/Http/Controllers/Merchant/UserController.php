@@ -25,6 +25,14 @@ class UserController extends Controller
  	$this->middleware('auth');
  }   
 
+ public function plan()
+ {
+    return MyplanModel::join('temp_status','temp_status.id', 'myplans.temp_status')
+            ->join('users','users.id', 'myplans.user_id')
+                ->where('myplans.user_id', Auth::user()->id)
+                ->where('temp_status.status','=','active')
+                    ->get(['myplans.user_id','myplans.temp_status','temp_status.id','temp_status.status','users.id'])->first();
+ }
  public function index()
  {
 
@@ -37,6 +45,15 @@ class UserController extends Controller
  				// ->whereExists('myplans.user_id','=',Auth::user()->id)
  				->where('temp_status.status','=','active')
  				->get(['myplans.user_id','myplans.temp_status','temp_status.id','temp_status.status','users.id'])->first();
+
+
+    if(empty($this->plan()))
+    {
+        return view('tourismo.subcription.index');
+    }
+    else {
+        dd('yes');
+    }
 
  	if(Auth::guest()) {
  		return view('merchant.user.index');

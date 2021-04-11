@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,7 +20,6 @@ Route::get('/', 'Tourismo\HomeController@index')->name('myhome');
 //});
 
 Auth::routes();
-
 
 Route::get('/merchant', 'Merchant\UserController@index')->name('m-user');
 
@@ -112,6 +110,8 @@ Route::prefix('admin')->group(function () {
     Route::post('/tourismo/ph/page/5/location/submit/region/{id}', 'Admin\LocationController@store_region')->name('submit_region');
     Route::post('/tourismo/ph/page/5/location/submit/district/{id}', 'Admin\LocationController@store_district')->name('submit_district');
     Route::post('/tourismo/ph/page/5/location/submit/city/{id}', 'Admin\LocationController@store_city')->name('submit_city');
+    Route::post('/tourismo/ph/page/5/location/submit/municipality/{id}', 'Admin\LocationController@store_municipality')->name('submit_municipality');
+    Route::post('/tourismo/ph/page/5/location/submit/barangay/{id}', 'Admin\LocationController@store_barangay')->name('submit_barangay');
     
 
 
@@ -121,6 +121,8 @@ Route::prefix('admin')->group(function () {
     
     Route::get('/location/region/select/{id}', 'Admin\LocationController@find_region_id')->name('find_region_id');
     Route::get('/location/district/select/{id}', 'Admin\LocationController@find_district_id')->name('find_district_id');
+    Route::get('/location/city/select/{id}', 'Admin\LocationController@find_city_id')->name('find_city_id');
+    Route::get('/location/municipality/select/{id}', 'Admin\LocationController@find_municipality_id')->name('find_municipality_id');
 
     // Route::get('/location/region/selecta', [\App\Http\Livewire\Location::class,'render'])->name('asas.ss');
 

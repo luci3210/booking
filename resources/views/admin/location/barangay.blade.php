@@ -131,15 +131,15 @@
         </thead>
 
         <tbody>
-            @forelse($in_city as $list)
+            @forelse($in_barangay as $list)
             <tr>
               <td>{{ $loop->index + 1 }}</td>
               <td>{{ $list->country }}</td>
               <td>{{ $list->region }}</td>
               <td>{{ $list->district }}</td>
-              <td><b>{{ $list->city }}</b></td>
-              <td>null</td>
-              <td>null</td>
+              <td>{{ $list->city }}</td>
+              <td>{{ $list->municipality }}</td>
+              <td><b>{{ $list->barangay }}</b></td>
               <td class="text-center">
                 <div class="uk-button-group">
                   
@@ -163,13 +163,13 @@
 
 
         <ul class="pagination pagination-sm m-0 float-left">
-            {{ $in_city->links() }}
+            {{ $in_barangay->links() }}
         </ul>
 
 
   </div>
 <div class="tab-pane fade" id="nav-building-facilities" role="tabpanel" aria-labelledby="nav-building-tab">    
-<form role="form" method="post" action="{{ route('submit_city',$locations->locid) }}" id="form_valid">
+<form role="form" method="post" action="{{ route('submit_barangay',$locations->locid) }}" id="form_valid">
 @csrf
 <div class="row">
 
@@ -208,18 +208,37 @@
 </div>
 
 
-<div class="col-sm-4">
+<div class="col-sm-3">
 <div class="form-group">
 <label>City</label>
-<input type="text" name="city" class="form-control" placeholder="City">
+<select class="form-control" name="city" id="cityid">
+  <option value="0" disabled="true" selected="true">-Select City-</option>
+</select>
 </div>
 </div>
 
-<div class="col-sm-6">
+<div class="col-sm-3">
+<div class="form-group">
+<label>Municipality</label>
+<select class="form-control" name="municipality" id="municipalityid">
+  <option value="0" disabled="true" selected="true">-Select Municipality-</option>
+</select>
+</div>
+</div>
+
+
+<div class="col-sm-3">
+<div class="form-group">
+<label>Barangay</label>
+<input type="text" name="barangay" class="form-control" placeholder="Barangay">
+</div>
+</div>
+
+<div class="col-sm-3">
 <div class="form-group">
 <label>Status</label>
 <select class="form-control" name="status">
-  <option value="0" disabled="true" selected="true">-Select Status-</option>
+  <option disabled="true" selected="true">-Select Status-</option>
   <option value="1">Active</option>
   <option value="2">Inactive</option>
 </select>
@@ -277,9 +296,6 @@
   });
 });
 
-
-
-
       $('#regionid').on('change', function () {
 
         let id = $(this).val();
@@ -305,9 +321,56 @@
   });
 });
 
+      $('#districtid').on('change', function () {
+
+        let id = $(this).val();
+        
+        $('#cityid').empty();
+        $('#cityid').append(`<option value="0" disabled selected>Searching . . .</option>`);
+        $.ajax( {
+           type: 'GET',
+           url: '/admin/location/city/select/' + id,
+           
+            success: function (response) {
+            var response = JSON.parse(response);
+            console.log(response);   
+            
+            $('#cityid').empty();
+      
+            $('#cityid').append(`<option value="0" disabled selected>-Select City-</option>`);
+            response.forEach(element => {
+            $('#cityid').append(`<option value="${element['id']}">${element['city']}</option>`);
+          });
+      
+      }
+  });
+});
 
 
+   $('#cityid').on('change', function () {
 
+        let id = $(this).val();
+        
+        $('#municipalityid').empty();
+        $('#municipalityid').append(`<option value="0" disabled selected>Searching . . .</option>`);
+        $.ajax( {
+           type: 'GET',
+           url: '/admin/location/municipality/select/' + id,
+           
+            success: function (response) {
+            var response = JSON.parse(response);
+            console.log(response);   
+            
+            $('#municipalityid').empty();
+      
+            $('#municipalityid').append(`<option value="0" disabled selected>-Select Municipality-</option>`);
+            response.forEach(element => {
+            $('#municipalityid').append(`<option value="${element['id']}">${element['municipality']}</option>`);
+          });
+      
+      }
+  });
+});
 
 });
 

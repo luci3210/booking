@@ -45,6 +45,17 @@ class MerchantGate extends ServiceProvider
                         ->get(['users.id','profiles.id as profid']));
         });
 
-     
+
+        // if(empty(Auth::user()->id)) {
+        // View::composer('*', function ($view) {
+        //     $view->with('profpicz', Profile::where('profiles.user_id',1000)->get('profiles.profilepic')->first());
+        // });
+        //  } else {
+           View::composer('*', function ($view) {
+            $view->with('profpicz', Profile::where('profiles.user_id',Auth::user()->id)->get('profiles.profilepic'));
+        }); 
+         // }   
+
+
     }
 }

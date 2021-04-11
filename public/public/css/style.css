@@ -530,7 +530,7 @@ h1, h2, h3, h4, h5, h6, .font-primary {
 # Sections General
 --------------------------------------------------------------*/
 section {
-  padding: 60px 0;
+  padding: 20px 0;
 }
 
 .section-bg {
@@ -580,14 +580,17 @@ section {
 # Breadcrumbs
 --------------------------------------------------------------*/
 .breadcrumbs {
-  padding: 15px 0;
+  padding:  5px 0 5px 0;
   background-color: #f3f8fa;
   min-height: 40px;
 }
+.bc-icon h2{
+  margin-top: -15px;
+}
 
 .breadcrumbs h2 {
-  font-size: 28px;
-  font-weight: 300;
+  font-size: 20px;
+  padding-top: 15px;
 }
 
 .breadcrumbs ol {
@@ -596,10 +599,12 @@ section {
   list-style: none;
   padding: 0;
   margin: 0;
+  font-size: 14px;
 }
 
 .breadcrumbs ol li + li {
   padding-left: 10px;
+  font-size: 14px;
 }
 
 .breadcrumbs ol li + li::before {
@@ -1552,11 +1557,12 @@ section {
   margin-bottom: 30px;
 }
 
-.contact .php-email-formx {
+.contact .cls-profile {
   box-shadow: 0 0 30px rgba(214, 215, 216, 0.6);
-  padding: 30px;
-  margin-bottom: 30px;
+  padding: 10px 30px;
+  margin-bottom: 10px;
 }
+
 
 .contact .php-email-form .validate {
   display: none;

@@ -23,9 +23,9 @@ class PictureGate extends ServiceProvider
      */
     public function boot()
     {
-         // View::composer('*', function ($view) {
-         //        view()->share('profpic', Profile::where('user_id','=',Auth::user()->id)
-         //                    ->get(['profilepic as profpic']));
-         //    });
+
+        // View::composer('*', function ($view) {
+        //     $view->with('profpicz', Profile::where('profiles.user_id',Auth::user()->id)->get());
+        // });
     }
 }
