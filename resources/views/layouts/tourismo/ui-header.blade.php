@@ -9,8 +9,11 @@
       <nav class="nav-menu float-right d-none d-lg-block">
         <ul>
           <li class="active"><a href="index.html"><b>Download App</b></a></li>
+          @if(empty($merchant_plan))
+          <li class="active"><a href="{{ route('other-plan') }}"><b>Plan</b></a></li>
+          @else
           <li class="active"><a href="{{ route('m-user') }}"><b>Merchant</b></a></li>
-
+          @endif
           <li><a href="services.html">Recently Veiw</a></li>
           <li><a href="portfolio.html">Cart</a></li>
 @if (Route::has('login'))
@@ -37,8 +40,8 @@
     <li><a href="#login" uk-toggle>Login</a></li>
 
     @if (Route::has('register'))
-        <!-- <a href="{{ route('register') }}">Register</a> -->
-        <li><a href="#register" uk-toggle>SignUp</a></li>
+        <li><a href="{{ route('register') }}" uk-toggle>Register</a></li>
+        <!-- <li><a href="#register" uk-toggle>SignUp</a></li> -->
     @endif
 @endauth
 

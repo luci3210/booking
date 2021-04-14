@@ -20,6 +20,10 @@
 {
   font-size: 13px;
 }
+.uk-alert {
+  margin-top: 5px;
+  margin-bottom: 10px !important;
+}
 .uk-placeholder
 {
   font-weight: bold;
@@ -28,10 +32,10 @@
   padding: 10px 10px !important;
   border: none !important;
 }
-.uk-tab
+/*.uk-tab
 {
   margin-left: -10px !important;
-}
+}*/
 .uk-accordion-content
 {
   margin-left: 24px;

@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Merchant;
 
 use App\Model\Admin\ProductModel;
+use App\Model\Admin\RoomFaciliModel;
+
 use App\Model\Merchant\HotelPhoMoldel;
 use App\Model\Merchant\Profile;
 use App\Model\Merchant\HotelModel;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -19,7 +21,12 @@ class ServiceController extends Controller
     	$this->middleware('auth:web');	
     }
 
-    public function index($id)
+public function inclusion_room {
+
+    return RoomFaciliModel::where('')
+}
+
+public function index($id)
     {
     	$profpic = Profile::join('users','users.id','=','profiles.user_id')
     	->where('users.id','=',Auth::user()->id)->get(['users.*','profiles.*']);

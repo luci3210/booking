@@ -3,17 +3,18 @@
   <link rel="stylesheet" type="text/css" href="{{ asset('public/css/merchant101.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('ijaboCropTool-master/ijaboCropTool.min.css') }}">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
 @endsection
 
 @section('content')
 <section class="breadcrumbs">
       <div class="container">
-
         <div class="d-flex justify-content-between align-items-center">
           <h2></h2>
           <ol>
-            <li><a href="index.html">Home</a></li>
-            <li>About Us</li>
+            <li><a href="index.html">Merchant</a></li>
+            <li>Profile</li>
           </ol>
         </div>
       </div>
@@ -29,7 +30,7 @@
 
 
 <div class="col-lg-9">
-<form action="{{ route('profile-update',$merchant[0]->id) }}" method="post" role="form" class="cls-profile">
+<form action="{{ route('profile-update',$merchant->id) }}" method="post" role="form" class="cls-profile">
 
 @method('patch')
 @csrf
@@ -37,37 +38,37 @@
 <div class="row row-margin">
   <div class="col-md-12 form-group mt-3">
   <label class="labelcoz">Merchant Name</label>
-  <input type="text" class="uk-input" name="companyname" id="companyname" value="{{ $merchant[0]->company }}" placeholder="Company Name">
+  <input type="text" class="uk-input" name="companyname" id="companyname" value="{{ $merchant->company }}" placeholder="Company Name">
   <div class="validate"></div>
   </div>
 
   <div class="col-md-12 form-group mt-3">
   <label class="labelcoz">Merchant Address</label>
-  <input type="text" class="uk-input" name="companyaddress" id="companyaddress" value="{{ $merchant[0]->address }}" placeholder="Company Address">
+  <input type="text" class="uk-input" name="companyaddress" id="companyaddress" value="{{ $merchant->address }}" placeholder="Company Address">
   <div class="validate"></div>
   </div>
 
   <div class="col-md-6 form-group mt-3">
   <label class="labelcoz">E-mail</label>
-  <input type="text" class="uk-input" name="email" id="email" value="{{ $merchant[0]->email }}" placeholder="E-mail">
+  <input type="text" class="uk-input" name="email" id="email" value="{{ $merchant->email }}" placeholder="E-mail">
   <div class="validate"></div>
   </div>
 
   <div class="col-md-6 form-group mt-3">
   <label class="labelcoz"> Website No.</label>
-  <input type="text" class="uk-input" name="website" id="website" value="{{ $merchant[0]->website }}" placeholder="Website">
+  <input type="text" class="uk-input" name="website" id="website" value="{{ $merchant->website }}" placeholder="Website">
   <div class="validate"></div>
   </div>
 
   <div class="col-md-6 form-group mt-3">
   <label class="labelcoz">Tel No.</label>
-  <input type="text" class="uk-input" name="telno" id="telno" value="{{ $merchant[0]->telno }}" placeholder="Telephone Number">
+  <input type="text" class="uk-input" name="telno" id="telno" value="{{ $merchant->telno }}" placeholder="Telephone Number">
   <div class="validate"></div>
   </div>
 
   <div class="col-md-6 form-group mt-3">
   <label class="labelcoz">Mobile No.</label>
-  <input type="text" class="form-control" name="mobileno" id="mobileno" value="{{ $merchant[0]->phonno }}" placeholder="Mobile Number">
+  <input type="text" class="form-control" name="mobileno" id="mobileno" value="{{ $merchant->phonno }}" placeholder="Mobile Number">
   <div class="validate"></div>
   </div>
 

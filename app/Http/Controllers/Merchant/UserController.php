@@ -22,17 +22,47 @@ class UserController extends Controller
 
  public function __construct()
  {
- 	$this->middleware('auth');
+ 	$this->middleware('auth:web');
  }   
 
- public function plan()
+ public function myplan() 
  {
+ 
     return MyplanModel::join('temp_status','temp_status.id', 'myplans.temp_status')
             ->join('users','users.id', 'myplans.user_id')
                 ->where('myplans.user_id', Auth::user()->id)
                 ->where('temp_status.status','=','active')
                     ->get(['myplans.user_id','myplans.temp_status','temp_status.id','temp_status.status','users.id'])->first();
  }
+
+ public function merchant()
+ {
+
+    return MyplanModel::join('temp_status','temp_status.id', 'myplans.temp_status')
+        ->join('users','users.id', 'myplans.user_id')
+        ->join('profiles','profiles.plan_id', 'myplans.id')
+            ->where('myplans.user_id', Auth::user()->id)
+            ->where('temp_status.status','=','active') ->get('profiles.*')->first();
+ }
+
+ public function contact() 
+ {
+
+    return Profile::join('merchant_contact','merchant_contact.prof_id','=','profiles.id')
+                ->where('merchant_contact.temp_status','=','1')
+                ->where('profiles.user_id','=',Auth::user()->id)
+                    ->get(['profiles.*','merchant_contact.*']);
+ }
+
+ public function address() 
+ {
+
+    return Profile::join('merchant_address','merchant_address.prof_id','=','profiles.id')
+                ->where('merchant_address.temp_status','=','1')
+                ->where('profiles.user_id','=',Auth::user()->id)
+                    ->get(['profiles.*','merchant_address.*']);
+ }
+
  public function index()
  {
 
@@ -40,72 +70,89 @@ class UserController extends Controller
 		Alert::success('Success!', session('success_message'));
 	}
 
- 	$plan = MyplanModel::join('temp_status','temp_status.id','=','myplans.temp_status')
- 				->join('users','users.id','=','myplans.user_id')
- 				// ->whereExists('myplans.user_id','=',Auth::user()->id)
- 				->where('temp_status.status','=','active')
- 				->get(['myplans.user_id','myplans.temp_status','temp_status.id','temp_status.status','users.id'])->first();
+    $merchant       = $this->merchant();
+    $contacts       = $this->contact();
+    $address        = $this->address();
+
+    if(empty($this->myplan())) 
+        {
+            return redirect()->intended('ph/plan');
+        }
+    else 
+        {
+            if(empty($merchant)) 
+                {
+                    return view('merchant.user.profile-form-update',compact(['merchant','contacts','address']));
+                }
+            else 
+                {
+                    return view('merchant.user.profile-form',compact(['merchant','contacts','address']));
+                }
+        }
 
 
-    if(empty($this->plan()))
-    {
-        return view('tourismo.subcription.index');
-    }
-    else {
-        dd('yes');
-    }
 
- 	if(Auth::guest()) {
- 		return view('merchant.user.index');
-		} 
-	if($plan) {
 
-        $profpic = Profile::where('user_id','=',Auth::user()->id)->get(['user_id','profilepic as profpic'])->first();
+ 	// $plan = MyplanModel::join('temp_status','temp_status.id','=','myplans.temp_status')
+ 	// 			->join('users','users.id','=','myplans.user_id')
+ 	// 			// ->whereExists('myplans.user_id','=',Auth::user()->id)
+ 	// 			->where('temp_status.status','=','active')
+ 	// 			->get(['myplans.user_id','myplans.temp_status','temp_status.id','temp_status.status','users.id'])->first();
 
-			$check_profile = UserModel::join('profiles','profiles.user_id','=','users.id')
-			->join('temp_status','temp_status.id','=','profiles.temp_status')
-   			->where('profiles.user_id','=',Auth::user()->id)
-   			->where('temp_status.status','=','active')
-   			->get(['users.*','profiles.*'])->first();
 
-			if($check_profile) {
 
-				$merchant = UserModel::join('merchant','merchant.user_id','=','users.id')
-				->join('myplans','myplans.id','=','merchant.plan_id')
-				->join('temp_status','temp_status.id','=','myplans.temp_status')
-				->join('profiles','profiles.user_id','=','users.id')
-	   			->where('profiles.user_id','=',Auth::user()->id)
-	   			->where('profiles.temp_status','=','1')
-	   			->get(['users.*','merchant.*','myplans.*','temp_status.*','profiles.*']);
 
-				$contacts = Profile::join('merchant_contact','merchant_contact.prof_id','=','profiles.id')
-	            ->where('merchant_contact.temp_status','=','1')
-	            ->where('profiles.user_id','=',Auth::user()->id)
-	            ->get(['profiles.*','merchant_contact.*']);
+//  	if(Auth::guest()) {
+//  		return view('merchant.user.index');
+// 		} 
+// 	if($plan) {
 
-	   			$address = Profile::join('merchant_address','merchant_address.prof_id','=','profiles.id')
-	            ->where('merchant_address.temp_status','=','1')
-	            ->where('profiles.user_id','=',Auth::user()->id)
-	            ->get(['profiles.*','merchant_address.*']);
+//         $profpic = Profile::where('user_id','=',Auth::user()->id)->get(['user_id','profilepic as profpic'])->first();
 
-	            return view('merchant.user.profile-form',compact(['merchant','contacts','address','profpic']));
+// 			$check_profile = UserModel::join('profiles','profiles.user_id','=','users.id')
+// 			->join('temp_status','temp_status.id','=','profiles.temp_status')
+//    			->where('profiles.user_id','=',Auth::user()->id)
+//    			->where('temp_status.status','=','active')
+//    			->get(['users.*','profiles.*'])->first();
 
-			} 
-			else {
-					//Profile yet
-					return view('merchant.user.profile-form-update');
-				}
- 		} 
- 	else {
- 			//no plan yet
- 			return view('merchant.user.index');
- 		}
+// 			if($check_profile) {
 
-return view('merchant.user.profile-form',compact(['merchant','contacts','address']));
+// 				$merchant = UserModel::join('merchant','merchant.user_id','=','users.id')
+// 				->join('myplans','myplans.id','=','merchant.plan_id')
+// 				->join('temp_status','temp_status.id','=','myplans.temp_status')
+// 				->join('profiles','profiles.user_id','=','users.id')
+// 	   			->where('profiles.user_id','=',Auth::user()->id)
+// 	   			->where('profiles.temp_status','=','1')
+// 	   			->get(['users.*','merchant.*','myplans.*','temp_status.*','profiles.*']);
+
+// 				$contacts = Profile::join('merchant_contact','merchant_contact.prof_id','=','profiles.id')
+// 	            ->where('merchant_contact.temp_status','=','1')
+// 	            ->where('profiles.user_id','=',Auth::user()->id)
+// 	            ->get(['profiles.*','merchant_contact.*']);
+
+// 	   			$address = Profile::join('merchant_address','merchant_address.prof_id','=','profiles.id')
+// 	            ->where('merchant_address.temp_status','=','1')
+// 	            ->where('profiles.user_id','=',Auth::user()->id)
+// 	            ->get(['profiles.*','merchant_address.*']);
+
+// 	            return view('merchant.user.profile-form',compact(['merchant','contacts','address','profpic']));
+
+// 			} 
+// 			else {
+// 					//Profile yet
+// 					return view('merchant.user.profile-form-update');
+// 				}
+//  		} 
+//  	else {
+//  			//no plan yet
+//  			return view('merchant.user.index');
+//  		}
+
+// return view('merchant.user.profile-form',compact(['merchant','contacts','address']));
 }
 
 public function profiles(Request $request)
- {
+{
  	 $rules = [
             'companyname' => 'required',
             'companyaddress' => 'required',
@@ -126,16 +173,13 @@ public function profiles(Request $request)
                                 'website' => $request->website,
                               	'user_id' => Auth::user()->id]);
     return redirect('merchant')->withSuccess('Successfully added!');
- }
+}
+
 public function profile_update(Request $request, $id)
 {
-	$rules = [
-            'companyname' => 'required',
-            'companyaddress' => 'required',
-            'email' => 'required',
-            'website' => 'required',
-            'telno' => 'required',
-            'mobileno' => 'required'];
+	$rules = ['companyname' => 'required','companyaddress' => 'required',
+                'email' => 'required','website' => 'required',
+                    'telno' => 'required','mobileno' => 'required'];
 
     $errMessage = ['required' => 'Enter your :attribute'];
 
@@ -143,13 +187,13 @@ public function profile_update(Request $request, $id)
 
     $profile = Profile::find($id);
     $profile->update(['company' => $request->companyname,
-                                'address' => $request->companyaddress,
-                                'email' => $request->email,
+                        'address' => $request->companyaddress,
+                            'email' => $request->email,
                                 'telno' => $request->telno,
-                                'phonno' => $request->mobileno,
-                                'website' => $request->website]);
+                                    'phonno' => $request->mobileno,
+                                        'website' => $request->website]);
 
-	return redirect('merchant/profile/add-contact')->withSuccess('Successfully updated!');
+	return redirect('merchant')->withSuccess('Successfully updated!');
 }
 public function profile_contacts()
 {

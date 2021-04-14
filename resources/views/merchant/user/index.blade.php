@@ -13,7 +13,7 @@
         <div class="row">
 
   <div class="col-lg-3">
-          @include('layouts.tourismo.menu',['profpic' => $profpic])
+    
   </div>
 
 

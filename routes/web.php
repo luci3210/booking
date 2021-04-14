@@ -22,7 +22,6 @@ Route::get('/', 'Tourismo\HomeController@index')->name('myhome');
 Auth::routes();
 
 Route::get('/merchant', 'Merchant\UserController@index')->name('m-user');
-
 Route::post('/merchant/profile', 'Merchant\UserController@profiles')->name('profile-save');
 Route::patch('/merchant/profile/{id}', 'Merchant\UserController@profile_update')->name('profile-update');
 
@@ -72,6 +71,16 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/3210/logout', 'Auth\LoginController@userLogout')->name('logout');
 
+
+//Other route
+Route::prefix('ph')->group(function () {
+
+    Route::get('/plan', 'Other\PlanContoller@index')->name('other-plan');
+    
+    });
+
+
+//Admin route
 Route::prefix('admin')->group(function () {
 
     Route::get('/tourismo/ph/page/1/product', 'Admin\ProductController@index')->name('product');
