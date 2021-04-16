@@ -20,6 +20,28 @@
   <link href="{{ asset('public/css/style.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
   <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.2/css/uikit.css'>
+  <style type="text/css">
+    .uk-navbar-container:not(.uk-navbar-transparent) {
+      background: none !important;
+      font-size: 16px;
+    }
+
+    .uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before {
+      content: "" !important;
+    }
+    .uk-breadcrumb > * > *{
+      color: #fff !important;
+      font-weight: 700;
+      padding-right: -20px;
+    }
+    .uk-breadcrumb a:hover{
+      color: #1c9b87 !important;
+      font-weight: 700;
+    }
+    .lmenu {
+      padding-right: 20px;
+    }
+  </style>
   @yield('merchant')
 </head>
 <body>

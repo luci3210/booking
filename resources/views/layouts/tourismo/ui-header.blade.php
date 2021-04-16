@@ -50,6 +50,20 @@
 </ul>
 </nav>
 </div>
+
+<section class="breadcrumbs">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      
+        <ul class="uk-breadcrumb">
+            @foreach($slmenu as $list)
+              <li class="lmenu"><a href=""><span uk-icon="heart"></span> {{ $list->name }}</a></li>
+            @endforeach
+      </ul>
+
+    </div>
+  </div>
+</section>
 </header>
 
 

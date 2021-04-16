@@ -49,7 +49,11 @@ Route::post('dropzone/upload_image', 'Merchant\ServiceControllerr@upload_image')
 Route::get('dropzone/fetch_image', 'Merchant\ServiceController@fetch_image')->name('dropzone.fetch_image');
 Route::get('dropzone/delete_image', 'Merchant\ServiceController@delete_image')->name('dropzone.delete');
 
-
+Route::get('/merchant/location/region/select/{id}', 'Merchant\ServiceController@find_region_id')->name('find_region_id');
+Route::get('/merchant/location/district/select/{id}', 'Merchant\ServiceController@find_district_id')->name('find_district_id');
+Route::get('/merchant/location/city/select/{id}', 'Merchant\ServiceController@find_city_id')->name('find_city_id');
+Route::get('/merchant/location/municipality/select/{id}', 'Merchant\ServiceController@find_municipality_id')->name('find_municipality_id');
+Route::get('/merchant/location/barangay/select/{id}', 'Merchant\ServiceController@find_barangay_id')->name('find_barangay_id');
 
 
 
@@ -127,7 +131,7 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/tourismo/ph/page/5/location/{id}/search_result/1', 'Admin\LocationController@get_country_search')->name('search_country');
     Route::get('/tourismo/ph/page/5/location/{id}/search_result/2', 'Admin\LocationController@get_region_search')->name('search_region');
-    
+
     Route::get('/location/region/select/{id}', 'Admin\LocationController@find_region_id')->name('find_region_id');
     Route::get('/location/district/select/{id}', 'Admin\LocationController@find_district_id')->name('find_district_id');
     Route::get('/location/city/select/{id}', 'Admin\LocationController@find_city_id')->name('find_city_id');

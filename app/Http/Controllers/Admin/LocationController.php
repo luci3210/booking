@@ -68,8 +68,6 @@ class LocationController extends Controller
         return json_encode(LocationMunicipalityModel::select()->where('city_id',$id)->get());   
     }
 
-     
-
     public function get_location_id()
     {
         return LocationModel::where('temp_status',1)->get();
