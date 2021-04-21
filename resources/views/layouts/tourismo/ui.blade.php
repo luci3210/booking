@@ -50,6 +50,7 @@
 @yield('banner')
 
 <main id="main">
+  
 @yield('content')
 </main>
 
@@ -153,6 +154,7 @@
   <script src='https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.2/js/uikit-icons.js'></script>
 
   @yield('merchantjs')
+  @yield('js')
 
 </body>
 

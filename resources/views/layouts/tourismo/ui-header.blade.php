@@ -3,7 +3,8 @@
     <div class="container d-flex justify-content-between align-items-center">
 
       <div class="logo">
-        <h1 class="text-light"><a href="{{ route('myhome') }}"><span><img src="{{ asset('image/logo/logo.png') }}"></span></a></h1>
+        <!-- <h1 class="text-light"><a href="{{ route('myhome') }}"><span><img src="{{ asset('image/logo/logo.png') }}"></span></a></h1> -->
+        <a href="{{ route('myhome') }}"><span><img src="{{ asset('image/logo/logo.png') }}"></span></a>
       </div>
 
       <nav class="nav-menu float-right d-none d-lg-block">
@@ -17,6 +18,7 @@
           <li><a href="services.html">Recently Veiw</a></li>
           <li><a href="portfolio.html">Cart</a></li>
 @if (Route::has('login'))
+
 @auth
     <li class="drop-down"><a href="">Account</a>
       <ul>
@@ -51,20 +53,29 @@
 </nav>
 </div>
 
+
+
 <section class="breadcrumbs">
   <div class="container">
     <div class="d-flex justify-content-between align-items-center">
-      
-        <ul class="uk-breadcrumb">
+      <h2>
+        <ol>
             @foreach($slmenu as $list)
-              <li class="lmenu"><a href=""><span uk-icon="heart"></span> {{ $list->name }}</a></li>
-            @endforeach
-      </ul>
-
+            <li><a href="index.html"><span uk-icon="heart"></span> {{ $list->name }}</a></li>
+            @endforeach()
+        </ol>
+    </h2>
+      <!-- <ol>
+        <li><a href="index.html">Home</a></li>
+        <li>Contact</li>
+      </ol> -->
     </div>
   </div>
 </section>
+
+
 </header>
+
 
 
 <!-- INMOD -->
@@ -183,3 +194,4 @@
 
 </div>
 </div>
+
