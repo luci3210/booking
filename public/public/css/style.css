@@ -131,7 +131,7 @@ h1, h2, h3, h4, h5, h6, .font-primary {
 .nav-menu a {
   display: block;
   position: relative;
-  color: #fff;
+  color: #fff !important;
   padding: 10px 15px;
   transition: 0.3s;
   font-size: 14px;
@@ -540,16 +540,16 @@ section {
 }
 
 .section-title {
-  text-align: center;
+  text-align: left;
   padding-bottom: 30px;
   /*padding: 40px 30px 40px;*/
 }
 
 .section-title h2 {
   font-size: 28px;
-  font-weight: 400;
-  margin-bottom: 20px;
-  padding-bottom: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
   position: relative;
 }
 
@@ -561,7 +561,7 @@ section {
   height: 1px;
   background: #ddd;
   bottom: 1px;
-  left: calc(50% - 60px);
+  left: calc(0% - 0px);
 }
 
 .section-title h2::after {
@@ -570,9 +570,9 @@ section {
   display: block;
   width: 40px;
   height: 3px;
-  background: #68A4C4;
+  background: #009d8a;
   bottom: 0;
-  left: calc(50% - 20px);
+  left: calc(0% - 0px);
 }
 
 .section-title p {
@@ -630,15 +630,24 @@ section {
 --------------------------------------------------------------*/
 .breadcrumbs {
   padding: 2px 0;
-  background-color: #f3f8fa;
+  background-color: #fff;
   min-height: 40px;
   margin-top: 9px;
+  border-bottom: 1px solid #ccc;
 }
 
 .breadcrumbs h2 {
-  font-size: 15px;
-  font-weight: 100;
+  font-size: 14px;
+  font-weight: 500;
   padding-top: 18px;
+}
+
+.breadcrumbs li a:hover {
+  color: #009d8a !important;
+  font-size: 14px;
+  font-weight: 600;
+  padding-top: 18px;
+  
 }
 
 .breadcrumbs ol {
@@ -647,7 +656,7 @@ section {
   list-style: none;
   padding: 0;
   margin: 0;
-  color: #ccc;
+  color: #3c3c3c !important;
 }
 
 .breadcrumbs ol li + li {
@@ -658,7 +667,7 @@ section {
 .breadcrumbs ol li + li::before {
   display: inline-block;
   padding-right: 10px;
-  color: #ccc;
+  color: #3c3c3c !important;
   content: " ";
 }
 
@@ -672,9 +681,7 @@ section {
   .breadcrumbs ol li {
     display: inline-block;
   }
-  .breadcrumbs a {
-    color: #ccc;
-  }
+
 }
 
 /*--------------------------------------------------------------
@@ -958,13 +965,14 @@ section {
 }
 
 .features ul li {
-  padding-bottom: 10px;
+  padding-bottom: 8px;
+  font-size: 15px;
 }
 
 .features ul i {
   font-size: 20px;
   padding-right: 4px;
-  color: #68A4C4;
+  color: #009d8a;
 }
 
 .features p:last-child {
@@ -2453,4 +2461,79 @@ section {
 
 #footer .credits a {
   color: #a2cce3;
+}
+
+/*----------uikit---------------*/
+
+.uk-button-small
+{
+  background-color: #ff4700 !important;
+  border-radius: 4px !important;
+  color: #fff !important;
+  border:none !important;
+  text-transform: capitalize !important;
+  font-weight: 800 !important;
+  font-size: 12px !important;
+}
+
+.uk-button-small:hover
+{
+  background-color: #ff3300 !important;
+  border-radius: 4px !important;
+  border:none;
+  color: #fff !important;
+  text-transform: capitalize !important;
+  font-weight: 800 !important;
+  font-size: 12px !important;
+}
+h3, .uikit-title {
+  margin-top: -10px;
+  font-weight: bold !important;
+  font-size: 19px !important;
+}
+.uikit-btn-book {
+  margin: -5px 0 8px; 
+}
+.uk-offcanvas-bar {
+  background-color: #fff !important;
+}
+h3, .uk-offcanvas-bar {
+  color: #333333 !important;
+}
+.uk-offcanvas-bar .uk-close {
+  color: #333 !important;
+}
+
+
+ .lmenu {
+  padding-right: 20px;
+}
+a, .uk-link {
+  color: #141414 !important;
+}
+a, .uk-link hover {
+  text-decoration: none !important;
+  color: #716f6f !important;
+}
+
+.uk-navbar-container:not(.uk-navbar-transparent) {
+  background: none !important;
+  font-size: 16px;
+}
+
+.uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before {
+  content: "" !important;
+}
+.uk-breadcrumb > * > *{
+  color: #fff !important;
+  font-weight: 700;
+  padding-right: -20px;
+}
+a, .uk-breadcrumb{
+  color: #333333 !important;
+  /*font-weight: 700;*/
+}
+.uk-breadcrumb a:hover{
+  color: #1c9b87 !important;
+  /*font-weight: 700;*/
 }

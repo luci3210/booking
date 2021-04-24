@@ -2,6 +2,11 @@
 
 use Illuminate\Support\Str;
 
+$user = getenv('CLOUDSQL_USER');
+$pass = getenv('CLOUDSQL_PASSWORD');
+$ldsn = getenv('CLOUDSQCLOUDSQL_DSN');
+$dbdb = getenv('CLOUDSQL_DB');
+
 return [
 
     /*

@@ -11,7 +11,7 @@
         <ul>
           <li class="active"><a href="index.html"><b>Download App</b></a></li>
           @if(empty($merchant_plan))
-          <li class="active"><a href="{{ route('other-plan') }}"><b>Plan</b></a></li>
+          <li class="active"><a href="{{ route('other-plan') }}"><b>Merchant</b></a></li>
           @else
           <li class="active"><a href="{{ route('m-user') }}"><b>Merchant</b></a></li>
           @endif
@@ -61,14 +61,13 @@
       <h2>
         <ol>
             @foreach($slmenu as $list)
-            <li><a href="index.html"><span uk-icon="heart"></span> {{ $list->name }}</a></li>
+            <li><a href="index.html"><i class="{{$list->icon_id}}"></i> {{ $list->name }}</a></li>
             @endforeach()
         </ol>
     </h2>
-      <!-- <ol>
-        <li><a href="index.html">Home</a></li>
-        <li>Contact</li>
-      </ol> -->
+      <ol>
+        <li><a href="index.html">Merchant</a></li>
+      </ol>
     </div>
   </div>
 </section>

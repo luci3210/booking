@@ -16,8 +16,10 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 
 Route::get('/', 'Tourismo\HomeController@index')->name('myhome');
-Route::get('/tourismoph/hotel/{id}', 'Tourismo\HomeController@hotel_details')->name('tourismo-hotel-details');
 
+Route::get('/hotels/rooms/{id}', 'Tourismo\HomeController@room')->name('tourismo_room');
+
+Route::get('/tourismoph/hotel/{id}', 'Tourismo\HomeController@hotel_details')->name('tourismo-hotel-details');
 
 //});
 
