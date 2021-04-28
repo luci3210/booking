@@ -9,18 +9,18 @@
 
       <nav class="nav-menu float-right d-none d-lg-block">
         <ul>
-          <li class="active"><a href="index.html"><b>Download App</b></a></li>
+          <li class="active"><a href="index.html"><i class="fas fa-mobile-alt"></i> <b>Download App</b></a></li>
           @if(empty($merchant_plan))
-          <li class="active"><a href="{{ route('other-plan') }}"><b>Merchant</b></a></li>
+          <li class="active"><a href="{{ route('other-plan') }}"><i class="far fa-building"></i> <b>Merchant</b></a></li>
           @else
-          <li class="active"><a href="{{ route('m-user') }}"><b>Merchant</b></a></li>
+          <li class="active"><a href="{{ route('m-user') }}"><i class="far fa-building"></i> <b>Plan</b></a></li>
           @endif
-          <li><a href="services.html">Recently Veiw</a></li>
-          <li><a href="portfolio.html">Cart</a></li>
+          <li><a href="services.html"><i class="fas fa-receipt"></i> Recently Veiw</a></li>
+          <li><a href="portfolio.html"><i class="fas fa-luggage-cart"></i> Cart</a></li>
 @if (Route::has('login'))
 
 @auth
-    <li class="drop-down"><a href="">Account</a>
+    <li class="drop-down"><a href=""><i class="fas fa-user-circle"></i> Account</a>
       <ul>
         <li><a href="#">Drop Down 1</a></li>
         <li class="drop-down"><a href="#">Drop Down 2</a>
@@ -37,7 +37,7 @@
         <li><a href="{{ route('account-setting') }}"><span uk-icon="settings"></span> Settings</a></li>
       </ul>
     </li>
-    <li><a href="{{ route('logout') }}">Signout</a></li>
+    <li><a href="{{ route('logout') }}"><i class="fas fa-sign-out-alt"></i> Signout</a></li>
 @else
     <li><a href="#login" uk-toggle>Login</a></li>
 
@@ -48,7 +48,7 @@
 @endauth
 
 @endif
-<li><a href="portfolio.html">Help</a></li>
+<li><a href="portfolio.html"><i class="far fa-life-ring"></i> Help</a></li>
 </ul>
 </nav>
 </div>
@@ -61,13 +61,14 @@
       <h2>
         <ol>
             @foreach($slmenu as $list)
-            <li><a href="index.html"><i class="{{$list->icon_id}}"></i> {{ $list->name }}</a></li>
+                @if($list->status == 'disable')
+                    <li><a href="" aria-current="page"><i class="{{$list->icon_id}}"></i> {{ $list->name }}</a></li>
+                @else
+                    <li><a href=""><i class="{{$list->icon_id}}"></i> {{ $list->name }}</a></li>
+                @endif
             @endforeach()
         </ol>
     </h2>
-      <ol>
-        <li><a href="index.html">Merchant</a></li>
-      </ol>
     </div>
   </div>
 </section>

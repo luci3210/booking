@@ -1608,7 +1608,7 @@ section {
 # Contact
 --------------------------------------------------------------*/
 .contact {
-  padding-bottom: 30px;
+  padding: 70px 0 30px;
 }
 
 .contact .info-box {
@@ -1620,11 +1620,11 @@ section {
 }
 
 .contact .info-box i {
-  font-size: 32px;
-  color: #68A4C4;
+  font-size: 14;
+  color: #4e4c4c;
   border-radius: 50%;
   padding: 8px;
-  border: 2px dotted #a2cce3;
+  border: 2px dotted #4e4c4c;
 }
 
 .contact .info-box h3 {
@@ -2536,4 +2536,30 @@ a, .uk-breadcrumb{
 .uk-breadcrumb a:hover{
   color: #1c9b87 !important;
   /*font-weight: 700;*/
+}
+
+input[type="file"] {
+    display: none;
+}
+.custom-file-upload {
+    /*border: 1px solid #ccc;*/
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.uk-border-circle {
+  box-shadow: 0 0 30px rgba(214, 215, 216, 0.6);
+  border: 2px solid #ffffff;
+}
+.row-margin {
+  margin: 0 0 20px;
+}
+
+[aria-current="page"] {
+  pointer-events: none;
+  cursor: default;
+  text-decoration: none;
+  color: #999797 !important;
 }

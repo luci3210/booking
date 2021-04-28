@@ -1,10 +1,17 @@
 @extends('layouts.tourismo.ui')
-@section('merchant')
-<link rel="stylesheet" type="text/css" href="{{ asset('public/css/merchant101.css') }}">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-@endsection
+	@section('merchant')
+
+	  <link rel="stylesheet" type="text/css" href="{{ asset('public/css/merchant101.css') }}">
+	  <link rel="stylesheet" type="text/css" href="{{ asset('ijaboCropTool-master/ijaboCropTool.min.css') }}">
+	  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+	  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+
+	@endsection
 
 @section('content')
+
+
+
 <section class="contact aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
 <div class="container">
 

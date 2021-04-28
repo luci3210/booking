@@ -154,32 +154,40 @@ class UserController extends Controller
 public function profiles(Request $request)
 {
  	 $rules = [
-            'companyname' => 'required',
-            'companyaddress' => 'required',
-            'email' => 'required',
-            'website' => 'required',
-            'telno' => 'required',
-            'mobileno' => 'required'];
+            'companyname'       => 'required',
+            'about'             => 'required',
+            'companyaddress'    => 'required',
+            'email'             => 'required',
+            'website'           => 'required',
+            'telno'             => 'required',
+            'mobileno'          => 'required'];
 
         $errMessage = ['required' => '* Enter your :attribute'];
 
    		$this->validate($request, $rules, $errMessage);   
 
-        Profile::create(['company' => $request->companyname,
-                                'address' => $request->companyaddress,
-                                'email' => $request->email,
-                                'telno' => $request->telno,
-                                'phonno' => $request->mobileno,
-                                'website' => $request->website,
-                              	'user_id' => Auth::user()->id]);
+        Profile::create(['company'      => $request->companyname,
+                        'address'       => $request->companyaddress,
+                        'about'         => $request->about,
+                        'email'         => $request->email,
+                        'telno'         => $request->telno,
+                        'phonno'        => $request->mobileno,
+                        'website'       => $request->website,
+                      	'user_id' => Auth::user()->id]);
     return redirect('merchant')->withSuccess('Successfully added!');
 }
 
 public function profile_update(Request $request, $id)
 {
-	$rules = ['companyname' => 'required','companyaddress' => 'required',
-                'email' => 'required','website' => 'required',
-                    'telno' => 'required','mobileno' => 'required'];
+	$rules = [
+            'companyname'       => 'required',
+            'companyaddress'    => 'required',
+            'email'             => 'required',
+            'website'           => 'required',
+            'telno'             => 'required',
+            'mobileno'          => 'required',
+            'about'             => 'required'
+            ];
 
     $errMessage = ['required' => 'Enter your :attribute'];
 
@@ -187,6 +195,7 @@ public function profile_update(Request $request, $id)
 
     $profile = Profile::find($id);
     $profile->update(['company' => $request->companyname,
+                        'about' => $request->about,
                         'address' => $request->companyaddress,
                             'email' => $request->email,
                                 'telno' => $request->telno,

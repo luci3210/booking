@@ -26,7 +26,9 @@ Route::get('/tourismoph/hotel/{id}', 'Tourismo\HomeController@hotel_details')->n
 Auth::routes();
 
 Route::get('/merchant', 'Merchant\UserController@index')->name('m-user');
+
 Route::post('/merchant/profile', 'Merchant\UserController@profiles')->name('profile-save');
+
 Route::patch('/merchant/profile/{id}', 'Merchant\UserController@profile_update')->name('profile-update');
 
 Route::get('/merchant/profile/add-contact', 'Merchant\UserController@profile_contacts')->name('profile-contact');

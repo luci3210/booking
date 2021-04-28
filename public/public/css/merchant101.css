@@ -27,7 +27,7 @@
 .uk-placeholder
 {
   font-weight: bold;
-  margin-top: -40px;
+  margin-top: -45px;
   margin-bottom: 1px !important;
   padding: 10px 10px !important;
   border: none !important;
@@ -121,6 +121,8 @@ height: 100%;
     {
       color: #353434;
       margin-left: 5px;
+      font-size: 14px;
+      font-weight:bold;
     }
 .labelcoz
 {
@@ -136,7 +138,7 @@ height: 100%;
     .contact .info-box-ext {
     color: #444;
     text-align: left;
-    margin: 0px 20px 0px 20px;
+    margin: -15px 40px 0px 30px;
     /*text-align: center;*/
     /*box-shadow: 0 0 30px rgb(214 215 216 / 60%);*/
     padding: 20px 0 30px 0;
