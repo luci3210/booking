@@ -1,7 +1,7 @@
 
 <div class="info-box">
 
-<!-- -->
+	<img class="uk-border-circle" src="{{ asset('upload/merchant/profilepic')}}/{{ $photo->profilepic == '' ? 'default.png' : $photo->profilepic }}" width="150" height="150" alt="Border pill">
  
 <h5>
   <div class="js-upload uk-placeholder uk-text-center">

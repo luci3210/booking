@@ -4,6 +4,10 @@ namespace App\Providers;
 
 use App\Model\Admin\ProductModel;
 use App\Model\Admin\locationModel;
+
+use App\Model\Merchant\Profile;
+
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -35,5 +39,30 @@ public function boot()
         View::composer('*', function ($view) {
             $view->with('menu_location', locationModel::where('temp_status', '1')->get());
         });
+
+
+        if(Auth::check()) { 
+
+            $profilepik = Profile::where('profiles.plan_id',Auth::user()->id)->get('profiles.plan_id')->first();
+
+            if(empty($profilepik)) {
+
+                 View::composer('*', function ($view) {
+                    $view->with('photo', Profile::where('profiles.plan_id',0)->get('profiles.profilepic')->first());
+                });
+            }
+            else {
+
+                 View::composer('*', function ($view) {
+                    $view->with('photo', Profile::where('profiles.plan_id',Auth::user()->id)->get('profiles.profilepic')->first());
+                });
+            }
+        }
+        else {
+
+            View::composer('*', function ($view) {
+                $view->with('photo', Profile::where('profiles.plan_id',0)->get('profiles.profilepic')->first());
+            });
+        }
     }
 }
