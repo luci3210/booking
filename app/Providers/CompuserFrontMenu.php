@@ -6,6 +6,7 @@ use App\Model\Admin\ProductModel;
 use App\Model\Admin\locationModel;
 
 use App\Model\Merchant\Profile;
+use App\Model\Merchant\UserModel;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -32,6 +33,8 @@ public function register()
 
 public function boot()
     {
+
+
         View::composer('*', function ($view) {
             $view->with('services', ProductModel::where('temp_status', '1')->get());
         });
@@ -40,6 +43,8 @@ public function boot()
             $view->with('menu_location', locationModel::where('temp_status', '1')->get());
         });
 
+
+        // -------------------------------------- Profile Photo ------------------------------------------------
 
         if(Auth::check()) { 
 
@@ -64,5 +69,7 @@ public function boot()
                 $view->with('photo', Profile::where('profiles.plan_id',0)->get('profiles.profilepic')->first());
             });
         }
+        // -------------------------------------- Profile Photo ------------------------------------------------
+
     }
 }

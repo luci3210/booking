@@ -22,19 +22,11 @@
 @auth
     <li class="drop-down"><a href=""><i class="fas fa-user-circle"></i> Account</a>
       <ul>
-        <li><a href="#">Drop Down 1</a></li>
-        <li class="drop-down"><a href="#">Drop Down 2</a>
-          <ul>
-            <li><a href="#">Deep Drop Down 1</a></li>
-            <li><a href="#">Deep Drop Down 2</a></li>
-            <li><a href="#">Deep Drop Down 3</a></li>
-            <li><a href="#">Deep Drop Down 4</a></li>
-            <li><a href="#"><span uk-icon="heart"></span> Settings</a></li>
-          </ul>
-        </li>
-        <li><a href="#">Drop Down 3</a></li>
-        <li><a href="#">Drop Down 4</a></li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Booking </a></li>
+        <li><a href="#">Like Page</a></li>
         <li><a href="{{ route('account-setting') }}"><span uk-icon="settings"></span> Settings</a></li>
+        <li><a href="#">LogOut</a></li>
       </ul>
     </li>
     <li><a href="{{ route('logout') }}"><i class="fas fa-sign-out-alt"></i> Signout</a></li>

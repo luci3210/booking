@@ -206,7 +206,7 @@
     <li>Building Facilities<span id="building_facilities"></span></li>
     <li>Package: <span id="booking_package"></span></li>
     <li>Address: <span id="address"></span></li>
-  </ul>
+</ul>
 
     </div>
 

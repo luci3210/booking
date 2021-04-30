@@ -90,7 +90,13 @@ Route::prefix('ph')->group(function () {
     });
 
 
-//Admin route
+Route::prefix('account')->group(function () {
+
+    Route::get('/profile', 'Tourismo\AccountController@profile')->name('profile');
+    
+    });
+
+
 Route::prefix('admin')->group(function () {
 
     Route::get('/tourismo/ph/page/1/product', 'Admin\ProductController@index')->name('product');

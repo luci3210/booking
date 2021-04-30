@@ -25,7 +25,9 @@
 <body>
 @include('sweetalert::alert')
 @include('layouts.tourismo.ui-header')
+
 @yield('banner')
+@yield('modal_login')
 
 <main id="main">
 

@@ -1,6 +1,4 @@
 @extends('layouts.tourismo.ui')
-@section('banner')
-@endsection()
 
 @section('content')
 <section class="features">
@@ -89,15 +87,141 @@
 </b>
 </h3>
 
-<div class="uikit-btn-book">
-  <button class="uk-button uk-button-default" type="button" uk-toggle="target: #offcanvas-nav">Default Nav</button>
-  <button class="uk-button uk-button-default uk-margin-small-right" type="button" uk-toggle="target: #offcanvas-slide">Slide</button>
 
-<a class="uk-button uk-button-default uk-button-small btn-room-details-m" href="javascript:void(0)" data-id="" uk-toggle="target: #offcanvas-slide">Book Now</a>
-<button class="uk-button uk-button-default uk-button-small" type="button" data-toggle="modal" data-id="" id="btn-room-details-m">Add List</button>
+@if(Auth::check())
+    @auth
+      <!-- ---------------------------- user is authenticated ----------------- -->
+    @endauth
+@else 
+<div id="checklogin" class="uk-modal-full" uk-modal>
+<div class="uk-modal-dialog">
+<button class="uk-modal-close-full uk-close-large uk-position-top" type="button" uk-close></button>
+
+<div class="uk-section uk-section-muted uk-flex uk-flex-middle uk-animation-fade" uk-height-viewport>
+    <div class="uk-width-1-1">
+        <div class="uk-container">
+            <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
+                <div class="uk-width-1-1@m">
+                    <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
+                        <h3 class="uk-card-title uk-text-center">Booking Tourismo</h3>
+                        
+    <form method="POST" action="{{ route('login') }}">
+      @csrf
+        <div class="uk-margin">
+            <div class="uk-inline uk-width-1-1">
+                <span class="uk-form-icon" uk-icon="icon: mail"></span>
+                <input class="uk-input uk-form-meduim" type="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+            </div>
+        </div>
+
+        <div class="uk-margin">
+            <div class="uk-inline uk-width-1-1">
+                <span class="uk-form-icon" uk-icon="icon: lock"></span>
+                <input class="uk-input uk-form-meduim" type="password" name="password" required autocomplete="current-password">  
+            </div>
+        </div>
+
+        <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+            <label><input class="uk-checkbox" type="checkbox"> Remember Me</label>
+        </div>
+
+        <div class="uk-margin">
+            <button type="submit" class="uk-button uk-button-primary uk-button-meduim uk-width-1-1">Login</button>
+        </div>
+        <div class="uk-text-small uk-text-center">
+            Not registered? <a href="#register" uk-toggle>Register</a>
+        </div>
+    </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<span style="font-size:12px; font-weight: 100px;"><i class="far fa-bookmark"></i> 200 + Booked</span>
-<span style="font-size:12px; font-weight: 100px;"><i class="fas fa-phone-slash"></i> No cancellation available</span>
+
+</div>
+</div>
+
+@endif
+
+
+<div class="uikit-btn-book">
+
+@if(Auth::check())
+    @auth
+
+
+<ul uk-accordion>
+    
+<li>
+<a class="uk-button uk-button-small uk-accordion-title " href="javascript:void(0)">Book Now <span uk-icon="chevron-down"></span></a>
+<a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)">Like<span uk-icon="chevron-down"></span></a>
+<br>  
+
+<div style="margin-top: 12px;">      
+<span style="font-size:12px; font-weight: 100px;"><span uk-icon="chevron-down"></span> 200 + Booked</span>
+<span style="font-size:12px; font-weight: 100px;"><span uk-icon="chevron-down"></span> No cancellation available</span>
+</div>
+
+<div class="uk-accordion-content">
+    
+<form class="uk-form-stacked">
+
+    <div class="uk-margin">
+        <label class="uk-form-label" for="form-stacked-text">First Name</label>
+        <div class="uk-form-controls">
+            <input class="uk-input" id="form-stacked-text" type="text" placeholder="Some text...">
+        </div>
+    </div>
+
+
+    <div class="uk-margin">
+        <label class="uk-form-label" for="form-stacked-text">Last Name</label>
+        <div class="uk-form-controls">
+            <input class="uk-input" id="form-stacked-text" type="text" placeholder="Some text...">
+        </div>
+    </div>
+
+    <div class="uk-margin">
+        <label class="uk-form-label" for="form-stacked-select">Select</label>
+        <div class="uk-form-controls">
+            <select class="uk-select uk-form-small" id="form-stacked-select">
+                <option>Option 01</option>
+                <option>Option 02</option>
+            </select>
+        </div>
+    </div>
+
+
+</form>
+
+</div>
+
+</li>
+
+</ul>
+
+
+
+    @endauth
+@else 
+
+  <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)" uk-toggle="target: #checklogin">
+    Book Now
+  </a>
+
+  <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)" uk-toggle="target: #checklogin">
+    Like
+  </a>
+
+@endif
+
+</div>
+
+
+
+
 
 
 
@@ -179,13 +303,16 @@
   </div>
 
 </section>
+
+
+
 <!-- -----------------offcanvas-------------- -->
 <div id="offcanvas-slide" uk-offcanvas="overlay: true">
     <div class="uk-offcanvas-bar">
 
         <button class="uk-offcanvas-close" type="button" uk-close></button>
 
-        <h3>Title</h3>
+        <h3 id="upload_id"></h3>
 
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 
@@ -195,4 +322,5 @@
 @endsection
 
 @section('js')
+
 @endsection
