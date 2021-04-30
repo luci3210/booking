@@ -92,8 +92,9 @@ Route::prefix('ph')->group(function () {
 
 Route::prefix('account')->group(function () {
 
-    Route::get('/profile', 'Tourismo\AccountController@profile')->name('profile');
-    
+    Route::get('/profile', 'Tourismo\AccountController@profile')->name('accnt_profile');
+    Route::patch('/profile/update/{id}', 'Tourismo\AccountController@accnt_profile_update')->name('accnt_profile_update');
+
     });
 
 

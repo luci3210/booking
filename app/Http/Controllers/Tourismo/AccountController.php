@@ -31,6 +31,39 @@ class AccountController extends Controller
      return view('tourismo.account.user',compact('account'));
  }
 
+ public function accnt_profile_update(Request $request,$id) {
+
+        $rules = [
+            'name'          => 'required',
+            'fname'         => 'required',
+            'lname'         => 'required',
+            'mname'         => 'required',
+            'gender'        => 'required',
+            'country'       => 'required',
+            'pnumber'       => 'required',
+            'address'       => 'required',
+            'bdate'       => 'required',
+            ];
+
+    $errMessage = ['required' => 'Enter your :attribute'];
+
+    $this->validate($request, $rules, $errMessage);
+
+    $profile = UserModel::find($id);
+    $profile->update(['name' => $request->name,
+                        'fname' => $request->fname,
+                        'lname' => $request->lname,
+                            'mname' => $request->mname,
+                                'gender' => $request->gender,
+                                    'country' => $request->country,
+                                        'pnumber' => $request->pnumber,
+                                          'bdate' => $request->bdate,
+                                    'address' => $request->address]);
+
+    return redirect('account/profile')->withSuccess('Successfully updated!');
+ }
+
+
  public function myplan() 
  {
  

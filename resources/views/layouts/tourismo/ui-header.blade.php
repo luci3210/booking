@@ -22,7 +22,7 @@
 @auth
     <li class="drop-down"><a href=""><i class="fas fa-user-circle"></i> Account</a>
       <ul>
-        <li><a href="#">Profile</a></li>
+        <li><a href="{{ route('accnt_profile') }}">Profile</a></li>
         <li><a href="#">Booking </a></li>
         <li><a href="#">Like Page</a></li>
         <li><a href="{{ route('account-setting') }}"><span uk-icon="settings"></span> Settings</a></li>
