@@ -3,8 +3,7 @@
 namespace App\Providers;
 
 use App\Model\Admin\ProductModel;
-use App\Model\Admin\locationModel;
-
+use App\Model\Admin\LocationModel;
 use App\Model\Merchant\Profile;
 use App\Model\Merchant\UserModel;
 
