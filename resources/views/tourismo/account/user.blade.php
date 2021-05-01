@@ -45,56 +45,57 @@
 
     <div class="col-md-4 form-group mt-3">
     <label class="labelcoz">First Name</label>
-    <input type="text" class="uk-input" name="fname" id="fname" value="" placeholder="First Name">
+    <input type="text" class="uk-input" name="fname" id="fname" value="{{ $account->fname }}" placeholder="First Name">
     <div class="validate"></div>
     </div>
 
     <div class="col-md-4 form-group mt-3">
     <label class="labelcoz">Last Name</label>
-    <input type="text" class="uk-input" name="lname" id="lname" value="" placeholder="Last Name">
+    <input type="text" class="uk-input" name="lname" id="lname" value="{{ $account->lname }}" placeholder="Last Name">
     <div class="validate"></div>
     </div>
 
     <div class="col-md-4 form-group mt-3">
     <label class="labelcoz">Middle Name</label>
-    <input type="text" class="uk-input" name="mname" id="mname" value="" placeholder="Middle Name">
+    <input type="text" class="uk-input" name="mname" id="mname" value="{{ $account->mname }}" placeholder="Middle Name">
     <div class="validate"></div>
     </div>
 
-    <div class="col-md-6 form-group mt-4">
-    <label class="labelcoz">Gender</label>
-    <input type="text" class="uk-input" name="gender" id="gender" value="" placeholder="Gender">
+    <div class="col-md-3 form-group mt-3">
+      <div class="uk-margin">
+        <label class="labelcoz">Country</label>
+          <select class="uk-select" name="country">
+              @foreach($country as $list)
+                <option value="11" selected="selected">
+                 {{ $list->id }}
+                </option>
+              @endforeach
+          </select>
+      </div>
+    </div>
+
+    <div class="col-md-3 form-group mt-3">
+    <label class="labelcoz">Phone Number</label>
+    <input type="text" class="uk-input" name="pnumber" id="pnumber" value="{{ $account->pnumber }}" placeholder="Phone Number">
     <div class="validate"></div>
     </div>
 
-    <div class="col-md-6 form-group mt-4">
+    <div class="col-md-3 form-group mt-3">
+    <label class="labelcoz">Email</label>
+    <input type="text" class="uk-input" value="{{ $account->email }}" placeholder="Email" disabled="disabled">
+    <div class="validate"></div>
+    </div>
+
+      <div class="col-md-3 form-group mt-3">
     <label class="labelcoz">Birthdate</label>
-    <input type="text" class="uk-input" name="bdate" id="bdate" value="" placeholder="Birthdate">
+    <input type="text" class="uk-input" name="bdate" id="bdate" value="{{ $account->bdate }}" placeholder="Birthdate">
     <div class="validate"></div>
     </div>
   
 
-    <div class="col-md-4 form-group mt-3">
-    <label class="labelcoz">Country</label>
-    <input type="text" class="uk-input" name="country" id="country" value="" placeholder="Country">
-    <div class="validate"></div>
-    </div>
-
-    <div class="col-md-4 form-group mt-3">
-    <label class="labelcoz">Phone Number</label>
-    <input type="text" class="uk-input" name="pnumber" id="pnumber" value="" placeholder="Phone Number">
-    <div class="validate"></div>
-    </div>
-
-    <div class="col-md-4 form-group mt-3">
-    <label class="labelcoz">Email</label>
-    <input type="text" class="uk-input" name="" id="" value="{{ $account->email }}" placeholder="Email" disabled="disabled">
-    <div class="validate"></div>
-    </div>
-
     <div class="col-md-12 form-group mt-3">
     <label class="labelcoz">Address</label>
-    <input type="text" class="uk-input" name="address" id="address" value="" placeholder="Address">
+    <input type="text" class="uk-input" name="address" id="address" value="{{ $account->address }}" placeholder="Address">
     <div class="validate"></div>
     </div>
 

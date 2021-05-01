@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Tourismo;
 
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Model\Merchant\UserModel;
+use App\Model\Admin\LocationCountyModel;
+
 use App\Model\Merchant\Profile;
 use App\Model\Merchant\MerchantModel;
 use App\Model\Merchant\MyplanModel;
@@ -12,6 +14,7 @@ use App\Model\Merchant\MyplanModel;
 use App\Model\Admin\PlanModel;
 use App\Model\Merchant\MerchantContact;
 use App\Model\Merchant\MerchantAddress;
+
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -24,26 +27,31 @@ class AccountController extends Controller
  {
  	$this->middleware('auth:web');
  }   
+ public function accnt_country() {
 
+    return LocationCountyModel::where('temp_status',1)->get();
+ }
  public function profile() {
 
-     $account = UserModel::where('users.id', Auth::user()->id)->first();
-     return view('tourismo.account.user',compact('account'));
+    $country = $this->accnt_country();
+     // $account = UserModel::where('users.id', Auth::user()->id)->first();
+    // $country = $this->accnt_country();
+     $account = UserModel::join('location_country','location_country.id', 'users.country')->where('users.id', Auth::user()->id)->get('users.*','location_country.*')->first();
+     return view('tourismo.account.user',compact('account','country'));
+
  }
 
  public function accnt_profile_update(Request $request,$id) {
 
-        $rules = [
-            'name'          => 'required',
-            'fname'         => 'required',
-            'lname'         => 'required',
-            'mname'         => 'required',
-            'gender'        => 'required',
-            'country'       => 'required',
-            'pnumber'       => 'required',
-            'address'       => 'required',
-            'bdate'       => 'required',
-            ];
+    $rules = [
+        'name'          => 'required',
+        'fname'         => 'required',
+        'lname'         => 'required',
+        'mname'         => 'required',
+        'country'       => 'required',
+        'pnumber'       => 'required',
+        'address'       => 'required',
+        'bdate'         => 'required'];
 
     $errMessage = ['required' => 'Enter your :attribute'];
 
@@ -51,17 +59,31 @@ class AccountController extends Controller
 
     $profile = UserModel::find($id);
     $profile->update(['name' => $request->name,
-                        'fname' => $request->fname,
-                        'lname' => $request->lname,
-                            'mname' => $request->mname,
-                                'gender' => $request->gender,
-                                    'country' => $request->country,
-                                        'pnumber' => $request->pnumber,
-                                          'bdate' => $request->bdate,
-                                    'address' => $request->address]);
+        'fname'     => $request->fname,
+        'lname'     => $request->lname,
+        'mname'     => $request->mname,
+        'country'   => $request->country,
+        'pnumber'   => $request->pnumber,
+        'bdate'     => $request->bdate,
+        'address'   => $request->address]);
 
     return redirect('account/profile')->withSuccess('Successfully updated!');
  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
  public function myplan() 
