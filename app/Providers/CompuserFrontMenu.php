@@ -6,7 +6,6 @@ use App\Model\Admin\ProductModel;
 use App\Model\Admin\LocationModel;
 use App\Model\Merchant\Profile;
 use App\Model\Merchant\UserModel;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
