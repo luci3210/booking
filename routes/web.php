@@ -18,8 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'Tourismo\HomeController@index')->name('myhome');
 
 Route::get('/hotels/rooms/{id}', 'Tourismo\HomeController@room')->name('tourismo_room');
-
 Route::get('/tourismoph/hotel/{id}', 'Tourismo\HomeController@hotel_details')->name('tourismo-hotel-details');
+
 
 //});
 
@@ -89,6 +89,17 @@ Route::prefix('ph')->group(function () {
     
     });
 
+// --------------------------------------- PAYMENT -------------------------------------
+
+
+Route::prefix('tourismoph.payment')->group(function () {
+
+    Route::get('/hotels/xxx', 'PaymentController@gentoken')->name('xxx');
+
+    });
+
+// --------------------------------------- ACCOUNT -------------------------------------
+
 
 Route::prefix('account')->group(function () {
 
@@ -97,6 +108,9 @@ Route::prefix('account')->group(function () {
 
     });
 
+
+
+// --------------------------------------ADMIN---------------------------------------
 
 Route::prefix('admin')->group(function () {
 

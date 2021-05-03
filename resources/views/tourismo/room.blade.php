@@ -164,36 +164,60 @@
 <span style="font-size:12px; font-weight: 100px;"><span uk-icon="chevron-down"></span> No cancellation available</span>
 </div>
 
-<div class="uk-accordion-content">
-    
-<form class="uk-form-stacked">
+<div class="uk-accordion-content">    
 
-    <div class="uk-margin">
-        <label class="uk-form-label" for="form-stacked-text">First Name</label>
-        <div class="uk-form-controls">
-            <input class="uk-input" id="form-stacked-text" type="text" placeholder="Some text...">
+<form class="uk-form-stacked" method="GET" action="{{ route('xxx') }}">
+@csrf
+<div class="row row-margin">
+
+<div class="col-md-5 form-group mt-3">
+    <label class="labelcoz">First Name</label>
+    <input type="text" class="uk-input" name="fname" id="fname" value="{{ Auth::user()->fname }}" readonly="readonly">
+    <div class="validate"></div>
+</div>
+
+<div class="col-md-5 form-group mt-3">
+    <label class="labelcoz">First Name</label>
+    <input type="text" class="uk-input" name="lname" id="lname" value="{{ Auth::user()->lname }}" readonly="readonly">
+    <div class="validate"></div>
+</div>
+
+<div class="col-md-2 form-group mt-3">
+    <label class="labelcoz">M.N</label>
+    <input type="text" class="uk-input" name="mname" id="mname" value="{{ Auth::user()->mname }}" readonly="readonly">
+    <div class="validate"></div>
+ </div>
+
+<div class="col-md-6 form-group mt-3">
+    <label class="labelcoz">Phone No.</label>
+    <input type="text" class="uk-input" name="pnumber" id="pnumber" value="{{ Auth::user()->pnumber }}" readonly="readonly">
+    <div class="validate"></div>
+</div>
+
+<div class="col-md-6 form-group mt-3">
+    <label class="labelcoz">Email</label>
+    <input type="text" class="uk-input" name="email" id="email" value="{{ Auth::user()->email }}" readonly="readonly">
+    <div class="validate"></div>
+</div>
+
+<div class="col-md-12 form-group mt-3">
+    <label class="labelcoz">Address</label>
+    <input type="text" class="uk-input" name="address" id="address" value="{{ Auth::user()->address }}" readonly="readonly">
+    <input type="hidden" class="uk-input" name="country" id="country" value="{{ Auth::user()->country }}" readonly="readonly">
+    <div class="validate"></div>
+</div>
+
+<div class="col-md-12 form-group mt-3">
+<div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+            <label><input class="uk-radio" type="radio" name="radio2" checked> Pay with PayPal</label>
+            <label><input class="uk-radio" type="radio" name="radio2" checked> Pay with TraxionPay</label>
         </div>
-    </div>
-
-
-    <div class="uk-margin">
-        <label class="uk-form-label" for="form-stacked-text">Last Name</label>
-        <div class="uk-form-controls">
-            <input class="uk-input" id="form-stacked-text" type="text" placeholder="Some text...">
         </div>
-    </div>
+<div class="col-md-12 form-group mt-3">
+<button type="submit" class="uk-button uk-button-primary">Continue</button>
+</div>
 
-    <div class="uk-margin">
-        <label class="uk-form-label" for="form-stacked-select">Select</label>
-        <div class="uk-form-controls">
-            <select class="uk-select uk-form-small" id="form-stacked-select">
-                <option>Option 01</option>
-                <option>Option 02</option>
-            </select>
-        </div>
-    </div>
-
-
+</div>
 </form>
 
 </div>

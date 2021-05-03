@@ -13,14 +13,14 @@
 
 <div class="uk-background-tph">
     <div class="uk-background-primary uk-light uk-padding uk-panel">
-        <p class="uk-h4">Account ID : 1455256669th2a0</p>
+        <p class="uk-h4">Account ID : AB000001</p>
     </div>
 </div>
 
 
-  <div class="col-lg-3">
-      @include('layouts.tourismo.menu')
-  </div>
+<div class="col-lg-3">
+    @include('layouts.tourismo.acnt_menu')
+</div>
 
 <div class="col-lg-9">
   <form action="{{ route('accnt_profile_update',$account->id) }}" method="post" role="form" class="cls-profile">
