@@ -72,17 +72,17 @@ h1, h2, h3, h4, h5, h6, .font-primary {
   z-index: 997;
   transition: all 0.5s;
   padding: 20px 0;
-  background: #002835;
+  background: #320a55;
 }
 
 #header.header-transparent {
   /*background: none;*/
-  background-color: #002835;
+  background-color: #320a55;
 }
 
 #header.header-scrolled {
   /*background: rgba(30, 67, 86, 0.8);*/
-  background-color: #002835;
+  background-color: #320a55;
   height: 60px;
   padding: 10px 0;
 }
@@ -98,7 +98,7 @@ h1, h2, h3, h4, h5, h6, .font-primary {
 }
 
 #header .logo h1 a, #header .logo h1 a:hover {
-  color: #fff;
+  color: #fe0000;
   text-decoration: none;
 }
 
@@ -341,7 +341,7 @@ h1, h2, h3, h4, h5, h6, .font-primary {
   top: 0;
   width: 130%;
   height: 95%;
-  /*background: linear-gradient(to right, rgba(30, 67, 86, 0.8), rgba(30, 67, 86, 0.6)), url("/upload/merchant/coverphoto/MER20210417607a435ead5a4.jpg") center top no-repeat;*/
+  background: linear-gradient(to right, rgba(30, 67, 86, 0.8), rgba(30, 67, 86, 0.6)), url("https://assets.rappler.co/626A9C73189A409B8751BA9BEE7698AB/img/45BF5821DB3C4928BF3139C59AD201AA/7.jpg") center top no-repeat;
   z-index: 0;
   border-radius: 0 0 50% 50%;
   transform: translateX(-50%) rotate(0deg);
@@ -539,7 +539,7 @@ section {
 }
 
 .section-bg {
-  background-color: #f3f8fa;
+  background-color: #31ceab;
 }
 
 .section-title {
@@ -586,8 +586,9 @@ section {
 --------------------------------------------------------------*/
 .page-breadcrumbs {
   padding: 22px 0;
+  /*margin-top: -55px;*/
   /*background-color: #f3f8fa;*/
-  min-height: 40px;
+  /*min-height: 40px;*/
 }
 
 .page-breadcrumbs h2 {
@@ -691,8 +692,8 @@ section {
 # Our Services
 --------------------------------------------------------------*/
 .services {
-  padding-bottom: 20px;
-  margin-top: -40px;
+  /*padding-bottom: -5px;*/
+  margin-top: 10px;
 }
 
 .services .icon-box {
@@ -858,7 +859,7 @@ section {
 .why-us .play-btn {
   width: 94px;
   height: 94px;
-  background: radial-gradient(#68A4C4 50%, rgba(104, 164, 196, 0.4) 52%);
+  background: radial-gradient(#31ceab 50%, rgba(49, 206, 171, 0.4) 52%);
   border-radius: 50%;
   display: block;
   position: absolute;
@@ -906,7 +907,7 @@ section {
 }
 
 .why-us .play-btn:hover::after {
-  border-left: 15px solid #68A4C4;
+  border-left: 15px solid #31ceab;
   transform: scale(20);
 }
 
@@ -1529,7 +1530,7 @@ section {
   opacity: 0;
   transition: bottom ease-in-out 0.4s;
   text-align: center;
-  background: rgba(30, 67, 86, 0.8);
+  background: rgba(48, 206, 171, 0.6);
 }
 
 .team .member .social a {
@@ -1553,6 +1554,7 @@ section {
   font-weight: 700;
   padding-left: 5px;
   font-size: 18px;
+  padding-top: 10px;
 }
 
 .team .member .details-m{
@@ -2293,7 +2295,7 @@ section {
 # Footer
 --------------------------------------------------------------*/
 #footer {
-  background: #0b212d;
+  background: #4e2671;
   padding: 0 0 30px 0;
   color: #fff;
   font-size: 14px;
@@ -2301,7 +2303,7 @@ section {
 
 #footer .footer-newsletter {
   padding: 50px 0;
-  background: #0d2735;
+  background: #30ceab;
 }
 
 #footer .footer-newsletter h4 {
@@ -2310,7 +2312,7 @@ section {
   padding: 0;
   line-height: 1;
   font-weight: 600;
-  color: #a2cce3;
+  color: #000;
 }
 
 #footer .footer-newsletter form {
@@ -2344,13 +2346,13 @@ section {
 }
 
 #footer .footer-newsletter form input[type="submit"]:hover {
-  background: #468db3;
+  background: #30ceab;
 }
 
 #footer .footer-top {
-  background: #0d2735;
-  border-top: 1px solid #17455e;
-  border-bottom: 1px solid #123649;
+  background: #30ceab;
+  border-top: 1px solid #25b494;
+  border-bottom: 1px solid #5f5f5f;
   padding: 60px 0 30px 0;
 }
 
@@ -2372,13 +2374,13 @@ section {
   line-height: 24px;
   margin-bottom: 0;
   font-family: "Roboto", sans-serif;
-  color: #fff;
+  color: #191919;
 }
 
 #footer .footer-top .social-links a {
   font-size: 18px;
   display: inline-block;
-  background: #1e4356;
+  /*background: #1e4356;*/
   color: #fff;
   line-height: 1;
   padding: 8px 0;
@@ -2399,7 +2401,7 @@ section {
 #footer .footer-top h4 {
   font-size: 18px;
   font-weight: 600;
-  color: #a2cce3;
+  color: #000;
   position: relative;
   padding-bottom: 12px;
 }
@@ -2416,7 +2418,7 @@ section {
 
 #footer .footer-top .footer-links ul i {
   padding-right: 2px;
-  color: #a2cce3;
+  color: #191919;
   font-size: 18px;
   line-height: 1;
 }
@@ -2448,6 +2450,7 @@ section {
 
 #footer .footer-top .footer-contact p {
   line-height: 26px;
+  color: #191919;
 }
 
 #footer .copyright {
@@ -2470,8 +2473,8 @@ section {
 
 .uk-button-small
 {
-  background-color: #ff4700 !important;
-  border-radius: 4px !important;
+  background-color: #502672 !important;
+  border-radius: 3px !important;
   color: #fff !important;
   border:none !important;
   text-transform: capitalize !important;
@@ -2481,8 +2484,8 @@ section {
 
 .uk-button-small:hover
 {
-  background-color: #ff3300 !important;
-  border-radius: 4px !important;
+  background-color: #2c0d45 !important;
+  border-radius: 3px !important;
   border:none;
   color: #fff !important;
   text-transform: capitalize !important;
@@ -2579,4 +2582,12 @@ input[type="file"] {
 }
 .uk-background-tph {
   margin-bottom: 18px;
+}
+.uk-heading-ext {
+  font-size: 15px !important;
+  font-weight: 100 !important;
+  padding-left: 25px;
+}
+.uk-heading-bullet::before {
+  border-left:5px solid #2c0d45 !important;
 }

@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>TourismoPH</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-  <link href="{{ asset('public/img/favicon.png') }}" rel="icon">
-  <link href="{{ asset('public/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+  <meta content="" name="Tourismo">
+  <meta content="" name="Tourismo">
+  <link href="{{ asset('image/logo/favicon.png') }}" rel="icon">
+  <link href="{{ asset('image/logo/favicon.png') }}" rel="apple-touch-icon">
 
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i&display=swap" rel="stylesheet">
   <link href="{{ asset('public/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -42,7 +42,7 @@
         <div class="row">
           <div class="col-lg-6">
             <h4>Our Newsletter</h4>
-            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+            <p>. . . . . .</p>
           </div>
           <div class="col-lg-6">
             <form action="" method="post">
@@ -92,7 +92,7 @@
           </div>
 
           <div class="col-lg-3 col-md-6 footer-info">
-            <h3>About Moderna</h3>
+            <h3>About TourismoPH</h3>
             <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
             <div class="social-links mt-3">
               <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
@@ -108,11 +108,11 @@
 
     <div class="container">
       <div class="copyright">
-        &copy; Copyright <strong><span>Moderna</span></strong>. All Rights Reserved
+        &copy; Copyright <strong><span>TourismoPH</span></strong>. All Rights Reserved
       </div>
-      <div class="credits">
+      <!-- <div class="credits">
         Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-      </div>
+      </div> -->
     </div>
   </footer>
 

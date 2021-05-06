@@ -107,6 +107,24 @@
 </ul>
 </li>
 
+<li class="nav-item">
+  <a href="{{ route('destination_addnew') }}" class="nav-link">
+    <i class="nav-icon fa fa-database" aria-hidden="true"></i>
+        <p>
+      Manage Destination
+    </p>
+  </a>
+</li>
+
+<li class="nav-item">
+  <a href="{{ route('product') }}" class="nav-link">
+    <i class="nav-icon fa fa-database" aria-hidden="true"></i>
+      <p>
+        Manage Banner  
+      </p>
+  </a>
+</li>
+
 
 
 

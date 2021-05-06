@@ -166,7 +166,7 @@
 
 <div class="uk-accordion-content">    
 
-<form class="uk-form-stacked" method="GET" action="{{ route('xxx') }}">
+<form class="uk-form-stacked" method="POST" action="{{ route('xxxx') }}">
 @csrf
 <div class="row row-margin">
 

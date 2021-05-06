@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Tourismo;
 
 use App\Model\Admin\ProductModel;
 use App\Model\Merchant\HotelModel;
+use App\Model\Admin\DestinationModel;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -11,11 +12,6 @@ use Response;
 
 class HomeController extends Controller
 {
-
-    // public function __construct()
-    // {
-    //     //$this->middleware('auth');
-    // }
 
 public function hotels() {
 
@@ -51,13 +47,18 @@ public function  hotel_details($id) {
     // return json_encode(LocationDistrictModel::select()->where('region_id',$id)->get());
 
     }
+public function destination() {
+
+    return DestinationModel::where('temp_status',1)->get();
+}
 public function index()
     {
 
     	$hotel 	= $this->hotels();
+        $destination = $this->destination();
     	// $hotels_details = $this->hotel_details();
 
-        return view('tourismo.home', compact(['hotel','hotels_details']));
+        return view('tourismo.home', compact(['hotel','destination']));
     }
 
 public function room($id) {

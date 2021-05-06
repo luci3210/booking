@@ -94,7 +94,8 @@ Route::prefix('ph')->group(function () {
 
 Route::prefix('tourismoph.payment')->group(function () {
 
-    Route::get('/hotels/xxx', 'PaymentController@gentoken')->name('xxx');
+    Route::post('/hotels/xxx', 'PaymentController@gentoken')->name('xxx');
+    Route::post('/hotels/xxxx', 'PaymentController@pay_booking')->name('xxxx');
 
     });
 
@@ -162,13 +163,22 @@ Route::prefix('admin')->group(function () {
     Route::get('/location/region/select/{id}', 'Admin\LocationController@find_region_id')->name('find_region_id');
     Route::get('/location/district/select/{id}', 'Admin\LocationController@find_district_id')->name('find_district_id');
     Route::get('/location/city/select/{id}', 'Admin\LocationController@find_city_id')->name('find_city_id');
+   
     Route::get('/location/municipality/select/{id}', 'Admin\LocationController@find_municipality_id')->name('find_municipality_id');
 
     // Route::get('/location/region/selecta', [\App\Http\Livewire\Location::class,'render'])->name('asas.ss');
 
-    
-    
+// ---------------------- DESTINATION -----------------------------
 
+Route::get(
+        '/tourismo/destination/addnew', 
+        'Admin\DestinationController@destination_form')
+        ->name('destination_addnew');    
+
+Route::post(
+        '/tourismo/destination/addnedw', 
+        'Admin\DestinationController@destination_submit_form')
+        ->name('destination_submit_form');
    
     // Route::get('/tourismo/ph/page/4/inclusion/{id}/www/facilities/edit/{idt}', 'Admin\InclusionController@roomfacilities_edit')->name('facilities_edit');
 

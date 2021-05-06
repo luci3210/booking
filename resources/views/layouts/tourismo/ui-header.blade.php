@@ -7,6 +7,8 @@
         <a href="{{ route('myhome') }}"><span><img src="{{ asset('image/logo/logo.png') }}"></span></a>
       </div>
 
+    
+
       <nav class="nav-menu float-right d-none d-lg-block">
         <ul>
           <li class="active"><a href="index.html"><i class="fas fa-mobile-alt"></i> <b>Download App</b></a></li>
