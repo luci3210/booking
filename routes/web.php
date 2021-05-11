@@ -46,10 +46,14 @@ Route::get('/merchant/profile/delete-address/{id}', 'Merchant\UserController@pro
 Route::post('/merchant/profile/picture', 'Merchant\UploadController@crop')->name('profile-pic-crop');
 
 //SERVISES
-Route::get('/merchant/service/jayson/', 'Merchant\ServiceController@get_cover_id');
-Route::get('/merchant/service/{id}', 'Merchant\ServiceController@index')->name('service');
-Route::post('/merchant/service/', 'Merchant\ServiceController@savehotel')->name('service-submit');
+Route::get('/merchant/services/jayson/', 'Merchant\ServiceController@get_cover_id'); //extra
+
+Route::get('/merchant/services/{id}/addnew', 'Merchant\ServiceController@index')->name('service');
+Route::post('/merchant/services/', 'Merchant\ServiceController@savehotel')->name('service-submit');
+Route::post('/merchant/service/tour', 'Merchant\ServiceController@savetour')->name('service_tour_submit');
+
 Route::post('/merchant/service/upload_cover', 'Merchant\ServiceController@upload_cover')->name('upload_cover');
+Route::post('/merchant/service/upload_tour_photos', 'Merchant\ServiceController@upload_tour_photos')->name('tour_photos');
 
 Route::post('dropzone/upload_image', 'Merchant\ServiceControllerr@upload_image')->name('dropzone.upload_image');
 Route::get('dropzone/fetch_image', 'Merchant\ServiceController@fetch_image')->name('dropzone.fetch_image');
@@ -83,9 +87,12 @@ Route::get('/3210/logout', 'Auth\LoginController@userLogout')->name('logout');
 
 
 //Other route
-Route::prefix('ph')->group(function () {
+Route::prefix('merchant')->group(function () {
 
-    Route::get('/plan', 'Other\PlanContoller@index')->name('other-plan');
+    Route::get('/subscription_plan', 'Other\PlanContoller@index')->name('other-plan');
+    Route::get('/subscription_plan/step-1/{id}/plan','Tourismo\SubscribeContollrer@subscribe')->name('subscribe-steps');
+    Route::post('/subscription_plan/step-1/submit','Tourismo\SubscribeContollrer@add_subscribe')->name('subscribe-submit');
+
     
     });
 

@@ -56,6 +56,7 @@
 </div>
 </div>
 
+
 @endif
 
 
@@ -71,44 +72,69 @@
       </p>
     </div>
 
-    <div class="row">
 
-      @forelse($plan as $plans)
+<div class="uk-card uk-card-default uk-card-body">
+            
+<h3 class="uikit-title">
+  Step - 1 (verify your plan or subscription package.)
+</h3>
 
-      <div class="col-lg-4 box">
+  
+<form method="POST" action="{{ route('subscribe-submit') }}">
+@csrf
+<div class="row row-margin">
 
-        <h3>{{ $plans->plan_name }}</h3>
-        <h4>P {{ $plans->plan_price }}<span>{{ $plans->plan_scope }}</span></h4>
-        
-        <ul>
+<div class="col-md-6 form-group mt-3">
+    <label class="labelcoz"><span class="input_required">*</span> Plan/Subcription Name </label>
+    <input type="text" class="uk-input" name="plan_name" id="plan_name" value="{{ $plan->plan_name }}" readonly="readonly">
+    <div class="validate"></div>
+</div>
 
-          @foreach(explode(',', $plans->plan_package) as $package) 
-          <li><i class="bx bx-check"></i> {{ $package }}</li>
-          @endforeach
-        
-        </ul>
+<div class="col-md-6 form-group mt-3">
+    <label class="labelcoz"><span class="input_required">*</span> Price (php)</label>
+    <input type="text" class="uk-input" name="price" id="price" value="{{ $plan->plan_price }}" readonly="readonly">
+    <div class="validate"></div>
+</div>
 
-        @if(Auth::check())
-        @auth
 
-        <a class="uk-button uk-button-default" href="{{ route('subscribe-steps',$plans->id) }}">
-          Subscribe Now
-        </a>
+<div class="col-md-12 form-group mt-3">
+    <label class="labelcoz"><span class="input_required">*</span> Plan/Subcription Package</label>
+    <input type="text" class="uk-input" name="package" id="package" value="{{ $plan->plan_package }}" readonly="readonly">
+    <div class="validate"></div>
+</div>
 
-        @endauth
-        @else 
+<div class="col-md-6 form-group mt-3">
+    <label class="labelcoz"><span class="input_required">*</span> Validity</label>
+    <input type="text" class="uk-input" name="validity" id="validity" value="{{ $plan->plan_scope }}" readonly="readonly">
+    <div class="validate"></div>
+ </div>
 
-        <a class="uk-button uk-button-default" href="javascript:void(0)" uk-toggle="target:#checklogin">
-          Subscribe Now
-        </a>
+<div class="col-md-6 form-group mt-3">
+    <label class="labelcoz"><span class="input_required">*</span> End date Validity</label>
+    <input type="text" class="uk-input" name="end_date" id="end_date" value="" >
+    <div class="validate"></div>
+</div>
 
-        @endif
+<div class="col-md-12 form-group mt-3">
+    <label>
+    <input class="uk-checkbox" type="checkbox" name="terms" value="1"> &nbsp;<span class="input_required">*</span> Yes! i read and agree the terms and condation. 
+      <b>Terms and Condation</b>
+    </label>
+</div>
 
-      </div>
+<div class="col-md-12 form-group mt-3">
+<button type="submit" class="uk-button uk-button-default">Continue</button>
+</div>
+</div>
+</form>
 
-      @endforeach
+          <!-- ---------------------------- user is authenticated ----------------- -->
+  
+</div>
 
-    </div>
+
+
+
 
     <br>
     <br>

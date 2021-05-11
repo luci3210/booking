@@ -103,7 +103,8 @@
             <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
                 <div class="uk-width-1-1@m">
                     <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
-                        <h3 class="uk-card-title uk-text-center">Booking Tourismo</h3>
+                        <h3 class="uk-card-title uk-text-center"><img src="{{ asset('image/logo/logoab.png') }}"></h3>
+                        <div class="uk-lg-margin"></div>
                         
     <form method="POST" action="{{ route('login') }}">
       @csrf
@@ -122,14 +123,14 @@
         </div>
 
         <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
-            <label><input class="uk-checkbox" type="checkbox"> Remember Me</label>
+            <label class="uk-text-small"><input class="uk-checkbox" type="checkbox"> Remember Me</label>
         </div>
 
         <div class="uk-margin">
             <button type="submit" class="uk-button uk-button-primary uk-button-meduim uk-width-1-1">Login</button>
         </div>
         <div class="uk-text-small uk-text-center">
-            Not registered? <a href="#register" uk-toggle>Register</a>
+            No account yet? <a href="#register" uk-toggle><b>Register</b></a>
         </div>
     </form>
 

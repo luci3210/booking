@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-
 use App\Model\Admin\DestinationModel;
 use App\Model\Admin\LocationDistrictModel;
 use App\Model\Admin\TempStatusModel;
-
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -46,7 +44,6 @@ class DestinationController extends Controller
             	// 'file'		=> 'required|mimes:jpeg,png,jpg|max:21048',
         ];
 
-        // $imageName = time().'.';  
         $file = $request->file('file');
 	    $new_image_name = 'DESTI'.date('Ymd').uniqid().'.jpg';
         $file->move(public_path('image/destination'), $new_image_name);

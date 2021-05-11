@@ -60,7 +60,7 @@
 
     <div class="col-md-6 form-group mt-3">
     <label class="labelcoz">Mobile No.</label>
-    <input type="text" class="form-control" name="mobileno" id="mobileno" value="{{ $merchant->phonno }}" placeholder="Mobile Number">
+    <input type="text" class="uk-input" name="mobileno" id="mobileno" value="{{ $merchant->phonno }}" placeholder="Mobile Number">
     <div class="validate"></div>
     </div>
 

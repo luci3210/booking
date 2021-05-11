@@ -19,8 +19,10 @@ use App\Model\Admin\LocationMunicipalityModel;
 use App\Model\Admin\LocationBarangayModel;
 
 use App\Model\Merchant\HotelPhoMoldel;
+use App\Model\Merchant\TourPhoModel;
 use App\Model\Merchant\Profile;
 use App\Model\Merchant\HotelModel;
+use App\Model\Merchant\TourModel;
 use App\Model\Merchant\MerchantAddress;
 
 class ServiceController extends Controller
@@ -81,26 +83,62 @@ public function find_barangay_id($id)
     return json_encode(LocationBarangayModel::select()->where('municipality_id',$id)->get());   
 }
 
+public function profile_photo() {
+
+    return Profile::where('user_id', Auth::user()->id)->get('profilepic')->first();
+}
+
+public function services() {
+
+    return ProductModel::join('temp_status','temp_status.id','=','products.temp_status')
+            ->where('temp_status.status','=','active')->get('products.name','products.id')->first();
+}
+
+public function tour_package() {
+
+    $room_facilities        = $this->room_facilities();
+    $building_facilities    = $this->building_facilities();
+    $packages               = $this->packages();
+    $address                = $this->address();
+    $country                = $this->country();
+    $profile_photo          = $this->profile_photo();
+
+    return view('merchant.services.index',compact([
+            'product','room_facilities','building_facilities','packages','country','address','profile_photo']));
+}
 
 public function index($id) {
 
     $room_facilities        = $this->room_facilities();
     $building_facilities    = $this->building_facilities();
     $packages               = $this->packages();
-
     $address                = $this->address();
     $country                = $this->country();
+    $profile_photo          = $this->profile_photo();
 
-    $profpic = Profile::join('users','users.id','=','profiles.user_id')
-    	->where('users.id','=',Auth::user()->id)->get(['users.*','profiles.*']);
-
-    	$product = ProductModel::join('temp_status','temp_status.id','=','products.temp_status')
+    $product = ProductModel::join('temp_status','temp_status.id','=','products.temp_status')
     		->where('products.id','=',$id)
-    		->where('temp_status.status','=','active')->get(['products.id as productid','products.name','products.temp_status','temp_status.id','temp_status.status'])->first();
+    		->where('temp_status.status','=','active')
+                ->get(['products.id as productid','products.name','products.temp_status','temp_status.id','temp_status.status'])->first();
+
+    if($id == 10016) {
 
     	return view('merchant.services.index',compact([
-            'profpic','product','room_facilities','building_facilities','packages','country','address']));
+            'product','room_facilities','building_facilities','packages','country','address','profile_photo']));
     }
+
+    elseif($id == 10011) {
+
+        return view('merchant.services.tour',compact([
+            'product','room_facilities','building_facilities','packages','country','address','profile_photo']));
+    }
+
+    else {
+
+        return false;
+    }
+
+}
 public function savehotel(Request $request)
     {
     	 $rules = [
@@ -140,25 +178,71 @@ public function savehotel(Request $request)
             'created_at' =>  \Carbon\Carbon::now(),
           ]);
 
-return redirect()->route('service', ['id' => 10016])->withSuccess('Successfully added!');
-    }
+    return redirect()->route('service', ['id' => 10016])->withSuccess('Successfully added!');
+}
+public function savetour() {
 
-public function get_cover_id()
-{
-   $getid =  HotelModel::where('profid',Auth::user()->id)->limit(1)->orderBy('id','desc')->get();
-   $phtoid = $getid[0]->id +1;
 
-   for ($x = 1; $x <= $phtoid; $x++) 
-    {
-        $valid = ($phtoid-$phtoid)+$phtoid;
-    }
+         $rules = [
+            'price' => 'required',
+            'numnight' => 'required',
+            'tour_name' => 'required',
+            'roomsize' => 'required',
+            'tour_desc' => 'required',
+            'viewdeck' => 'required',
+            'numguest' => 'required',
+            'numbed' => 'required'];
+
+
+        $errMessage = ['required' => '* Enter your :attribute'];
+
+        $this->validate($request, $rules, $errMessage);   
+
+        HotelModel::updateOrInsert(['price' => $request->price,
+            'nonight' => $request->numnight,
+            'tour_name' => $request->tour_name,
+            'roomsize' => $request->roomsize,
+            'tour_desc' => $request->roomdesc,
+            'viewdeck' => $request->viewdeck,
+            'noguest' => $request->numguest,
+            'nobed' => $request->numbed,
+            'profid' => Auth::user()->id,
+            'room_facilities' => implode(',', $request->room),  
+            'building_facilities' => implode(',', $request->building),
+            'booking_package'  => implode(',', $request->package),
+            'country'  => $request->country,
+            'region'  => $request->region,
+            'district'  => $request->district,
+            'city'  => $request->city,
+            'municipality'  => $request->municipality,
+            'barangay'  => $request->barangay,
+            'address_id'  => $request->address,
+            'created_at' =>  \Carbon\Carbon::now(),
+          ]);
+
+    return redirect()->route('service', ['id' => 10016])->withSuccess('Successfully added!');
+}
+
+//----------------- service hotel
+
+public function get_cover_id()  {
+
+    $getid =  HotelModel::where('profid',Auth::user()->id)->limit(1)->orderBy('id','desc')->get();
+
+    $phtoid = $getid[0]->id +1;
+
+    for ($x = 1; $x <= $phtoid; $x++) {
+
+            $valid = ($phtoid-$phtoid)+$phtoid;
+        }
     return $valid;
 }
-public function upload_cover(Request $request)
-    {
+
+public function upload_cover(Request $request)  {
+
         $imageName = $request->file('file');
-        $new_image_name = 'MER'.date('Ymd').uniqid().'.jpg';
- 
+        $new_image_name = 'room-photo'.date('Ymd').uniqid().'.jpg';
+
         $count_id = $this->get_cover_id();
        
         request()->file->move(public_path('upload/merchant/coverphoto'), $new_image_name);
@@ -166,7 +250,34 @@ public function upload_cover(Request $request)
         HotelPhoMoldel::create(['merchant_id' => 1, 'upload_id' => $count_id, 'photo' => $new_image_name]); 
 
         return response()->json(['uploaded' => '/upload/merchant/coverphoto'.$new_image_name]);
-    }
+}
 
+//-------------------- service tour package
+public function gettour_id()  {
+
+    $getid =  HotelModel::where('profid',Auth::user()->id)->limit(1)->orderBy('id','desc')->get();
+
+    $phtoid = $getid[0]->id +1;
+
+    for ($x = 1; $x <= $phtoid; $x++) {
+
+            $valid = ($phtoid-$phtoid)+$phtoid;
+        }
+    return $valid;
+}
+
+public function upload_tour_photos(Request $request)  {
+    
+        $imageName = $request->file('file');
+        $new_image_name = 'tour-photo'.date('Ymd').uniqid().'.jpg';
+
+        $count_id = $this->gettour_id();
+       
+        request()->file->move(public_path('upload/merchant/tour'), $new_image_name);
+
+        TourPhoModel::create(['merchant_id' => Auth::user()->id, 'upload_id' => $count_id, 'photo' => $new_image_name]); 
+
+        return response()->json(['uploaded' => '/upload/merchant/tour'.$new_image_name]);
+    }
 
 }

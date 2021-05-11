@@ -39,23 +39,23 @@
 </div>
 
 <div class="col-lg-9">
-<form action="{{ route('service-submit') }}" method="post" role="form" enctype="multipart/form-data" class="cls-profile">
+<form action="{{ route('service_tour_submit') }}" method="post" role="form" enctype="multipart/form-data" class="cls-profile">
   @csrf
 
 
 <div class="row row-margin">
 <div class="section-title">
-<h2>Service / Hotel</h2>
+<h2>Service - Tour and Package</h2>
 </div>
   <div class="col-md-12 form-group mt-3">
-  <label class="labelcoz"><span class="uk-text-danger">*</span> Room Name</label>
-  <input type="text" class="uk-input" name="roomname" id="roomname" placeholder="Room Name">
+  <label class="labelcoz"><span class="uk-text-danger">*</span> Tour Package Name</label>
+  <input type="text" class="uk-input" name="tour_name" id="tour_name" placeholder="Room Name">
   <div class="validate"></div>
 </div>
 
 <div class="col-md-12 form-group mt-3">
-  <label class="labelcoz"><span class="uk-text-danger">*</span> Room Description</label>
-  <textarea class="uk-textarea" name="roomdesc" rows="5" placeholder="Room Description"rows="5"></textarea>
+  <label class="labelcoz"><span class="uk-text-danger">*</span> Tour Package Description</label>
+  <textarea class="uk-textarea" name="tour_desc" id='tour_desc' rows="5" placeholder="Room Description"rows="5"></textarea>
   <div class="validate"></div>
 </div>
 
@@ -286,7 +286,7 @@
     <script type="text/javascript">
         $("#file-1").fileinput({
             theme: 'fa',
-            uploadUrl: "{{ route('upload_cover') }}",
+            uploadUrl: "{{ route('tour_photos') }}",
             uploadExtraData: function() {
                 return {
                     _token: $("input[name='_token']").val(),

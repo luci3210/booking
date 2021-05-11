@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Other;
 
+use App\Model\Admin\PlanModel;
 use App\Model\Merchant\MyplanModel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -13,6 +14,8 @@ class PlanContoller extends Controller
 
  	public function index() {
 
+ 		$plan = $this->plan();
+
  		if(Auth::check()) {	
 
  			$myplan = MyplanModel::join('temp_status','temp_status.id', 'myplans.temp_status')
@@ -23,7 +26,7 @@ class PlanContoller extends Controller
 
  			if(empty($myplan)) {
 
-				return view('tourismo.subcription.plan');
+				return view('tourismo.subcription.plan',compact('plan'));
 			}
 			else {
 
@@ -32,7 +35,14 @@ class PlanContoller extends Controller
  		}
 	    else {
 
-	    	return view('tourismo.subcription.plan');
+	    	return view('tourismo.subcription.plan',compact('plan'));
 	    }
 }
+
+	public function plan() { 
+
+		return PlanModel::join('temp_status','temp_status.id','=','plans.temp_status')
+	                ->where('plans.temp_status','=','1')->get(['plans.*','temp_status.status']);
+	}
+
 }

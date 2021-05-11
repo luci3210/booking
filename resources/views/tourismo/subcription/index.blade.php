@@ -53,7 +53,7 @@
               <div class="icon"><i class="bx bx-file"></i></div>
 
               <h4 class="title"><a href="">{{ $plans->plan_name }}</a></h4>
-              <h3>P{{ $plans->plan_price }}</h3>
+              <h3>P {{ $plans->plan_price }}</h3>
               
                   @foreach(explode(',', $plans->plan_package) as $package) 
                     <p class="description"><span uk-icon="check"></span> {{ $package }}</p>
@@ -66,22 +66,6 @@
     @empty
       <p> No listing found!</p> 
     @endforelse
-
-<!--           <div class="col-md-6 col-lg-4 d-flex align-items-stretch aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
-            <div class="icon-box icon-box-cyan">
-              <div class="icon"><i class="bx bx-file"></i></div>
-              <h4 class="title"><a href="">Sed ut perspiciatis</a></h4>
-              <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-4 d-flex align-items-stretch aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
-            <div class="icon-box icon-box-green">
-              <div class="icon"><i class="bx bx-file"></i></div>
-              <h4 class="title"><a href="">Magni Dolores</a></h4>
-              <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-            </div>
-          </div> -->
 
         </div>
 

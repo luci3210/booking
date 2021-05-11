@@ -1,23 +1,37 @@
 
+
+
+
 <div class="info-box">
 
-	<img class="uk-border-circle" src="{{ asset('upload/merchant/profilepic')}}/{{ $photo->profilepic == '' ? 'default.png' : $photo->profilepic }}" width="150" height="150" alt="Border pill">
+@if(empty($profile_photo->profilepic))
+<img class="uk-border-circle" src="{{ asset('upload/merchant/profilepic/default.png') }}" width="150" height="150" alt="Border pill">
+@else
+<img class="uk-border-circle" src="{{ asset('upload/merchant/profilepic') }}/{{ $profile_photo->profilepic }}" width="150" height="150" alt="Border pill">
+@endif
  
 <h5>
   <div class="js-upload uk-placeholder uk-text-center">
     
         <label class="custom-file-upload">
-    	<input type="file" name="file" id="file"/>
-    	<i class="fa fa-cloud-upload"></i> Upload Photo
-	</label>
+    	   <input type="file" name="file" id="file"/>
+    	   <i class="fa fa-cloud-upload"></i> Upload Photo
+	     </label>
     
 </div>
 </h5>
 
+
+
+
+
 <div class="info-box-ext">
+
+
+
 <ul uk-accordion class="list-group-unbordered mb-3">
 
-<li>
+<li class="marg_menu">
 <a class="active uk-accordion-title" href="{{ route('profile-contact') }}"><span uk-icon="home"></span> <span class="uk-list-a"> Merchant</span></a>
 <div class="uk-accordion-content">
   <p><a href="{{ route('m-user') }}"><span uk-icon="check"></span>  Profile</a></p>
@@ -27,7 +41,7 @@
 </div>
 </li>
 
-<li>
+<li class="marg_menu mm_mrg">
 <a class="uk-accordion-title" href="#"><span uk-icon="album"></span> <span class="uk-list-a"> Services</span></a>
 	<div class="uk-accordion-content">
 	@foreach($services as $service)

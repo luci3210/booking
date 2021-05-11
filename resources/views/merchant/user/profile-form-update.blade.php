@@ -28,26 +28,30 @@
 </div>
 
 
-
 <div class="col-lg-9">
 <form action="{{ route('profile-save') }}" method="post" role="form" class="cls-profile">
 @csrf
 
 <div class="row row-margin">
+<div class="col-md-12 form-group mt-3">
+  <div class="uk-alert-danger" uk-alert>
+      <a class="uk-alert-close" uk-close></a>
+      <p class="alert-font-size"> 
+       <span class="uk-margin-small-right" uk-icon="info"></span>We required to update the following as merchant identity!
+      </p>
+  </div>
+</div>
+
 
 <div class="col-md-12 form-group mt-3">
-<div class="uk-alert-danger" uk-alert>
-    <a class="uk-alert-close" uk-close></a>
-    <p class="alert-font-size"> 
-     <span class="uk-margin-small-right" uk-icon="info"></span>We required to update the following as merchant identity!
-    </p>
+<label class="labelcoz"><span class="uk-text-danger">*</span> Merchant Name</label>
+<input type="text" class="uk-input" name="companyname" id="companyname" value="" placeholder="Company Name">
+<div class="validate"></div>
 </div>
-</div>
-
 
   <div class="col-md-12 form-group mt-3">
-  <label class="labelcoz"><span class="uk-text-danger">*</span> Merchant Name</label>
-  <input type="text" class="uk-input" name="companyname" id="companyname" value="" placeholder="Company Name">
+  <label class="labelcoz"><span class="uk-text-danger">*</span> Merchant Overview</label>
+  <input type="text" class="uk-input" name="about" id="about" value="" placeholder="Merchant Overview">
   <div class="validate"></div>
   </div>
 

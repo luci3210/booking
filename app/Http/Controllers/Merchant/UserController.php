@@ -8,7 +8,7 @@ use App\Model\Merchant\UserModel;
 use App\Model\Merchant\Profile;
 use App\Model\Merchant\MerchantModel;
 use App\Model\Merchant\MyplanModel;
-
+use App\Model\Merchant\HotelModel;
 use App\Model\Admin\PlanModel;
 use App\Model\Merchant\MerchantContact;
 use App\Model\Merchant\MerchantAddress;
@@ -32,7 +32,7 @@ class UserController extends Controller
             ->join('users','users.id', 'myplans.user_id')
                 ->where('myplans.user_id', Auth::user()->id)
                 ->where('temp_status.status','=','active')
-                    ->get(['myplans.user_id','myplans.temp_status','temp_status.id','temp_status.status','users.id'])->first();
+                    ->get(['myplans.id as planid','myplans.user_id','myplans.temp_status','temp_status.id','temp_status.status','users.id'])->first();
  }
 
  public function merchant()
@@ -42,7 +42,7 @@ class UserController extends Controller
         ->join('users','users.id', 'myplans.user_id')
         ->join('profiles','profiles.plan_id', 'myplans.id')
             ->where('myplans.user_id', Auth::user()->id)
-            ->where('temp_status.status','=','active') ->get('profiles.*')->first();
+            ->where('temp_status.status','=','active') ->get(['profiles.*','myplans.id as planid'])->first();
  }
 
  public function contact() 
@@ -63,16 +63,22 @@ class UserController extends Controller
                     ->get(['profiles.*','merchant_address.*']);
  }
 
+ public function profile_photo() {
+
+    return Profile::where('user_id', Auth::user()->id)->get('profilepic')->first();
+}
+
  public function index()
  {
 
 	if (session('success_message')) {
 		Alert::success('Success!', session('success_message'));
 	}
-
+   
     $merchant       = $this->merchant();
     $contacts       = $this->contact();
     $address        = $this->address();
+    $profile_photo  = $this->profile_photo();
 
     if(empty($this->myplan())) 
         {
@@ -82,11 +88,11 @@ class UserController extends Controller
         {
             if(empty($merchant)) 
                 {
-                    return view('merchant.user.profile-form-update',compact(['merchant','contacts','address']));
+                    return view('merchant.user.profile-form-update',compact(['merchant','contacts','address','profile_photo']));
                 }
             else 
                 {
-                    return view('merchant.user.profile-form',compact(['merchant','contacts','address']));
+                    return view('merchant.user.profile-form',compact(['merchant','contacts','address','profile_photo']));
                 }
         }
 
@@ -168,12 +174,15 @@ public function profiles(Request $request)
 
         Profile::create(['company'      => $request->companyname,
                         'address'       => $request->companyaddress,
+                        'plan_id'       => $this->myplan()->planid,
                         'about'         => $request->about,
                         'email'         => $request->email,
                         'telno'         => $request->telno,
                         'phonno'        => $request->mobileno,
                         'website'       => $request->website,
-                      	'user_id' => Auth::user()->id]);
+                      	'user_id'       => Auth::user()->id]);
+
+        HotelModel::create(['profid' => Auth::user()->id]);
     return redirect('merchant')->withSuccess('Successfully added!');
 }
 
