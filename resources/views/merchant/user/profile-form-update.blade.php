@@ -50,10 +50,20 @@
 </div>
 
   <div class="col-md-12 form-group mt-3">
-  <label class="labelcoz"><span class="uk-text-danger">*</span> Merchant Overview</label>
+  <label class="labelcoz"><span class="uk-text-danger">*</span>About</label>
   <input type="text" class="uk-input" name="about" id="about" value="" placeholder="Merchant Overview">
   <div class="validate"></div>
   </div>
+
+
+<div class="col-md-12 form-group mt-3">
+<label class="labelcoz"><span class="uk-text-danger">*</span>Merchant Type</label>
+<select class="uk-select" name="mtype">
+  @foreach($type as $list)
+    <option value="{{ $list->id }}">{{ $list->id }}</option>
+  @endforeach
+</select>
+</div>
 
 
 <div class="col-md-12 form-group mt-3">

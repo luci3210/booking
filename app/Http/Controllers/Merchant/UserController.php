@@ -10,6 +10,7 @@ use App\Model\Merchant\MerchantModel;
 use App\Model\Merchant\MyplanModel;
 use App\Model\Merchant\HotelModel;
 use App\Model\Admin\PlanModel;
+use App\Model\Admin\ProductModel;
 use App\Model\Merchant\MerchantContact;
 use App\Model\Merchant\MerchantAddress;
 use Illuminate\Support\Facades\Auth;
@@ -63,11 +64,13 @@ class UserController extends Controller
                     ->get(['profiles.*','merchant_address.*']);
  }
 
- public function profile_photo() {
+public function profile_photo() {
 
     return Profile::where('user_id', Auth::user()->id)->get('profilepic')->first();
 }
-
+public function merchant_type() {
+    return ProductModel::where('temp_status',1)->get();
+}
  public function index()
  {
 
@@ -79,6 +82,7 @@ class UserController extends Controller
     $contacts       = $this->contact();
     $address        = $this->address();
     $profile_photo  = $this->profile_photo();
+    $type           = $this->merchant_type();
 
     if(empty($this->myplan())) 
         {
@@ -88,11 +92,11 @@ class UserController extends Controller
         {
             if(empty($merchant)) 
                 {
-                    return view('merchant.user.profile-form-update',compact(['merchant','contacts','address','profile_photo']));
+                    return view('merchant.user.profile-form-update',compact(['merchant','contacts','address','profile_photo','type']));
                 }
             else 
                 {
-                    return view('merchant.user.profile-form',compact(['merchant','contacts','address','profile_photo']));
+                    return view('merchant.user.profile-form',compact(['merchant','contacts','address','profile_photo','type']));
                 }
         }
 
@@ -166,6 +170,7 @@ public function profiles(Request $request)
             'email'             => 'required',
             'website'           => 'required',
             'telno'             => 'required',
+            'mtype'             => 'required',
             'mobileno'          => 'required'];
 
         $errMessage = ['required' => '* Enter your :attribute'];
@@ -178,6 +183,7 @@ public function profiles(Request $request)
                         'about'         => $request->about,
                         'email'         => $request->email,
                         'telno'         => $request->telno,
+                        'type'         => $request->mtype,
                         'phonno'        => $request->mobileno,
                         'website'       => $request->website,
                       	'user_id'       => Auth::user()->id]);
@@ -194,6 +200,7 @@ public function profile_update(Request $request, $id)
             'email'             => 'required',
             'website'           => 'required',
             'telno'             => 'required',
+            'mtype'             => 'required',
             'mobileno'          => 'required',
             'about'             => 'required'
             ];
@@ -208,6 +215,7 @@ public function profile_update(Request $request, $id)
                         'address' => $request->companyaddress,
                             'email' => $request->email,
                                 'telno' => $request->telno,
+                                'type' => $request->mtype,
                                     'phonno' => $request->mobileno,
                                         'website' => $request->website]);
 

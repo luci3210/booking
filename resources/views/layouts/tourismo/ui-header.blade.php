@@ -1,11 +1,20 @@
 
 <header id="header" class="fixed-top header-transparent">
-    <div class="container d-flex justify-content-between align-items-center">
+    <div class="d-flex justify-content-between align-items-center">
 
       <div class="logo">
         <!-- <h1 class="text-light"><a href="{{ route('myhome') }}"><span><img src="{{ asset('image/logo/logo.png') }}"></span></a></h1> -->
-        <a href="{{ route('myhome') }}"><span><img src="{{ asset('image/logo/logo.png') }}"></span></a>
-      </div>
+        <a href="{{ route('myhome') }}">
+            <span>
+                <img src="{{ asset('image/logo/logoab.png') }}"  style="padding-top: 5px; padding-right: 20px;">
+            </span>
+        </a>
+      
+      <form class="d-flex float-end">
+        <input class="form-control" type="search" placeholder="Search" aria-label="Search" style="border-radius: 23px;">
+      </form>
+
+  </div>
 
     
 
@@ -17,8 +26,8 @@
           @else
           <li class="active"><a href="{{ route('m-user') }}"><i class="far fa-building"></i> <b>Plan</b></a></li>
           @endif
-          <li><a href="services.html"><i class="fas fa-receipt"></i> Recently Veiw</a></li>
-          <li><a href="portfolio.html"><i class="fas fa-luggage-cart"></i> Cart</a></li>
+          <!-- <li><a href="services.html"><i class="fas fa-receipt"></i> Recently Veiw</a></li>
+          <li><a href="portfolio.html"><i class="fas fa-luggage-cart"></i> Cart</a></li> -->
 @if (Route::has('login'))
 
 @auth
@@ -33,39 +42,40 @@
     </li>
     <li><a href="{{ route('logout') }}"><i class="fas fa-sign-out-alt"></i> Signout</a></li>
 @else
-    <li><a href="#login" uk-toggle>Login</a></li>
 
     @if (Route::has('register'))
-        <li><a href="{{ route('register') }}" uk-toggle>Register</a></li>
+        <li><a href="{{ route('register') }}" uk-toggle>SignUp</a></li>
         <!-- <li><a href="#register" uk-toggle>SignUp</a></li> -->
     @endif
+    <li><a href="#login" uk-toggle>Login</a></li>
 @endauth
 
 @endif
-<li><a href="portfolio.html"><i class="far fa-life-ring"></i> Help</a></li>
+<!-- <li><a href="portfolio.html"><i class="far fa-life-ring"></i> Help</a></li> -->
 </ul>
 </nav>
 </div>
 
 
 
-<section class="breadcrumbs">
-  <div class="container">
-    <div class="d-flex justify-content-between align-items-center">
+<!-- <section class="breadcrumbs" style="padding-left: 20px;"> -->
+  <!-- <div class="container"> -->
+    <!-- <div class="d-flex justify-content-between align-items-center">
       <h2>
         <ol>
             @foreach($slmenu as $list)
                 @if($list->status == 'disable')
                     <li><a href="" aria-current="page"><i class="{{$list->icon_id}}"></i> {{ $list->name }}</a></li>
                 @else
-                    <li><a href=""><i class="{{$list->icon_id}}"></i> {{ $list->name }}</a></li>
+                    <li><a href="" class="sllink-active"><i class="{{$list->icon_id}}"></i> {{ $list->name }}</a></li>
                 @endif
             @endforeach()
         </ol>
     </h2>
-    </div>
-  </div>
-</section>
+    </div> -->
+  <!-- </div> -->
+<!-- </section> -->
+
 
 
 </header>
@@ -122,6 +132,10 @@
 
 </div>
 </div>
+
+
+
+
 
 
 

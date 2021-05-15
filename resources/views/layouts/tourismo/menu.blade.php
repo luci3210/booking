@@ -27,17 +27,24 @@
 
 <div class="info-box-ext">
 
+<!-- <div class="vertical-menu">
+  <a href="#" class="active vm">Home</a>
+  <a href="#" class="vm">Link 1</a>
+  <a href="#" class="vm">Link 2</a>
+  <a href="#" class="vm">Link 3</a>
+  <a href="#" class="vm">Link 4</a>
+</div>
 
-
+ -->
 <ul uk-accordion class="list-group-unbordered mb-3">
 
 <li class="marg_menu">
 <a class="active uk-accordion-title" href="{{ route('profile-contact') }}"><span uk-icon="home"></span> <span class="uk-list-a"> Merchant</span></a>
 <div class="uk-accordion-content">
-  <p><a href="{{ route('m-user') }}"><span uk-icon="check"></span>  Profile</a></p>
-  <p><a href="{{ route('profile-contact') }}"><span uk-icon="check"></span>  Contact</a></p>
-  <p><a href="{{ route('profile-address') }}"><span uk-icon="check"></span> Address</a></p>
-  <p><a href="{{ route('profile-address') }}"><span uk-icon="check"></span> Plan & Re-new</a></p>
+  <p><a href="{{ route('m-user') }}" class="uk-link"><span uk-icon="check"></span>  Profile</a></p>
+  <p><a href="{{ route('profile-contact') }}" class="uk-link"><span uk-icon="check"></span>  Contact</a></p>
+  <p><a href="{{ route('profile-address') }}" class="uk-link"><span uk-icon="check"></span> Address</a></p>
+  <p><a href="{{ route('profile-address') }}" class="uk-link"><span uk-icon="check"></span> Plan & Re-new</a></p>
 </div>
 </li>
 
@@ -45,7 +52,7 @@
 <a class="uk-accordion-title" href="#"><span uk-icon="album"></span> <span class="uk-list-a"> Services</span></a>
 	<div class="uk-accordion-content">
 	@foreach($services as $service)
-	<p><a href="{{ route('service',$service->id) }}"><span uk-icon="check"></span> {{ $service->name }}</a></p>
+	<p><a href="{{ route('service',$service->id) }}" class="uk-link"><span uk-icon="check"></span> {{ $service->name }}</a></p>
 	@endforeach 
 	</div>
 </li>

@@ -30,5 +30,7 @@ class TourModel extends Model
         'municipality',
         'barangay',
         'address_id',
+        'qty',
+        'tour_expect',
         'created_at'];
 }

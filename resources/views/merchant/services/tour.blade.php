@@ -44,39 +44,56 @@
 
 
 <div class="row row-margin">
-<div class="section-title">
-<h2>Service - Tour and Package</h2>
+<div class="section-title" style="padding-bottom: 35px;">
+<h2 style="margin-top: -20px;">Service - Tour and Package</h2>
 </div>
+
   <div class="col-md-12 form-group mt-3">
   <label class="labelcoz"><span class="uk-text-danger">*</span> Tour Package Name</label>
-  <input type="text" class="uk-input" name="tour_name" id="tour_name" placeholder="Room Name">
+  <input type="text" class="uk-input" name="tour_name" id="tour_name" placeholder="Tour Package Name">
   <div class="validate"></div>
 </div>
 
-<div class="col-md-12 form-group mt-3">
-  <label class="labelcoz"><span class="uk-text-danger">*</span> Tour Package Description</label>
-  <textarea class="uk-textarea" name="tour_desc" id='tour_desc' rows="5" placeholder="Room Description"rows="5"></textarea>
-  <div class="validate"></div>
-</div>
 
-<div class="col-md-4 form-group mt-3">
+<div class="col-md-3 form-group mt-3">
 <label class="labelcoz"><span class="uk-text-danger">*</span> Price (Php)</label>
-  <input type="text" name="price" class="uk-input" id="price" placeholder="Price" data-rule="minlen:4">
+  <input type="text" name="price" class="uk-input" id="price" placeholder="Price" data-rule="minlen:5">
   <div class="validate"></div>
 </div>
 
-<div class="col-md-4 form-group mt-3">
+<div class="col-md-3 form-group mt-3">
   <label class="labelcoz"><span class="uk-text-danger">*</span> Number of Night </label>
   <input type="text" class="uk-input" name="numnight" id="numnight" placeholder="Number of Night">
   <div class="validate"></div>
 </div>
 
-<div class="col-md-4 form-group mt-3">
+<div class="col-md-3 form-group mt-3">
   <label class="labelcoz"><span class="uk-text-danger">*</span> Number of Guest (MAX)</label>
   <input type="text" name="numguest" class="uk-input" id="numguest" placeholder="Number of Guest">
   <div class="validate"></div>
 </div>
 
+<div class="col-md-3 form-group mt-3">
+  <label class="labelcoz"><span class="uk-text-danger">*</span> Quantity</label>
+  <input type="text" name="qty" class="uk-input" id="qty" placeholder="Quantity">
+  <div class="validate"></div>
+</div>
+
+
+
+<div class="col-md-12 form-group mt-3">
+  <label class="labelcoz"><span class="uk-text-danger">*</span> Tour Package Description</label>
+  <textarea class="uk-textarea" name="tour_desc" id='tour_desc' rows="3" placeholder="Tour Package Description"rows="5"></textarea>
+  <div class="validate"></div>
+</div>
+
+<div class="col-md-12 form-group mt-3">
+  <label class="labelcoz"><span class="uk-text-danger">*</span> What to expect</label>
+  <textarea class="uk-textarea" name="tour_expect" id='tour_expect' rows="8" placeholder="Tour Package Description"rows="5"></textarea>
+  <div class="validate"></div>
+</div>
+
+<!-- 
 <div class="col-md-4 form-group mt-3">
   <label class="labelcoz"><span class="uk-text-danger">*</span> Room Size</label>
   <input type="text" name="roomsize" class="uk-input" id="roomsize" placeholder="Room Size">
@@ -97,7 +114,7 @@
   <label class="labelcoz"><span class="uk-text-danger">*</span> Number of Bed </label>
   <input type="text" class="uk-input" name="numbed" id="numbed" placeholder="Number of Bed">
   <div class="validate"></div><br>
-</div>
+</div> -->
 
 <div class="col-md-12 mt-3">
   <ul uk-tab>
@@ -105,7 +122,7 @@
   </ul>
 </div>
 
-<div class="col-md-12 form-group mt-3">
+<!-- <div class="col-md-12 form-group mt-3">
   <label class="labelcoz"><span class="uk-text-danger">*</span> Room Facilities </label>
   <select class="room uk-select" name="room[]" multiple="multiple">
     <option value="" disabled="true">-Select room facilities-</option>
@@ -115,9 +132,9 @@
   </select>
   <div class="validate"></div>
 </div>
-
+ -->
 <div class="col-md-12 form-group mt-3">
-  <label class="labelcoz"><span class="uk-text-danger">*</span> Building Facilities </label>
+  <label class="labelcoz"><span class="uk-text-danger">*</span> Facilities </label>
   <select class="building uk-select" name="building[]" multiple="multiple">
     <option value="" disabled="true">-Select building facilities-</option>
     @foreach($building_facilities as $list)
@@ -128,7 +145,7 @@
 </div>
 
 <div class="col-md-12 form-group mt-3">
-  <label class="labelcoz"><span class="uk-text-danger">*</span> Booking Package </label>
+  <label class="labelcoz"><span class="uk-text-danger">*</span> Package </label>
   <select class="package uk-select" name="package[]" multiple="multiple">
     <option value="" disabled="true">-Select packages-</option>
     @foreach($packages as $list)
@@ -140,7 +157,7 @@
 
 <div class="col-md-12 mt-3">
   <ul uk-tab>
-    <li class="uk-active"><a href=""><b>Location</b></a></li>
+    <li class="uk-active"><a href=""><b>Location</b> </a></li>
   </ul>
 </div>
 
@@ -198,7 +215,7 @@
   <div class="validate"></div>
 </div>
 
-<div class="col-md-12 form-group mt-3">
+<!-- <div class="col-md-12 form-group mt-3">
   <label class="labelcoz"><span class="uk-text-danger">*</span> Address </label>
     <select class="uk-select" name="address">
       <option value="" disabled="true" selected="-Select address-">-Select address-</option>
@@ -207,13 +224,15 @@
       @endforeach
     </select>
   <div class="validate"></div>
-</div>
+</div> -->
 
-<div class="col-md-12 mt-3">
+<!-- <div class="col-md-12 mt-3">
   <ul uk-tab>
     <li class="uk-active"><a href=""><b>Aplicable Payment Method</b></a></li>
   </ul>
 </div>
+ -->
+
 
 <div class="col-md-12 mt-3">
   <ul uk-tab>
@@ -456,11 +475,6 @@ $('#municipalityid').on('change', function () {
 });
 
 });
-//endlocation
-
-
 
 </script>
-
-
 @endsection

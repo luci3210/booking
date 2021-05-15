@@ -18,9 +18,9 @@ use App\Model\Admin\LocationCityModel;
 use App\Model\Admin\LocationMunicipalityModel;
 use App\Model\Admin\LocationBarangayModel;
 
+use App\Model\Merchant\Profile;
 use App\Model\Merchant\HotelPhoMoldel;
 use App\Model\Merchant\TourPhoModel;
-use App\Model\Merchant\Profile;
 use App\Model\Merchant\HotelModel;
 use App\Model\Merchant\TourModel;
 use App\Model\Merchant\MerchantAddress;
@@ -178,49 +178,7 @@ public function savehotel(Request $request)
             'created_at' =>  \Carbon\Carbon::now(),
           ]);
 
-    return redirect()->route('service', ['id' => 10016])->withSuccess('Successfully added!');
-}
-public function savetour() {
-
-
-         $rules = [
-            'price' => 'required',
-            'numnight' => 'required',
-            'tour_name' => 'required',
-            'roomsize' => 'required',
-            'tour_desc' => 'required',
-            'viewdeck' => 'required',
-            'numguest' => 'required',
-            'numbed' => 'required'];
-
-
-        $errMessage = ['required' => '* Enter your :attribute'];
-
-        $this->validate($request, $rules, $errMessage);   
-
-        HotelModel::updateOrInsert(['price' => $request->price,
-            'nonight' => $request->numnight,
-            'tour_name' => $request->tour_name,
-            'roomsize' => $request->roomsize,
-            'tour_desc' => $request->roomdesc,
-            'viewdeck' => $request->viewdeck,
-            'noguest' => $request->numguest,
-            'nobed' => $request->numbed,
-            'profid' => Auth::user()->id,
-            'room_facilities' => implode(',', $request->room),  
-            'building_facilities' => implode(',', $request->building),
-            'booking_package'  => implode(',', $request->package),
-            'country'  => $request->country,
-            'region'  => $request->region,
-            'district'  => $request->district,
-            'city'  => $request->city,
-            'municipality'  => $request->municipality,
-            'barangay'  => $request->barangay,
-            'address_id'  => $request->address,
-            'created_at' =>  \Carbon\Carbon::now(),
-          ]);
-
-    return redirect()->route('service', ['id' => 10016])->withSuccess('Successfully added!');
+    return Redirect()->back()->withSuccess('Successfully added!');
 }
 
 //----------------- service hotel
@@ -253,9 +211,52 @@ public function upload_cover(Request $request)  {
 }
 
 //-------------------- service tour package
+public function savetour(Request $request) {
+
+
+         $rules = [
+            'tour_name' => 'required',
+            'price' => 'required',
+            'numnight' => 'required',
+            'numguest' => 'required',
+            'qty' => 'required',
+            'tour_desc' => 'required',
+            'tour_expect' => 'required',
+            'building' => 'required',
+            'package' => 'required',
+
+            'country' => 'required',
+            'region' => 'required',
+            'district' => 'required'];
+
+
+        $errMessage = ['required' => '* Enter your :attribute'];
+
+        $this->validate($request, $rules, $errMessage);   
+
+        TourModel::updateOrInsert([
+            'tour_name' => $request->tour_name,
+            'price' => $request->price,
+            'nonight' => $request->numnight,
+            'noguest' => $request->numguest,
+            'qty' => $request->qty,
+            'tour_expect' => $request->tour_desc,
+            'building_facilities' => implode(',', $request->building),
+            'booking_package'  => implode(',', $request->package),
+            'country'  => $request->country,
+            'region'  => $request->region,
+            'district'  => $request->district,
+            'city'  => $request->city,
+            'municipality'  => $request->municipality,
+            'barangay'  => $request->barangay,
+            'created_at' =>  \Carbon\Carbon::now()
+          ]);
+
+    return Redirect()->back()->withSuccess('Successfully added!');
+}
 public function gettour_id()  {
 
-    $getid =  HotelModel::where('profid',Auth::user()->id)->limit(1)->orderBy('id','desc')->get();
+    $getid =  TourModel::where('profid',Auth::user()->id)->limit(1)->orderBy('id','desc')->get();
 
     $phtoid = $getid[0]->id +1;
 

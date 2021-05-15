@@ -15,10 +15,10 @@
 <div class="col-lg-9">
 <form action="{{ route('profile-address-add') }}" method="post" role="form" id="valid-form" class="form-border">
 @csrf
-<div class="row">
+<div class="row row-margin">
 
-<div class="section-title">
-<h2>Add Address</h2>
+<div class="section-title" style="padding-bottom: 35px;">
+<h2 style="margin-top: -20px;">Service - Tour and Package</h2>
 </div>
 
 <div class="form-group mt-3">
@@ -39,6 +39,17 @@
 <input type="text" class="form-control" name="latitude" id="latitude" placeholder="Latitude">
 <div class="validate"></div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
 
 <div class="text-left"><br><button type="submit" class="btn btn-primary btn-block">Save</button></div>                
 </form>

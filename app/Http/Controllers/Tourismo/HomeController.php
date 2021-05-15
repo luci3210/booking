@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Tourismo;
 
 use App\Model\Admin\ProductModel;
 use App\Model\Merchant\HotelModel;
+use App\Model\Merchant\ProfileModel;
+use App\Model\Merchant\TourModel;
 use App\Model\Admin\DestinationModel;
 
 use App\Http\Controllers\Controller;
@@ -18,7 +20,18 @@ public function hotels() {
     return HotelModel::join('users','users.id', 'hotels.profid')
     	->join('temp_status','temp_status.id', 'hotels.temp_status')
     		->join('hotel_photos','hotel_photos.upload_id', 'hotels.id')
-    			->where('temp_status.status', 'active')->groupBy('hotel_photos.upload_id')->get();
+    			->where('temp_status.status', 'active')
+            ->select(['hotels.*','temp_status.*','hotel_photos.*','users.*'])->distinct('hotel_photos.upload_id')->paginate(8);
+
+    }
+
+public function tour_packages() {
+
+    return TourModel::join('users','users.id', 'service_tour.profid')
+        ->join('temp_status','temp_status.id', 'service_tour.temp_status')
+            ->join('service_tour_photos','service_tour_photos.upload_id', 'service_tour.id')
+                ->where('temp_status.status', 'active')
+            ->select(['service_tour.*','temp_status.*','service_tour_photos.*','users.*'])->distinct('service_tour_photos.upload_id')->paginate(8);
 
     }
 
@@ -29,7 +42,6 @@ public function  room_details($id) {
     		->join('hotel_photos', 'hotels.id','hotel_photos.upload_id')
     			->join('merchant_address','merchant_address.id', 'hotels.address_id')
     				->where('hotels.id', $id)->get()->first());
-
 
     // return json_encode(LocationDistrictModel::select()->where('region_id',$id)->get());
 
@@ -47,18 +59,17 @@ public function  hotel_details($id) {
     // return json_encode(LocationDistrictModel::select()->where('region_id',$id)->get());
 
     }
-public function destination() {
 
-    return DestinationModel::where('temp_status',1)->get();
-}
 public function index()
     {
 
-    	$hotel 	= $this->hotels();
-        $destination = $this->destination();
-    	// $hotels_details = $this->hotel_details();
+    	$hotel 	        = $this->hotels();
+        $destination    = $this->destination();
+        $hotels         = $this->hotel();
+        $tour_package   = $this->tour_package(); 
+        $tour_packages   = $this->tour_packages();
 
-        return view('tourismo.home', compact(['hotel','destination']));
+        return view('tourismo.home', compact(['hotel','destination','hotels','tour_package','tour_packages']));
     }
 
 public function room($id) {
@@ -131,4 +142,106 @@ function generateToken()
             // Output: eyJtZXJjaGFudF9pZCI6NjMyOCwibWVyY2hhbnRfcmVmX25vIjoiQUJDMTIzREVGNDU2IiwibWVyY2hhbnRfYWRkaXRpb25hbF9kYXRhIjoiZXlKd1lYbHRaVzUwWDJOdlpHVWlPaUpCUWtNeE1qTkVSVVkwTlRZaWZRPT0iLCJhbW91bnQiOjE1MDAsImN1cnJlbmN5IjoiUEhQIiwiZGVzY3JpcHRpb24iOiJNeSB0ZXN0IHBheW1lbnQiLCJiaWxsaW5nX2VtYWlsIjoic2FtcGxlQGVtYWlsLmNvbSIsImJpbGxpbmdfZmlyc3RfbmFtZSI6IkpvaG4iLCJiaWxsaW5nX2xhc3RfbmFtZSI6IkRvZSIsImJpbGxpbmdfbWlkZGxlX25hbWUiOiJQZXRlcnMiLCJiaWxsaW5nX3Bob25lIjoiIiwiYmlsbGluZ19tb2JpbGUiOiIwOTEyMzQ1Njc4OSIsImJpbGxpbmdfYWRkcmVzcyI6IlNhbXBhbG9rIFN0LiBFbWVyYWxkIFZpbGxhZ2UiLCJiaWxsaW5nX2FkZHJlc3MyIjoiIiwiYmlsbGluZ19jaXR5IjoiUXVlem9uIENpdHkiLCJiaWxsaW5nX3N0YXRlIjoiTi9BIiwiYmlsbGluZ196aXAiOiIxMTYwMSIsImJpbGxpbmdfY291bnRyeSI6IlBIIiwiYmlsbGluZ19yZW1hcmsiOiIiLCJwYXltZW50X21ldGhvZCI6IiIsInN0YXR1c19ub3RpZmljYXRpb25fdXJsIjoiaHR0cHM6Ly9kZXZhcGkudHJheGlvbnBheS5jb20vY2FsbGJhY2siLCJzdWNjZXNzX3BhZ2VfdXJsIjoiaHR0cHM6Ly9kZXYudHJheGlvbnBheS5jb20vIiwiZmFpbHVyZV9wYWdlX3VybCI6Imh0dHBzOi8vZGV2LnRyYXhpb25wYXkuY29tLyIsImNhbmNlbF9wYWdlX3VybCI6Imh0dHBzOi8vZGV2LnRyYXhpb25wYXkuY29tLyIsInBlbmRpbmdfcGFnZV91cmwiOiJodHRwczovL2Rldi50cmF4aW9ucGF5LmNvbS8iLCJzZWN1cmVfaGFzaCI6IjlhMjk5ZGIyMmEyZDdhYzU3Yjk5MTliNGFjYWZhOTU4Zjc2MTYxYjhlMjQ4OGFkMjIyZWQ1N2JiMTkxMTRhN2UiLCJhdXRoX2hhc2giOiJhNmUyZTY3OGQzNDliMWU4Y2MyNzlhMmJmNDU1N2FjZjcxMTU3MmQ2ZDUwZGFiYjIzYTIxZDQxNWU3OWVkMTY5IiwiYWxnIjoiSFMyNTYifQ==
             return $decoded;
         }
+
+
+
+
+// ------------------- DESTINATION ----------------------------------
+
+public function page_destination() {
+
+    $destination    = $this->destination();
+    $region_one     = $this->destination_reg_one();
+    $region_ten     = $this->destination_reg_ten();
+
+    return view('tourismo.destination', compact('destination','region_one','region_ten'));
+}
+
+public function page_region($id) {
+
+    $destination    = $this->destination();
+
+    $region =  DestinationModel::join('locations_district','locations_district.id','destinations.destination_id')
+            ->join('locations_region','locations_region.id','locations_district.region_id')
+            ->where('locations_district.region_id',$id)
+            ->where('destinations.temp_status',1)
+                ->get(['locations_district.*','destinations.*','locations_region.*']);
+
+    return view('tourismo.region', compact('region','destination'));
+} 
+
+public function page_provice($id) {
+
+    $province = HotelModel::join('users','users.id', 'hotels.profid')
+        ->join('temp_status','temp_status.id', 'hotels.temp_status')
+            ->Join('hotel_photos','hotel_photos.upload_id', 'hotels.id')
+                ->join('locations_district','locations_district.id','hotels.district')
+                    ->join('location_country','location_country.id','locations_district.country_id')
+                ->where('hotels.district', $id)
+                 ->where('temp_status.status', 'active')
+            ->select('hotels.*','temp_status.*','hotel_photos.*','users.*','locations_district.district as provice_name','location_country.*')
+            // ->groupBy('hotels.id')
+            ->groupBy('hotel_photos.upload_id')
+            ->get();
+            // ->paginate(8);
+
+
+    return view('tourismo.provice', compact(['province']));
+}
+
+public function destination() {
+
+    return DestinationModel::join('locations_district','locations_district.id','destinations.destination_id')
+            ->where('destinations.temp_status',1)
+                ->get(['locations_district.id as provice_id','destinations.*']);
+}
+
+public function destination_reg_one() { 
+
+    return DestinationModel::join('locations_district','locations_district.id','destinations.destination_id')
+                ->where('locations_district.region_id',18)
+                ->where('destinations.temp_status',1)
+                    ->get(['locations_district.*','destinations.*']);
+}
+
+public function destination_reg_ten() { 
+
+    return DestinationModel::join('locations_district','locations_district.id','destinations.destination_id')
+                ->where('locations_district.region_id',3)
+                ->where('destinations.temp_status',1)
+                    ->get(['locations_district.*','destinations.*']);
+}
+
+
+
+
+
+
+
+// ---------------------  HOTELS -----------------------------
+
+public function page_hotels() {
+
+    $hotel      = $this->hotel();
+
+    return view('tourismo.hotel_and_resort', compact('hotel'));
+}
+
+public function page_tour_operator() {
+
+    $tour_package = $this->tour_package();
+    
+    return view ('tourismo.tour_operator', compact('tour_package'));   
+}
+
+public function hotel() {
+
+    return ProfileModel::where('type',10016)->where('temp_status',1)->get();
+}
+
+public function tour_package() {
+
+    return ProfileModel::where('type',10011)->where('temp_status',1)->get();
+}
+
 }

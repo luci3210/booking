@@ -29,10 +29,21 @@
     </div>
 
     <div class="col-md-12 form-group mt-3">
-    <label class="labelcoz">Merchant Information/About</label>
+    <label class="labelcoz">About</label>
     <textarea class="uk-textarea" rows="5" name="about" id="about" placeholder="Merchant Information">{{ $merchant->about }}</textarea>
     <div class="validate"></div>
     </div>
+
+
+<div class="col-md-12 form-group mt-3">
+<label class="labelcoz">Merchant Type</label>
+<select class="uk-select" name="mtype">
+  @foreach($type as $list)
+    <option value="{{ $list->id }}">{{ $list->description }}</option>
+  @endforeach
+</select>
+</div>
+
 
     <div class="col-md-12 form-group mt-3">
     <label class="labelcoz">Merchant Address</label>
@@ -82,25 +93,24 @@
 <script src="{{ asset('public/merchant-validation/jquery-validation/additional-methods.min.js') }}"></script>
 <script src="{{ asset('public/merchant-validation/profile-add-edit-contact.js') }}"></script>
 <script src="{{ asset('public/merchant-validation/profile-add-edit-address.js') }}"></script>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
 <script src="{{ asset('ijaboCropTool-master/ijaboCropTool.min.js') }}"></script> 
 <script>
-       $('#file').ijaboCropTool({
-          preview : '.image-previewer',
-          setRatio:1,
-          allowedExtensions: ['jpg', 'jpeg','png'],
-          buttonsText:['CROP','QUIT'],
-          buttonsColor:['#30bf7d','#ee5155', -15],
-          processUrl:'{{ route("profile-pic-crop") }}',
-          withCSRF:['_token','{{ csrf_token() }}'],
-          onSuccess:function(message, element, status){
-             alert(message);
-          },
-          onError:function(message, element, status){
-            alert(message);
-          }
-       });
-  </script>
+$('#file').ijaboCropTool({
+  preview : '.image-previewer',
+  setRatio:1,
+  allowedExtensions: ['jpg', 'jpeg','png'],
+  buttonsText:['CROP','QUIT'],
+  buttonsColor:['#30bf7d','#ee5155', -15],
+  processUrl:'{{ route("profile-pic-crop") }}',
+  withCSRF:['_token','{{ csrf_token() }}'],
+  onSuccess:function(message, element, status){
+     alert(message);
+  },
+  onError:function(message, element, status){
+    alert(message);
+  }
+});
+</script>
 @endsection
 @endsection
