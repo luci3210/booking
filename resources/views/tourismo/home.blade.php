@@ -1,6 +1,7 @@
 @extends('layouts.tourismo.ui')
-<div class="marg-header"></div>
+<link href="{{ asset('css/home_index.css') }}" rel="stylesheet">
 
+<div class="marg-header"></div>
 @section('banner')
 
 
@@ -114,9 +115,25 @@
     Explore
   </a>
 
-  <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)" uk-toggle="target: #unavailable">
+  <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)"uk-toggle="target: #prov" >
     <i class="fas fa-share"></i> Share
   </a>
+  <!--  share modal  -->
+
+  <div id="prov" uk-modal class="uk-flex-top">
+      <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+          <h2 class="uk-modal-title"></h2>
+          <div uk-grid class="uk-flex-center">
+              <div><i uk-icon="icon: facebook; ratio: 2" class="share-icons" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('provice', $list->provice_id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )"></i></div>
+              <div><i uk-icon="icon: twitter; ratio: 2" class="share-icons"  onclick="window.open('https://twitter.com/intent/tweet?text=&url={{ route('provice', $list->provice_id) }}')"></i></div>
+              <div><i uk-icon="icon: youtube; ratio: 2" class="share-icons"></i></div>
+              <div><i uk-icon="icon: instagram; ratio: 2" class="share-icons"></i></div>
+              <div><i uk-icon="icon: linkedin; ratio: 2" class="share-icons"></i></div>
+          </div>
+      </div>
+  </div>
+  <!-- /. share modal -->
+
 
 </div>
 
@@ -178,7 +195,7 @@
                 <span>
                   <i class="fas fa-directions"></i> No. of Tour Operators : 251
                 </span><br>
-
+                
 <div class="mem-button">
 
   <a class="uk-button uk-button-small btn-room-details-m" href="{{ route('provice', $list->provice_id) }}">

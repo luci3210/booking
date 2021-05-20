@@ -1,5 +1,11 @@
 @extends('layouts.tourismo.ui')
 @section('content')
+<!-- meta tags  -->
+@section('description', 'Explore '.$province->count().' Rooms and Convention')
+@section('keywords', $province[0]->country.' '.$province[0]->provice_name)
+@section('img', asset( 'upload/merchant/profilepic/default.png'))
+@section('curUrl', url()->current())
+<!-- /. meta tags -->
 
 <section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
   <div class="container">
