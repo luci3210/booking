@@ -108,8 +108,8 @@ Route::prefix('merchant')->group(function () {
 
 Route::prefix('tourismoph.payment')->group(function () {
 
-    Route::post('/hotels/xxx', 'PaymentController@gentoken')->name('xxx');
-    Route::post('/hotels/xxxx', 'PaymentController@pay_booking')->name('xxxx');
+    Route::get('/hotels/xxx', 'PaymentController@sssss')->name('xxx');
+    Route::POST('/hotels/xxxx', 'PaymentController@pay_booking')->name('xxxx');
 
     });
 

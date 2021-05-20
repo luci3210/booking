@@ -14,7 +14,9 @@ body {
   /*background:#fbfafa;*/
 }
 
-
+.marg-header{
+  padding-top: 50px;
+}
 a {
   color: #4fa6d5;
   text-decoration: none;

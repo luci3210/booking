@@ -1,39 +1,12 @@
 @extends('layouts.tourismo.ui')
-
+<div class="marg-header"></div>
 
 @section('banner')
 
-<div id="unavailable" class="uk-modal-full" uk-modal>
-<div class="uk-modal-dialog">
-<button class="uk-modal-close-full uk-close-large uk-position-top" type="button" uk-close></button>
 
-<div class="uk-section uk-section-muted uk-flex uk-flex-middle uk-animation-fade" uk-height-viewport>
-    <div class="uk-width-1-1">
-        <div class="uk-container">
-            <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
-                <div class="uk-width-1-1@m">
-                    <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
-                        <h3 class="uk-card-title uk-text-center">This page is under development</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-</div>
-</div>
-
-
-
-
-
-
-
-
-<div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="ratio: 7:3; animation: push">
+<div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="ratio: 10:3; animation: push">
     <ul class="uk-slideshow-items">
-      @foreach($hotel as $list)
+      @foreach($home_hotel as $list)
         <li>
             <img src="{{ asset('upload/merchant/coverphoto')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}" alt="" uk-cover>
             <div class="uk-position-center uk-position-small uk-text-center uk-light">
@@ -397,10 +370,10 @@ Founded in 2018, Tourismo PH envisioned a company that is committed in energizin
     <div class="row">
 
       <div class="section-title">
-        <h2><b>Rooms </b> <span style="font-size: 15px;padding-left: 25px;"><a href="{{ route('tour_operator') }}" class="uk-link"><i class="fas fa-chevron-right"></i> Explore {{ $hotel->count() }} Rooms and Convention</a></span></h2>
+        <h2><b>Rooms </b> <span style="font-size: 15px;padding-left: 25px;"><a href="{{ route('tour_operator') }}" class="uk-link"><i class="fas fa-chevron-right"></i> Explore {{ $home_hotel->count() }} Rooms and Convention</a></span></h2>
       </div>
 
-@foreach($hotel as $list)
+@foreach($home_hotel as $list)
 <div class="col-md-6 col-lg-3 d-flex align-items-stretch aos-init aos-animate" data-aos="fade-up">
   <div class="icon-box icon-box-pink">
   
@@ -455,13 +428,14 @@ Founded in 2018, Tourismo PH envisioned a company that is committed in energizin
       </div>
 
 @foreach($tour_packages as $list)
+
   <div class="col-md-6 col-lg-3 d-flex align-items-stretch aos-init aos-animate" data-aos="fade-up">
     <div class="icon-box icon-box-pink">
           
       <div class="member">
 
         <div class="member-img">
-          <img src="{{ asset('upload/merchant/coverphoto')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}" class="img-fluid" alt=""  style="border-radius: 4px;">
+          <img src="{{ asset('upload/merchant/tour')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}" class="img-fluid" alt=""  style="border-radius: 4px;">
           <div class="social">
             <a href=""><i class="icofont-twitter"></i></a>
             <a href=""><i class="icofont-facebook"></i></a>
@@ -472,22 +446,17 @@ Founded in 2018, Tourismo PH envisioned a company that is committed in energizin
 
         <div class="member-info">
 
-          <h4>{{ $list->roomname }}</h4>
+          <h4>{{ $list->tour_name }}</h4>
           <span style="font-weight: 500px; font-size: 14px;color:#ff2f00;"><b>₱ {{ $list->price }}</b> / For {{ $list->nonight }} Night</span>
 
           <span>
-            <img style="padding-bottom: 5px;" src="{{ asset('upload/merchant/icons/baseline_local_dining_black_18dp.png')}}">
-            {{ $list->booking_package }}
+            <i class="fas fa-utensils"></i> {{ $list->booking_package }}
           </span>
           
           <span>
-            <img style="padding-bottom: 3px;" src="{{ asset('upload/merchant/icons/baseline_supervisor_account_black_18dp.png')}}">
-            Max Guests: {{ $list->noguest }}
+            <i class="fas fa-users"></i> Max Guests: {{ $list->noguest }}
           </span>
           
-          <span>
-            <img style="padding-bottom: 1px;" src="{{ asset('upload/merchant/icons/baseline_visibility_black_18dp.png')}}"> City View
-          </span>
         
         </div>
 
@@ -501,12 +470,7 @@ Founded in 2018, Tourismo PH envisioned a company that is committed in energizin
           @endforeach
 
 
-      
-<!-- 
-            {!! $hotel->links() !!}
-        
-
- -->
+    
     </div>
   </div>
 </section>

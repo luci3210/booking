@@ -11,7 +11,7 @@ class TourModel extends Model
     	'price',
     	'nonight',
     	'tour_name',
-    	'roomdesc',
+        'tour_desc',
     	'roomsize',
     	'viewdeck',
     	'noguest',
@@ -30,7 +30,10 @@ class TourModel extends Model
         'municipality',
         'barangay',
         'address_id',
+        'pay_method',
         'qty',
         'tour_expect',
+        'on_home',
+        'service_id',
         'created_at'];
 }

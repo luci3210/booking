@@ -135,7 +135,8 @@ public function index($id) {
 
     else {
 
-        return false;
+        $data = 'Data not found';
+        return view('errors.datanotfound',compact('data'));
     }
 
 }
@@ -178,7 +179,7 @@ public function savehotel(Request $request)
             'created_at' =>  \Carbon\Carbon::now(),
           ]);
 
-    return Redirect()->back()->withSuccess('Successfully added!');
+    return Redirect()->back()->withSuccess('Successfully added, your Post will be check with our monitoring team.');
 }
 
 //----------------- service hotel
@@ -227,7 +228,7 @@ public function savetour(Request $request) {
 
             'country' => 'required',
             'region' => 'required',
-            'district' => 'required'];
+            'district' => 'required','service_id' => 'required'];
 
 
         $errMessage = ['required' => '* Enter your :attribute'];
@@ -240,7 +241,8 @@ public function savetour(Request $request) {
             'nonight' => $request->numnight,
             'noguest' => $request->numguest,
             'qty' => $request->qty,
-            'tour_expect' => $request->tour_desc,
+            'tour_desc' => $request->tour_desc,
+            'tour_expect' => $request->tour_expect,
             'building_facilities' => implode(',', $request->building),
             'booking_package'  => implode(',', $request->package),
             'country'  => $request->country,
@@ -249,6 +251,10 @@ public function savetour(Request $request) {
             'city'  => $request->city,
             'municipality'  => $request->municipality,
             'barangay'  => $request->barangay,
+            'temp_status'  => 2,
+            'on_home'  => 2,
+            'profid' => Auth::user()->id,
+            'service_id'  => $request->service_id,
             'created_at' =>  \Carbon\Carbon::now()
           ]);
 

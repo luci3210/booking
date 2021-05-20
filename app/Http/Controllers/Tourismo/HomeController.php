@@ -21,17 +21,19 @@ public function hotels() {
     	->join('temp_status','temp_status.id', 'hotels.temp_status')
     		->join('hotel_photos','hotel_photos.upload_id', 'hotels.id')
     			->where('temp_status.status', 'active')
-            ->select(['hotels.*','temp_status.*','hotel_photos.*','users.*'])->distinct('hotel_photos.upload_id')->paginate(8);
+            ->select(['hotels.*','temp_status.*','hotel_photos.*','users.*'])
+            ->groupBy('hotel_photos.upload_id')->get();
 
     }
 
 public function tour_packages() {
 
-    return TourModel::join('users','users.id', 'service_tour.profid')
-        ->join('temp_status','temp_status.id', 'service_tour.temp_status')
-            ->join('service_tour_photos','service_tour_photos.upload_id', 'service_tour.id')
-                ->where('temp_status.status', 'active')
-            ->select(['service_tour.*','temp_status.*','service_tour_photos.*','users.*'])->distinct('service_tour_photos.upload_id')->paginate(8);
+    return TourModel::join('service_tour_photos','service_tour_photos.upload_id', 'service_tour.id')
+                ->where('service_tour.service_id',10011)
+                ->where('service_tour.on_home',1)
+                ->where('service_tour.temp_status',1)
+            ->select(['service_tour.*','service_tour_photos.*'])
+            ->groupBy('service_tour_photos.upload_id')->get();
 
     }
 
@@ -63,13 +65,13 @@ public function  hotel_details($id) {
 public function index()
     {
 
-    	$hotel 	        = $this->hotels();
+    	$home_hotel 	= $this->hotels();
         $destination    = $this->destination();
         $hotels         = $this->hotel();
         $tour_package   = $this->tour_package(); 
         $tour_packages   = $this->tour_packages();
 
-        return view('tourismo.home', compact(['hotel','destination','hotels','tour_package','tour_packages']));
+            return view('tourismo.home', compact(['home_hotel','destination','hotels','tour_package','tour_packages']));
     }
 
 public function room($id) {
@@ -185,8 +187,14 @@ public function page_provice($id) {
             ->get();
             // ->paginate(8);
 
+    if($province->isEmpty()) {
+        
+        $data = 'Data not found.!';
+        return view('errors.datanotfound', compact('data'));
+    } else {
 
-    return view('tourismo.provice', compact(['province']));
+        return view('tourismo.provice', compact(['province']));
+    }
 }
 
 public function destination() {
