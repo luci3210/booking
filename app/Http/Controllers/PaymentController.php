@@ -119,7 +119,7 @@ $content = json_decode($response->getBody(), true);
             return $decoded;
     }
 
-	public function pay_booking() {
+	public function pay_booking(Request $request) {
 
 // $payment_code = "ABC123DEF456";
 // $payment_description = "My test payment";
@@ -137,8 +137,6 @@ $content = json_decode($response->getBody(), true);
 // $secure_hash = hash_hmac('sha256', utf8_encode($data_to_hash), utf8_encode($secret_key));
 // $auth_hash = hash_hmac('sha256', utf8_encode($public_key), utf8_encode($secret_key));
 
-
-        $customer_s = $_POST['data'];
 
         $credentials = $this->creds();
 
@@ -164,9 +162,9 @@ $content = json_decode($response->getBody(), true);
         'currency' => 'PHP',
         'description' => "Description",
         'billing_email' => "email@gmail.com",
-        'billing_first_name' => "jayson",
-        'billing_last_name' => "claros",
-        'billing_middle_name' => "curada",
+        'billing_first_name' => $request->fname,
+        'billing_last_name' => $request->lname,
+        'billing_middle_name' => $request->mname,
         'billing_phone' => "123456789",
         'billing_mobile' => "12345678",
         'billing_address' => "address1",
@@ -216,7 +214,7 @@ $content = json_decode($response->getBody(), true);
         CURLOPT_TIMEOUT => 30,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "POST",
-        CURLOPT_POSTFIELDS => $data,
+        CURLOPT_POSTFIELDS => $request,
         CURLOPT_HTTPHEADER => array(
             "cache-control: no-cache",
             "content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW"
