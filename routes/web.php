@@ -37,7 +37,6 @@ Route::get('/merchant', 'Merchant\UserController@index')->name('m-user');
 Route::post('/merchant/profile', 'Merchant\UserController@profiles')->name('profile-save');
 
 Route::patch('/merchant/profile/{id}', 'Merchant\UserController@profile_update')->name('profile-update');
-
 Route::get('/merchant/profile/add-contact', 'Merchant\UserController@profile_contacts')->name('profile-contact');
 Route::post('/merchant/profile/add-contact-submit', 'Merchant\UserController@profile_contacts_save')->name('profile-contact-add');
 Route::get('/merchant/profile/edit-contact/{id}', 'Merchant\UserController@profile_contacts_edit')->name('profile-contact-edit');
@@ -61,6 +60,12 @@ Route::post('/merchant/service/tour', 'Merchant\ServiceController@savetour')->na
 
 Route::post('/merchant/service/upload_cover', 'Merchant\ServiceController@upload_cover')->name('upload_cover');
 Route::post('/merchant/service/upload_tour_photos', 'Merchant\ServiceController@upload_tour_photos')->name('tour_photos');
+
+//BOOKING
+Route::get('/merchant/booking/booked', 'Merchant\BookingController@booked')->name('merchant_booked');
+
+
+
 
 Route::post('dropzone/upload_image', 'Merchant\ServiceControllerr@upload_image')->name('dropzone.upload_image');
 Route::get('dropzone/fetch_image', 'Merchant\ServiceController@fetch_image')->name('dropzone.fetch_image');
@@ -108,8 +113,8 @@ Route::prefix('merchant')->group(function () {
 
 Route::prefix('tourismoph.payment')->group(function () {
 
-    Route::get('/hotels/xxx', 'PaymentController@sssss')->name('xxx');
-    Route::POST('/hotels/xxxx', 'PaymentController@pay_booking')->name('xxxx');
+    Route::get('/hotels/xxx', 'PaymentController@sssss')->name('xxxx');
+    Route::POST('/hotels/xxxx', 'PaymentController@pay_booking')->name('xxx');
 
     });
 

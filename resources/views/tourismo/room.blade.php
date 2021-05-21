@@ -167,13 +167,14 @@
 
 <div class="uk-accordion-content">    
 
-<form class="uk-form-stacked" method="POST" action="{{ route('xxxx') }}">
+<form class="uk-form-stacked" method="GET" action="{{ route('xxxx') }}">
 @csrf
 <div class="row row-margin">
 
 <div class="col-md-5 form-group mt-3">
     <label class="labelcoz">First Name</label>
     <input type="text" class="uk-input" name="fname" id="fname" value="{{ Auth::user()->fname }}" readonly="readonly">
+    <input type="text" class="uk-input" name="price" value="100">
     <div class="validate"></div>
 </div>
 

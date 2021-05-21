@@ -57,6 +57,16 @@
 	</div>
 </li>
 
+
+<li class="marg_menu mm_mrg">
+<a class="uk-accordion-title" href="#"><span uk-icon="album"></span> <span class="uk-list-a"> Booking</span></a>
+  <div class="uk-accordion-content">
+    <p><a href="{{ route('merchant_booked') }}" class="uk-link"><span uk-icon="check">Booked</span></a></p>
+    <p><a href="#" class="uk-link"><span uk-icon="check"></span></a></p>
+  </div>
+</li>
+
+
 </ul>
 
 <ul class="uk-list">
