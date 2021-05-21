@@ -14,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
+    Route::POST('payment/traxion', 'PaymentController@pay_booking');
     return $request->user();
 });
+Route::POST('tourismoph.payment/hotels/xxxx', 'PaymentController@pay_booking')->name('pay');
+
+
+
+
+

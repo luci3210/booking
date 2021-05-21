@@ -13,5 +13,7 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         //
+        'tourismoph.payment/hotels/xxxx',
+        'api/tourismoph.payment/hotels/xxxx'
     ];
 }

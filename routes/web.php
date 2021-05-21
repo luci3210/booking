@@ -111,7 +111,7 @@ Route::prefix('tourismoph.payment')->group(function () {
     Route::get('/hotels/xxx', 'PaymentController@sssss')->name('xxx');
     Route::POST('/hotels/xxxx', 'PaymentController@pay_booking')->name('xxxx');
 
-    });
+});
 
 // --------------------------------------- ACCOUNT -------------------------------------
 

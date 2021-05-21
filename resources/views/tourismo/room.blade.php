@@ -38,7 +38,7 @@
 
 <div>
   <div class="section-title">
-  <h2>{{ $room_details[0]->roomname }}</h2>
+  <h2 id='plan_name_checkout'>{{ $room_details[0]->roomname }}</h2>
   <p style="margin-top: -5px;">
   <span style="font-size:12px; font-weight: 100px;"><i class="fas fa-building"></i> EuroTEL Corp.</span>
   </p>
@@ -87,7 +87,7 @@
   <b>
  <span style="font-weight: 500px;color:#ff2f00;"> ₱ </span>
   <span style="font-size:18px; font-weight:200px;color:#ff2f00;">
-    {{ $room_details[0]->price }} / For {{ $room_details[0]->nonight }} Night
+    <span id='plan_price_checkout'>{{ $room_details[0]->price }}</span> / For {{ $room_details[0]->nonight }} Night
   </span>
 </b>
 </h3>
@@ -171,14 +171,14 @@
 </div>
 
 <div class="uk-accordion-content">    
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <form class="uk-form-stacked" method="POST" action="{{ route('xxxx') }}">
 @csrf
 <div class="row row-margin">
 
 <div class="col-md-5 form-group mt-3">
     <label class="labelcoz">First Name</label>
-    <input type="text" class="uk-input" name="fname" id="fname" value="{{ Auth::user()->fname }}" readonly="readonly">
+    <input type="text" class="uk-input" name="billing_first_name" id="fname" value="{{ Auth::user()->fname }}" readonly="readonly">
     <div class="validate"></div>
 </div>
 
@@ -196,13 +196,13 @@
 
 <div class="col-md-6 form-group mt-3">
     <label class="labelcoz">Phone No.</label>
-    <input type="text" class="uk-input" name="pnumber" id="pnumber" value="{{ Auth::user()->pnumber }}" readonly="readonly">
+    <input type="text" class="uk-input" name="billing_phone" id="pnumber" value="{{ Auth::user()->pnumber }}" readonly="readonly">
     <div class="validate"></div>
 </div>
 
 <div class="col-md-6 form-group mt-3">
     <label class="labelcoz">Email</label>
-    <input type="text" class="uk-input" name="email" id="email" value="{{ Auth::user()->email }}" readonly="readonly">
+    <input type="text" class="uk-input" name="billing_email" id="email" value="{{ Auth::user()->email }}" readonly="readonly">
     <div class="validate"></div>
 </div>
 
@@ -215,16 +215,110 @@
 
 <div class="col-md-12 form-group mt-3">
 <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
-            <label><input class="uk-radio" type="radio" name="radio2" checked> Pay with PayPal</label>
-            <label><input class="uk-radio" type="radio" name="radio2" checked> Pay with TraxionPay</label>
+            <label><input class="uk-radio" type="radio" name="payment-method" value="paypal" checked> Pay with PayPal</label>
+            <label><input class="uk-radio" type="radio" name="payment-method" value="traxion" checked> Pay with TraxionPay</label>
         </div>
         </div>
 <div class="col-md-12 form-group mt-3">
-<button type="submit" class="uk-button uk-button-primary">Continue</button>
+<button type="button" class="uk-button uk-button-primary" onClick="checkPaymentMethod()">Continue</button>
 </div>
 
 </div>
 </form>
+<script>
+
+  function checkPaymentMethod(){
+     let paymentType= $('input[name="payment-method"]:checked').val();
+
+    if(paymentType == 'traxion'){
+        paybyTraxion();
+        return;
+    }
+    if(paymentType == 'paypal'){
+      alert(paymentType)
+      return;
+    }
+    if(paymentType == null){
+      alert('please select payment type...')
+    }
+  }
+  function paybyTraxion(){
+    var fname = $('input[name="billing_first_name"]').val();
+    var lname = $('input[name="billing_last_name"]').val();
+    var company = $('input[name="billing_company"]').val();
+    var city = $('input[name="billing_city"]').val();
+    var country = $('input[name="billing_country"]').val();
+    var address_1 = $('input[name="billing_address_1"]').val();
+    var state = $('input[name="billing_state"]').val();
+    var postcode = $('input[name="billing_postcode"]').val();
+    var phone = $('input[name="billing_phone"]').val();
+    var email = $('input[name="billing_email"]').val();
+    var plan_price = parseInt($('#plan_price_checkout').text());
+    var plan_name = $('#plan_name_checkout').text();
+
+    console.log(fname);
+    var datam = {
+        billing_first_name: fname,
+        billing_last_name: lname,
+        billing_company: company,
+        billing_city: city,
+        billing_country: country,
+        billing_address_1: address_1,
+        billing_state: state,
+        billing_postcode: postcode,
+        billing_phone: phone,
+        billing_email: email,
+        billing_price: plan_price,
+        billing_plan_name: plan_name
+    };
+    var crfToken = $('meta[name="csrf-token"]').attr('content');
+    // console.log(crfToken);
+    var request = $.ajax({
+      url: '{{ route('xxxx') }}',
+      // headers: {
+      //   'Authorization':'Basic ' + '***=',
+      //   'X-CSRF-TOKEN': crfToken,
+      //   'Accept': 'application/json',
+      // },
+      method:"post",
+      data:{
+        billing_first_name: fname,
+        billing_last_name: lname,
+        billing_company: company,
+        billing_city: city,
+        billing_country: country,
+        billing_address_1: address_1,
+        billing_state: state,
+        billing_postcode: postcode,
+        billing_phone: phone,
+        billing_email: email,
+        billing_price: plan_price,
+        billing_plan_name: plan_name
+      },
+      success:function(data)
+      {
+        let paymenyLink = data['dataresp']['form_link']
+        window.open(paymenyLink);
+        console.log(paymenyLink);
+      },
+      fail:function(jqXHR, textStatus) {
+        console.log( "Request failed: xxxx" + textStatus );
+      }
+    })
+    request.done(function(msg) {
+        console.log(msg);
+        $('#pay-via-taxionpay').attr('href', msg.form_link);
+    });
+
+  //   request.fail(function(jqXHR, textStatus) {
+  //       console.log( "Request failed:sssss " + textStatus );
+  //   });
+
+
+
+
+  }
+</script>
 
 </div>
 
