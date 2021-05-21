@@ -171,14 +171,24 @@
 </div>
 
 <div class="uk-accordion-content">    
+<<<<<<< HEAD
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <form class="uk-form-stacked" method="POST" action="{{ route('xxxx') }}">
+=======
+
+<form class="uk-form-stacked" method="GET" action="{{ route('xxxx') }}">
+>>>>>>> d55bf534b664552f9f2e8cb464c0908ba71f8173
 @csrf
 <div class="row row-margin">
 
 <div class="col-md-5 form-group mt-3">
     <label class="labelcoz">First Name</label>
+<<<<<<< HEAD
     <input type="text" class="uk-input" name="billing_first_name" id="fname" value="{{ Auth::user()->fname }}" readonly="readonly">
+=======
+    <input type="text" class="uk-input" name="fname" id="fname" value="{{ Auth::user()->fname }}" readonly="readonly">
+    <input type="text" class="uk-input" name="price" value="100">
+>>>>>>> d55bf534b664552f9f2e8cb464c0908ba71f8173
     <div class="validate"></div>
 </div>
 

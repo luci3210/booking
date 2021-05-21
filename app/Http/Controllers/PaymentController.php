@@ -23,26 +23,25 @@ class PaymentController extends Controller
 
     public function sssss() {
 
-$endpoint = "http://my.domain.com/test.php";
-$client = new \GuzzleHttp\Client();
-$id = 5;
-$value = "ABC";
+    $data = array("NAME" => "somename","AGE" => "22");
 
-$response = $client->request('GET', $endpoint, ['query' => [
-    'key1' => $id, 
-    'key2' => $value,
-]]);
+    $url = 'https://api.traxionpay.com/payform-link?format=json';
+    $ch = curl_init();
 
-// url will be: http://my.domain.com/test.php?key1=5&key2=ABC;
+    curl_setopt($ch,CURLOPT_URL,$url);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);                                 
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW'));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $result = curl_exec($ch);
 
-$statusCode = $response->getStatusCode();
-// $content = $response->getBody();
-$content = json_decode($response->getBody(), true);
+    dd($result);
 
-    }
+        curl_close($ch);
+
+ }
     function examplepay() {
         // $secret_key = "cxl+hwc%97h6+4#lx1au*ut=ml+=!fx85w94iuf*06=rf383xs";
-        //     $public_key = '7)5dmcfy^dp*9bdrcfcm$k-n=p7b!x(t)_f^i8mxl@v_+rno*x';
+        // $public_key = '7)5dmcfy^dp*9bdrcfcm$k-n=p7b!x(t)_f^i8mxl@v_+rno*x';
 
             $credentials = $this->creds();
 
@@ -134,10 +133,8 @@ $content = json_decode($response->getBody(), true);
         $data['errors'] = null;
         $data['success'] = null;
         $data['info'] = null;
-
         $paymentInfo = $req->post();
         $data['post'] =  $paymentInfo;
-
         $credentials = $this->creds();
 
         // $secret_key = $credentials->private_key;
@@ -207,7 +204,6 @@ $content = json_decode($response->getBody(), true);
                 "content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW"
             ),
         ));
-
 
 
         $response = curl_exec($curl);
