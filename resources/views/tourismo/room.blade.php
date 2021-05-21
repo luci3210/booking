@@ -1,6 +1,11 @@
 @extends('layouts.tourismo.ui')
-
 @section('content')
+<!-- meta tags  -->
+@section('description', $room_details[0]->address)
+@section('keywords', $room_details[0]->roomname)
+@section('img', asset( 'upload/merchant/coverphoto'. $room_details[0]->photo))
+@section('curUrl', url()->current())
+<!-- /. meta tags -->
 <section class="features">
       <div class="container">
 

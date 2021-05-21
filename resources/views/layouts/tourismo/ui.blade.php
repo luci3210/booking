@@ -5,6 +5,32 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>TourismoPH</title>
   <meta content="" name="Tourismo">
+  <!--  meta tags SEO -->
+  <!-- google -->
+      <meta name="title" content="@yield('keywords')">
+      <meta name="description" content="@yield('description')">
+      <meta name="keywords" content="@yield('keywords')">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="language" content="English">
+      <meta name="author" content="Tourismo admin">
+      <meta itemprop="image" content="@yield('img')">
+  <!-- /.google -->
+  <!-- fb tags -->
+      <meta property="og:url" content="@yield('curUrl')" />
+      <meta property="og:type" content="website" />
+      <meta property="og:title" content="@yield('keywords')" />
+      <meta property="og:description" content="@yield('description')" />
+      <meta property="og:image" content="@yield('img')" />
+  <!-- /. fb tags -->
+  <!-- Twitter Meta Tags -->
+      <meta name="twitter:card" content="summary_large_image">
+      <meta name="twitter:title" content="@yield('keywords')">
+      <meta name="twitter:description" content="@yield('description')">
+      <meta name="twitter:image" content="@yield('img')">
+  <!-- /. Twitter Meta Tags -->
+
+
+  <!-- /. meta tags SEO -->
   <meta content="" name="Tourismo">
   <link href="{{ asset('image/logo/favicon.png') }}" rel="icon">
   <link href="{{ asset('image/logo/favicon.png') }}" rel="apple-touch-icon">
