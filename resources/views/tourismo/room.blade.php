@@ -335,9 +335,27 @@
     Book Now
   </a>
 
-  <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)" uk-toggle="target: #checklogin">
-    Like
+  <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)"uk-toggle="target: #share" >
+    <i class="fas fa-share"></i> Share
   </a>
+  <!--  share modal  -->
+  <div id="share" uk-modal class="uk-flex-top">
+      <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+          <!-- <h2 class="uk-modal-title">Share on social media via</h2> -->
+          <div uk-grid class="uk-flex-center">
+            <div><a onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )"><img src="{{ asset('image/socialmedia/fb.png')}}" height="50" width="50" ></a></div>
+            <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $room_details[0]->roomname }} price {{ $room_details[0]->price }} night{{ $room_details[0]->nonight }}&url={{ url()->current() }}')"><img src="{{ asset('image/socialmedia/tw.png')}}" height="50" width="50" ></a></div>
+            <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $room_details[0]->roomname }} price {{ $room_details[0]->price }} night{{ $room_details[0]->nonight }}&url={{ url()->current() }}')"><img src="{{ asset('image/socialmedia/ig.png')}}" height="50" width="50" ></a></div>
+            <div><a href="mailto:yourfriendsemail@sample.com?subject={{ $room_details[0]->destination_info }}&body=No. of hotels : 150  visit the link {{ url()->current() }}"><img src="{{ asset('image/socialmedia/gm.png')}}" height="50" width="50" ></a></div>
+            <div><a onclick="sendMessenger('{{ url()->current() }}')"><img src="{{ asset('image/socialmedia/msg.png')}}" height="50" width="50" ></a></div>
+            <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $room_details[0]->roomname }} price {{ $room_details[0]->price }} night{{ $room_details[0]->nonight }}&url={{ url()->current() }}')"><img src="{{ asset('image/socialmedia/we.png')}}" height="50" width="50" ></a></div>
+          </div>
+      </div>
+  </div>
+  <!-- /. share modal -->
+  <!-- <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)" uk-toggle="target: #checklogin">
+    Like
+  </a> -->
 
 @endif
 
@@ -442,6 +460,35 @@
 
     </div>
 </div>
+
+
+<script>
+
+async function sendMessenger(routeDestination) {
+  var TempText = document.createElement("input");
+  TempText.value = routeDestination;
+  document.body.appendChild(TempText);
+  TempText.select();
+  
+  document.execCommand("copy");
+  document.body.removeChild(TempText);
+
+  var sticky = UIkit.sticky('.sticky', {
+      offset: 50,
+      top: 100
+  });
+
+  var notifications =  await UIkit.notification('Link Copied', 'success');
+  if(notifications){
+    setTimeout(()=>{
+      window.open('https://www.messenger.com/t')
+    },1500)
+  }
+  
+  // alert("Copied the text: " + TempText.value);
+
+}
+</script>
 
 @endsection
 
