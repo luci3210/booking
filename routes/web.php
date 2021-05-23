@@ -190,9 +190,14 @@ Route::prefix('admin')->group(function () {
 // ---------------------- DESTINATION -----------------------------
 
 Route::get(
+        '/tourismo/destination/provices/a/{id}', 
+        'Admin\LocationController@find_district_for_destination');
+
+Route::get(
         '/tourismo/destination/addnew', 
         'Admin\DestinationController@destination_form')
-        ->name('destination_addnew');    
+        ->name('destination_addnew');  
+ 
 
 Route::post(
         '/tourismo/destination/addnedw', 

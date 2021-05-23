@@ -275,6 +275,7 @@
     // console.log(crfToken);
     var request = $.ajax({
       url: '{{ route('pay') }}',
+      // withCSRF:['_token','{{ csrf_token() }}'],
       // headers: {
       //   'Authorization':'Basic ' + '***=',
       //   'X-CSRF-TOKEN': crfToken,

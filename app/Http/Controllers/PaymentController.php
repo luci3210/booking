@@ -6,7 +6,7 @@ use App\Model\Admin\PayCredsModel;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
-use GuzzleHttp;
+// use GuzzleHttp;
 
 
 class PaymentController extends Controller
@@ -21,24 +21,6 @@ class PaymentController extends Controller
 		return PayCredsModel::where('temp_status',1)->first();
 	}
 
-    public function sssss() {
-
-    $data = array("NAME" => "somename","AGE" => "22");
-
-    $url = 'https://api.traxionpay.com/payform-link?format=json';
-    $ch = curl_init();
-
-    curl_setopt($ch,CURLOPT_URL,$url);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);                                 
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array('multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW'));
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    $result = curl_exec($ch);
-
-    dd($result);
-
-        curl_close($ch);
-
- }
     function examplepay() {
         // $secret_key = "cxl+hwc%97h6+4#lx1au*ut=ml+=!fx85w94iuf*06=rf383xs";
         // $public_key = '7)5dmcfy^dp*9bdrcfcm$k-n=p7b!x(t)_f^i8mxl@v_+rno*x';
@@ -108,14 +90,12 @@ class PaymentController extends Controller
 
             //https://app.traxionpay.com/payme/?data=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtZXJjaGFudCI6ODUyOSwibWVyY2hhbnRfbmFtZSI6IlRvdXJpc21vUEggQ29ycG9yYXRpb24iLCJtZXJjaGFudF9mZWUiOjAuMCwibWVyY2hhbnRfbGV2ZWwiOjIsImFwcGx5X2ZlZXMiOnRydWUsImNhc2hfaW5fbGltaXQiOi0xLjAsInBheW1lX251bWJlciI6ODY2NDIyLCJtZXJjaGFudF9zaG91bGRlcmVkIjp0cnVlLCJhbW91bnQiOjUwOTIuMCwiZGVzY3JpcHRpb24iOiJDb3JyZWRvciBJcy4sIFRoZSBSb2NrIGJvb2tpbmciLCJtZXJjaGFudF9yZWZfbm8iOiI1YThjMTJlYjE5MDE2IiwibWVyY2hhbnRfYWRkaXRpb25hbF9kYXRhIjoiQWRkaXRpb25hbCBEYXRhIiwicHVycG9zZSI6IiIsInNvdXJjZSI6IiIsInNwZWNpZnkiOiIiLCJjY19tZHIiOjAsImNjX2ZlZSI6MCwiYWdncmVnYXRvcl9mZWUiOjB9.MHHqWbf74rokfxqdHJ1HXwB8NEGo24uQBjhdMtuRvGc&form_data=eyJtZXJjaGFudF9pZCI6Ijg1MjkiLCJtZXJjaGFudF9yZWZfbm8iOiI1YThjMTJlYjE5MDE2IiwibWVyY2hhbnRfYWRkaXRpb25hbF9kYXRhIjoiQWRkaXRpb25hbCBEYXRhIiwiYW1vdW50IjoiNTA5Mi4wMCIsImN1cnJlbmN5IjoiUEhQIiwiZGVzY3JpcHRpb24iOiJDb3JyZWRvciBJcy4sIFRoZSBSb2NrIGJvb2tpbmciLCJiaWxsaW5nX2VtYWlsIjoiamF5c29uLmNsYXJvc0BnbWFpbC5jb20iLCJiaWxsaW5nX2ZpcnN0X25hbWUiOiJkZmRmIiwiYmlsbGluZ19sYXN0X25hbWUiOiJzZHNkcyIsImJpbGxpbmdfbWlkZGxlX25hbWUiOiJOb25lIiwiYmlsbGluZ19waG9uZSI6IjA5NDY2ODI5NDIyIiwiYmlsbGluZ19tb2JpbGUiOiIwOTQ2NjgyOTQyMiIsImJpbGxpbmdfYWRkcmVzcyI6IjE0MjUgZmRnZmcuZSBoc2pzaiBramFramFzIiwiYmlsbGluZ19hZGRyZXNzMiI6Ik5vbmUiLCJiaWxsaW5nX2NpdHkiOiJtYW5pbGFgIiwiYmlsbGluZ19zdGF0ZSI6Ik5vbmUiLCJiaWxsaW5nX3ppcCI6Ik5vbmUiLCJiaWxsaW5nX2NvdW50cnkiOiJOb25lIiwiYmlsbGluZ19yZW1hcmsiOiJOb25lIiwicGF5bWVudF9tZXRob2QiOiJCT0ciLCJzdGF0dXNfbm90aWZpY2F0aW9uX3VybCI6Imh0dHBzOi8vNjM0MmEzMzQubmdyb2suaW8vY2FsbGJhY2siLCJzdWNjZXNzX3BhZ2VfdXJsIjoiaHR0cHM6Ly9ib29raW5nLmV0b3VyaXNtby5jb20vbGlzdGluZy1jaGVja291dC8/cGF5bWVudD1zdWNjZXNzJiIsImZhaWx1cmVfcGFnZV91cmwiOiJodHRwczovL2Jvb2tpbmcuZXRvdXJpc21vLmNvbS9wYXltZW50LWZhaWxlZC8iLCJjYW5jZWxfcGFnZV91cmwiOiJodHRwczovL2Jvb2tpbmcuZXRvdXJpc21vLmNvbS9saXN0aW5nLWNoZWNrb3V0Lz9wYXltZW50PWNhbmNlbCYiLCJwZW5kaW5nX3BhZ2VfdXJsIjoiaHR0cHM6Ly9ib29raW5nLmV0b3VyaXNtby5jb20vbGlzdGluZy1jaGVja291dC8/cGF5bWVudD1wZW5kaW5nJiIsInNlY3VyZV9oYXNoIjoiNmUyOTA4ZjdmZDUwYWIwZDg3ZjllY2QxMTNiN2ViYzg4MGYxNzNhNTNhMjM3YzJlNDU2NWVjNjcyNjkxZDlhZCIsImF1dGhfaGFzaCI6IjYwY2Q2MjkyZmY0MDIzZWRmNmZlMjE0YWU0MjUyN2JhMzUzZjViODM5OTEzZDc1NWMyMTllZmJkNDc1MmUyMWEiLCJhbGciOiJIUzI1NiJ9
 
+            //https://app.traxionpay.com/payme/?data=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtZXJjaGFudCI6ODUyOSwibWVyY2hhbnRfbmFtZSI6IlRvdXJpc21vUEggQ29ycG9yYXRpb24iLCJtZXJjaGFudF9mZWUiOjAuMCwibWVyY2hhbnRfbGV2ZWwiOjIsImFwcGx5X2ZlZXMiOnRydWUsImNhc2hfaW5fbGltaXQiOi0xLjAsInBheW1lX251bWJlciI6MzM0MzA3LCJtZXJjaGFudF9zaG91bGRlcmVkIjp0cnVlLCJhbW91bnQiOjEwMC4wLCJkZXNjcmlwdGlvbiI6IkJTQSBUd2luIFRvd2VycyIsIm1lcmNoYW50X3JlZl9ubyI6IjVhOGMxMmViMTkwMTYiLCJtZXJjaGFudF9hZGRpdGlvbmFsX2RhdGEiOiJBZGRpdGlvbmFsIERhdGEiLCJwdXJwb3NlIjoiIiwic291cmNlIjoiIiwic3BlY2lmeSI6IiIsImNjX21kciI6MCwiY2NfZmVlIjowLCJhZ2dyZWdhdG9yX2ZlZSI6MH0.gv2KqeVjq9_BF7xhB9yaquwr6_zcNjEQqSM7qixJE1o&form_data=eyJtZXJjaGFudF9pZCI6Ijg1MjkiLCJtZXJjaGFudF9yZWZfbm8iOiI1YThjMTJlYjE5MDE2IiwibWVyY2hhbnRfYWRkaXRpb25hbF9kYXRhIjoiQWRkaXRpb25hbCBEYXRhIiwiYW1vdW50IjoxMDAsImN1cnJlbmN5IjoiUEhQIiwiZGVzY3JpcHRpb24iOiJCU0EgVHdpbiBUb3dlcnMiLCJiaWxsaW5nX2VtYWlsIjoiamF5c29uLmNsYXJvc0BnbWFpbC5jb20iLCJiaWxsaW5nX2ZpcnN0X25hbWUiOiJqYXlzb25hIiwiYmlsbGluZ19sYXN0X25hbWUiOm51bGwsImJpbGxpbmdfbWlkZGxlX25hbWUiOiJOb25lIiwiYmlsbGluZ19waG9uZSI6IjA5NDY2ODI5NDUzIiwiYmlsbGluZ19tb2JpbGUiOiIwOTQ2NjgyOTQ1MyIsImJpbGxpbmdfYWRkcmVzcyI6bnVsbCwiYmlsbGluZ19hZGRyZXNzMiI6Ik5vbmUiLCJiaWxsaW5nX2NpdHkiOm51bGwsImJpbGxpbmdfc3RhdGUiOiJOb25lIiwiYmlsbGluZ196aXAiOiJOb25lIiwiYmlsbGluZ19jb3VudHJ5IjoiTm9uZSIsImJpbGxpbmdfcmVtYXJrIjoiTm9uZSIsInBheW1lbnRfbWV0aG9kIjoiQk9HIiwic3RhdHVzX25vdGlmaWNhdGlvbl91cmwiOiJodHRwczovLzYzNDJhMzM0Lm5ncm9rLmlvL2NhbGxiYWNrIiwic3VjY2Vzc19wYWdlX3VybCI6Imh0dHBzOi8vYm9va2luZy5ldG91cmlzbW8uY29tL2xpc3RpbmctY2hlY2tvdXQvP3BheW1lbnQ9c3VjY2VzcyYiLCJmYWlsdXJlX3BhZ2VfdXJsIjoiaHR0cHM6Ly9ib29raW5nLmV0b3VyaXNtby5jb20vcGF5bWVudC1mYWlsZWQvIiwiY2FuY2VsX3BhZ2VfdXJsIjoiaHR0cHM6Ly9ib29raW5nLmV0b3VyaXNtby5jb20vbGlzdGluZy1jaGVja291dC8/cGF5bWVudD1jYW5jZWwmIiwicGVuZGluZ19wYWdlX3VybCI6Imh0dHBzOi8vYm9va2luZy5ldG91cmlzbW8uY29tL2xpc3RpbmctY2hlY2tvdXQvP3BheW1lbnQ9cGVuZGluZyYiLCJzZWN1cmVfaGFzaCI6IjYzNWE0ZjhkYzRhMzI3Y2E3MDEzOTY1ZDkyZWMwOGZmNmVmNGJiMDYzOTJiYTE5YjRiODBlOTk1ZmQ3OWI5ZjAiLCJhdXRoX2hhc2giOiIxYjI4NWU1NDhhNzUzMTViNTg1NmU0ZjRjNWJjZmQ2YzZhNzM2ZDc5ZjEzNTZmNDlmY2JiY2I4ZmU0ZGJlOGQ5IiwiYWxnIjoiSFMyNTYifQ==
 
 
 
 
 
-            // $datas = json_decode($de)
-
-            return $decoded;
     }
 
     function generateToken()
@@ -129,19 +109,20 @@ class PaymentController extends Controller
         return $token;
     }
 
-	public function pay_booking(Request $req) {
-        $data['errors'] = null;
-        $data['success'] = null;
-        $data['info'] = null;
+	function pay_booking(Request $req) {
+        // $data['errors'] = null;
+        // $data['success'] = null;
+        // $data['info'] = null;
+        
         $paymentInfo = $req->post();
         $data['post'] =  $paymentInfo;
         $credentials = $this->creds();
 
-        // $secret_key = $credentials->private_key;
-        // $public_key = $credentials->public_key;
+        $secret_key = $credentials->private_key;
+        $public_key = $credentials->public_key;
 
-        $secret_key = $this->generateToken();
-        $public_key = '@ik2-#n)3yyxqa_g5t-sy)qbsl0)eu(_6-weu=v^aa)%$x!ll5';
+        // $secret_key = $this->generateToken();
+        // $public_key = '@ik2-#n)3yyxqa_g5t-sy)qbsl0)eu(_6-weu=v^aa)%$x!ll5';
         $merchant_id = "8529";
         
     
@@ -210,6 +191,7 @@ class PaymentController extends Controller
         $err = curl_error($curl);
 
         curl_close($curl);
+        
         $dataresp;
         if ($err) {
             echo "cURL Error #:" . $err;

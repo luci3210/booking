@@ -51,6 +51,11 @@ class LocationController extends Controller
         return view('admin.location.search.region',compact(['locations','in_region_and_country','get_country']));
     }
 
+    public function find_district_for_destination($id)
+    {
+        return json_encode(LocationDistrictModel::select()->where('country_id',$id)->get());
+    }    
+
     public function find_region_id($id)
     {
         return json_encode(LocationRegionModel::select()->where('country_id',$id)->get());

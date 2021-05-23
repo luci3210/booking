@@ -9,6 +9,7 @@ class DestinationModel extends Model
     protected $table = 'destinations';
     protected $fillable = [
     		'id',
+    		'country_id',
     		'destination_id',
     		'destination_info',
     		'destination_desc',

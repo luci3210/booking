@@ -72,7 +72,7 @@
     <div class="card">
     
       <div class="card-header">
-        <h3 class="card-title">Tourismo Product » <a href="" class="py-0">create</a></h3>
+        <h3 class="card-title">Manage Destination » <a href="" class="py-0">create</a></h3>
       </div>
 
       <!-- <form role="form" id="form_valid"> -->
@@ -80,8 +80,25 @@
 @csrf
 
 <div class="card-body">
-<div class="form-group">
 
+<div class="form-group">
+<label class="col-form-label">
+    Country
+  <small class="text-danger has-error">
+    {{ $errors->has('country') ?  $errors->first('country') : '' }}
+  </small>
+</label>
+
+<select class="form-control" name="country" id="countryid">
+  <option>-Select District / Province-</option> 
+  @foreach($country as $list)
+  <option value="{{ $list->id }}">{{ $list->country }}</option>            
+  @endforeach 
+  </select>
+</div>
+
+
+<div class="form-group">
 <label class="col-form-label">
     Destination (District/Province)
   <small class="text-danger has-error">
@@ -89,9 +106,9 @@
   </small>
 </label>
 
-<select class="form-control" name="destination">
+<select class="form-control" name="destination" id="destrictid">
   <option>-Select District / Province-</option> 
-  @foreach($location as $list)
+  @foreach($destrict as $list)
   <option value="{{ $list->id }}">{{ $list->district }}</option>            
   @endforeach 
   </select>
@@ -168,4 +185,29 @@
 </div>
 </section>
 
+@endsection
+@section('third_party_scripts')
+<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
+<script>
+      $(document).ready(function () {
+      $('#countryid').on('change', function () {
+      let id = $(this).val();
+      $('#destrictid').empty();
+      $('#destrictid').append(`<option value="0" disabled selected>Searching . . .</option>`);
+      $.ajax({
+      type: 'GET',
+      url: '/admin/tourismo/destination/provices/a/' + id,
+      success: function (response) {
+      var response = JSON.parse(response);
+      console.log(response);   
+      $('#destrictid').empty();
+      $('#destrictid').append(`<option value="0" disabled selected>-Select Region-</option>`);
+      response.forEach(element => {
+          $('#destrictid').append(`<option value="${element['id']}">${element['district']}</option>`);
+          });
+      }
+  });
+});
+});
+</script>
 @endsection
