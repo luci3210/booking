@@ -9,6 +9,9 @@
 .hidden-xl{
     display: none;
 }
+.block-xl{
+    display: block;
+}
 .col-12{
     width: 100%;
 }
@@ -18,11 +21,16 @@
 .uk-navbar-container,.uk-navbar-transparent{
     background-color: #ffffff!important;
 }
-
+.hide-xl{
+    display: none!important;
+}
 
 @media only screen and (max-width: 992px) {
     .hidden-m{
         display: none;
+    }
+    .block-l{
+        display: block!important;
     }
     .mobile-nav-toggle{
         margin-top: 10px;
@@ -43,7 +51,7 @@
         width: 100%;
     }
     .hidden-sm{
-        display: none;
+        display: none!important;
     }
     .block-sm{
         display: block;
@@ -53,7 +61,7 @@
 /* pixel 2 */
 @media only screen and (max-width: 414px) {
     .hidden-m{
-        display: none;
+        display: none!important;
     }
     .mobile-nav-toggle{
         margin-top: 15px;
@@ -63,13 +71,13 @@
     }
     
     .hidden-sm{
-        display: none;
+        display: none!important;
     }
 }
 
 /* pixel 2 */
 @media only screen and (max-width: 360px) {
-    .hidden-m{
+    .hidden-xs{
         display: none;
     }
     .mobile-nav-toggle{

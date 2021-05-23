@@ -8,7 +8,125 @@
   .uk-button{
     margin: 5px 0;
   }
+  .center-item{
+    margin: 0 auto!important;
+    display: flex;
+  }
+  .p-20{
+    padding: 20px;
+  }
+  .top-20{
+    margin-top: -70px;
+  }
+  .icon-title{
+    width: min-content;
+    margin: auto auto 0;
+    line-height: 14px;
+    font-weight: 400;
+    margin-top: 8px;
+    color: black;
+  }
+  /* .icon-img{
+    width: 40px;
+  } */
+
+  .item-icon{
+      vertical-align: top;
+      display: inline-block;
+      text-align: center;
+      width: 120px;
+  }
+  .icon-img {
+      width: 100px;
+      height: 100px;
+  }
+  .caption {
+      display: block;
+  }
+
+  @media only screen and (max-width: 1000px) {
+    .item-icon {
+        vertical-align: top;
+        display: inline-block;
+        text-align: center;
+        width: 100px;
+    }
+    
+  }
+
+  @media only screen and (max-width: 912px) {
+    .hidden-m{
+      display: none!important;
+    }
+    .block-m{
+      display: block!important;
+    }
+    
+    .item-icon {
+      vertical-align: top;
+      display: inline-block;
+      text-align: center;
+      width: 50px;
+      margin: 0 10px;
+    }
+  }
+
+  @media only screen and (max-width: 650px) {
+    .item-icon {
+      vertical-align: top;
+      display: inline-block;
+      text-align: center;
+      width: 50px;
+      margin: 0 10px;
+    }
+    #mobile div{
+      padding: 0!important;
+    }
+  }
+  @media only screen and (max-width: 414px) {
+    .item-icon {
+      vertical-align: top;
+      display: inline-block;
+      text-align: center;
+      width: 35px;
+      margin: 0 10px;
+    }
+    .pd-xs-0{
+      padding: 0!important;
+    }
+  }
+
+  @media only screen and (max-width: 375px) {
+    .item-icon {
+      vertical-align: top;
+      display: inline-block;
+      text-align: center;
+      width: 40px;
+      margin: 0 10px;
+    }
+    .pd-xs-0{
+      padding: 0!important;
+    }
+  }
+
+  @media only screen and (max-width: 320px) {
+    .item-icon {
+      vertical-align: top;
+      display: inline-block;
+      text-align: center;
+      width: 30px;
+      margin: 0 10px;
+    }
+    .pd-xs-0{
+      padding: 0!important;
+    }
+    .center-item{
+      padding: 5px!important;
+    }
+  }
 </style>
+
+
 <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="ratio: 10:3; animation: push">
     <ul class="uk-slideshow-items">
       @foreach($home_hotel as $list)
@@ -30,6 +148,120 @@
 
 
 @section('content')
+
+<div class="uk-width-1-1 top-20 p-20">
+<div class="uk-card uk-card-body uk-card-default uk-large uk-width-1-1@l center-item uk-flex">
+    <div class="center-item hidden-m">
+      <div class="uk-card item-icon  uk-card-body">
+        <figure>
+          <img src="{{ asset('image/destination/hotel-icon.png') }}"alt="my img"/>
+          <figcaption class="icon-title">Hotel</figcaption>
+        </figure>
+      </div>
+      <div class="uk-card item-icon  uk-card-body ">
+        <figure>
+          <img class="figure-img" src="{{ asset('image/destination/tour-icon.png') }}"alt="my img"/>
+          <figcaption class="icon-title">Tour Package</figcaption>
+        </figure>
+      </div>
+      <div class="uk-card item-icon  uk-card-body ">
+        <figure>
+          <img class="figure-img" src="{{ asset('image/destination/launchpad-icon-flight.png') }}"alt="my img"/>
+          <figcaption class="icon-title">Flight</figcaption>
+        </figure>
+      </div>
+      <div class="uk-card item-icon  uk-card-body ">
+        <figure>
+          <img class="figure-img" src="{{ asset('image/destination/cruise-icon.png') }}"alt="my img"/>
+          <figcaption class="icon-title">Cruise</figcaption>
+        </figure>
+      </div>
+      <div class="uk-card item-icon  uk-card-body ">
+        <figure>
+          <img class="figure-img" src="{{ asset('image/destination/events-icon.png') }}"alt="my img"/>
+          <figcaption class="icon-title">Mice Events</figcaption>
+        </figure>
+      </div>
+      <div class="uk-card item-icon  uk-card-body ">
+        <figure>
+          <img class="figure-img" src="{{ asset('image/destination/launchpad-icon-tourist-stop.png') }}"alt="my img"/>
+          <figcaption class="icon-title">Tourist Stop</figcaption>
+        </figure>
+      </div>
+      <div class="uk-card item-icon  uk-card-body ">
+        <figure>
+          <img class="figure-img" src="{{ asset('image/destination/launchpad-icon-tour-guide.png') }}"alt="my img"/>
+          <figcaption class="icon-title">Tour Guide</figcaption>
+        </figure>
+      </div>
+      <div class="uk-card item-icon  uk-card-body ">
+        <figure>
+          <img class="figure-img" src="{{ asset('image/destination/launchpad-icon-translator.png') }}"alt="my img"/>
+          <figcaption class="icon-title">Language Translator</figcaption>
+        </figure>
+      </div>
+    </div>
+    <div id="mobile" class="block-l hide-xl center-item" uk-grid>
+      <!-- /. desktop -->
+    <div class="block-m hidden-xl center-item pd-xs-0">
+      <div class="uk-card item-icon  ">
+        <figure>
+          <img src="{{ asset('image/destination/hotel-icon.png') }}"alt="my img"/>
+          <figcaption class="icon-title">Hotel</figcaption>
+        </figure>
+      </div>
+      <div class="uk-card item-icon  ">
+        <figure>
+          <img class="figure-img" src="{{ asset('image/destination/tour-icon.png') }}"alt="my img"/>
+          <figcaption class="icon-title">Tour Package</figcaption>
+        </figure>
+      </div>
+      <div class="uk-card item-icon">
+        <figure>
+          <img class="figure-img" src="{{ asset('image/destination/launchpad-icon-flight.png') }}"alt="my img"/>
+          <figcaption class="icon-title">Flight</figcaption>
+        </figure>
+      </div>
+      <div class="uk-card item-icon ">
+        <figure>
+          <img class="figure-img" src="{{ asset('image/destination/cruise-icon.png') }}"alt="my img"/>
+          <figcaption class="icon-title">Cruise</figcaption>
+        </figure>
+      </div>
+    </div>
+    <!-- /. upper -->
+    <div class="block-m hidden-xl center-item pd-xs-0">
+      <div class="uk-card item-icon">
+        <figure>
+          <img class="figure-img" src="{{ asset('image/destination/events-icon.png') }}"alt="my img"/>
+          <figcaption class="icon-title">Mice Events</figcaption>
+        </figure>
+      </div>
+      <div class="uk-card item-icon  ">
+        <figure>
+          <img class="figure-img" src="{{ asset('image/destination/launchpad-icon-tourist-stop.png') }}"alt="my img"/>
+          <figcaption class="icon-title">Tourist Stop</figcaption>
+        </figure>
+      </div>
+      <div class="uk-card item-icon ">
+        <figure>
+          <img class="figure-img" src="{{ asset('image/destination/launchpad-icon-tour-guide.png') }}"alt="my img"/>
+          <figcaption class="icon-title">Tour Guide</figcaption>
+        </figure>
+      </div>
+      <div class="uk-card item-icon ">
+        <figure>
+          <img class="figure-img" src="{{ asset('image/destination/launchpad-icon-translator.png') }}"alt="my img"/>
+          <figcaption class="icon-title">Language Translator</figcaption>
+        </figure>
+      </div>
+    </div>
+    <!-- lower -->
+    <!-- /. mobile -->
+
+    </div>
+</div>
+</div>
 <section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
   <div class="container">
     <div class="row">
