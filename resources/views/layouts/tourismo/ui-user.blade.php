@@ -382,6 +382,7 @@
   <script src="{{ asset('public/js/main.js') }}"></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.2/js/uikit.js'></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.2/js/uikit-icons.js'></script>
+  
 
 </body>
 

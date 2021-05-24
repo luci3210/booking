@@ -41,6 +41,20 @@ class AccountController extends Controller
 
  }
 
+ public function change_profile_pic(Request $req){
+    $path = 'upload/merchant/profilepic/';
+    $file = $req->file('file');
+    $new_image_name = 'UIMG'.date('Ymd').uniqid().'.jpg';
+    $upload = $file->move(public_path($path), $new_image_name);
+    if(!$upload){
+        return response()->json(['status'=>0, 'msg'=>'Something went wrong, try again later']);
+    }
+    $userData = UserModel::find(Auth::user()->id);
+    $userData->profpic = $new_image_name;
+    $userData->update();
+    return response()->json(['status'=>1, 'msg'=>'Image has been cropped successfully.', 'profilepic'=>$new_image_name]);
+}
+
  public function accnt_profile_update(Request $request,$id) {
 
     $rules = [

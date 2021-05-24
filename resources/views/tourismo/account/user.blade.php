@@ -1,3 +1,5 @@
+
+
 @extends('layouts.tourismo.ui')
 @section('merchant')
   <link rel="stylesheet" type="text/css" href="{{ asset('public/css/merchant101.css') }}">
@@ -19,7 +21,7 @@
 
 
 <div class="col-lg-3">
-    @include('layouts.tourismo.acnt_menu')
+    @include('layouts.tourismo.acnt_menu', ['profilePic' => $account->profpic ])
 </div>
 
 <div class="col-lg-9">
@@ -121,6 +123,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
 <script src="{{ asset('ijaboCropTool-master/ijaboCropTool.min.js') }}"></script> 
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
        $('#file').ijaboCropTool({
           preview : '.image-previewer',
@@ -128,15 +131,22 @@
           allowedExtensions: ['jpg', 'jpeg','png'],
           buttonsText:['CROP','QUIT'],
           buttonsColor:['#30bf7d','#ee5155', -15],
-          processUrl:'{{ route("profile-pic-crop") }}',
+          processUrl:'{{ route("user_profile_upload") }}',
           withCSRF:['_token','{{ csrf_token() }}'],
           onSuccess:function(message, element, status){
-             alert(message);
+             Swal.fire(
+              'Upload Success',
+              message,
+              'success'
+            )
+            setTimeout(()=>{ window.location.reload()},1500)
           },
           onError:function(message, element, status){
             alert(message);
+            console
           }
        });
   </script>
+  
 @endsection
 @endsection
