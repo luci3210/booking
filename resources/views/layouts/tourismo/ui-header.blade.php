@@ -24,7 +24,9 @@
 .hide-xl{
     display: none!important;
 }
-
+.nav-main{
+    background-color: #ffffff!important;
+}
 @media only screen and (max-width: 992px) {
     .hidden-m{
         display: none;
@@ -55,6 +57,9 @@
     }
     .block-sm{
         display: block;
+    }
+    .search-mt-1{
+        margin-top: -1px;
     }
     
 }
@@ -93,7 +98,7 @@
 
 </style>
 
-<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky" class="nav-main" id="header">
 <nav class="fixed-top uk-navbar-container nav-height" uk-navbar>
     <div class="uk-navbar-left">
         <div class="uk-grid" uk-grid>
@@ -138,7 +143,9 @@
             @else
 
                 @if (Route::has('register'))
-                    <li><a href="{{ route('register') }}" uk-toggle>SignUp</a></li>
+                <!-- <li><a href="{{ route('register') }}" uk-toggle>SignUp</a></li> -->
+
+                    <li><a href="#register" uk-toggle>SignUp</a></li>
                 @endif
                 <li><a href="#login" uk-toggle>Login</a></li>
             @endauth
@@ -150,7 +157,7 @@
 
 
 </nav>
-<div class="col-lg-12 pd-2 hidden-xl block-sm uk-navbar-container">
+<div class="col-lg-12 pd-2 hidden-xl block-sm uk-navbar-container search-mt-1">
     <form class="">
         <input class="form-control" type="search" placeholder="Search" aria-label="Search" style="border-radius: 23px;">
     </form>
@@ -159,55 +166,136 @@
 </div>
 <!-- /.nav -->
 
-<!-- INMOD -->
-<div id="login" class="uk-modal-full" uk-modal>
-<div class="uk-modal-dialog">
-<button class="uk-modal-close-full uk-close-large uk-position-top" type="button" uk-close></button>
+<!-- registration -->
+<div id="register" class="uk-modal-full" uk-modal>
+    <div class="uk-modal-dialog">
+        <button class="uk-modal-close-full uk-close-large uk-position-top" type="button" uk-close></button>
+        <div class="uk-section uk-section-muted uk-flex uk-flex-middle uk-animation-fade" uk-height-viewport>
+            <div class="uk-width-1-1">
+                <div class="uk-container">
+                    <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
+                        <div class="uk-width-1-1@m">
+                            <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
+                                <h3 class="uk-card-title uk-text-center">Tourismo</h3>
+                                <p class="login-box-msg uk-text-center">Register a new membership</p>
 
-<div class="uk-section uk-section-muted uk-flex uk-flex-middle uk-animation-fade" uk-height-viewport>
-    <div class="uk-width-1-1">
-        <div class="uk-container">
-            <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
-                <div class="uk-width-1-1@m">
-                    <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
-                        <h3 class="uk-card-title uk-text-center">Booking Tourismo</h3>
-                        
-    <form method="POST" action="{{ route('login') }}">
-      @csrf
-        <div class="uk-margin">
-            <div class="uk-inline uk-width-1-1">
-                <span class="uk-form-icon" uk-icon="icon: mail"></span>
-                <input class="uk-input uk-form-meduim" type="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-            </div>
-        </div>
+                                <form method="post" action="{{ route('register') }}">
+                                @csrf
+                                    <div class="uk-margin">
+                                        <div class="uk-inline uk-width-1-1">
+                                            <span class="uk-form-icon" uk-icon="icon: user"></span>
+                                            <input class="uk-input uk-form-meduim" placeholder="Full name" name="name" value="{{ old('name') }}" required autocomplete="email" autofocus>
+                                        </div>
+                                        @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
 
-        <div class="uk-margin">
-            <div class="uk-inline uk-width-1-1">
-                <span class="uk-form-icon" uk-icon="icon: lock"></span>
-                <input class="uk-input uk-form-meduim" type="password" name="password" required autocomplete="current-password">  
-            </div>
-        </div>
+                                    <div class="uk-margin">
+                                        <div class="uk-inline uk-width-1-1">
+                                            <span class="uk-form-icon" uk-icon="icon: mail"></span>
+                                            <input class="uk-input uk-form-meduim" placeholder="Email"  type="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                        </div>
+                                        @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
 
-        <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
-            <label><input class="uk-checkbox" type="checkbox"> Remember Me</label>
-        </div>
+                                    <div class="uk-margin">
+                                        <div class="uk-inline uk-width-1-1">
+                                            <span class="uk-form-icon" uk-icon="icon: lock"></span>
+                                            <input class="uk-input uk-form-meduim" type="password" name="password" placeholder="Password" required autocomplete="current-password">  
+                                        </div>
+                                        @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
 
-        <div class="uk-margin">
-            <button type="submit" class="uk-button uk-button-primary uk-button-meduim uk-width-1-1">Login</button>
-        </div>
-        <div class="uk-text-small uk-text-center">
-            Not registered? <a href="#register" uk-toggle>Register</a>
-        </div>
-    </form>
+                                    <div class="uk-margin">
+                                        <div class="uk-inline uk-width-1-1">
+                                            <span class="uk-form-icon" uk-icon="icon: lock"></span>
+                                            <input class="uk-input uk-form-meduim" type="password" name="password_confirmation" placeholder="Confirm Password" required autocomplete="current-password">  
+                                        </div>
+                                        @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
 
+
+                                    <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+                                        <label><input class="uk-checkbox" type="checkbox"> I aggree in terms</label>
+                                    </div>
+
+                                    <div class="uk-margin">
+                                        <button type="submit" class="uk-button uk-button-primary uk-button-meduim uk-width-1-1">Login</button>
+                                    </div>
+                                    <div class="uk-text-small uk-text-center">
+                                        Not registered? <a href="#register" uk-toggle>Register</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<!-- /. registration -->
 
-</div>
+<!-- INMOD -->
+<div id="login" class="uk-modal-full" uk-modal>
+    <div class="uk-modal-dialog">
+        <button class="uk-modal-close-full uk-close-large uk-position-top" type="button" uk-close></button>
+        <div class="uk-section uk-section-muted uk-flex uk-flex-middle uk-animation-fade" uk-height-viewport>
+            <div class="uk-width-1-1">
+                <div class="uk-container">
+                    <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
+                        <div class="uk-width-1-1@m">
+                            <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
+                                <h3 class="uk-card-title uk-text-center">Booking Tourismo</h3>
+                                <form method="POST" action="{{ route('login') }}">
+                                @csrf
+                                    <div class="uk-margin">
+                                        <div class="uk-inline uk-width-1-1">
+                                            <span class="uk-form-icon" uk-icon="icon: mail"></span>
+                                            <input class="uk-input uk-form-meduim" type="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                        </div>
+                                    </div>
+
+                                    <div class="uk-margin">
+                                        <div class="uk-inline uk-width-1-1">
+                                            <span class="uk-form-icon" uk-icon="icon: lock"></span>
+                                            <input class="uk-input uk-form-meduim" type="password" name="password" required autocomplete="current-password">  
+                                        </div>
+                                    </div>
+
+                                    <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+                                        <label><input class="uk-checkbox" type="checkbox"> Remember Me</label>
+                                    </div>
+
+                                    <div class="uk-margin">
+                                        <button type="submit" class="uk-button uk-button-primary uk-button-meduim uk-width-1-1">Login</button>
+                                    </div>
+                                    <div class="uk-text-small uk-text-center">
+                                        Not registered? <a href="#register" uk-toggle>Register</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
