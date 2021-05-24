@@ -122,11 +122,10 @@ Route::prefix('tourismoph.payment')->group(function () {
 
 
 Route::prefix('account')->group(function () {
-
     Route::get('/profile', 'Tourismo\AccountController@profile')->name('accnt_profile');
+    Route::post('/upload/new/photo', 'Tourismo\AccountController@change_profile_pic')->name('user_profile_upload');
     Route::patch('/profile/update/{id}', 'Tourismo\AccountController@accnt_profile_update')->name('accnt_profile_update');
-
-    });
+});
 
 
 
