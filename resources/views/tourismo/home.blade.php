@@ -82,6 +82,9 @@
     #mobile div{
       padding: 0!important;
     }
+    .font-mobile{
+      font-size: 1.8em;
+    }
   }
   @media only screen and (max-width: 414px) {
     .item-icon {
@@ -127,13 +130,13 @@
 </style>
 
 
-<div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="ratio: 10:3; animation: push">
-    <ul class="uk-slideshow-items">
+<div class="uk-position-relative uk-visible-toggle uk-light mt-sm-slider" tabindex="-1" uk-slideshow="ratio: 10:3; animation: push">
+    <ul class="uk-slideshow-items min-vh-30">
       @foreach($home_hotel as $list)
         <li>
             <img src="{{ asset('upload/merchant/coverphoto')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}" alt="" uk-cover>
             <div class="uk-position-center uk-position-small uk-text-center uk-light">
-                <h1 class="uk-margin-remove"><b>Tourism Made Easy</b></h1>
+                <h1 class="uk-margin-remove font-mobile"><b>Tourism Travel Further</b></h1>
                 <p class="uk-margin-remove">Its All started with seeding of inspiration</p>
             </div>
         </li>

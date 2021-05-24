@@ -36,8 +36,16 @@ class AccountController extends Controller
     $country = $this->accnt_country();
      // $account = UserModel::where('users.id', Auth::user()->id)->first();
     // $country = $this->accnt_country();
-     $account = UserModel::join('location_country','location_country.id', 'users.country')->where('users.id', Auth::user()->id)->get('users.*','location_country.*')->first();
-     return view('tourismo.account.user',compact('account','country'));
+    //  $locationCount = LocationCountyModel::where('location_country.location_country', Auth::user()->id)->count();
+    // $account = [];
+    // if($locationCount >= 1){
+        $account = UserModel::join('location_country','location_country.id', 'users.country')->where('users.id', Auth::user()->id)->get('users.*','location_country.*')->first();
+    // }
+    // if($locationCount <= 0){
+    //     $account = UserModel::where('users.id', Auth::user()->id)->get();
+    // }
+    $account = UserModel::join('location_country','location_country.id', 'users.country')->where('users.id', Auth::user()->id)->get('users.*','location_country.*')->first();
+    return view('tourismo.account.user',compact('account','country'));
 
  }
 

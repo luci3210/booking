@@ -11,13 +11,18 @@
   $(window).scroll(function() {
     if ($(this).scrollTop() > 100) {
       $('#header').addClass('header-scrolled');
+      $('.mobile-nav-toggle').css("top","7px");
     } else {
       $('#header').removeClass('header-scrolled');
+      $('.mobile-nav-toggle').css("top","15px");
+
     }
   });
 
   if ($(window).scrollTop() > 100) {
     $('#header').addClass('header-scrolled');
+    $('.mobile-nav-toggle').css("top","7px");
+
   }
 
   // Smooth scroll for the navigation menu and links with .scrollto classes

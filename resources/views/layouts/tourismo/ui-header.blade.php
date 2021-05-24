@@ -47,7 +47,7 @@
         display: none;
     }
     .mobile-nav-toggle{
-        margin-top: 10px;
+        margin-top: 20px;
     }
     .col-sm-12{
         width: 100%;
@@ -60,6 +60,17 @@
     }
     .search-mt-1{
         margin-top: -1px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    .mt-sm-slider{
+        margin-top: 60px;
+    }
+    .min-vh-30{
+        height: 30vh!important;
+    }
+    .sm-m-view{
+        margin: 0px 0 35px 10px;
     }
     
 }
@@ -69,7 +80,7 @@
         display: none!important;
     }
     .mobile-nav-toggle{
-        margin-top: 15px;
+        margin-top: 20px;
     }
     .col-sm-12{
         width: 100%;
@@ -78,9 +89,17 @@
     .hidden-sm{
         display: none!important;
     }
+    
 }
 
 /* pixel 2 */
+@media only screen and (max-width: 375px) {
+    
+    .mobile-nav-toggle{
+        margin-top: 15px;
+    }
+}
+
 @media only screen and (max-width: 360px) {
     .hidden-xs{
         display: none;
@@ -100,7 +119,7 @@
 
 <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky" class="nav-main" id="header">
 <nav class="fixed-top uk-navbar-container nav-height" uk-navbar>
-    <div class="uk-navbar-left">
+    <div class="uk-navbar-left sm-m-view">
         <div class="uk-grid" uk-grid>
             <div class="col-lg-6 col-sm-12">
                 <a href="{{ route('myhome') }}">
