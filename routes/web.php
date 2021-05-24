@@ -186,6 +186,18 @@ Route::prefix('admin')->group(function () {
 
     // Route::get('/location/region/selecta', [\App\Http\Livewire\Location::class,'render'])->name('asas.ss');
 
+// ---------------------- EXCLUSIVE -----------------------------
+
+Route::get(
+        '/tourismo/exlusive/update_form', 
+        'Admin\ExclusiveController@update_form')
+        ->name('update_form');  
+
+Route::post(
+        '/tourismo/exlusive/update_submit', 
+        'Admin\ExclusiveController@exclusive_update_submit')
+        ->name('exclusive_update_submit');
+
 // ---------------------- DESTINATION -----------------------------
 
 Route::get(
@@ -197,7 +209,6 @@ Route::get(
         'Admin\DestinationController@destination_form')
         ->name('destination_addnew');  
  
-
 Route::post(
         '/tourismo/destination/addnedw', 
         'Admin\DestinationController@destination_submit_form')

@@ -117,6 +117,15 @@
 </li>
 
 <li class="nav-item">
+  <a href="{{ route('update_form') }}" class="nav-link">
+    <i class="nav-icon fa fa-database" aria-hidden="true"></i>
+        <p>
+      Manage Exlusive
+    </p>
+  </a>
+</li>
+
+<li class="nav-item">
   <a href="{{ route('product') }}" class="nav-link">
     <i class="nav-icon fa fa-database" aria-hidden="true"></i>
       <p>
