@@ -7,6 +7,7 @@ use App\Model\Merchant\HotelModel;
 use App\Model\Merchant\ProfileModel;
 use App\Model\Merchant\TourModel;
 use App\Model\Admin\DestinationModel;
+use App\Model\Admin\ExclusiveModel;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -68,11 +69,12 @@ public function index()
     	$home_hotel 	= $this->hotels();
         $destination    = $this->destination();
         $international    = $this->desni_international();
+        $tourismo_exlusive    = $this->tourismo_exlusive();
         $hotels         = $this->hotel();
         $tour_package   = $this->tour_package(); 
         $tour_packages   = $this->tour_packages();
 
-            return view('tourismo.home', compact(['international','home_hotel','destination','hotels','tour_package','tour_packages']));
+            return view('tourismo.home', compact(['tourismo_exlusive','international','home_hotel','destination','hotels','tour_package','tour_packages']));
     }
 
 public function room($id) {
@@ -205,6 +207,11 @@ public function destination() {
             ->where([ ['destinations.temp_status','=',1],
                 ['destinations.country_id','=',1] ])
                 ->get(['locations_district.id as provice_id','destinations.*']);
+}
+
+public function tourismo_exlusive() {
+
+    return ExclusiveModel::where('exclusives.temp_status',1)->get('exclusives.*');
 }
 
 public function desni_international() {
