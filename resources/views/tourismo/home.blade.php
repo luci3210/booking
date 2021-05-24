@@ -149,7 +149,7 @@
 
 @section('content')
 
-<div class="uk-width-1-1 top-20 p-20">
+<!-- <div class="uk-width-1-1 top-20 p-20">
 <div class="uk-card uk-card-body uk-card-default uk-large uk-width-1-1@l center-item uk-flex">
     <div class="center-item hidden-m">
       <div class="uk-card item-icon  uk-card-body">
@@ -202,7 +202,11 @@
       </div>
     </div>
     <div id="mobile" class="block-l hide-xl center-item" uk-grid>
+ -->      
+
       <!-- /. desktop -->
+
+<!-- 
     <div class="block-m hidden-xl center-item pd-xs-0">
       <div class="uk-card item-icon  ">
         <figure>
@@ -229,8 +233,12 @@
         </figure>
       </div>
     </div>
-    <!-- /. upper -->
-    <div class="block-m hidden-xl center-item pd-xs-0">
+    
+
+    /. upper -->
+
+
+    <!-- <div class="block-m hidden-xl center-item pd-xs-0">
       <div class="uk-card item-icon">
         <figure>
           <img class="figure-img" src="{{ asset('image/destination/events-icon.png') }}"alt="my img"/>
@@ -256,12 +264,18 @@
         </figure>
       </div>
     </div>
-    <!-- lower -->
+ -->
+
+   <!-- lower -->
     <!-- /. mobile -->
 
-    </div>
+    <!-- </div>
 </div>
 </div>
+ -->
+
+
+<!-- 
 <section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
   <div class="container">
     <div class="row">
@@ -306,7 +320,7 @@
     </div>
   </div>
 </section>
-
+ -->
 
 
 
@@ -356,7 +370,7 @@
   </a>
   <!--  share modal  -->
   <div id="prov" uk-modal class="uk-flex-top">
-      <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+      <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical"  style="border-radius: 5px;">
           <!-- <h2 class="uk-modal-title">Share on social media via</h2> -->
           <div uk-grid class="uk-flex-center">
               <div><a onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('provice', $list->provice_id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )"><img src="{{ asset('image/socialmedia/fb.png')}}" height="50" width="50" ></a></div>
@@ -403,7 +417,7 @@
     <div class="row">
 
 <div class="section-title">
-  <h2><b>International Destination </b> <span style="font-size: 15px;padding-left: 25px;"><a href="{{ route('destination') }}" class="uk-link"><i class="fas fa-chevron-right"></i> Explore all {{ $number_of_distination->count() }} Destination</a></span></h2>
+  <h2><b>International Destination </b> <span style="font-size: 15px;padding-left: 25px;"><a href="{{ route('destination') }}" class="uk-link"><i class="fas fa-chevron-right"></i> Explore all {{ $international[0]->count() }} Destination</a></span></h2>
 </div>
 
 <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider>
@@ -411,7 +425,7 @@
 
 
 
-        @foreach($destination as $list)
+        @foreach($international as $list)
         <li>
           <div class="icon-box icon-box-pink">
 
@@ -444,7 +458,7 @@
   </a>
   <!-- share modal -->
   <div id="international" uk-modal class="uk-flex-top">
-      <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+      <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical" style="border-radius: 5px;">
           <h2 class="uk-modal-title"></h2>
           <div uk-grid class="uk-flex-center">
               <div><a onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('provice', $list->provice_id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )"><img src="{{ asset('image/socialmedia/fb.png')}}" height="50" width="50" ></a></div>
@@ -475,6 +489,193 @@
     </div>
   </div>
 </section>
+
+
+
+
+
+
+<!-- -------------------------------------- -->
+<!-- <section class="why-us section-bg aos-init aos-animate" data-aos="fade-up" date-aos-delay="200">
+<div class="container">
+
+  <div class="row">
+    <div class="col-lg-6 video-box">
+      <img src="{{ asset('public/ads/1.png') }}" class="img-fluid" alt="">
+      <a href="https://www.youtube.com/watch?v=12GY_gzSCZw" class="venobox play-btn mb-4 vbox-item" data-vbtype="video" data-autoplay="true"></a>
+    </div>
+
+    <div class="col-md-6 pt-5 order-2 order-md-1">
+    <h3 class="text-center">It all started with seedlings of vision and inspiration</h3>
+    <p class="font-italic">
+
+Founded in 2018, Tourismo PH envisioned a company that is committed in energizing and revolutionizing travel<br> and tourism industry through events, innovations and technological advances. Since 2002,Founded in 2018, Tourismo PH envisioned a company that is committed in energizing and revolutionizing travel<br><br> and tourism industry through events, innovations and technological advances. Since 2002,              
+Founded in 2018, Tourismo PH envisioned a company that is committed in energizing and revolutionizing travel<br> and tourism industry through events, innovations and technological advances. Since 2002,Founded in 2018, Tourismo PH envisioned a company that is committed in energizing and revolutionizing travel and tourism industry through events, innovations and technological advances. Since 2002,
+
+    </p>
+
+  </div>
+  </div>
+
+</div>
+</section> -->
+
+
+
+
+<section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+  <div class="container">
+    <div class="row">
+
+      <div class="section-title">
+        <h2><b>Rooms </b> <span style="font-size: 15px;padding-left: 25px;"><a href="{{ route('tour_operator') }}" class="uk-link"><i class="fas fa-chevron-right"></i> Explore {{ $home_hotel->count() }} Rooms and Convention</a></span></h2>
+      </div>
+
+@foreach($home_hotel as $list)
+<div class="col-md-6 col-lg-3 d-flex align-items-stretch aos-init aos-animate" data-aos="fade-up">
+  <div class="icon-box icon-box-pink">
+  
+    <div class="member">
+
+      <div class="member-img">
+        <img src="{{ asset('upload/merchant/coverphoto')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}" class="img-fluid" alt=""  style="border-radius: 4px;">
+      </div>
+
+      <div class="member-info">
+        <h4>{{ $list->roomname }}</h4>
+        <span style="font-weight: 500px; font-size: 14px;color:#ff2f00;"><b>₱ {{ $list->price }}</b> / For {{ $list->nonight }} Night</span>
+
+        <span>
+          <img style="padding-bottom: 5px;" src="{{ asset('upload/merchant/icons/baseline_local_dining_black_18dp.png')}}">
+          {{ $list->booking_package }}
+        </span>
+        
+        <span>
+          <img style="padding-bottom: 3px;" src="{{ asset('upload/merchant/icons/baseline_supervisor_account_black_18dp.png')}}">
+          Max Guests: {{ $list->noguest }}
+        </span>
+        
+        <span>
+          <img style="padding-bottom: 1px;" src="{{ asset('upload/merchant/icons/baseline_visibility_black_18dp.png')}}"> City View
+        </span>
+      </div>
+
+<div class="details-m">
+<a class="uk-button uk-button-default uk-button-small" href="{{ route('tourismo_room', $list->upload_id) }}">Explore</a>
+<a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)" uk-toggle="target: #rooms">
+    <i class="fas fa-share"></i> Share
+  </a>
+
+<!-- share modal -->
+<div id="rooms" uk-modal class="uk-flex-top">
+      <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+          <h2 class="uk-modal-title"></h2>
+          <div uk-grid class="uk-flex-center">
+              <div><a onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('tourismo_room', $list->upload_id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )"><img src="{{ asset('image/socialmedia/fb.png')}}" height="50" width="50" ></a></div>
+              <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->roomname }} price {{ $list->price }} night{{ $list->nonight }}&url={{ route('tourismo_room', $list->upload_id) }}')"><img src="{{ asset('image/socialmedia/tw.png')}}" height="50" width="50" ></a></div>
+              <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->roomname }} price {{ $list->price }} night{{ $list->nonight }}&url={{ route('tourismo_room', $list->upload_id) }}')"><img src="{{ asset('image/socialmedia/ig.png')}}" height="50" width="50" ></a></div>
+              <div><a href="mailto:yourfriendsemail@sample.com?subject={{ $list->destination_info }}&body=No. of hotels : 150  visit the link {{ route('tourismo_room', $list->upload_id)}}"><img src="{{ asset('image/socialmedia/gm.png')}}" height="50" width="50" ></a></div>
+              <div><a onclick="sendMessenger('{{ route('tourismo_room', $list->upload_id) }}')"><img src="{{ asset('image/socialmedia/msg.png')}}" height="50" width="50" ></a></div>
+              <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->roomname }} price {{ $list->price }} night{{ $list->nonight }}&url={{ route('tourismo_room', $list->upload_id) }}')"><img src="{{ asset('image/socialmedia/we.png')}}" height="50" width="50" ></a></div>
+          </div>
+      </div>
+  </div>
+  <!-- /. share modal -->
+</div>
+
+    </div>
+  </div>
+</div>
+@endforeach
+
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+  <div class="container">
+    <div class="row">
+
+      <div class="section-title">
+        <h2><b>Tour and Packages </b> <span style="font-size: 15px;padding-left: 25px;"><a href="{{ route('tour_operator') }}" class="uk-link"><i class="fas fa-chevron-right"></i> Explore {{ $tour_packages->count() }} Tour and packages</a></span></h2>
+      </div>
+
+@foreach($tour_packages as $list)
+
+  <div class="col-md-6 col-lg-3 d-flex align-items-stretch aos-init aos-animate" data-aos="fade-up">
+    <div class="icon-box icon-box-pink">
+          
+      <div class="member">
+
+        <div class="member-img" style="height: 180px;">
+          <img src="{{ asset('upload/merchant/tour')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}" class="img-fluid" alt=""  style="border-radius: 4px;">
+          <div class="social">
+            <a href=""><i class="icofont-twitter"></i></a>
+            <a href=""><i class="icofont-facebook"></i></a>
+            <a href=""><i class="icofont-instagram"></i></a>
+            <a href=""><i class="icofont-linkedin"></i></a>
+          </div>
+        </div>
+
+        <div class="member-info">
+
+          <h4>{{ $list->tour_name }}</h4>
+          <span style="font-weight: 500px; font-size: 14px;color:#ff2f00;"><b>₱ {{ $list->price }}</b> / For {{ $list->nonight }} Night</span>
+
+          <span>
+            <i class="fas fa-utensils"></i> {{ $list->booking_package }}
+          </span>
+          
+          <span>
+            <i class="fas fa-users"></i> Max Guests: {{ $list->noguest }}
+          </span>
+          
+        
+        </div>
+
+<div class="details-m">
+<a class="uk-button uk-button-default uk-button-small" href="{{ route('tourismo_room', $list->upload_id) }}">Explore</a>
+
+<a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)" uk-toggle="target: #tour-package">
+    <i class="fas fa-share"></i> Share
+  </a>
+
+<!-- share modal -->
+<div id="tour-package" uk-modal class="uk-flex-top">
+      <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+          <h2 class="uk-modal-title"></h2>
+          <div uk-grid class="uk-flex-center">
+              <div><a onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('tourismo_room', $list->upload_id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )"><img src="{{ asset('image/socialmedia/fb.png')}}" height="50" width="50" ></a></div>
+              <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->roomname }} price {{ $list->price }} night{{ $list->nonight }}&url={{ route('tourismo_room', $list->upload_id) }}')"><img src="{{ asset('image/socialmedia/tw.png')}}" height="50" width="50" ></a></div>
+              <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->roomname }} price {{ $list->price }} night{{ $list->nonight }}&url={{ route('tourismo_room', $list->upload_id) }}')"><img src="{{ asset('image/socialmedia/ig.png')}}" height="50" width="50" ></a></div>
+              <div><a href="mailto:yourfriendsemail@sample.com?subject={{ $list->destination_info }}&body=No. of hotels : 150  visit the link {{ route('tourismo_room', $list->upload_id)}}"><img src="{{ asset('image/socialmedia/gm.png')}}" height="50" width="50" ></a></div>
+              <div><a onclick="sendMessenger('{{ route('tourismo_room', $list->upload_id) }}')"><img src="{{ asset('image/socialmedia/msg.png')}}" height="50" width="50" ></a></div>
+              <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->roomname }} price {{ $list->price }} night{{ $list->nonight }}&url={{ route('tourismo_room', $list->upload_id) }}')"><img src="{{ asset('image/socialmedia/we.png')}}" height="50" width="50" ></a></div>
+          </div>
+      </div>
+  </div>
+  <!-- /. share modal -->
+</div>
+
+            </div>
+          </div>
+          </div>
+          @endforeach
+
+
+    
+    </div>
+  </div>
+</section>
+
+
+
+
+
 
 
 
@@ -602,185 +803,6 @@
 </div>
 </section>
 
-
-
-
-<!-- -------------------------------------- -->
-<!-- <section class="why-us section-bg aos-init aos-animate" data-aos="fade-up" date-aos-delay="200">
-<div class="container">
-
-  <div class="row">
-    <div class="col-lg-6 video-box">
-      <img src="{{ asset('public/ads/1.png') }}" class="img-fluid" alt="">
-      <a href="https://www.youtube.com/watch?v=12GY_gzSCZw" class="venobox play-btn mb-4 vbox-item" data-vbtype="video" data-autoplay="true"></a>
-    </div>
-
-    <div class="col-md-6 pt-5 order-2 order-md-1">
-    <h3 class="text-center">It all started with seedlings of vision and inspiration</h3>
-    <p class="font-italic">
-
-Founded in 2018, Tourismo PH envisioned a company that is committed in energizing and revolutionizing travel<br> and tourism industry through events, innovations and technological advances. Since 2002,Founded in 2018, Tourismo PH envisioned a company that is committed in energizing and revolutionizing travel<br><br> and tourism industry through events, innovations and technological advances. Since 2002,              
-Founded in 2018, Tourismo PH envisioned a company that is committed in energizing and revolutionizing travel<br> and tourism industry through events, innovations and technological advances. Since 2002,Founded in 2018, Tourismo PH envisioned a company that is committed in energizing and revolutionizing travel and tourism industry through events, innovations and technological advances. Since 2002,
-
-    </p>
-
-  </div>
-  </div>
-
-</div>
-</section> -->
-
-
-
-
-<section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
-  <div class="container">
-    <div class="row">
-
-      <div class="section-title">
-        <h2><b>Rooms </b> <span style="font-size: 15px;padding-left: 25px;"><a href="{{ route('tour_operator') }}" class="uk-link"><i class="fas fa-chevron-right"></i> Explore {{ $home_hotel->count() }} Rooms and Convention</a></span></h2>
-      </div>
-
-@foreach($home_hotel as $list)
-<div class="col-md-6 col-lg-3 d-flex align-items-stretch aos-init aos-animate" data-aos="fade-up">
-  <div class="icon-box icon-box-pink">
-  
-    <div class="member">
-
-      <div class="member-img">
-        <img src="{{ asset('upload/merchant/coverphoto')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}" class="img-fluid" alt=""  style="border-radius: 4px;">
-      </div>
-
-      <div class="member-info">
-        <h4>{{ $list->roomname }}</h4>
-        <span style="font-weight: 500px; font-size: 14px;color:#ff2f00;"><b>₱ {{ $list->price }}</b> / For {{ $list->nonight }} Night</span>
-
-        <span>
-          <img style="padding-bottom: 5px;" src="{{ asset('upload/merchant/icons/baseline_local_dining_black_18dp.png')}}">
-          {{ $list->booking_package }}
-        </span>
-        
-        <span>
-          <img style="padding-bottom: 3px;" src="{{ asset('upload/merchant/icons/baseline_supervisor_account_black_18dp.png')}}">
-          Max Guests: {{ $list->noguest }}
-        </span>
-        
-        <span>
-          <img style="padding-bottom: 1px;" src="{{ asset('upload/merchant/icons/baseline_visibility_black_18dp.png')}}"> City View
-        </span>
-      </div>
-
-<div class="details-m">
-<a class="uk-button uk-button-default uk-button-small" href="{{ route('tourismo_room', $list->upload_id) }}">Explore</a>
-<a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)" uk-toggle="target: #rooms">
-    <i class="fas fa-share"></i> Share
-  </a>
-
-<!-- share modal -->
-<div id="rooms" uk-modal class="uk-flex-top">
-      <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
-          <h2 class="uk-modal-title"></h2>
-          <div uk-grid class="uk-flex-center">
-              <div><a onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('tourismo_room', $list->upload_id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )"><img src="{{ asset('image/socialmedia/fb.png')}}" height="50" width="50" ></a></div>
-              <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->roomname }} price {{ $list->price }} night{{ $list->nonight }}&url={{ route('tourismo_room', $list->upload_id) }}')"><img src="{{ asset('image/socialmedia/tw.png')}}" height="50" width="50" ></a></div>
-              <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->roomname }} price {{ $list->price }} night{{ $list->nonight }}&url={{ route('tourismo_room', $list->upload_id) }}')"><img src="{{ asset('image/socialmedia/ig.png')}}" height="50" width="50" ></a></div>
-              <div><a href="mailto:yourfriendsemail@sample.com?subject={{ $list->destination_info }}&body=No. of hotels : 150  visit the link {{ route('tourismo_room', $list->upload_id)}}"><img src="{{ asset('image/socialmedia/gm.png')}}" height="50" width="50" ></a></div>
-              <div><a onclick="sendMessenger('{{ route('tourismo_room', $list->upload_id) }}')"><img src="{{ asset('image/socialmedia/msg.png')}}" height="50" width="50" ></a></div>
-              <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->roomname }} price {{ $list->price }} night{{ $list->nonight }}&url={{ route('tourismo_room', $list->upload_id) }}')"><img src="{{ asset('image/socialmedia/we.png')}}" height="50" width="50" ></a></div>
-          </div>
-      </div>
-  </div>
-  <!-- /. share modal -->
-</div>
-
-    </div>
-  </div>
-</div>
-@endforeach
-
-    </div>
-  </div>
-</section>
-
-
-
-
-
-<section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
-  <div class="container">
-    <div class="row">
-
-      <div class="section-title">
-        <h2><b>Tour and Packages </b> <span style="font-size: 15px;padding-left: 25px;"><a href="{{ route('tour_operator') }}" class="uk-link"><i class="fas fa-chevron-right"></i> Explore {{ $tour_packages->count() }} Tour and packages</a></span></h2>
-      </div>
-
-@foreach($tour_packages as $list)
-
-  <div class="col-md-6 col-lg-3 d-flex align-items-stretch aos-init aos-animate" data-aos="fade-up">
-    <div class="icon-box icon-box-pink">
-          
-      <div class="member">
-
-        <div class="member-img">
-          <img src="{{ asset('upload/merchant/tour')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}" class="img-fluid" alt=""  style="border-radius: 4px;">
-          <div class="social">
-            <a href=""><i class="icofont-twitter"></i></a>
-            <a href=""><i class="icofont-facebook"></i></a>
-            <a href=""><i class="icofont-instagram"></i></a>
-            <a href=""><i class="icofont-linkedin"></i></a>
-          </div>
-        </div>
-
-        <div class="member-info">
-
-          <h4>{{ $list->tour_name }}</h4>
-          <span style="font-weight: 500px; font-size: 14px;color:#ff2f00;"><b>₱ {{ $list->price }}</b> / For {{ $list->nonight }} Night</span>
-
-          <span>
-            <i class="fas fa-utensils"></i> {{ $list->booking_package }}
-          </span>
-          
-          <span>
-            <i class="fas fa-users"></i> Max Guests: {{ $list->noguest }}
-          </span>
-          
-        
-        </div>
-
-<div class="details-m">
-<a class="uk-button uk-button-default uk-button-small" href="{{ route('tourismo_room', $list->upload_id) }}">Explore</a>
-
-<a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)" uk-toggle="target: #tour-package">
-    <i class="fas fa-share"></i> Share
-  </a>
-
-<!-- share modal -->
-<div id="tour-package" uk-modal class="uk-flex-top">
-      <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
-          <h2 class="uk-modal-title"></h2>
-          <div uk-grid class="uk-flex-center">
-              <div><a onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('tourismo_room', $list->upload_id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )"><img src="{{ asset('image/socialmedia/fb.png')}}" height="50" width="50" ></a></div>
-              <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->roomname }} price {{ $list->price }} night{{ $list->nonight }}&url={{ route('tourismo_room', $list->upload_id) }}')"><img src="{{ asset('image/socialmedia/tw.png')}}" height="50" width="50" ></a></div>
-              <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->roomname }} price {{ $list->price }} night{{ $list->nonight }}&url={{ route('tourismo_room', $list->upload_id) }}')"><img src="{{ asset('image/socialmedia/ig.png')}}" height="50" width="50" ></a></div>
-              <div><a href="mailto:yourfriendsemail@sample.com?subject={{ $list->destination_info }}&body=No. of hotels : 150  visit the link {{ route('tourismo_room', $list->upload_id)}}"><img src="{{ asset('image/socialmedia/gm.png')}}" height="50" width="50" ></a></div>
-              <div><a onclick="sendMessenger('{{ route('tourismo_room', $list->upload_id) }}')"><img src="{{ asset('image/socialmedia/msg.png')}}" height="50" width="50" ></a></div>
-              <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->roomname }} price {{ $list->price }} night{{ $list->nonight }}&url={{ route('tourismo_room', $list->upload_id) }}')"><img src="{{ asset('image/socialmedia/we.png')}}" height="50" width="50" ></a></div>
-          </div>
-      </div>
-  </div>
-  <!-- /. share modal -->
-</div>
-
-            </div>
-          </div>
-          </div>
-          @endforeach
-
-
-    
-    </div>
-  </div>
-</section>
 
 <script>
 

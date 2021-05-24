@@ -22,7 +22,7 @@ public function hotels() {
     		->join('hotel_photos','hotel_photos.upload_id', 'hotels.id')
     			->where('temp_status.status', 'active')
             ->select(['hotels.*','temp_status.*','hotel_photos.*','users.*'])
-            ->groupBy('hotel_photos.upload_id')->get();
+            ->groupBy('hotel_photos.upload_id')->limit(4)->get();
 
     }
 
@@ -67,11 +67,12 @@ public function index()
 
     	$home_hotel 	= $this->hotels();
         $destination    = $this->destination();
+        $international    = $this->desni_international();
         $hotels         = $this->hotel();
         $tour_package   = $this->tour_package(); 
         $tour_packages   = $this->tour_packages();
 
-            return view('tourismo.home', compact(['home_hotel','destination','hotels','tour_package','tour_packages']));
+            return view('tourismo.home', compact(['international','home_hotel','destination','hotels','tour_package','tour_packages']));
     }
 
 public function room($id) {
@@ -84,6 +85,7 @@ public function room($id) {
 
 	return view('tourismo.room', compact(['room_details']));
 }
+
 function generateToken()
         {
             $secret_key = "cxl+hwc%97h6+4#lx1au*ut=ml+=!fx85w94iuf*06=rf383xs";
@@ -200,7 +202,16 @@ public function page_provice($id) {
 public function destination() {
 
     return DestinationModel::join('locations_district','locations_district.id','destinations.destination_id')
-            ->where('destinations.temp_status',1)
+            ->where([ ['destinations.temp_status','=',1],
+                ['destinations.country_id','=',1] ])
+                ->get(['locations_district.id as provice_id','destinations.*']);
+}
+
+public function desni_international() {
+
+    return DestinationModel::join('locations_district','locations_district.id','destinations.destination_id')
+            ->where([ ['destinations.temp_status','=',1],
+                ['destinations.country_id','<>',1] ])
                 ->get(['locations_district.id as provice_id','destinations.*']);
 }
 
