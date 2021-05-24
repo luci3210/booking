@@ -350,14 +350,10 @@
 
               <div class="member-info">
 
-                <p class="mem-title"><i class="fas fa-map-marked-alt"></i>  {{ $list->exclusive_info }}</p>
+                <p class="mem-title"><i class="fas fa-map-marked-alt"></i>  {{ substr($list->exclusive_info, 0 , 15) }}...</p>
 
                 <span>
-                  <i class="fas fa-building"></i> No. of hotels : 150
-                </span><br>
-
-                <span>
-                  <i class="fas fa-directions"></i> No. of Tour Operators : 251
+                  <i class="fas fa-building"></i> Merchant Name
                 </span><br>
                 
 <div class="mem-button">
@@ -432,7 +428,7 @@
 
               <div class="member-info">
 
-                <p class="mem-title"><i class="fas fa-map-marked-alt"></i>  {{ $list->destination_info }}</p>
+                <p class="mem-title"><i class="fas fa-map-marked-alt"></i>  {{ substr($list->destination_info, 0, 15) }}...</p>
 
                 <span>
                   <i class="fas fa-building"></i> No. of hotels : 150
@@ -520,7 +516,7 @@
 
               <div class="member-info">
 
-                <p class="mem-title"><i class="fas fa-map-marked-alt"></i>  {{ $list->destination_info }}</p>
+                <p class="mem-title"><i class="fas fa-map-marked-alt"></i>  {{ substr($list->destination_info,0,15) }}...</p>
 
                 <span>
                   <i class="fas fa-building"></i> No. of hotels : 150
@@ -706,7 +702,7 @@ Founded in 2018, Tourismo PH envisioned a company that is committed in energizin
 
         <div class="member-info">
 
-          <h4>{{ $list->tour_name }}</h4>
+          <h4>{{ substr($list->tour_name,0,25) }}...</h4>
           <span style="font-weight: 500px; font-size: 14px;color:#ff2f00;"><b>₱ {{ $list->price }}</b> / For {{ $list->nonight }} Night</span>
 
           <span>
