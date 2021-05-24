@@ -22,7 +22,7 @@
 
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/merchant101.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('ijaboCropTool-master/ijaboCropTool.min.css') }}">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.js" integrity="sha512-1icA56H/QfnWMmygJLor4dORvI+7Kurg9CfXSDeJmyMJQL98LfPRk/UwCmi7NoZwbUwxMoI0tc2gJqG/Uu+ecA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
 
