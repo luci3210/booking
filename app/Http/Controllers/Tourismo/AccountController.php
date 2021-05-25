@@ -32,21 +32,20 @@ class AccountController extends Controller
     return LocationCountyModel::where('temp_status',1)->get();
  }
  public function profile() {
+    $data['error'] = [];
+    $data['msg'] = [];
+    $data['data'] = [];
+    // /. data declaration
+
 
     $country = $this->accnt_country();
-     // $account = UserModel::where('users.id', Auth::user()->id)->first();
-    // $country = $this->accnt_country();
-    //  $locationCount = LocationCountyModel::where('location_country.location_country', Auth::user()->id)->count();
-    // $account = [];
-    // if($locationCount >= 1){
-        $account = UserModel::join('location_country','location_country.id', 'users.country')->where('users.id', Auth::user()->id)->get('users.*','location_country.*')->first();
-    // }
-    // if($locationCount <= 0){
-    //     $account = UserModel::where('users.id', Auth::user()->id)->get();
-    // }
-    $account = UserModel::join('location_country','location_country.id', 'users.country')->where('users.id', Auth::user()->id)->get('users.*','location_country.*')->first();
-    return view('tourismo.account.user',compact('account','country'));
+    // /. get countries
+    $account = UserModel::where('users.id', Auth::user()->id)->get();
+    // /.users info
 
+    $data['data']['account'] = $account;
+    $data['data']['country'] = $country;
+    return view('tourismo.account.user',compact("data"));
  }
 
  public function change_profile_pic(Request $req){
