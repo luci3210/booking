@@ -21,11 +21,11 @@
 
 
 <div class="col-lg-3">
-    @include('layouts.tourismo.acnt_menu', ['profilePic' => $account->profpic ])
+    @include('layouts.tourismo.acnt_menu', ['profilePic' => $data['data']['account'][0]->profpic ])
 </div>
 
 <div class="col-lg-9">
-  <form action="{{ route('accnt_profile_update',$account->id) }}" method="post" role="form" class="cls-profile">
+  <form action="{{ route('accnt_profile_update',$data['data']['account'][0]->id) }}" method="post" role="form" class="cls-profile">
 
   @method('patch')
   @csrf
@@ -41,63 +41,64 @@
 
     <div class="col-md-12 form-group mt-3">
     <label class="labelcoz"><b>Display Name</b></label>
-    <input type="text" class="uk-input" name="name" id="name" value="{{ $account->name }}" placeholder="Display Name">
+    <input type="text" class="uk-input" name="name" id="name" value="{{ $data['data']['account'][0]->name }}" placeholder="Display Name">
     <div class="validate"></div>
     </div>
 
     <div class="col-md-4 form-group mt-3">
     <label class="labelcoz">First Name</label>
-    <input type="text" class="uk-input" name="fname" id="fname" value="{{ $account->fname }}" placeholder="First Name">
+    <input type="text" class="uk-input" name="fname" id="fname" value="{{ $data['data']['account'][0]->fname }}" placeholder="First Name">
     <div class="validate"></div>
     </div>
 
     <div class="col-md-4 form-group mt-3">
     <label class="labelcoz">Last Name</label>
-    <input type="text" class="uk-input" name="lname" id="lname" value="{{ $account->lname }}" placeholder="Last Name">
+    <input type="text" class="uk-input" name="lname" id="lname" value="{{ $data['data']['account'][0]->lname }}" placeholder="Last Name">
     <div class="validate"></div>
     </div>
 
     <div class="col-md-4 form-group mt-3">
     <label class="labelcoz">Middle Name</label>
-    <input type="text" class="uk-input" name="mname" id="mname" value="{{ $account->mname }}" placeholder="Middle Name">
+    <input type="text" class="uk-input" name="mname" id="mname" value="{{ $data['data']['account'][0]->mname }}" placeholder="Middle Name">
     <div class="validate"></div>
     </div>
-
     <div class="col-md-3 form-group mt-3">
       <div class="uk-margin">
         <label class="labelcoz">Country</label>
           <select class="uk-select" name="country">
-              @foreach($country as $list)
+          @if($data['data']['country'])
+            @foreach($data['data']['country'] as $info)
                 <option value="11" selected="selected">
-                 {{ $list->id }}
+                {{ $info->country }}
                 </option>
-              @endforeach
+            @endforeach
+          @endif
           </select>
       </div>
     </div>
 
     <div class="col-md-3 form-group mt-3">
     <label class="labelcoz">Phone Number</label>
-    <input type="text" class="uk-input" name="pnumber" id="pnumber" value="{{ $account->pnumber }}" placeholder="Phone Number">
+    <input type="text" class="uk-input" name="pnumber" id="pnumber" value="{{ $data['data']['account'][0]->pnumber }}" placeholder="Phone Number">
     <div class="validate"></div>
     </div>
 
     <div class="col-md-3 form-group mt-3">
     <label class="labelcoz">Email</label>
-    <input type="text" class="uk-input" value="{{ $account->email }}" placeholder="Email" disabled="disabled">
+    <input type="text" class="uk-input" value="{{ $data['data']['account'][0]->email }}" placeholder="Email" disabled="disabled">
     <div class="validate"></div>
     </div>
 
       <div class="col-md-3 form-group mt-3">
     <label class="labelcoz">Birthdate</label>
-    <input type="text" class="uk-input" name="bdate" id="bdate" value="{{ $account->bdate }}" placeholder="Birthdate">
+    <input type="text" class="uk-input" name="bdate" id="bdate" value="{{ $data['data']['account'][0]->bdate }}" placeholder="Birthdate">
     <div class="validate"></div>
     </div>
   
 
     <div class="col-md-12 form-group mt-3">
     <label class="labelcoz">Address</label>
-    <input type="text" class="uk-input" name="address" id="address" value="{{ $account->address }}" placeholder="Address">
+    <input type="text" class="uk-input" name="address" id="address" value="{{ $data['data']['account'][0]->address }}" placeholder="Address">
     <div class="validate"></div>
     </div>
 
