@@ -119,6 +119,7 @@
 
 <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky" class="nav-main" id="header">
 <nav class="fixed-top uk-navbar-container nav-height" uk-navbar>
+    
     <div class="uk-navbar-left sm-m-view">
         <div class="uk-grid" uk-grid>
             <div class="col-lg-6 col-sm-12">

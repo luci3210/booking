@@ -17,9 +17,20 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'Tourismo\HomeController@index')->name('myhome');
 
+
+Route::get('/destination/ph', 'Tourismo\HomeController@page_destination')->name('destination');
+
+
+//---------- exclusive --------------------
+// Route::get('/tourismo/ph', 'Tourismo\HomeController@page_destination')->name('destination');
+
+
+//---------- destination --------------------
 Route::get('/destination/ph', 'Tourismo\HomeController@page_destination')->name('destination');
 Route::get('/destination/region/{id}/ph', 'Tourismo\HomeController@page_region')->name('region');
 Route::get('/destination/region/provice/{id}/ph', 'Tourismo\HomeController@page_provice')->name('provice');
+
+
 
 Route::get('/hotel_and_resort/ph', 'Tourismo\HomeController@page_hotels')->name('hotel_and_resort');
 Route::get('/tour_operators/ph', 'Tourismo\HomeController@page_tour_operator')->name('tour_operator');
@@ -171,9 +182,6 @@ Route::prefix('admin')->group(function () {
     Route::post('/tourismo/ph/page/5/location/submit/city/{id}', 'Admin\LocationController@store_city')->name('submit_city');
     Route::post('/tourismo/ph/page/5/location/submit/municipality/{id}', 'Admin\LocationController@store_municipality')->name('submit_municipality');
     Route::post('/tourismo/ph/page/5/location/submit/barangay/{id}', 'Admin\LocationController@store_barangay')->name('submit_barangay');
-    
-
-
 
     Route::get('/tourismo/ph/page/5/location/{id}/search_result/1', 'Admin\LocationController@get_country_search')->name('search_country');
     Route::get('/tourismo/ph/page/5/location/{id}/search_result/2', 'Admin\LocationController@get_region_search')->name('search_region');
@@ -213,6 +221,18 @@ Route::post(
         '/tourismo/destination/addnedw', 
         'Admin\DestinationController@destination_submit_form')
         ->name('destination_submit_form');
+
+// ---------------------- BANNER -----------------------------
+
+Route::get(
+        '/tourismo/banner/addnew', 
+        'Admin\BannerController@banner_form')
+        ->name('banner_form');  
+
+Route::post(
+        '/tourismo/banner/addnew', 
+        'Admin\BannerController@banner_submit_form')
+        ->name('banner_submit_form');  
    
     // Route::get('/tourismo/ph/page/4/inclusion/{id}/www/facilities/edit/{idt}', 'Admin\InclusionController@roomfacilities_edit')->name('facilities_edit');
 

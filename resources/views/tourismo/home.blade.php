@@ -132,12 +132,12 @@
 
 <div class="uk-position-relative uk-visible-toggle uk-light mt-sm-slider" tabindex="-1" uk-slideshow="ratio: 10:3; animation: push">
     <ul class="uk-slideshow-items min-vh-30">
-      @foreach($home_hotel as $list)
+      @foreach($banner as $list)
         <li>
-            <img src="{{ asset('upload/merchant/coverphoto')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}" alt="" uk-cover>
+            <img src="{{ asset('image/banner')}}/{{ $list->banner_img == '' ? 'default.png' : $list->banner_img }}" alt="" uk-cover>
             <div class="uk-position-center uk-position-small uk-text-center uk-light">
-                <h1 class="uk-margin-remove font-mobile"><b>Tourism Travel Further</b></h1>
-                <p class="uk-margin-remove">Its All started with seeding of inspiration</p>
+                <h1 class="uk-margin-remove font-mobile"><b>{{ $list->short_des }}</b></h1>
+                <p class="uk-margin-remove">{{ $list->long_desc }}</p>
             </div>
         </li>
       @endforeach

@@ -8,6 +8,7 @@ use App\Model\Merchant\ProfileModel;
 use App\Model\Merchant\TourModel;
 use App\Model\Admin\DestinationModel;
 use App\Model\Admin\ExclusiveModel;
+use App\Model\Admin\BannerModel;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -62,7 +63,11 @@ public function  hotel_details($id) {
     // return json_encode(LocationDistrictModel::select()->where('region_id',$id)->get());
 
     }
+public function banner() {
 
+    return BannerModel::where('banners.temp_status',1)->get(['banners.banner_img','banners.short_des','banners.long_desc']);
+
+}
 public function index()
     {
 
@@ -73,8 +78,9 @@ public function index()
         $hotels         = $this->hotel();
         $tour_package   = $this->tour_package(); 
         $tour_packages   = $this->tour_packages();
+        $banner            = $this->banner();
 
-            return view('tourismo.home', compact(['tourismo_exlusive','international','home_hotel','destination','hotels','tour_package','tour_packages']));
+            return view('tourismo.home', compact(['banner','tourismo_exlusive','international','home_hotel','destination','hotels','tour_package','tour_packages']));
     }
 
 public function room($id) {

@@ -55,8 +55,8 @@
 @yield('banner')
 @yield('modal_login')
 
-<main id="main">
-<div class="marg-header"></div>
+<main id="main"><!-- 
+<div class="marg-header"></div> -->
 @yield('content')
 </main>
 
