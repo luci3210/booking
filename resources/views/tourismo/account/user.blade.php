@@ -66,9 +66,12 @@
       <div class="uk-margin">
         <label class="labelcoz">Country</label>
           <select class="uk-select" name="country">
+          <option value="" selected="selected">
+            select country...
+          </option>
           @if($data['data']['country'])
             @foreach($data['data']['country'] as $info)
-                <option value="11" selected="selected">
+                <option value="{{$info->id}}" >
                 {{ $info->country }}
                 </option>
             @endforeach

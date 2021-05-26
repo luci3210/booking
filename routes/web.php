@@ -36,6 +36,8 @@ Route::get('/hotel_and_resort/ph', 'Tourismo\HomeController@page_hotels')->name(
 Route::get('/tour_operators/ph', 'Tourismo\HomeController@page_tour_operator')->name('tour_operator');
 
 Route::get('/hotels/rooms/{id}', 'Tourismo\HomeController@room')->name('tourismo_room');
+Route::POST('hotels/rooms/wishlist', 'Tourismo\HomeController@toggle_wishlist')->name('wishlist');
+
 Route::get('/tourismoph/hotel/{id}', 'Tourismo\HomeController@hotel_details')->name('tourismo-hotel-details');
 
 
@@ -126,6 +128,7 @@ Route::prefix('tourismoph.payment')->group(function () {
 
     Route::get('/hotels/xxx', 'PaymentController@sssss')->name('xxxx');
     Route::POST('/hotels/xxxx', 'PaymentController@pay_booking')->name('xxx');
+
 
 });
 

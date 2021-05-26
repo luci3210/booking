@@ -20,6 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::POST('tourismoph.payment/hotels/xxxx', 'PaymentController@pay_booking')->name('pay');
+Route::POST('hotels/rooms/wishlist/wew', 'HomeController@toggle_wishlist')->name('wishlist2');
 
 
 

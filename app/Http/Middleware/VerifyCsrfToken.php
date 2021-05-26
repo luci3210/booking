@@ -13,7 +13,11 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         //
-        'tourismoph.payment/hotels/xxxx',
-        'api/tourismoph.payment/hotels/xxxx'
+        // 'tourismoph.payment/hotels/xxxx',
+        // 'api/tourismoph.payment/hotels/xxxx',
+        // 'api/hotels/rooms/wishlist',
+        // 'hotels/rooms/wishlist',
+        // 'hotels/rooms/wishlist/wew',
+        // 'api/hotels/rooms/wishlist/wew',
     ];
 }

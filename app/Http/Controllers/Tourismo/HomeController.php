@@ -13,6 +13,9 @@ use App\Model\Admin\BannerModel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Response;
+use Illuminate\Support\Facades\Auth;
+use App\user\WishlistHotelsRoom;
+
 
 class HomeController extends Controller
 {
@@ -90,8 +93,51 @@ public function room($id) {
     		->join('hotel_photos', 'hotels.id','hotel_photos.upload_id')
     			->join('merchant_address','merchant_address.id', 'hotels.address_id')
     				->where('hotels.id', $id)->get();
+    $wishList = false;
+    if(Auth::check()){
+        $checkList = WishlistHotelsRoom::where('wh_hotel_id', $id);
+        $checkList = $checkList->where('wh_user_id', Auth::user()->id);
+        $checkList = $checkList->where('wh_temp_status', 1);
+        $checkList = $checkList->first();
+        $datas = $checkList;
+        if($checkList != null){
+            $wishList = true;
+        }
+    }
 
-	return view('tourismo.room', compact(['room_details']));
+	return view('tourismo.room', compact(['room_details', 'wishList']));
+    // return $room_details;
+}
+public function toggle_wishlist(Request $req){
+    
+    $data['error'] = [];
+    $data['data'] = [];
+    $data['success'] = false;
+    $data['msg'] = [];
+    $wishlist_id = $req->data_id;
+    $checkList = WishlistHotelsRoom::where('wh_hotel_id', $wishlist_id);
+    $checkList = $checkList->where('wh_user_id', Auth::user()->id);
+    $checkList = $checkList->where('wh_temp_status', 1);
+    $checkList = $checkList->first();
+    if($checkList != null){
+        $data['msg'] = 'removed';
+        $checkList->wh_temp_status = 4;
+        $checkList->update();
+        $data['success'] = true;
+
+    }
+    if($checkList == null){
+        $data['msg'] = 'added';
+        $data['success'] = true;
+        $addToWishList = new WishlistHotelsRoom();
+        $addToWishList->wh_hotel_id =$wishlist_id;
+        $addToWishList->wh_user_id = Auth::user()->id;
+        $addToWishList->save();
+    }
+
+    // $data['data'] = $wishlist_id;
+    return $data;
+
 }
 
 function generateToken()

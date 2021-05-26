@@ -5,6 +5,21 @@
 @section('keywords', $room_details[0]->roomname)
 @section('img', asset( 'upload/merchant/coverphoto'. $room_details[0]->photo))
 @section('curUrl', url()->current())
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
+<style>
+.heart-icon{
+  color: #3c3c3c!important;
+}
+
+.heart-icon:focus{
+    outline: 0!important;
+    box-shadow: none!important
+}
+.toggle-heart{
+  font-size: 2em!important;
+}
+</style>
 <!-- /. meta tags -->
 <section class="features">
       <div class="container">
@@ -163,6 +178,14 @@
 <li>
 <a class="uk-button uk-button-small uk-accordion-title " href="javascript:void(0)">Book Now <span uk-icon="chevron-down"></span></a>
 <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)">Like<span uk-icon="chevron-down"></span></a>
+<a class="heart-icon btn" href="javascript:void(0)" onclick="wishListToggle('{{ $room_details[0]->upload_id }}')"> 
+    @if($wishList)
+    <i class="fas fa-heart toggle-heart" >
+    </i> 
+    @else
+    <i class="far fa-heart toggle-heart"></i> 
+    @endif
+</a>
 <br>  
 
 <div style="margin-top: 12px;">      
@@ -171,7 +194,6 @@
 </div>
 
 <div class="uk-accordion-content">    
-<meta name="csrf-token" content="{{ csrf_token() }}">
 <form class="uk-form-stacked" method="POST" action="{{ route('xxxx') }}">
 @csrf
 <div class="row row-margin">
@@ -226,6 +248,47 @@
 </div>
 </form>
 <script>
+  function wishListToggle(id){
+    var crfToken = $('meta[name="csrf-token"]').attr('content');
+    console.log(crfToken);
+    $.ajaxSetup({
+        url: '{{ route('wishlist') }}',
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            'Accept': 'application/json',
+            '_token': '{{ Session::token()  }}',
+            'Authorization': '{{ Session::token()  }}',
+            
+
+        },
+        method:"POST",
+        data:{
+          data_id: id,
+        },
+        success:function(data)
+        {
+          if(data['success']){
+            console.log('success',data)
+            if(data['msg'] == 'added'){
+              $('.toggle-heart').addClass('fas');
+              $('.toggle-heart').removeClass('far');
+              console.log('added');
+              return;
+            }
+            console.log('remove');
+            $('.toggle-heart').removeClass('fas');
+            $('.toggle-heart').addClass('far');
+            return;
+          }
+          alert('something went wrong')
+        },
+        error:function(data){
+          console.log('error',data)
+        }
+        
+    });
+    $.ajax();
+  }
 
   function checkPaymentMethod(){
      let paymentType= $('input[name="payment-method"]:checked').val();
@@ -273,14 +336,17 @@
     };
     var crfToken = $('meta[name="csrf-token"]').attr('content');
     // console.log(crfToken);
-    var request = $.ajax({
+    $ajaxSetup({
+      headers: {
+        // 'Authorization':'Basic ' + '***=',
+        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+        // 'Accept': 'application/json',
+      },
+    });
+    $.ajax({
       url: '{{ route('pay') }}',
       // withCSRF:['_token','{{ csrf_token() }}'],
-      // headers: {
-      //   'Authorization':'Basic ' + '***=',
-      //   'X-CSRF-TOKEN': crfToken,
-      //   'Accept': 'application/json',
-      // },
+     
       method:"post",
       data:{
         billing_first_name: fname,
@@ -311,13 +377,6 @@
         $('#pay-via-taxionpay').attr('href', msg.form_link);
     });
 
-  //   request.fail(function(jqXHR, textStatus) {
-  //       console.log( "Request failed:sssss " + textStatus );
-  //   });
-
-
-
-
   }
 </script>
 
@@ -339,6 +398,8 @@
   <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)"uk-toggle="target: #share" >
     <i class="fas fa-share"></i> Share
   </a>
+  <a href="javascript:void(0)" class="heart-icon " uk-toggle="target: #checklogin"> <i class="far fa-heart"></i> </a>
+
   <!--  share modal  -->
   <div id="share" uk-modal class="uk-flex-top">
       <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
