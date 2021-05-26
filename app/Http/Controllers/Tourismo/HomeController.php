@@ -65,7 +65,7 @@ public function  hotel_details($id) {
     }
 public function banner() {
 
-    return BannerModel::where('banners.temp_status',1)->get(['banners.banner_img','banners.short_des','banners.long_desc']);
+    return BannerModel::where('banners.temp_status',1)->where('banners.location',1)->get(['banners.banner_img','banners.short_des','banners.long_desc']);
 
 }
 public function index()
