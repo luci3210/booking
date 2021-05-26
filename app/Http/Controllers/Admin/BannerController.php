@@ -31,8 +31,9 @@ class BannerController extends Controller
     public function banner_submit_form(Request $request) {
 
     	$validate = [
-            	'short_desc' 			=> 'required',
-            	'long_desc' 			=> 'required',
+            	'short_desc' 			   => 'required',
+                'long_desc'             => 'required',
+            	'location' 			=> 'required',
             	'ts'		 	=> 'required',
             	// 'file'		=> 'required|mimes:jpeg,png,jpg|max:21048',
         ];
@@ -49,10 +50,9 @@ class BannerController extends Controller
         	'short_des' 	=> $request->short_desc,
         	'long_desc' 	=> $request->long_desc,
             'banner_img'   => $new_image_name,
-        	'location'   => 'home',
+        	'location'   => $request->location,
         	'temp_status' 		=> $request->ts
         ]);
         return back()->withSuccess('Successfully added!');
-
     }
 }
