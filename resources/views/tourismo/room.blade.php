@@ -177,7 +177,12 @@
     
 <li>
 <a class="uk-button uk-button-small uk-accordion-title " href="javascript:void(0)">Book Now <span uk-icon="chevron-down"></span></a>
-<a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)">Like<span uk-icon="chevron-down"></span></a>
+<!-- <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)">Like<span uk-icon="chevron-down"></span></a> -->
+<a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)" uk-toggle="target: #share" >
+    Like
+    <span uk-icon="chevron-down"></span>
+    
+  </a>
 <a class="heart-icon btn" href="javascript:void(0)" onclick="wishListToggle('{{ $room_details[0]->upload_id }}')"> 
     @if($wishList)
     <i class="fas fa-heart toggle-heart" >
@@ -454,9 +459,9 @@
   <div class="container">
     <div class="row">
 
-<div class="section-title">
-  <h2>Related Rooms</h2>
-</div>
+    <div class="section-title">
+      <h2>Related Rooms</h2>
+    </div>
 
           @foreach($room_details as $list)
 <div class="col-md-6 col-lg-3 d-flex align-items-stretch aos-init aos-animate" data-aos="fade-up">
@@ -465,15 +470,16 @@
             <div class="member">
               <div class="member-img">
                 <img src="{{ asset('upload/merchant/coverphoto')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}" class="img-fluid" alt="">
-                <div class="social">
+                <!-- <div class="social">
                   <a href=""><i class="icofont-twitter"></i></a>
                   <a href=""><i class="icofont-facebook"></i></a>
                   <a href=""><i class="icofont-instagram"></i></a>
                   <a href=""><i class="icofont-linkedin"></i></a>
-                </div>
+                </div> -->
               </div>
               <div class="member-info">
                 <h4>{{ $list->roomname }}</h4>
+                <!-- <h4>{{ $list->upload_id }}</h4> -->
                 <span style="font-weight: 500px; font-size: 14px;color:#ff2f00;"><b>₱ {{ $list->price }}</b> / For {{ $list->nonight }} Night</span>
 
                 <span>
@@ -491,13 +497,25 @@
                 </span>
               
               </div>
-
-<div class="details-m">
-<a class="uk-button uk-button-default uk-button-small btn-room-details-m" href="javascript:void(0)" data-id="{{ $list->upload_id }}">Explore</a>
-<button class="uk-button uk-button-default uk-button-small" type="button" data-toggle="modal" data-id="{{ $list->id }}" id="btn-room-details-m">Details</button>
-
-</div>
-
+                <div class="details-m">
+                  <a class="uk-button uk-button-default uk-button-small btn-room-details-m" href="javascript:void(0)" data-id="{{ $list->upload_id }}">Explore</a>
+                  <button class="uk-button uk-button-default uk-button-small" type="button" data-toggle="modal" data-id="{{ $list->id }}" uk-toggle="target: #related-rooms">Share</button>
+                </div>
+                <!-- share modal -->
+                <div id="related-rooms" uk-modal class="uk-flex-top">
+                    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical" style="border-radius: 5px;">
+                        <h2 class="uk-modal-title"></h2>
+                        <div uk-grid class="uk-flex-center">
+                            <div><a onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('tourismo_room', $list->upload_id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )"><img src="{{ asset('image/socialmedia/fb.png')}}" height="50" width="50" ></a></div>
+                            <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->roomname }}&url={{ route('tourismo_room', $list->upload_id) }}')"><img src="{{ asset('image/socialmedia/tw.png')}}" height="50" width="50" ></a></div>
+                            <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->roomname }}&url={{ route('tourismo_room', $list->upload_id) }}')"><img src="{{ asset('image/socialmedia/ig.png')}}" height="50" width="50" ></a></div>
+                            <div><a href="mailto:yourfriendsemail@sample.com?subject={{ $list->roomname }}&body=No. of hotels : 150  visit the link {{ route('tourismo_room', $list->upload_id)}}"><img src="{{ asset('image/socialmedia/gm.png')}}" height="50" width="50" ></a></div>
+                            <div><a onclick="sendMessenger('{{ route('tourismo_room', $list->upload_id) }}')"><img src="{{ asset('image/socialmedia/msg.png')}}" height="50" width="50" ></a></div>
+                            <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->roomname }}&url={{ route('tourismo_room', $list->upload_id) }}')"><img src="{{ asset('image/socialmedia/we.png')}}" height="50" width="50" ></a></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /. share modal -->
             </div>
           </div>
           </div>
