@@ -12,8 +12,7 @@ use Illuminate\Http\Request;
 class PaymentController extends Controller
 {
     public function __construct() {
-
-	 	// $this->middleware('auth:web');
+        $this->middleware('auth:web');
 	}
 
 	public function creds() {
@@ -59,15 +58,15 @@ class PaymentController extends Controller
                 "billing_first_name" => "John",
                 "billing_last_name" => "Doe",
                 "billing_middle_name" => "Peters",
-                "billing_phone" => "",
+                "billing_phone" => "NA",
                 "billing_mobile" => "09123456789",
                 "billing_address" => "Sampalok St. Emerald Village",
-                "billing_address2" => "",
+                "billing_address2" => "N/A",
                 "billing_city" => "Quezon City",
                 "billing_state" => "N/A",
                 "billing_zip" => "11601",
                 "billing_country" => "PH",
-                "billing_remark" => "",
+                "billing_remark" => "N/A",
                 "payment_method" => "",
                 "status_notification_url" => $api_url . 'callback',
                 "success_page_url" => "https://devapi.traxionpay.com/callback",

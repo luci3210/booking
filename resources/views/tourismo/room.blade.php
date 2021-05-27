@@ -211,7 +211,7 @@
 
 <div class="col-md-5 form-group mt-3">
     <label class="labelcoz">First Name</label>
-    <input type="text" class="uk-input" name="lname" id="lname" value="{{ Auth::user()->lname }}" readonly="readonly">
+    <input type="text" class="uk-input" name="billing_last_name" id="lname" value="{{ Auth::user()->lname }}" readonly="readonly">
     <div class="validate"></div>
 </div>
 
@@ -235,7 +235,7 @@
 
 <div class="col-md-12 form-group mt-3">
     <label class="labelcoz">Address</label>
-    <input type="text" class="uk-input" name="address" id="address" value="{{ Auth::user()->address }}" readonly="readonly">
+    <input type="text" class="uk-input" name="billing_address_1" id="address" value="{{ Auth::user()->address }}" readonly="readonly">
     <input type="hidden" class="uk-input" name="country" id="country" value="{{ Auth::user()->country }}" readonly="readonly">
     <div class="validate"></div>
 </div>
@@ -255,7 +255,7 @@
 <script>
   function wishListToggle(id){
     var crfToken = $('meta[name="csrf-token"]').attr('content');
-    console.log(crfToken);
+    // console.log(crfToken);
     $.ajaxSetup({
         url: '{{ route('toggle_wishlist') }}',
         headers: {
@@ -263,8 +263,6 @@
             'Accept': 'application/json',
             '_token': '{{ Session::token()  }}',
             'Authorization': '{{ Session::token()  }}',
-            
-
         },
         method:"POST",
         data:{
@@ -324,35 +322,33 @@
     var email = $('input[name="billing_email"]').val();
     var plan_price = parseInt($('#plan_price_checkout').text());
     var plan_name = $('#plan_name_checkout').text();
-
-    console.log(fname);
     var datam = {
         billing_first_name: fname,
         billing_last_name: lname,
-        billing_company: company,
-        billing_city: city,
-        billing_country: country,
+        billing_middle_name: 'none',
+        billing_company: 'none',
+        billing_city: 'none',
+        billing_country: 'none',
         billing_address_1: address_1,
-        billing_state: state,
-        billing_postcode: postcode,
+        billing_state: 'none',
+        billing_postcode: 'none',
         billing_phone: phone,
         billing_email: email,
         billing_price: plan_price,
         billing_plan_name: plan_name
     };
+    console.log(datam);
+
     var crfToken = $('meta[name="csrf-token"]').attr('content');
     // console.log(crfToken);
-    $ajaxSetup({
+    $.ajaxSetup({
+      url: '{{ route('pay2') }}',
       headers: {
-        // 'Authorization':'Basic ' + '***=',
         'X-CSRF-TOKEN': '{{ csrf_token() }}',
-        // 'Accept': 'application/json',
+        'Accept': 'application/json',
+        '_token': '{{ Session::token()  }}',
+        'Authorization': '{{ Session::token()  }}',
       },
-    });
-    $.ajax({
-      url: '{{ route('pay') }}',
-      // withCSRF:['_token','{{ csrf_token() }}'],
-     
       method:"post",
       data:{
         billing_first_name: fname,
@@ -377,11 +373,9 @@
       fail:function(jqXHR, textStatus) {
         console.log( "Request failed: xxxx" + textStatus );
       }
-    })
-    request.done(function(msg) {
-        console.log(msg);
-        $('#pay-via-taxionpay').attr('href', msg.form_link);
     });
+    $.ajax();
+    
 
   }
 </script>

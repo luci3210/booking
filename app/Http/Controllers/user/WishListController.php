@@ -11,6 +11,10 @@ use App\Model\Merchant\Profile;
 use App\Model\Merchant\UserModel;
 use App\Model\Admin\LocationCountyModel;
 
+use App\Model\Merchant\HotelPhoMoldel;
+
+use App\Model\Merchant\HotelModel;
+
 class WishListController extends Controller
 {
     // init
@@ -32,11 +36,39 @@ class WishListController extends Controller
 
     $data['data']['account'] = $account;
     $data['data']['country'] = $country;
-    return view('tourismo.account.user',compact("data"));
+    $hotel_ids = [];
+
+    $hotelList = WishlistHotelsRoom::where('wishlist.wh_user_id', Auth::user()->id);
+    $hotelList = $hotelList->where('wishlist.wh_temp_status',1);
+    $hotelList = $hotelList->where('wishlist.wh_page_name','hotel');
+    // $hotelList = $hotelList->join('wishlistwh_page_name','hotel');
+    $hotelList = $hotelList->join('hotels', 'wishlist.wh_page_id', '=', 'hotels.id');
+    // $hotelList = $hotelList->join('hotel_photos', 'wishlist.wh_page_id', '=', 'hotels.id');
+    // $hotelList = $hotelList->where('hotel_photos.temp_status',1);
+    $hotelList = $hotelList->get();
+    // $hotelList[0]['photos'] = ['das;djkas.jpg', 'dasdjhsadasd.jpg'];
+    // $hotelList['id'] = $hotelList[0]['id'];
+    for($i=0; $i<count($hotelList); $i++){
+        array_push($hotel_ids, $hotelList[$i]['id']);
+    }
+    $photos = HotelPhoMoldel::whereIn('upload_id',$hotel_ids);
+    $photos = $photos->where('temp_status', 1);
+    $photos = $photos->get();
+    // $hotelList['idsss'] = $hotel_ids;
+    // $hotelList['potato'] = $photos;
+    // return $hotelList;
+
+    $tourList = WishlistHotelsRoom::where('wishlist.wh_user_id', Auth::user()->id);
+    $tourList = $tourList->where('wishlist.wh_temp_status',1);
+    $tourList = $tourList->where('wishlist.wh_page_name','tour');
+    $tourList = $tourList->join('service_tour', 'wishlist.wh_page_id', '=', 'service_tour.id');
+    $tourList = $tourList->get();
+
+    
+    return view('tourismo.account.account_wishlist_index',compact("data","hotelList","photos", "tourList"));
     }
     
     public function accnt_country() {
-
         return LocationCountyModel::where('temp_status',1)->get();
     }
 
