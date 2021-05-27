@@ -37,9 +37,9 @@
   </li>
 
   <li class="uk-list-spc">
-    <a class="uk-list-a" href="{{ route('subscribe') }}">
-      <span uk-icon="bookmark"></span><span class="uk-list-a"></span> 
-        Bookmark
+    <a class="uk-list-a" href="{{ route('wishlist_index') }}">
+      <span uk-icon="heart"></span><span class="uk-list-a"></span> 
+        Wishlist
     </a>
   </li>
 

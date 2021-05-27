@@ -13,10 +13,11 @@ class CreateWishlistHotelsRoomsTable extends Migration
      */
     public function up()
     {
-        Schema::create('wishlist_hotels_rooms', function (Blueprint $table) {
+        Schema::create('wishlist', function (Blueprint $table) {
             $table->id('wh_id');
             $table->integer('wh_user_id');
-            $table->integer('wh_hotel_id');
+            $table->integer('wh_page_id');
+            $table->enum('wh_page_name', ['tour','hotel'])->nullable();
             $table->timestamp('wh_created_at')->nullable();
             $table->timestamp('wh_updated_at')->nullable();
             $table->integer('wh_temp_status')->default(1);
@@ -30,6 +31,6 @@ class CreateWishlistHotelsRoomsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('wishlist_hotels_rooms');
+        Schema::dropIfExists('wishlist');
     }
 }

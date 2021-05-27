@@ -257,7 +257,7 @@
     var crfToken = $('meta[name="csrf-token"]').attr('content');
     console.log(crfToken);
     $.ajaxSetup({
-        url: '{{ route('wishlist') }}',
+        url: '{{ route('toggle_wishlist') }}',
         headers: {
             'X-CSRF-TOKEN': '{{ csrf_token() }}',
             'Accept': 'application/json',
@@ -269,6 +269,7 @@
         method:"POST",
         data:{
           data_id: id,
+          wh_page_name:'hotel'
         },
         success:function(data)
         {

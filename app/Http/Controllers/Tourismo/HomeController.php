@@ -95,9 +95,10 @@ public function room($id) {
     				->where('hotels.id', $id)->get();
     $wishList = false;
     if(Auth::check()){
-        $checkList = WishlistHotelsRoom::where('wh_hotel_id', $id);
+        $checkList = WishlistHotelsRoom::where('wh_page_id', $id);
         $checkList = $checkList->where('wh_user_id', Auth::user()->id);
         $checkList = $checkList->where('wh_temp_status', 1);
+        $checkList = $checkList->where('wh_page_name', 'hotel');
         $checkList = $checkList->first();
         $datas = $checkList;
         if($checkList != null){

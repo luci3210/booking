@@ -36,7 +36,7 @@ Route::get('/hotel_and_resort/ph', 'Tourismo\HomeController@page_hotels')->name(
 Route::get('/tour_operators/ph', 'Tourismo\HomeController@page_tour_operator')->name('tour_operator');
 
 Route::get('/hotels/rooms/{id}', 'Tourismo\HomeController@room')->name('tourismo_room');
-Route::POST('hotels/rooms/wishlist', 'Tourismo\HomeController@toggle_wishlist')->name('wishlist');
+Route::POST('/wishlist/toggle', 'user\WishListController@toggle_wishlist')->name('toggle_wishlist');
 
 Route::get('/tourismoph/hotel/{id}', 'Tourismo\HomeController@hotel_details')->name('tourismo-hotel-details');
 
@@ -136,6 +136,7 @@ Route::prefix('tourismoph.payment')->group(function () {
 
 
 Route::prefix('account')->group(function () {
+    Route::get('/wishlish/index', 'user\WishListController@index')->name('wishlist_index');
     Route::get('/profile', 'Tourismo\AccountController@profile')->name('accnt_profile');
     Route::post('/upload/new/photo', 'Tourismo\AccountController@change_profile_pic')->name('user_profile_upload');
     Route::patch('/profile/update/{id}', 'Tourismo\AccountController@accnt_profile_update')->name('accnt_profile_update');
