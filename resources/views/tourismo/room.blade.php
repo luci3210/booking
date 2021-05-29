@@ -9,7 +9,7 @@
 
 <style>
 .heart-icon{
-  color: #3c3c3c!important;
+  color: #009d8a!important;
 }
 
 .heart-icon:focus{
@@ -398,7 +398,10 @@
   <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)"uk-toggle="target: #share" >
     <i class="fas fa-share"></i> Share
   </a>
-  <a href="javascript:void(0)" class="heart-icon " uk-toggle="target: #checklogin"> <i class="far fa-heart"></i> </a>
+  <a class="heart-icon btn" href="javascript:void(0)" onclick="wishListToggle('{{ $room_details[0]->upload_id }}')"> 
+      <i class="far fa-heart toggle-heart"></i> 
+  </a>
+  
 
   <!--  share modal  -->
   <div id="share" uk-modal class="uk-flex-top">
@@ -449,6 +452,168 @@
 </div>
 </section>
 
+<section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500" id="reviews">
+  <div class="container">
+    <div class="row">
+      <div class="section-title">
+        <h2>Reviews</h2>
+      </div>
+      <!-- /.section title -->
+      <form>
+        <fieldset class="uk-fieldset">
+          <div class="uk-margin">
+              <textarea class="uk-textarea" rows="5" placeholder="Textarea"></textarea>
+          </div>
+          <legend class="uk-legend">Comments</legend>
+        </fieldset>
+        <!-- /.fieldset -->
+      </form>
+      <!-- /.form -->
+      <ul>
+          <li>
+            <article class="uk-comment">
+                <header class="uk-comment-header">
+                    <div class="uk-grid-medium uk-flex-middle" uk-grid>
+                        <div class="uk-width-auto">
+                            <img class="uk-comment-avatar" src="{{ asset('upload/merchant/profilepic/default.png') }}" width="80" height="80" alt="">
+                        </div>
+                        <div class="uk-width-expand">
+                            <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">User 1</a></h4>
+                            <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
+                                <li><a href="#" style="color:black!important">35 days ago</a></li>
+                                <li><a href="#" style="color:black!important">Reply</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </header>
+                <div class="uk-comment-body">
+                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+                </div>
+            </article>
+            <!-- /. article -->
+          </li>
+          <li>
+          <article class="uk-comment">
+                <header class="uk-comment-header">
+                    <div class="uk-grid-medium uk-flex-middle" uk-grid>
+                        <div class="uk-width-auto">
+                            <img class="uk-comment-avatar" src="{{ asset('upload/merchant/profilepic/default.png') }}" width="80" height="80" alt="">
+                        </div>
+                        <div class="uk-width-expand">
+                            <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">User 2</a></h4>
+                            <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
+                                <li><a href="#" style="color:black!important">30 days ago</a></li>
+                                <li><a href="#" style="color:black!important">Reply</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </header>
+                <div class="uk-comment-body">
+                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+                </div>
+            </article>
+            <!-- /. article -->
+              <ul>
+                  <li>
+                  <article class="uk-comment">
+                      <header class="uk-comment-header">
+                          <div class="uk-grid-medium uk-flex-middle" uk-grid>
+                              <div class="uk-width-auto">
+                                  <img class="uk-comment-avatar" src="{{ asset('upload/merchant/profilepic/default.png') }}" width="80" height="80" alt="">
+                              </div>
+                              <div class="uk-width-expand">
+                                  <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">User 3</a></h4>
+                                  <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
+                                      <li><a href="#" style="color:black!important">2 days ago</a></li>
+                                      <li><a href="#" style="color:black!important">Reply</a></li>
+                                  </ul>
+                              </div>
+                          </div>
+                      </header>
+                      <div class="uk-comment-body">
+                          <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+                      </div>
+                  </article>
+                  <!-- /. article -->
+                  </li>
+                  <li>
+                  <article class="uk-comment">
+                      <header class="uk-comment-header">
+                          <div class="uk-grid-medium uk-flex-middle" uk-grid>
+                              <div class="uk-width-auto">
+                                  <img class="uk-comment-avatar" src="{{ asset('upload/merchant/profilepic/default.png') }}" width="80" height="80" alt="">
+                              </div>
+                              <div class="uk-width-expand">
+                                  <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">User 1</a></h4>
+                                  <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
+                                      <li><a href="#" style="color:black!important">2 days ago</a></li>
+                                      <li><a href="#" style="color:black!important">Reply</a></li>
+                                  </ul>
+                              </div>
+                          </div>
+                      </header>
+                      <div class="uk-comment-body">
+                          <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+                      </div>
+                  </article>
+                  <!-- /. article -->
+                  
+                  </li>
+              </ul>
+          </li>
+          <li>
+          <article class="uk-comment">
+              <header class="uk-comment-header">
+                  <div class="uk-grid-medium uk-flex-middle" uk-grid>
+                      <div class="uk-width-auto">
+                          <img class="uk-comment-avatar" src="{{ asset('upload/merchant/profilepic/default.png') }}" width="80" height="80" alt="">
+                      </div>
+                      <div class="uk-width-expand">
+                          <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">User 5</a></h4>
+                          <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
+                              <li><a href="#" style="color:black!important">2 days ago</a></li>
+                              <li><a href="#" style="color:black!important">Reply</a></li>
+                          </ul>
+                      </div>
+                  </div>
+              </header>
+              <div class="uk-comment-body">
+                  <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+              </div>
+          </article>
+          <!-- /. article -->
+          </li>
+          <li>
+          <article class="uk-comment">
+              <header class="uk-comment-header">
+                  <div class="uk-grid-medium uk-flex-middle" uk-grid>
+                      <div class="uk-width-auto">
+                          <img class="uk-comment-avatar" src="{{ asset('upload/merchant/profilepic/default.png') }}" width="80" height="80" alt="">
+                      </div>
+                      <div class="uk-width-expand">
+                          <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">User 6</a></h4>
+                          <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
+                              <li><a href="#" style="color:black!important">2 days ago</a></li>
+                              <li><a href="#" style="color:black!important">Reply</a></li>
+                          </ul>
+                      </div>
+                  </div>
+              </header>
+              <div class="uk-comment-body">
+                  <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+              </div>
+          </article>
+          <!-- /. article -->
+          </li>
+      </ul>
+      <!-- /.ul -->
+    </div>
+  </div>
+  <!-- /. container -->
+</section>
+<!-- /.section -->
+
+
 <div style="margin-top: 45px;"></div>
 <section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
   <div class="container">
@@ -457,7 +622,6 @@
     <div class="section-title">
       <h2>Related Rooms</h2>
     </div>
-
           @foreach($room_details as $list)
 <div class="col-md-6 col-lg-3 d-flex align-items-stretch aos-init aos-animate" data-aos="fade-up">
           <div class="icon-box icon-box-pink">
@@ -523,6 +687,8 @@
 
 
 
+
+
 <!-- -----------------offcanvas-------------- -->
 <div id="offcanvas-slide" uk-offcanvas="overlay: true">
     <div class="uk-offcanvas-bar">
@@ -535,6 +701,7 @@
 
     </div>
 </div>
+
 
 
 <script>
