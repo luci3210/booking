@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('user/register', 'mobile\UserAuthController@register')->name('regiser_mobile');
+Route::get('user/login', 'mobile\UserAuthController@login')->name('login_mobile');
+
+Route::get('search','mobile\UserAuthController@index');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     Route::POST('payment/traxion', 'PaymentController@pay_booking');
