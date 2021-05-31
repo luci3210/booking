@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-class XSSCustom{
+class SecurityServices{
 
     public function clean_input($data) {
         $data = trim($data);

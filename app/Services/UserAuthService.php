@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Model\Merchant\UserModel;
 use App\Http\Requests\user\CreateUserRequest;
-use App\Services\XSSCustom;
+use App\Services\SecurityServices;
 
 
-Class UserAuthService extends XSSCustom{
+Class UserAuthService extends SecurityServices{
 
     public function registration(CreateUserRequest $req){
         $userInfo['pnumber'] =  $this->clean_input($req->pnumber);
