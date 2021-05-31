@@ -47,6 +47,7 @@ Route::get('/tourismoph/hotel/{id}', 'Tourismo\HomeController@hotel_details')->n
 Auth::routes();
 
 
+
 Route::get('/merchant', 'Merchant\UserController@index')->name('m-user');
 
 Route::post('/merchant/profile', 'Merchant\UserController@profiles')->name('profile-save');
@@ -262,5 +263,3 @@ Route::post(
     Route::get('/password/reset/{token}', 'Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
     Route::post('/password/reset', 'Auth\AdminResetPasswordController@reset')->name('admin.password.update');
 });
-
-
