@@ -5,8 +5,8 @@ namespace App\Http\Controllers\mobile;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-
 use App\Services\UserAuthService;
+use App\Http\Requests\user\CreateUserRequest;
 
 
 class UserAuthController extends Controller
@@ -17,21 +17,17 @@ class UserAuthController extends Controller
         return $req->query('keyword');
     }
 
-    public function register(Request $req){
+    public function register(CreateUserRequest $req){
        
         $userService = new UserAuthService();
         $userData['name'] = $this->clean_input($req->name);
         $userData['pnumber'] = $this->clean_input($req->pnumber);
         $userData['email'] = $this->clean_input($req->email);
-        $result = $userService->registration($userData);
+        $result = $userService->registration($req);
         return $result;
     }
 
     public function login(Request $req){
-
-        $data['errors'] =[];
-        $data['success'] = [];
-        $data['data'] = [];
         $userService = new UserAuthService();
         $token = base64_decode($req->query('token'));
         $userInfo = (array)json_decode($token);

@@ -51,89 +51,91 @@
       </div>
       <!-- /. col 3 info side -->
 
-      <div class="col-lg-9">
-        <section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
-          <div class="">
-          @if(!$hotelList || count($hotelList) <= 0)
-          <div class="row">
-              <div class="section-title"style="margin-bottom: 5vh!important;">
-                <h2><b>Hotels</b> <span style="font-size: 15px;padding-left: 25px;"><a href="#" class="uk-link"><i class="fas fa-chevron-right"></i> count 0 </a></span></h2>
-              </div>
-              <!-- /. section title -->
-          </div>
-          @endif
-            @if($hotelList && count($hotelList) >= 1)
-            <div class="row">
-              <div class="section-title"style="margin-bottom: 5vh!important;">
-                <h2><b>Hotels</b> <span style="font-size: 15px;padding-left: 25px;"><a href="#" class="uk-link"><i class="fas fa-chevron-right"></i> count {{ count($hotelList) }} </a></span></h2>
-              </div>
-              <!-- /. section title -->
-              <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider >
-                <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid">
-                  @foreach($hotelList as $list)
-                  <li>
-                    <div class="icon-box icon-box-pink wishlist-box" style="padding: 0!important;">
-                    <div class="uk-panel">
-                        <img src="{{ asset('image/destination')}}/DESTI2021052360aa7ecde3f1b.jpg" alt=""  style="border-radius: 4px;">
-                        <div class="uk-position-center uk-panel"> </div>
-                    </div>
-                    <!-- /. div img -->
-                    <div class="member-info">
-                    <h4>{{ $list->roomname }}</h4>
-                    <!-- /. room name -->
-                    <div><span style="font-weight: 500px; font-size: 14px;color:#ff2f00; width:100%"><b>₱ {{ $list->price }}</b> / For {{ $list->nonight }} Night</span></div>
-                    <!-- /.price and night -->
-                    <span>
-                      <img style="padding-bottom: 5px; " src="{{ asset('upload/merchant/icons/baseline_local_dining_black_18dp.png')}}">
-                      {{ $list->booking_package }}
-                    </span>
-                    <div><span><img style="padding-bottom: 3px;" src="{{ asset('upload/merchant/icons/baseline_supervisor_account_black_18dp.png')}}">Max Guests: {{ $list->noguest }}</span></div>
-                    <!-- max guest -->
-                    <span>
-                      <img style="padding-bottom: 1px;" src="{{ asset('upload/merchant/icons/baseline_visibility_black_18dp.png')}}"> City View
-                    </span>
-                    <div class="details-m action-btn">
-                      <a class="uk-button uk-button-default uk-button-small m-b-1" href="{{ route('tourismo_room', $list->id) }}">Explore</a>
-                      <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)" uk-toggle="target: #rooms"><i class="fas fa-share"></i> Share</a>
-                    </div>
-                    <!-- /. button action -->
-                    </div>
-                    <!-- /. info -->
-
-                    </div>
-                    <!-- /.card box -->
-                  </li>
-                  <!-- /. li -->
+      <div class="col-lg-9 col-sm-12">
+      <ul class="uk-tab-bottom" uk-switcher uk-tab>
+          <li class="uk-active"><a href="#hotels">Hotels</a></li>
+           <li><a href="#Tour">Tour Package</a></li>
+      </ul>
+      <div  class="uk-switcher">
+        <li id="hotels" class="">
+          <div class="uk-overflow-auto">
+            <table class="uk-table uk-table-small uk-table-divider">
+                <thead>
+                    <tr>
+                        <th>Hotel Name</th>
+                        <th>Price</th>
+                        <th>Hotel Address</th>
+                        <th>Booking Details</th>
+                        <th></th>
+                        <th>Package</th>
+                        <th>Room Facilities</th>
+                        <th>Building Facilities</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @if($hotelList && count($hotelList) >= 1)
+                 @foreach($hotelList as $list)
+                  <tr>
+                      <td><a href="{{ route('tourismo_room', $list->wh_page_id) }}">{{ $list->roomname }}</a></td>
+                      <td><b>₱ {{ $list->price }}</b> / For {{ $list->nonight }} Night</span></td>
+                      <td>{{ $list->address }}</td>
+                      <td colspan="2"><p><span><img style="padding-bottom: 3px;" src="{{ asset('upload/merchant/icons/baseline_supervisor_account_black_18dp.png')}}">Max Guests: {{ $list->noguest }}</span></p></td>
+                      <td>{{ $list->booking_package }}</td>
+                      <td>{{ $list->room_facilities }}</td>
+                      <td>{{ $list->building_facilities }}</td>
+                  </tr>
                   @endforeach
-                </ul>
-                <!-- /.ul slider -->
-              </div>
-              </div>
-              <!-- /.row -->
-              <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-              <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
-              @endif
-              @if(!$tourList || count($tourList) <= 0)
-              <div class="row">
-                  <div class="section-title"style="margin-bottom: 5vh!important;">
-                    <h2><b>Tour Package</b> <span style="font-size: 15px;padding-left: 25px;"><a href="#" class="uk-link"><i class="fas fa-chevron-right"></i> count 0 </a></span></h2>
-                  </div>
-                  <!-- /. section title -->
-              </div>
-              @endif
-            </div>
-            <!-- /.container -->
+                @endif
+                @if(!$hotelList || count($hotelList) <= 0)
+                  <tr>
+                      <td colspan="8">no data</td>
+                  </tr>
+                @endif
+                </tbody>
+            </table>
           </div>
-          <!-- /. col -->
-        </section>
-        <!-- /. section hotel -->
-        
-    <!-- /. section col - 9 info -->
+        </li>
+        <li id="Tour">
+        <div class="uk-overflow-auto">
+            <table class="uk-table uk-table-small uk-table-divider">
+                <thead>
+                    <tr>
+                        <th>Hotel Name</th>
+                        <th>Price</th>
+                        <th>Hotel Address</th>
+                        <th>Booking Details</th>
+                        <th></th>
+                        <th>Package</th>
+                        <th>Room Facilities</th>
+                        <th>Building Facilities</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @if($tourList && count($tourList) >= 1)
+                 @foreach($tourList as $list)
+                  <tr>
+                      <td><a href="{{ route('tourismo_room', $list->wh_page_id) }}">{{ $list->roomname }}</a></td>
+                      <td><b>₱ {{ $list->price }}</b> / For {{ $list->nonight }} Night</span></td>
+                      <td>{{ $list->address }}</td>
+                      <td colspan="2"><p><span><img style="padding-bottom: 3px;" src="{{ asset('upload/merchant/icons/baseline_supervisor_account_black_18dp.png')}}">Max Guests: {{ $list->noguest }}</span></p></td>
+                      <td>{{ $list->booking_package }}</td>
+                      <td>{{ $list->room_facilities }}</td>
+                      <td>{{ $list->building_facilities }}</td>
+                  </tr>
+                  @endforeach
+                @endif
+                @if(!$tourList || count($tourList) <= 0)
+                  <tr>
+                      <td colspan="8">no data</td>
+                  </tr>
+                @endif
+                </tbody>
+            </table>
+          </div>
+        </li>
+      </div>
+      </div>
     </div>
-    <!-- /. row -->
-  </div>
-  <!-- /. container -->
-</section>
 <!-- /.row -->
 
 @section('js')

@@ -41,8 +41,8 @@ class WishListController extends Controller
     $hotelList = WishlistHotelsRoom::where('wishlist.wh_user_id', Auth::user()->id);
     $hotelList = $hotelList->where('wishlist.wh_temp_status',1);
     $hotelList = $hotelList->where('wishlist.wh_page_name','hotel');
-    // $hotelList = $hotelList->join('wishlistwh_page_name','hotel');
     $hotelList = $hotelList->join('hotels', 'wishlist.wh_page_id', '=', 'hotels.id');
+    $hotelList = $hotelList->join('merchant_address', 'hotels.address_id', '=', 'merchant_address.id');
     // $hotelList = $hotelList->join('hotel_photos', 'wishlist.wh_page_id', '=', 'hotels.id');
     // $hotelList = $hotelList->where('hotel_photos.temp_status',1);
     $hotelList = $hotelList->get();
@@ -63,6 +63,8 @@ class WishListController extends Controller
     $tourList = $tourList->where('wishlist.wh_page_name','tour');
     $tourList = $tourList->join('service_tour', 'wishlist.wh_page_id', '=', 'service_tour.id');
     $tourList = $tourList->get();
+
+    // return $hotelList;
 
     
     return view('tourismo.account.account_wishlist_index',compact("data","hotelList","photos", "tourList"));
