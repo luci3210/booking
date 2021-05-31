@@ -462,8 +462,10 @@
       <form>
         <fieldset class="uk-fieldset">
           <div class="uk-margin">
-              <textarea class="uk-textarea" rows="5" placeholder="Textarea"></textarea>
+              <textarea class="uk-textarea" id="comment-textarea" rows="5" placeholder="Textarea"></textarea>
           </div>
+          <button class="comment-btn uk-button uk-button-small">Cancel</button>
+          <button class="comment-btn uk-button uk-button-small">Submit</button>
           <legend class="uk-legend">Comments</legend>
         </fieldset>
         <!-- /.fieldset -->
@@ -706,6 +708,8 @@
 
 <script>
 
+
+
 async function sendMessenger(routeDestination) {
   var TempText = document.createElement("input");
   TempText.value = routeDestination;
@@ -735,5 +739,20 @@ async function sendMessenger(routeDestination) {
 @endsection
 
 @section('js')
+<script>
+$(function() { 
+  $('.comment-btn').hide();
+  $("#comment-textarea").on("focus", function( e ) {
+      $('.comment-btn').show(500);
+  });
+
+  $("#comment-textarea").on("blur", function( e ) {
+      $('.comment-btn').hide(500);
+  });
+});
+
+</script>
 
 @endsection
+
+

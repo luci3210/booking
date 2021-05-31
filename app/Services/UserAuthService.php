@@ -6,45 +6,26 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Model\Merchant\UserModel;
+use App\Http\Requests\user\CreateUserRequest;
+use App\Services\XSSCustom;
 
 
-Class UserAuthService{
+Class UserAuthService extends XSSCustom{
 
-    public function registration($userInfo){
-        $data['errors'] =[];
-        $data['success'] = [];
-        $data['data'] = [];
-
-
-        $validator = Validator::make($userInfo, [ 
-            'email' => ['required', 'email', 'unique:users'],
-            'name' => ['required', 'min:5','string', 'unique:users'],
-            'pnumber'=> ['required','min:11', 'string', 'unique:users'],
-        ]);
-
-        if($validator->fails()){
-            $data['errors'] = $validator->errors();
-            return $data;
-        }
-
-        $userInfo['password'] = Hash::make($userInfo['pnumber']); // hash
+    public function registration(CreateUserRequest $req){
+        $userInfo['pnumber'] =  $this->clean_input($req->pnumber);
+        $userInfo['email'] =  $this->clean_input($req->email);
+        $userInfo['name'] =  $this->clean_input($req->name);
+        $userInfo['password'] = Hash::make($req->pnumber); // hash
         $userId = UserModel::insertGetId($userInfo); // save dynamic key  value pairs, key must exist as cols in db
         $userInfo['user_id'] = $userId;
-
-        if($userId == null){
-            $data['errors'] = ['something went wrong'];
-            return $data;
-        }
-        $success = array("msg"=>['successfully registered!']);
-        $data['success'] = $success;
+        $success = 'successfully registered!';
+        $data['message'] = $success;
+        $data['data'] = $userInfo;
         return $data;
-
     }
 
     public function login($token){
-        $data['errors'] =[];
-        $data['success'] = [];
-        $data['data'] = [];
 
         $validator = Validator::make($token, [ 
             'email' => ['required', 'email', ],
