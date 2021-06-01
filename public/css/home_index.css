@@ -1,6 +1,48 @@
 .share-icons{
     cursor: pointer;
 }
+.pointer{
+  cursor: pointer;
+}
+
+.social-media-share {
+  padding: 25px;
+}
+
+.bg-circle{
+  padding: 12px 15px!important;
+  border-radius: 100%!important;
+  background-color: white!important;
+  color: #9e9e9e!important;
+  box-shadow: 0 4px 4px rgb(0 0 0 / 30%), 0 0 4px rgb(0 0 0 / 20%);
+  height: 46px;
+  width: 42px;
+}
+
+.social-slider-div{
+  margin-left: 30px;
+  padding-left: 0!important;
+}
+.uk-position-center-right {
+  right: -13px!important;
+}
+.uk-position-center-left {
+  left: -13px!important;
+}
+.mx-auto{
+  margin: auto!important;
+}
+.copy-link{
+  color: blue!important;
+  text-decoration: underline!important;
+}
+.copy-link-div{
+  margin: 0 auto!important;
+  padding-left: 0px!important;
+}
+/* for social medial share */
+
+
 
 .uk-button{
     margin: 5px 0;

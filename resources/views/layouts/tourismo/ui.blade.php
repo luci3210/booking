@@ -182,6 +182,42 @@
     }
 
   }
+
+  async function copyLink(routeDestination) {
+    var TempText = document.createElement("input");
+    TempText.value = routeDestination;
+    document.body.appendChild(TempText);
+    TempText.select();
+    
+    document.execCommand("copy");
+    document.body.removeChild(TempText);
+
+    var sticky = UIkit.sticky('.sticky', {
+        offset: 50,
+        top: 100
+    });
+
+    var notifications =  await UIkit.notification('Link Copied', 'success');
+  }
+
+  async function copyEmbed(routeDestination, title) {
+    var TempText = document.createElement("input");
+    TempText.value = `<iframe width="5 60" height="315" src="${routeDestination}" title="${title}" ' frameborder="0"></iframe>`;
+    document.body.appendChild(TempText);
+    TempText.select();
+    document.execCommand("copy");
+    document.body.removeChild(TempText);
+    var sticky = UIkit.sticky('.sticky', {
+        offset: 50,
+        top: 100
+    });
+
+    var notifications =  await UIkit.notification('Embed Copied', 'success');
+  }
+
+
+
+
 </script>
 
   @yield('merchantjs')
