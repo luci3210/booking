@@ -4,132 +4,6 @@
 <!-- <div class="marg-header"></div> -->
 @section('banner')
 
-<style>
-  .uk-button{
-    margin: 5px 0;
-  }
-  .center-item{
-    margin: 0 auto!important;
-    display: flex;
-  }
-  .p-20{
-    padding: 20px;
-  }
-  .top-20{
-    margin-top: -70px;
-  }
-  .icon-title{
-    width: min-content;
-    margin: auto auto 0;
-    line-height: 14px;
-    font-weight: 400;
-    margin-top: 8px;
-    color: black;
-  }
-  /* .icon-img{
-    width: 40px;
-  } */
-
-  .item-icon{
-      vertical-align: top;
-      display: inline-block;
-      text-align: center;
-      width: 120px;
-  }
-  .icon-img {
-      width: 100px;
-      height: 100px;
-  }
-  .caption {
-      display: block;
-  }
-
-  @media only screen and (max-width: 1000px) {
-    .item-icon {
-        vertical-align: top;
-        display: inline-block;
-        text-align: center;
-        width: 100px;
-    }
-    
-  }
-
-  @media only screen and (max-width: 912px) {
-    .hidden-m{
-      display: none!important;
-    }
-    .block-m{
-      display: block!important;
-    }
-    
-    .item-icon {
-      vertical-align: top;
-      display: inline-block;
-      text-align: center;
-      width: 50px;
-      margin: 0 10px;
-    }
-  }
-
-  @media only screen and (max-width: 650px) {
-    .item-icon {
-      vertical-align: top;
-      display: inline-block;
-      text-align: center;
-      width: 50px;
-      margin: 0 10px;
-    }
-    #mobile div{
-      padding: 0!important;
-    }
-    .font-mobile{
-      font-size: 1.8em;
-    }
-  }
-  @media only screen and (max-width: 414px) {
-    .item-icon {
-      vertical-align: top;
-      display: inline-block;
-      text-align: center;
-      width: 35px;
-      margin: 0 10px;
-    }
-    .pd-xs-0{
-      padding: 0!important;
-    }
-  }
-
-  @media only screen and (max-width: 375px) {
-    .item-icon {
-      vertical-align: top;
-      display: inline-block;
-      text-align: center;
-      width: 40px;
-      margin: 0 10px;
-    }
-    .pd-xs-0{
-      padding: 0!important;
-    }
-  }
-
-  @media only screen and (max-width: 320px) {
-    .item-icon {
-      vertical-align: top;
-      display: inline-block;
-      text-align: center;
-      width: 30px;
-      margin: 0 10px;
-    }
-    .pd-xs-0{
-      padding: 0!important;
-    }
-    .center-item{
-      padding: 5px!important;
-    }
-  }
-</style>
-
-
 <div class="uk-position-relative uk-visible-toggle uk-light mt-sm-slider" tabindex="-1" uk-slideshow="ratio: 10:3; animation: push">
     <ul class="uk-slideshow-items min-vh-30">
       @foreach($banner as $list)
@@ -692,12 +566,6 @@ Founded in 2018, Tourismo PH envisioned a company that is committed in energizin
 
         <div class="member-img" style="height: 180px;">
           <img src="{{ asset('upload/merchant/tour')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}" class="img-fluid" alt=""  style="border-radius: 4px;">
-          <div class="social">
-            <a href=""><i class="icofont-twitter"></i></a>
-            <a href=""><i class="icofont-facebook"></i></a>
-            <a href=""><i class="icofont-instagram"></i></a>
-            <a href=""><i class="icofont-linkedin"></i></a>
-          </div>
         </div>
 
         <div class="member-info">
@@ -881,36 +749,6 @@ Founded in 2018, Tourismo PH envisioned a company that is committed in energizin
 </div>
 </div>
 </section>
-
-
-<script>
-
-async function sendMessenger(routeDestination) {
-  var TempText = document.createElement("input");
-  TempText.value = routeDestination;
-  document.body.appendChild(TempText);
-  TempText.select();
-  
-  document.execCommand("copy");
-  document.body.removeChild(TempText);
-
-  var sticky = UIkit.sticky('.sticky', {
-      offset: 50,
-      top: 100
-  });
-
-  var notifications =  await UIkit.notification('Link Copied', 'success');
-  if(notifications){
-    setTimeout(()=>{
-      window.open('https://www.messenger.com/t')
-    },1500)
-  }
-  
-  // alert("Copied the text: " + TempText.value);
-
-}
-</script>
-
 
 
 @endsection
