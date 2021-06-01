@@ -2587,11 +2587,11 @@ a, .uk-link:hover {
 }
 
 .uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before {
-  content: "" !important;
+  content: "/" !important;
 }
 .uk-breadcrumb > * > *{
   color: #fff !important;
-  font-weight: 700;
+  font-weight: 400;
   padding-right: -20px;
 }
 a, .uk-breadcrumb{
