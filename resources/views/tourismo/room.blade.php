@@ -706,35 +706,6 @@
 
 
 
-<script>
-
-
-
-async function sendMessenger(routeDestination) {
-  var TempText = document.createElement("input");
-  TempText.value = routeDestination;
-  document.body.appendChild(TempText);
-  TempText.select();
-  
-  document.execCommand("copy");
-  document.body.removeChild(TempText);
-
-  var sticky = UIkit.sticky('.sticky', {
-      offset: 50,
-      top: 100
-  });
-
-  var notifications =  await UIkit.notification('Link Copied', 'success');
-  if(notifications){
-    setTimeout(()=>{
-      window.open('https://www.messenger.com/t')
-    },1500)
-  }
-  
-  // alert("Copied the text: " + TempText.value);
-
-}
-</script>
 
 @endsection
 

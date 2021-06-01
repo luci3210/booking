@@ -17,13 +17,15 @@ class UserAuthController extends Controller
         return $req->query('keyword');
     }
 
-    public function register(CreateUserRequest $req){
-       
+    // public function register(CreateUserRequest $req){
+    //     $userService = new UserAuthService();
+    //     $result = $userService->registration($req);
+    //     return $result;
+    // }
+
+    public function register(Request $req){
         $userService = new UserAuthService();
-        $userData['name'] = $this->clean_input($req->name);
-        $userData['pnumber'] = $this->clean_input($req->pnumber);
-        $userData['email'] = $this->clean_input($req->email);
-        $result = $userService->registration($req);
+        $result = $userService->registration($req->input());
         return $result;
     }
 

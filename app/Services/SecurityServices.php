@@ -10,4 +10,10 @@ class SecurityServices{
         $data = htmlspecialchars($data);
         return $data;
     }
+
+    public function check_hash($table,$inputValue,$data){
+        # code...
+    }
+
+    
 }

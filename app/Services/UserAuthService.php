@@ -12,34 +12,66 @@ use App\Services\SecurityServices;
 
 Class UserAuthService extends SecurityServices{
 
-    public function registration(CreateUserRequest $req){
-        $userInfo['pnumber'] =  $this->clean_input($req->pnumber);
-        $userInfo['email'] =  $this->clean_input($req->email);
-        $userInfo['name'] =  $this->clean_input($req->name);
-        $userInfo['password'] = Hash::make($req->pnumber); // hash
+    public function registration($userData){
+        $data['success'] = false;
+        $data['message'] = [];
+        $validator = Validator::make($userData, [ 
+            'email' => ['required', 'email', 'unique:users'],
+            'name' => ['required', 'min:5','string', 'unique:users'],
+            'pnumber'=> ['required','min:11', 'string', 'unique:users'],
+        ]);
+
+        if($validator->fails()){
+        $data['token'] = base64_encode(json_encode($userData));
+            $data['message'] = $validator->errors();
+            return $data;
+        }
+
+
+        $userInfo['pnumber'] =  $this->clean_input($userData['pnumber']);
+        $userInfo['email'] =  $this->clean_input($userData['email']);
+        $userInfo['name'] =  $this->clean_input($userData['name']);
+        $userInfo['password'] = Hash::make($userData['pnumber']); // hash
         $userId = UserModel::insertGetId($userInfo); // save dynamic key  value pairs, key must exist as cols in db
         $userInfo['user_id'] = $userId;
         $success = 'successfully registered!';
         $data['message'] = $success;
-        $data['data'] = $userInfo;
+        $data['success'] = true;
+        $data['token'] = base64_encode(json_encode($userInfo));
         return $data;
     }
 
+
+
+    // public function registration($userData){
+    //     $userInfo['pnumber'] =  $this->clean_input($req->pnumber);
+    //     $userInfo['email'] =  $this->clean_input($req->email);
+    //     $userInfo['name'] =  $this->clean_input($req->name);
+    //     $userInfo['password'] = Hash::make($req->pnumber); // hash
+    //     $userId = UserModel::insertGetId($userInfo); // save dynamic key  value pairs, key must exist as cols in db
+    //     $userInfo['user_id'] = $userId;
+    //     $success = 'successfully registered!';
+    //     $data['message'] = $success;
+    //     $data['token'] = base64_encode(json_encode($userInfo));
+    //     return $data;
+    // }
+
     public function login($token){
+        $data['success'] = false;
 
         $validator = Validator::make($token, [ 
             'email' => ['required', 'email', ],
             'name' => ['required', 'min:5','string', ],
-            'pnumber'=> ['required','min:11', 'string',],
+            'password'=> ['required', 'string',],
         ]);
 
         if($validator->fails()){
-            $data['errors'] = $validator->errors();
+            $data['message'] = $validator->errors();
             return $data;
         }
 
         $userData = UserModel::where('email', $token['email']);
-        $userData = $userData->where('pnumber',$token['pnumber']);
+        $userData = $userData->where('pnumber',$token['password']);
         $userData = $userData->where('name',$token['name']);
         $userData = $userData->get();
 
@@ -50,9 +82,10 @@ Class UserAuthService extends SecurityServices{
             return $data;
         }
 
-        $success = array("msg"=>['successfully login!']);
-        $data['success'] = $success;
-        $data['data'] = $userData;
+        $success = 'successfully login!';
+        $data['message'] = $success;
+        $data['success'] = true;
+        // $data['data'] = $userData;
 
         return $data;
 

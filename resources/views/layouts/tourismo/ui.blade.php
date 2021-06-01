@@ -159,6 +159,30 @@
   <script src='https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.2/js/uikit.js'></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.2/js/uikit-icons.js'></script>
   <script src="https://kit.fontawesome.com/f0c1ec087f.js" crossorigin="anonymous"></script>
+  <script>
+  async function sendMessenger(routeDestination) {
+    var TempText = document.createElement("input");
+    TempText.value = routeDestination;
+    document.body.appendChild(TempText);
+    TempText.select();
+    
+    document.execCommand("copy");
+    document.body.removeChild(TempText);
+
+    var sticky = UIkit.sticky('.sticky', {
+        offset: 50,
+        top: 100
+    });
+
+    var notifications =  await UIkit.notification('Link Copied', 'success');
+    if(notifications){
+      setTimeout(()=>{
+        window.open('https://www.messenger.com/t')
+      },1500)
+    }
+
+  }
+</script>
 
   @yield('merchantjs')
   @yield('js')

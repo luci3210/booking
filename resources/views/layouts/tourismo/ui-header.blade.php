@@ -1,7 +1,11 @@
 <style>
 
-.nav-height{
+/* .nav-height{
     min-height: 10vh;
+} */
+
+.nav-main{
+    box-shadow: 0px 1px #8e8e8e38 !important;
 }
 .col-lg-6{
     width: 50%;
@@ -26,6 +30,13 @@
 }
 .nav-main{
     background-color: #ffffff!important;
+}
+
+@media only screen and (min-width: 982px) {
+    .icon-div{
+        padding-left: 0;
+    }
+
 }
 @media only screen and (max-width: 992px) {
     .hidden-m{
@@ -70,7 +81,7 @@
         height: 30vh!important;
     }
     .sm-m-view{
-        margin: 0px 0 35px 10px;
+        margin: 0px 0 20px 10px;
     }
     
 }
@@ -118,11 +129,11 @@
 </style>
 
 <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky" class="nav-main" id="header">
-<nav class="fixed-top uk-navbar-container nav-height" uk-navbar>
+<nav class="fixed-top uk-navbar-container nav-height uk-container" uk-navbar>
     
     <div class="uk-navbar-left sm-m-view">
         <div class="uk-grid" uk-grid>
-            <div class="col-lg-6 col-sm-12">
+            <div class="col-lg-6 col-sm-12 icon-div">
                 <a href="{{ route('myhome') }}">
                     <span>
                         <img src="{{ asset('image/logo/logoab.png') }}"  style="padding-top: 5px; padding-right: 20px;">
