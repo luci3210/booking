@@ -46,6 +46,12 @@ Route::get('/tourismoph/hotel/{id}', 'Tourismo\HomeController@hotel_details')->n
 
 Auth::routes();
 
+Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merchant/profile'], function() {
+
+        Route::get('/address','Merchant\AddressController@addressCreateForm')
+        ->name('create_address');
+});
+
 
 
 Route::get('/merchant', 'Merchant\UserController@index')->name('m-user');

@@ -6,13 +6,7 @@ use Closure;
 
 class Jobs
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
-     */
+
     public function handle($request, Closure $next)
     {
         if($request->user() === null) {
@@ -22,7 +16,7 @@ class Jobs
 
         $doAction = $request->route()->getAction();
 
-        $jobs = isset($doAction['jobs']) ? $doAction['$jobs'] : null;
+        $jobs = isset($doAction['jobs']) ? $doAction['jobs'] : null;
 
         if($request->user()->hasJob($jobs) || !$jobs) {
 

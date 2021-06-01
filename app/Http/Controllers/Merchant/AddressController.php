@@ -16,7 +16,7 @@ class AddressController extends Controller
          
     public function addressCreateForm() {
 
-
+        return view('merchant.user.address-form');
     }
 
     public function getAddress() {
