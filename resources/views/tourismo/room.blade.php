@@ -19,6 +19,50 @@
 .toggle-heart{
   font-size: 2em!important;
 }
+
+.share-icons{
+    cursor: pointer;
+}
+.pointer{
+  cursor: pointer;
+}
+
+.social-media-share {
+  padding: 25px;
+}
+
+.bg-circle{
+  padding: 12px 15px!important;
+  border-radius: 100%!important;
+  background-color: white!important;
+  color: #9e9e9e!important;
+  box-shadow: 0 4px 4px rgb(0 0 0 / 30%), 0 0 4px rgb(0 0 0 / 20%);
+  height: 46px;
+  width: 42px;
+}
+
+.social-slider-div{
+  margin-left: 30px;
+  padding-left: 0!important;
+}
+.uk-position-center-right {
+  right: -13px!important;
+}
+.uk-position-center-left {
+  left: -13px!important;
+}
+.mx-auto{
+  margin: auto!important;
+}
+.copy-link{
+  color: blue!important;
+  text-decoration: underline!important;
+}
+.copy-link-div{
+  margin: 0 auto!important;
+  padding-left: 0px!important;
+}
+/* for social medial share */
 </style>
 <!-- /. meta tags -->
 <section class="features">
@@ -178,11 +222,68 @@
 <li>
 <a class="uk-button uk-button-small uk-accordion-title " href="javascript:void(0)">Book Now <span uk-icon="chevron-down"></span></a>
 <!-- <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)">Like<span uk-icon="chevron-down"></span></a> -->
-<a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)" uk-toggle="target: #share" >
+<!-- <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)" uk-toggle="target: #rooms-selected-{{$room_details[0]->upload_id}}" >
     Like
     <span uk-icon="chevron-down"></span>
     
+  </a> -->
+  <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)"uk-toggle="target: #rooms-selected-{{$room_details[0]->upload_id}}" >
+    <i class="fas fa-share" style="font-size: 13px;padding-right: 4px;color: #ffffff;"></i> Share
   </a>
+  <div id="rooms-selected-{{$room_details[0]->upload_id}}" uk-modal class="uk-flex-top">
+      <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+          <h2 class="uk-modal-title"></h2>
+          <div uk-grid class="uk-flex-center mx-auto">
+            <div class="uk-position-relative uk-visible-toggle uk-light social-slider-div" tabindex="-1" uk-slider>
+              <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m">
+                <li class="pointer social-media-share" onclick="copyLink('{{ route('tourismo_room', $room_details[0]->upload_id) }}')">
+                    <img src="{{ asset('image/socialmedia/cc.png')}}"  alt="cc">
+                </li>
+                <!-- /.cc -->
+                <li class="pointer social-media-share" onclick="copyEmbed('{{ route('tourismo_room', $room_details[0]->upload_id) }}', '{{ $room_details[0]->roomname }}')">
+                    <img src="{{ asset('image/socialmedia/em.png')}}"  alt="fb">
+                </li>
+                <!-- /.embed -->
+                <li class="pointer social-media-share" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('tourismo_room', $room_details[0]->upload_id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )">
+                    <img src="{{ asset('image/socialmedia/fb.png')}}"  alt="fb">
+                </li>
+                <!-- /. fb -->
+                <li class="pointer social-media-share" onclick="sendMessenger('{{ route('tourismo_room', $room_details[0]->upload_id) }}')">
+                    <img src="{{ asset('image/socialmedia/msg.png')}}" alt="">
+                </li>
+                <!-- /.messenger -->
+                <li class="pointer social-media-share" onclick="window.open('https://twitter.com/intent/tweet?text={{ $room_details[0]->roomname }}&url={{ route('tourismo_room', $room_details[0]->upload_id) }}')">
+                    <img src="{{ asset('image/socialmedia/tw.png')}}" alt="">
+                </li>
+                <!-- /.tw -->
+                <li class="pointer social-media-share" >
+                    <img src="{{ asset('image/socialmedia/wazap.png')}}" alt="">
+                </li>
+                <li class="pointer social-media-share">
+                    <img src="{{ asset('image/socialmedia/vb.png')}}" alt="">
+                </li>
+                <!-- /.viber -->
+                <li class="pointer social-media-share">
+                    <a  href="mailto:yourfriendsemail@sample.com?subject={{ $room_details[0]->destination_info }}&body=No. of hotels : 150  visit the link {{ route('tourismo_room', $room_details[0]->upload_id)}}"><img src="{{ asset('image/socialmedia/gm.png')}}" alt=""></a>
+                </li>
+                <!-- /.gm -->
+                <li class="pointer social-media-share">
+                    <img src="{{ asset('image/socialmedia/we.png')}}" alt="">
+                    <!-- <div class="uk-position-center uk-panel"><h1>6</h1></div> -->
+                </li>
+                <!-- /.we -->
+              </ul>
+              <a class="uk-position-center-left uk-position-small  bg-circle" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+              <a class="uk-position-center-right uk-position-small bg-circle" href="#" uk-slidenav-next uk-slider-item="next"></a>
+            </div>
+            <div class="copy-link-div">
+                <p>{{ route('tourismo_room', $room_details[0]->upload_id) }} <a class="copy-link" onclick="copyLink('{{ route('tourismo_room', $room_details[0]->upload_id) }}')">copy link</a></p>
+            </div>
+          </div>
+          <!-- /.div center -->
+      </div>
+  </div>
+  <!-- /. share modal -->
 <a class="heart-icon btn" href="javascript:void(0)" onclick="wishListToggle('{{ $room_details[0]->upload_id }}')"> 
     @if($wishList)
     <i class="fas fa-heart toggle-heart" >
@@ -395,29 +496,68 @@
     Book Now
   </a>
 
-  <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)"uk-toggle="target: #share" >
+  <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)"uk-toggle="target: #rooms-selected-{{$room_details[0]->upload_id}}" >
     <i class="fas fa-share"></i> Share
   </a>
   <a class="heart-icon btn" href="javascript:void(0)" onclick="wishListToggle('{{ $room_details[0]->upload_id }}')"> 
       <i class="far fa-heart toggle-heart"></i> 
   </a>
-  
 
-  <!--  share modal  -->
-  <div id="share" uk-modal class="uk-flex-top">
+<div id="rooms-selected-{{$room_details[0]->upload_id}}" uk-modal class="uk-flex-top">
       <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
-          <!-- <h2 class="uk-modal-title">Share on social media via</h2> -->
-          <div uk-grid class="uk-flex-center">
-            <div><a onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )"><img src="{{ asset('image/socialmedia/fb.png')}}" height="50" width="50" ></a></div>
-            <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $room_details[0]->roomname }} price {{ $room_details[0]->price }} night{{ $room_details[0]->nonight }}&url={{ url()->current() }}')"><img src="{{ asset('image/socialmedia/tw.png')}}" height="50" width="50" ></a></div>
-            <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $room_details[0]->roomname }} price {{ $room_details[0]->price }} night{{ $room_details[0]->nonight }}&url={{ url()->current() }}')"><img src="{{ asset('image/socialmedia/ig.png')}}" height="50" width="50" ></a></div>
-            <div><a href="mailto:yourfriendsemail@sample.com?subject={{ $room_details[0]->destination_info }}&body=No. of hotels : 150  visit the link {{ url()->current() }}"><img src="{{ asset('image/socialmedia/gm.png')}}" height="50" width="50" ></a></div>
-            <div><a onclick="sendMessenger('{{ url()->current() }}')"><img src="{{ asset('image/socialmedia/msg.png')}}" height="50" width="50" ></a></div>
-            <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $room_details[0]->roomname }} price {{ $room_details[0]->price }} night{{ $room_details[0]->nonight }}&url={{ url()->current() }}')"><img src="{{ asset('image/socialmedia/we.png')}}" height="50" width="50" ></a></div>
+          <h2 class="uk-modal-title"></h2>
+          <div uk-grid class="uk-flex-center mx-auto">
+            <div class="uk-position-relative uk-visible-toggle uk-light social-slider-div" tabindex="-1" uk-slider>
+              <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m">
+                <li class="pointer social-media-share" onclick="copyLink('{{ route('tourismo_room', $room_details[0]->upload_id) }}')">
+                    <img src="{{ asset('image/socialmedia/cc.png')}}"  alt="cc">
+                </li>
+                <!-- /.cc -->
+                <li class="pointer social-media-share" onclick="copyEmbed('{{ route('tourismo_room', $room_details[0]->upload_id) }}', '{{ $room_details[0]->roomname }}')">
+                    <img src="{{ asset('image/socialmedia/em.png')}}"  alt="fb">
+                </li>
+                <!-- /.embed -->
+                <li class="pointer social-media-share" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('tourismo_room', $room_details[0]->upload_id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )">
+                    <img src="{{ asset('image/socialmedia/fb.png')}}"  alt="fb">
+                </li>
+                <!-- /. fb -->
+                <li class="pointer social-media-share" onclick="sendMessenger('{{ route('tourismo_room', $room_details[0]->upload_id) }}')">
+                    <img src="{{ asset('image/socialmedia/msg.png')}}" alt="">
+                </li>
+                <!-- /.messenger -->
+                <li class="pointer social-media-share" onclick="window.open('https://twitter.com/intent/tweet?text={{ $room_details[0]->roomname }}&url={{ route('tourismo_room', $room_details[0]->upload_id) }}')">
+                    <img src="{{ asset('image/socialmedia/tw.png')}}" alt="">
+                </li>
+                <!-- /.tw -->
+                <li class="pointer social-media-share" >
+                    <img src="{{ asset('image/socialmedia/wazap.png')}}" alt="">
+                </li>
+                <li class="pointer social-media-share">
+                    <img src="{{ asset('image/socialmedia/vb.png')}}" alt="">
+                </li>
+                <!-- /.viber -->
+                <li class="pointer social-media-share">
+                    <a  href="mailto:yourfriendsemail@sample.com?subject={{ $room_details[0]->destination_info }}&body=No. of hotels : 150  visit the link {{ route('tourismo_room', $room_details[0]->upload_id)}}"><img src="{{ asset('image/socialmedia/gm.png')}}" alt=""></a>
+                </li>
+                <!-- /.gm -->
+                <li class="pointer social-media-share">
+                    <img src="{{ asset('image/socialmedia/we.png')}}" alt="">
+                    <!-- <div class="uk-position-center uk-panel"><h1>6</h1></div> -->
+                </li>
+                <!-- /.we -->
+              </ul>
+              <a class="uk-position-center-left uk-position-small  bg-circle" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+              <a class="uk-position-center-right uk-position-small bg-circle" href="#" uk-slidenav-next uk-slider-item="next"></a>
+            </div>
+            <div class="copy-link-div">
+                <p>{{ route('tourismo_room', $room_details[0]->upload_id) }} <a class="copy-link" onclick="copyLink('{{ route('tourismo_room', $room_details[0]->upload_id) }}')">copy link</a></p>
+            </div>
           </div>
+          <!-- /.div center -->
       </div>
   </div>
   <!-- /. share modal -->
+
   <!-- <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)" uk-toggle="target: #checklogin">
     Like
   </a> -->
@@ -659,24 +799,63 @@
               
               </div>
                 <div class="details-m">
-                  <a class="uk-button uk-button-default uk-button-small btn-room-details-m" href="javascript:void(0)" data-id="{{ $list->upload_id }}">Explore</a>
-                  <button class="uk-button uk-button-default uk-button-small" type="button" data-toggle="modal" data-id="{{ $list->id }}" uk-toggle="target: #related-rooms">Share</button>
+                  <a class="uk-button uk-button-default uk-button-small btn-room-details-m" href="{{route('tourismo_room', $list->upload_id) }}" data-id="{{ $list->upload_id }}">Explore</a>
+                  <button class="uk-button uk-button-default uk-button-small" type="button" data-toggle="modal" data-id="{{ $list->id }}" uk-toggle="target: #rooms-{{$list->upload_id}}">Share</button>
                 </div>
-                <!-- share modal -->
-                <div id="related-rooms" uk-modal class="uk-flex-top">
-                    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical" style="border-radius: 5px;">
-                        <h2 class="uk-modal-title"></h2>
-                        <div uk-grid class="uk-flex-center">
-                            <div><a onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('tourismo_room', $list->upload_id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )"><img src="{{ asset('image/socialmedia/fb.png')}}" height="50" width="50" ></a></div>
-                            <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->roomname }}&url={{ route('tourismo_room', $list->upload_id) }}')"><img src="{{ asset('image/socialmedia/tw.png')}}" height="50" width="50" ></a></div>
-                            <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->roomname }}&url={{ route('tourismo_room', $list->upload_id) }}')"><img src="{{ asset('image/socialmedia/ig.png')}}" height="50" width="50" ></a></div>
-                            <div><a href="mailto:yourfriendsemail@sample.com?subject={{ $list->roomname }}&body=No. of hotels : 150  visit the link {{ route('tourismo_room', $list->upload_id)}}"><img src="{{ asset('image/socialmedia/gm.png')}}" height="50" width="50" ></a></div>
-                            <div><a onclick="sendMessenger('{{ route('tourismo_room', $list->upload_id) }}')"><img src="{{ asset('image/socialmedia/msg.png')}}" height="50" width="50" ></a></div>
-                            <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->roomname }}&url={{ route('tourismo_room', $list->upload_id) }}')"><img src="{{ asset('image/socialmedia/we.png')}}" height="50" width="50" ></a></div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /. share modal -->
+  <div id="rooms-{{$list->upload_id}}" uk-modal class="uk-flex-top">
+        <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+            <h2 class="uk-modal-title"></h2>
+            <div uk-grid class="uk-flex-center mx-auto">
+              <div class="uk-position-relative uk-visible-toggle uk-light social-slider-div" tabindex="-1" uk-slider>
+                <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m">
+                  <li class="pointer social-media-share" onclick="copyLink('{{ route('tourismo_room', $list->upload_id) }}')">
+                      <img src="{{ asset('image/socialmedia/cc.png')}}"  alt="cc">
+                  </li>
+                  <!-- /.cc -->
+                  <li class="pointer social-media-share" onclick="copyEmbed('{{ route('tourismo_room', $list->upload_id) }}', '{{ $list->roomname }}')">
+                      <img src="{{ asset('image/socialmedia/em.png')}}"  alt="fb">
+                  </li>
+                  <!-- /.embed -->
+                  <li class="pointer social-media-share" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('tourismo_room', $list->upload_id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )">
+                      <img src="{{ asset('image/socialmedia/fb.png')}}"  alt="fb">
+                  </li>
+                  <!-- /. fb -->
+                  <li class="pointer social-media-share" onclick="sendMessenger('{{ route('tourismo_room', $list->upload_id) }}')">
+                      <img src="{{ asset('image/socialmedia/msg.png')}}" alt="">
+                  </li>
+                  <!-- /.messenger -->
+                  <li class="pointer social-media-share" onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->roomname }}&url={{ route('tourismo_room', $list->upload_id) }}')">
+                      <img src="{{ asset('image/socialmedia/tw.png')}}" alt="">
+                  </li>
+                  <!-- /.tw -->
+                  <li class="pointer social-media-share" >
+                      <img src="{{ asset('image/socialmedia/wazap.png')}}" alt="">
+                  </li>
+                  <li class="pointer social-media-share">
+                      <img src="{{ asset('image/socialmedia/vb.png')}}" alt="">
+                  </li>
+                  <!-- /.viber -->
+                  <li class="pointer social-media-share">
+                      <a  href="mailto:yourfriendsemail@sample.com?subject={{ $list->destination_info }}&body=No. of hotels : 150  visit the link {{ route('tourismo_room', $list->upload_id)}}"><img src="{{ asset('image/socialmedia/gm.png')}}" alt=""></a>
+                  </li>
+                  <!-- /.gm -->
+                  <li class="pointer social-media-share">
+                      <img src="{{ asset('image/socialmedia/we.png')}}" alt="">
+                      <!-- <div class="uk-position-center uk-panel"><h1>6</h1></div> -->
+                  </li>
+                  <!-- /.we -->
+                </ul>
+                <a class="uk-position-center-left uk-position-small  bg-circle" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+                <a class="uk-position-center-right uk-position-small bg-circle" href="#" uk-slidenav-next uk-slider-item="next"></a>
+              </div>
+              <div class="copy-link-div">
+                  <p>{{ route('tourismo_room', $list->upload_id) }} <a class="copy-link" onclick="copyLink('{{ route('tourismo_room', $list->upload_id) }}')">copy link</a></p>
+              </div>
+            </div>
+            <!-- /.div center -->
+        </div>
+  </div>
+  <!-- /. share modal -->
             </div>
           </div>
           </div>
