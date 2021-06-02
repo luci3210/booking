@@ -232,29 +232,74 @@
                 
 <div class="mem-button">
 
-  <a class="uk-button uk-button-small btn-room-details-m" href="{{ route('provice', $list->id) }}">
+  <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('provice', $list->id) }}">
     Explore
   </a>
 
-  <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)" uk-toggle="target: #exclusive">
+  <a class="uk-button uk-button-small " href="javascript:void(0)" uk-toggle="target: #exclusive">
     <i class="fas fa-share"></i> Share
   </a>
   <!-- share modal -->
   <div id="exclusive" uk-modal class="uk-flex-top">
       <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical" style="border-radius: 5px;">
           <h2 class="uk-modal-title"></h2>
-          <div uk-grid class="uk-flex-center">
-
-          
-
-          
+          <div uk-grid class="uk-flex-center mx-auto">
+            <div class="uk-position-relative uk-visible-toggle uk-light social-slider-div" tabindex="-1" uk-slider>
+              <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m">
+                  <li class="pointer social-media-share" onclick="copyLink('{{ route('provice', $list->provice_id) }}')">
+                      <img src="{{ asset('image/socialmedia/cc.png')}}"  alt="fb">
+                  </li>
+                  <!-- embed -->
+                  <li class="pointer social-media-share" onclick="copyEmbed('{{ route('provice', $list->provice_id) }}', '{{ substr($list->destination_info,0,15) }}')">
+                      <img src="{{ asset('image/socialmedia/em.png')}}"  alt="fb">
+                  </li>
+                  <!-- embed -->
+                  <li class="pointer social-media-share" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('provice', $list->provice_id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )">
+                      <img src="{{ asset('image/socialmedia/fb.png')}}"  alt="fb">
+                  </li>
+                  <!-- /. fb -->
+                  <li class="pointer social-media-share" onclick="sendMessenger('{{ route('provice', $list->provice_id) }}')">
+                      <img src="{{ asset('image/socialmedia/msg.png')}}" alt="">
+                  </li>
+                  <!-- /.messenger -->
+                  <li class="pointer social-media-share" onclick="window.open('https://twitter.com/intent/tweet?text={{ substr($list->destination_info,0,15) }}&url={{ route('provice', $list->provice_id) }}')">
+                      <img src="{{ asset('image/socialmedia/tw.png')}}" alt="">
+                  </li>
+                  <!-- /.tw -->
+                  <li class="pointer social-media-share" >
+                      <img src="{{ asset('image/socialmedia/wazap.png')}}" alt="">
+                  </li>
+                  <li class="pointer social-media-share">
+                      <img src="{{ asset('image/socialmedia/vb.png')}}" alt="">
+                  </li>
+                  <!-- /.viber -->
+                  <li class="pointer social-media-share">
+                      <a  href="mailto:yourfriendsemail@sample.com?subject={{ $list->destination_info }}&body=No. of hotels : 150  visit the link {{ route('provice', $list->provice_id)}}"><img src="{{ asset('image/socialmedia/gm.png')}}" alt=""></a>
+                  </li>
+                  <!-- /.gm -->
+                  <li class="pointer social-media-share">
+                      <img src="{{ asset('image/socialmedia/we.png')}}" alt="">
+                      <!-- <div class="uk-position-center uk-panel"><h1>6</h1></div> -->
+                  </li>
+                  <!-- /.we -->
+              </ul>
+            <a class="uk-position-center-left uk-position-small  bg-circle" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small bg-circle" href="#" uk-slidenav-next uk-slider-item="next"></a>
+            </div>
+            <div class="copy-link-div">
+             <p>{{ route('provice', $list->provice_id) }} <a class="copy-link" onclick="copyLink('{{ route('provice', $list->provice_id) }}')">copy link</a></p>
+            </div>
+            <!-- /.slider -->
+          </div>
+          <!-- /. main div center -->
+          <!-- <div uk-grid class="uk-flex-center">
               <div><a onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('provice', $list->id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )"><img src="{{ asset('image/socialmedia/fb.png')}}" height="50" width="50" ></a></div>
               <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->destination_info }}&url={{ route('provice', $list->id) }}')"><img src="{{ asset('image/socialmedia/tw.png')}}" height="50" width="50" ></a></div>
               <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->destination_info }}&url={{ route('provice', $list->id) }}')"><img src="{{ asset('image/socialmedia/ig.png')}}" height="50" width="50" ></a></div>
               <div><a href="mailto:yourfriendsemail@sample.com?subject={{ $list->destination_info }}&body=No. of hotels : 150  visit the link {{ route('provice', $list->id)}}"><img src="{{ asset('image/socialmedia/gm.png')}}" height="50" width="50" ></a></div>
               <div><a onclick="sendMessenger('{{ route('provice', $list->id) }}')"><img src="{{ asset('image/socialmedia/msg.png')}}" height="50" width="50" ></a></div>
               <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->destination_info }}&url={{ route('provice', $list->id) }}')"><img src="{{ asset('image/socialmedia/we.png')}}" height="50" width="50" ></a></div>
-          </div>
+          </div> -->
       </div>
   </div>
   <!-- /. share modal -->
@@ -318,26 +363,74 @@
 
 <div class="mem-button">
 
-  <a class="uk-button uk-button-small btn-room-details-m" href="{{ route('provice', $list->provice_id) }}">
+  <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('provice', $list->provice_id) }}">
     Explore
   </a>
 
-  <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)"uk-toggle="target: #prov" >
+  <a class="uk-button uk-button-small " href="javascript:void(0)"uk-toggle="target: #prov" >
     <i class="fas fa-share"></i> Share
   </a>
   <!--  share modal  -->
   <div id="prov" uk-modal class="uk-flex-top">
       <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical"  style="border-radius: 5px;">
-          <!-- <h2 class="uk-modal-title">Share on social media via</h2> -->
-          <div uk-grid class="uk-flex-center">
+          <h2 class="uk-modal-title"></h2>
+          <div uk-grid class="uk-flex-center mx-auto">
+            <div class="uk-position-relative uk-visible-toggle uk-light social-slider-div" tabindex="-1" uk-slider>
+              <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m">
+                  <li class="pointer social-media-share" onclick="copyLink('{{ route('provice', $list->provice_id) }}')">
+                      <img src="{{ asset('image/socialmedia/cc.png')}}"  alt="fb">
+                  </li>
+                  <!-- embed -->
+                  <li class="pointer social-media-share" onclick="copyEmbed('{{ route('provice', $list->provice_id) }}', '{{ substr($list->destination_info,0,15) }}')">
+                      <img src="{{ asset('image/socialmedia/em.png')}}"  alt="fb">
+                  </li>
+                  <!-- embed -->
+                  <li class="pointer social-media-share" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('provice', $list->provice_id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )">
+                      <img src="{{ asset('image/socialmedia/fb.png')}}"  alt="fb">
+                  </li>
+                  <!-- /. fb -->
+                  <li class="pointer social-media-share" onclick="sendMessenger('{{ route('provice', $list->provice_id) }}')">
+                      <img src="{{ asset('image/socialmedia/msg.png')}}" alt="">
+                  </li>
+                  <!-- /.messenger -->
+                  <li class="pointer social-media-share" onclick="window.open('https://twitter.com/intent/tweet?text={{ substr($list->destination_info,0,15) }}&url={{ route('provice', $list->provice_id) }}')">
+                      <img src="{{ asset('image/socialmedia/tw.png')}}" alt="">
+                  </li>
+                  <!-- /.tw -->
+                  <li class="pointer social-media-share" >
+                      <img src="{{ asset('image/socialmedia/wazap.png')}}" alt="">
+                  </li>
+                  <li class="pointer social-media-share">
+                      <img src="{{ asset('image/socialmedia/vb.png')}}" alt="">
+                  </li>
+                  <!-- /.viber -->
+                  <li class="pointer social-media-share">
+                      <a  href="mailto:yourfriendsemail@sample.com?subject={{ $list->destination_info }}&body=No. of hotels : 150  visit the link {{ route('provice', $list->provice_id)}}"><img src="{{ asset('image/socialmedia/gm.png')}}" alt=""></a>
+                  </li>
+                  <!-- /.gm -->
+                  <li class="pointer social-media-share">
+                      <img src="{{ asset('image/socialmedia/we.png')}}" alt="">
+                      <!-- <div class="uk-position-center uk-panel"><h1>6</h1></div> -->
+                  </li>
+                  <!-- /.we -->
+              </ul>
+            <a class="uk-position-center-left uk-position-small  bg-circle" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small bg-circle" href="#" uk-slidenav-next uk-slider-item="next"></a>
+            </div>
+            <div class="copy-link-div">
+             <p>{{ route('provice', $list->provice_id) }} <a class="copy-link" onclick="copyLink('{{ route('provice', $list->provice_id) }}')">copy link</a></p>
+            </div>
+            <!-- /.slider -->
+          </div>
+          <!-- /. main div center -->
+          <!-- <div uk-grid class="uk-flex-center">
               <div><a onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('provice', $list->provice_id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )"><img src="{{ asset('image/socialmedia/fb.png')}}" height="50" width="50" ></a></div>
               <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->destination_info }}&url={{ route('provice', $list->provice_id) }}')"><img src="{{ asset('image/socialmedia/tw.png')}}" height="50" width="50" ></a></div>
               <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->destination_info }}&url={{ route('provice', $list->provice_id) }}')"><img src="{{ asset('image/socialmedia/ig.png')}}" height="50" width="50" ></a></div>
               <div><a href="mailto:yourfriendsemail@sample.com?subject={{ $list->destination_info }}&body=No. of hotels : 150  visit the link {{ route('provice', $list->provice_id)}}"><img src="{{ asset('image/socialmedia/gm.png')}}" height="50" width="50" ></a></div>
-              <!-- <div><a onclick="window.open('https://m.facebook.com/messages/compose?')"><img src="{{ asset('image/socialmedia/msg.png')}}" height="50" width="50" ></a></div> -->
               <div><a onclick="sendMessenger('{{ route('provice', $list->provice_id) }}')"><img src="{{ asset('image/socialmedia/msg.png')}}" height="50" width="50" ></a></div>
               <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->destination_info }}&url={{ route('provice', $list->provice_id) }}')"><img src="{{ asset('image/socialmedia/we.png')}}" height="50" width="50" ></a></div>
-          </div>
+          </div> -->
       </div>
   </div>
   <!-- /. share modal -->
@@ -406,11 +499,11 @@
                 
 <div class="mem-button">
 
-  <a class="uk-button uk-button-small btn-room-details-m" href="{{ route('provice', $list->provice_id) }}">
+  <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('provice', $list->provice_id) }}">
     Explore
   </a>
 
-  <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)" uk-toggle="target: #international">
+  <a class="uk-button uk-button-small " href="javascript:void(0)" uk-toggle="target: #international">
     <i class="fas fa-share"></i> Share
   </a>
   <!-- share modal -->
@@ -419,11 +512,15 @@
           <h2 class="uk-modal-title"></h2>
           <div uk-grid class="uk-flex-center mx-auto">
             <div class="uk-position-relative uk-visible-toggle uk-light social-slider-div" tabindex="-1" uk-slider>
-
               <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m">
+                  <li class="pointer social-media-share" onclick="copyLink('{{ route('provice', $list->provice_id) }}')">
+                      <img src="{{ asset('image/socialmedia/cc.png')}}"  alt="fb">
+                  </li>
+                  <!-- embed -->
                   <li class="pointer social-media-share" onclick="copyEmbed('{{ route('provice', $list->provice_id) }}', '{{ substr($list->destination_info,0,15) }}')">
                       <img src="{{ asset('image/socialmedia/em.png')}}"  alt="fb">
                   </li>
+                  <!-- embed -->
                   <li class="pointer social-media-share" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('provice', $list->provice_id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )">
                       <img src="{{ asset('image/socialmedia/fb.png')}}"  alt="fb">
                   </li>
@@ -555,8 +652,8 @@ Founded in 2018, Tourismo PH envisioned a company that is committed in energizin
       </div>
 
 <div class="details-m">
-<a class="uk-button uk-button-default uk-button-small" href="{{ route('tourismo_room', $list->upload_id) }}">Explore</a>
-<a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)" uk-toggle="target: #rooms">
+<a class="uk-button uk-button-default uk-button-small btn-room-details-m" href="{{ route('tourismo_room', $list->upload_id) }}">Explore</a>
+<a class="uk-button uk-button-small " href="javascript:void(0)" uk-toggle="target: #rooms">
     <i class="fas fa-share"></i> Share
   </a>
 
@@ -567,7 +664,10 @@ Founded in 2018, Tourismo PH envisioned a company that is committed in energizin
           <div uk-grid class="uk-flex-center mx-auto">
             <div class="uk-position-relative uk-visible-toggle uk-light social-slider-div" tabindex="-1" uk-slider>
               <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m">
-
+                <li class="pointer social-media-share" onclick="copyLink('{{ route('tourismo_room', $list->upload_id) }}')">
+                    <img src="{{ asset('image/socialmedia/cc.png')}}"  alt="cc">
+                </li>
+                <!-- /.cc -->
                 <li class="pointer social-media-share" onclick="copyEmbed('{{ route('tourismo_room', $list->upload_id) }}', '{{ $list->roomname }}')">
                     <img src="{{ asset('image/socialmedia/em.png')}}"  alt="fb">
                 </li>
@@ -608,14 +708,7 @@ Founded in 2018, Tourismo PH envisioned a company that is committed in energizin
                 <p>{{ route('tourismo_room', $list->upload_id) }} <a class="copy-link" onclick="copyLink('{{ route('tourismo_room', $list->upload_id) }}')">copy link</a></p>
             </div>
           </div>
-          <!-- <div uk-grid class="uk-flex-center">
-              <div><a onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('tourismo_room', $list->upload_id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )"><img src="{{ asset('image/socialmedia/fb.png')}}" height="50" width="50" ></a></div>
-              <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->roomname }} price {{ $list->price }} night{{ $list->nonight }}&url={{ route('tourismo_room', $list->upload_id) }}')"><img src="{{ asset('image/socialmedia/tw.png')}}" height="50" width="50" ></a></div>
-              <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->roomname }} price {{ $list->price }} night{{ $list->nonight }}&url={{ route('tourismo_room', $list->upload_id) }}')"><img src="{{ asset('image/socialmedia/ig.png')}}" height="50" width="50" ></a></div>
-              <div><a href="mailto:yourfriendsemail@sample.com?subject={{ $list->destination_info }}&body=No. of hotels : 150  visit the link {{ route('tourismo_room', $list->upload_id)}}"><img src="{{ asset('image/socialmedia/gm.png')}}" height="50" width="50" ></a></div>
-              <div><a onclick="sendMessenger('{{ route('tourismo_room', $list->upload_id) }}')"><img src="{{ asset('image/socialmedia/msg.png')}}" height="50" width="50" ></a></div>
-              <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->roomname }} price {{ $list->price }} night{{ $list->nonight }}&url={{ route('tourismo_room', $list->upload_id) }}')"><img src="{{ asset('image/socialmedia/we.png')}}" height="50" width="50" ></a></div>
-          </div> -->
+          <!-- /.div center -->
       </div>
   </div>
   <!-- /. share modal -->
@@ -670,9 +763,9 @@ Founded in 2018, Tourismo PH envisioned a company that is committed in energizin
         </div>
 
 <div class="details-m">
-<a class="uk-button uk-button-default uk-button-small" href="{{ route('tourismo_room', $list->upload_id) }}">Explore</a>
+<a class="uk-button uk-button-default uk-button-small btn-room-details-m" href="{{ route('tourismo_room', $list->upload_id) }}">Explore</a>
 
-<a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)" uk-toggle="target: #tour-package">
+<a class="uk-button uk-button-small " href="javascript:void(0)" uk-toggle="target: #tour-package">
     <i class="fas fa-share"></i> Share
   </a>
 
@@ -748,8 +841,11 @@ Founded in 2018, Tourismo PH envisioned a company that is committed in energizin
     </span><br>
 
     <div class="mem-button">
-      <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)" uk-toggle="target: #unavailable">
+      <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="javascript:void(0)" uk-toggle="target: #unavailable">
         Explore
+      </a>
+      <a class="uk-button uk-button-small " href="javascript:void(0)" uk-toggle="target: #hotel-resort">
+        <i class="fas fa-share"></i> Share
       </a>
     </div>
 
@@ -810,8 +906,11 @@ Founded in 2018, Tourismo PH envisioned a company that is committed in energizin
     </span><br>
 
     <div class="mem-button">
-      <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)" uk-toggle="target: #unavailable">
+      <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="javascript:void(0)" uk-toggle="target: #unavailable">
         Explore
+      </a>
+      <a class="uk-button uk-button-small " href="javascript:void(0)" uk-toggle="target: #tour">
+        <i class="fas fa-share"></i> Share
       </a>
     </div>
 

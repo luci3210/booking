@@ -124,6 +124,11 @@
     .font-mobile{
       font-size: 1.8em;
     }
+    .mb-sm-1{
+      margin-bottom: .5em!important;
+    }
+    /* .btn-room-details-m{
+    } */
   }
   @media only screen and (max-width: 414px) {
     .item-icon {
