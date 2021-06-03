@@ -18,8 +18,8 @@ class CreatePageReviewsModelsTable extends Migration
             $table->integer('pr_user_id');
             $table->integer('pr_page_id');
             $table->text('pr_review');
-            $table->text('pr_ratings');
-            $table->enum('wh_page_name', ['tour','hotel'])->nullable();
+            $table->integer('pr_ratings');
+            $table->enum('pr_page_name', ['tour','hotel'])->nullable();
             $table->timestamp('pr_created_at')->nullable();
             $table->timestamp('pr_updated_at')->nullable();
             $table->integer('pr_temp_status')->default(1);

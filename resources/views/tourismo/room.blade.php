@@ -72,6 +72,15 @@
    cursor: pointer;
    color: #dabd18b2;
 }
+/* ratings */
+
+
+.error-msg{
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  right: 0;
+}
 </style>
 <!-- /. meta tags -->
 <section class="features">
@@ -601,6 +610,14 @@
 </div>
 </section>
 
+
+
+@if($errors->any())
+<div class="alert alert-danger alert-dismissible fade show error-msg m-0" role="alert">
+ <p class="m-0"> <strong>Ratings!</strong> is required</p>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
 <section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500" id="reviews">
   <div class="container">
     <div class="row">
@@ -608,13 +625,17 @@
         <h2>Reviews</h2>
       </div>
       <!-- /.section title -->
-      <form>
+      <form method="post" action="{{route('hotel_review')}}" role="form">
+      @csrf
         <fieldset class="uk-fieldset">
           <div class="uk-margin">
-              <textarea class="uk-textarea" id="comment-textarea" rows="5" placeholder="Textarea"></textarea>
+              <textarea class="uk-textarea" id="comment-textarea" name="pr_review" rows="5" placeholder="Textarea"></textarea>
           </div>
           <div class="uk-margin">
           <div class="rating">
+              <input class="" id="reviews-rating" name="pr_ratings" rows="5" type="number" hidden />
+              <input class="" id="reviews-rating" name="pr_page_id" value="{{$room_details[0]->upload_id}}" rows="5" type="number" hidden />
+                
                 <i class="rating__star far fa-star"></i>
                 <i class="rating__star far fa-star"></i>
                 <i class="rating__star far fa-star"></i>
@@ -623,13 +644,23 @@
           </div>
           </div>
           <button class="comment-btn uk-button uk-button-small">Cancel</button>
-          <button class="comment-btn uk-button uk-button-small">Submit</button>
+          @if(Auth::check())
+            @auth
+            <button type="submit" class="comment-btn uk-button uk-button-small">Submit</button>
+            @endauth
+          @else 
+          <a href="javascript:void(0)" uk-toggle="target: #checklogin" class="comment-btn uk-button uk-button-small">Submit</a>
+
+          @endif
           <legend class="uk-legend">Comments</legend>
         </fieldset>
         <!-- /.fieldset -->
       </form>
       <!-- /.form -->
-      <ul>
+      @if($reviewsData )
+        @if(count($reviewsData) >= 1)
+        <ul>
+          @foreach($reviewsData as $data)
           <li>
             <article class="uk-comment">
                 <header class="uk-comment-header">
@@ -638,135 +669,46 @@
                             <img class="uk-comment-avatar" src="{{ asset('upload/merchant/profilepic/default.png') }}" width="80" height="80" alt="">
                         </div>
                         <div class="uk-width-expand">
-                            <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">User 1</a></h4>
+                            <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">{{$data->name}}</a></h4>
                             <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
                                 <li><a href="#" style="color:black!important">35 days ago</a></li>
-                                <li><a href="#" style="color:black!important">Reply</a></li>
+                                <li>
+                                  <div class="rating">
+                                    @for($x = 1; $x <= $data->pr_ratings; $x++)
+                                      <i class="rating__star fas fa-star"></i>
+                                    @endfor
+                                    @for($x = 1; $x <=  (5-$data->pr_ratings); $x++)
+                                    <i class="rating__star far fa-star"></i>
+                                    @endfor
+                                  </div>
+                                
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </header>
                 <div class="uk-comment-body">
-                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+                    <p>@if(!empty($data->pr_review))
+                    {{$data->pr_review}}
+                    @else
+                    no review
+                    @endif
+                    </p>
                 </div>
             </article>
             <!-- /. article -->
           </li>
-          <li>
-          <article class="uk-comment">
-                <header class="uk-comment-header">
-                    <div class="uk-grid-medium uk-flex-middle" uk-grid>
-                        <div class="uk-width-auto">
-                            <img class="uk-comment-avatar" src="{{ asset('upload/merchant/profilepic/default.png') }}" width="80" height="80" alt="">
-                        </div>
-                        <div class="uk-width-expand">
-                            <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">User 2</a></h4>
-                            <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
-                                <li><a href="#" style="color:black!important">30 days ago</a></li>
-                                <li><a href="#" style="color:black!important">Reply</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </header>
-                <div class="uk-comment-body">
-                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                </div>
-            </article>
-            <!-- /. article -->
-              <ul>
-                  <li>
-                  <article class="uk-comment">
-                      <header class="uk-comment-header">
-                          <div class="uk-grid-medium uk-flex-middle" uk-grid>
-                              <div class="uk-width-auto">
-                                  <img class="uk-comment-avatar" src="{{ asset('upload/merchant/profilepic/default.png') }}" width="80" height="80" alt="">
-                              </div>
-                              <div class="uk-width-expand">
-                                  <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">User 3</a></h4>
-                                  <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
-                                      <li><a href="#" style="color:black!important">2 days ago</a></li>
-                                      <li><a href="#" style="color:black!important">Reply</a></li>
-                                  </ul>
-                              </div>
-                          </div>
-                      </header>
-                      <div class="uk-comment-body">
-                          <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                      </div>
-                  </article>
-                  <!-- /. article -->
-                  </li>
-                  <li>
-                  <article class="uk-comment">
-                      <header class="uk-comment-header">
-                          <div class="uk-grid-medium uk-flex-middle" uk-grid>
-                              <div class="uk-width-auto">
-                                  <img class="uk-comment-avatar" src="{{ asset('upload/merchant/profilepic/default.png') }}" width="80" height="80" alt="">
-                              </div>
-                              <div class="uk-width-expand">
-                                  <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">User 1</a></h4>
-                                  <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
-                                      <li><a href="#" style="color:black!important">2 days ago</a></li>
-                                      <li><a href="#" style="color:black!important">Reply</a></li>
-                                  </ul>
-                              </div>
-                          </div>
-                      </header>
-                      <div class="uk-comment-body">
-                          <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                      </div>
-                  </article>
-                  <!-- /. article -->
-                  
-                  </li>
-              </ul>
-          </li>
-          <li>
-          <article class="uk-comment">
-              <header class="uk-comment-header">
-                  <div class="uk-grid-medium uk-flex-middle" uk-grid>
-                      <div class="uk-width-auto">
-                          <img class="uk-comment-avatar" src="{{ asset('upload/merchant/profilepic/default.png') }}" width="80" height="80" alt="">
-                      </div>
-                      <div class="uk-width-expand">
-                          <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">User 5</a></h4>
-                          <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
-                              <li><a href="#" style="color:black!important">2 days ago</a></li>
-                              <li><a href="#" style="color:black!important">Reply</a></li>
-                          </ul>
-                      </div>
-                  </div>
-              </header>
-              <div class="uk-comment-body">
-                  <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-              </div>
-          </article>
-          <!-- /. article -->
-          </li>
-          <li>
-          <article class="uk-comment">
-              <header class="uk-comment-header">
-                  <div class="uk-grid-medium uk-flex-middle" uk-grid>
-                      <div class="uk-width-auto">
-                          <img class="uk-comment-avatar" src="{{ asset('upload/merchant/profilepic/default.png') }}" width="80" height="80" alt="">
-                      </div>
-                      <div class="uk-width-expand">
-                          <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">User 6</a></h4>
-                          <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
-                              <li><a href="#" style="color:black!important">2 days ago</a></li>
-                              <li><a href="#" style="color:black!important">Reply</a></li>
-                          </ul>
-                      </div>
-                  </div>
-              </header>
-              <div class="uk-comment-body">
-                  <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-              </div>
-          </article>
-          <!-- /. article -->
-          </li>
+          @endforeach
       </ul>
       <!-- /.ul -->
+        @else
+        <h3>no reviews</h3>
+        @endif
+      @endif
+      @if(!$reviewsData)
+      <h3>something went wrong</h3>
+      @endif
+      
     </div>
   </div>
   <!-- /. container -->
@@ -906,8 +848,8 @@
   let ratingReview = 0;
 
 function executeRating(stars) {
-  const starClassActive = "rating__star fas fa-star count";
-  const starClassActive2 = ".count";
+  const starClassActive = "rating__star fas fa-star count-star";
+  const starClassActive2 = ".count-star";
   const starClassInactive = "rating__star far fa-star";
   const starsLength = stars.length;
   let i;
@@ -925,6 +867,14 @@ function executeRating(stars) {
         }
       }
       ratingReview = $(starClassActive2).length
+      var message = $('#comment-textarea').val();
+      var ratingInput = $('#reviews-rating');
+      ratingInput.val(parseInt(ratingReview))
+      if(ratingReview >= 1 || message.length >= 1){
+        $('.comment-btn').show(500);
+      }else{
+        $('.comment-btn').hide(500);
+      }
     };
 
   });
@@ -939,15 +889,24 @@ executeRating(ratingStars);
 <script>
 
 
-$(function() { 
+$(document).ready(function() { 
   $('.comment-btn').hide();
   $("#comment-textarea").on("focus", function( e ) {
       $('.comment-btn').show(500);
   });
 
   $("#comment-textarea").on("blur", function( e ) {
+      var message = $('#comment-textarea').val();
+      const starClassActive2 = ".count-star";
+      ratingReview = $(starClassActive2).length
+
+
+      if(message.length >= 1 ||  ratingReview >= 1){
+          return;
+      }
       $('.comment-btn').hide(500);
   });
+  
 });
 
 </script>

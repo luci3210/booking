@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Response;
 use Illuminate\Support\Facades\Auth;
 use App\user\WishlistHotelsRoom;
+use App\user\PageReviewsModel;
 
 
 class HomeController extends Controller
@@ -82,6 +83,7 @@ public function index()
         $tour_package   = $this->tour_package(); 
         $tour_packages   = $this->tour_packages();
         $banner            = $this->banner();
+        // return $destination;
 
             return view('tourismo.home', compact(['banner','tourismo_exlusive','international','home_hotel','destination','hotels','tour_package','tour_packages']));
     }
@@ -105,8 +107,29 @@ public function room($id) {
             $wishList = true;
         }
     }
+    $reviewsData = new PageReviewsModel();
+    $reviewsData = $reviewsData->where('page_reviews.pr_temp_status', 1);
+    $reviewsData = $reviewsData->where('page_reviews.pr_page_id', $id);
+    $reviewsData = $reviewsData->join('users', 'page_reviews.pr_user_id', 'users.id');
+    $reviewsData = $reviewsData->get();
+    $reviewsData = $reviewsData->makeHidden(
+        ['id',
+        'password', 
+        'email',
+        'created_at',
+        'updated_at',
+        'bdate',
+        'accnt_nu',
+        'address',
+        'pnumber',
+        'remember_token',
+        'email_verified_at',
+        'job',
+        ]);
 
-	return view('tourismo.room', compact(['room_details', 'wishList']));
+
+
+	return view('tourismo.room', compact(['room_details', 'wishList', 'reviewsData']));
     // return $room_details;
 }
 public function toggle_wishlist(Request $req){
@@ -255,7 +278,12 @@ public function page_provice($id) {
 }
 
 public function destination() {
-
+    // $destination = new DestinationModel();
+    // $destination = $destination->where('destinations.temp_status',1);
+    // $destination = $destination->join('locations_district', 'destinations.id', '=', 'locations_district.id');
+    // $destination = $destination->get();
+    // return $destination;
+    
     return DestinationModel::join('locations_district','locations_district.id','destinations.destination_id')
             ->where([ ['destinations.temp_status','=',1],
                 ['destinations.country_id','=',1] ])

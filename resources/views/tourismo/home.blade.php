@@ -236,7 +236,7 @@
     Explore
   </a>
 
-  <a class="uk-button uk-button-small " href="javascript:void(0)" uk-toggle="target: #exclusive-{{$list->id}}">
+  <a class="uk-button uk-button-small mb-sm-1" href="javascript:void(0)" uk-toggle="target: #exclusive-{{$list->id}}">
     <i class="fas fa-share"></i> Share
   </a>
   <!-- share modal -->
@@ -367,7 +367,7 @@
     Explore
   </a>
 
-  <a class="uk-button uk-button-small " href="javascript:void(0)"uk-toggle="target: #prov-{{$list->provice_id}}" >
+  <a class="uk-button uk-button-small mb-sm-1" href="javascript:void(0)"uk-toggle="target: #prov-{{$list->provice_id}}" >
     <i class="fas fa-share"></i> Share
   </a>
   <!--  share modal  -->
@@ -503,7 +503,7 @@
     Explore
   </a>
 
-  <a class="uk-button uk-button-small " href="javascript:void(0)" uk-toggle="target: #international-{{$list->provice_id}}">
+  <a class="uk-button uk-button-small mb-sm-1" href="javascript:void(0)" uk-toggle="target: #international-{{$list->provice_id}}">
     <i class="fas fa-share"></i> Share
   </a>
   <!-- share modal -->
@@ -884,7 +884,7 @@ Founded in 2018, Tourismo PH envisioned a company that is committed in energizin
       <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="javascript:void(0)" uk-toggle="target: #unavailable">
         Explore
       </a>
-      <a class="uk-button uk-button-small " href="javascript:void(0)" uk-toggle="target: #hotel-resort">
+      <a class="uk-button uk-button-small mb-sm-1" href="javascript:void(0)" uk-toggle="target: #hotel-resort">
         <i class="fas fa-share"></i> Share
       </a>
     </div>
@@ -949,7 +949,7 @@ Founded in 2018, Tourismo PH envisioned a company that is committed in energizin
       <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="javascript:void(0)" uk-toggle="target: #unavailable">
         Explore
       </a>
-      <a class="uk-button uk-button-small " href="javascript:void(0)" uk-toggle="target: #tour">
+      <a class="uk-button uk-button-small mb-sm-1" href="javascript:void(0)" uk-toggle="target: #tour">
         <i class="fas fa-share"></i> Share
       </a>
     </div>

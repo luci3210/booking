@@ -54,6 +54,11 @@ Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merc
         
 });
 
+// reviews
+Route::post('/review/hotel/submit', 'user\ReviewsController@sumbitHotelReview')->name('hotel_review');
+
+// /.reviews
+
 
 
 Route::get('/merchant', 'Merchant\UserController@index')->name('m-user');
