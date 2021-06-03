@@ -50,6 +50,8 @@ Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merc
 
         Route::get('/address','Merchant\AddressController@addressCreateForm')
         ->name('create_address');
+
+        
 });
 
 

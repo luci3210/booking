@@ -63,6 +63,15 @@
   padding-left: 0px!important;
 }
 /* for social medial share */
+
+.rating {
+   width: 180px;
+}
+
+.rating__star {
+   cursor: pointer;
+   color: #dabd18b2;
+}
 </style>
 <!-- /. meta tags -->
 <section class="features">
@@ -604,6 +613,15 @@
           <div class="uk-margin">
               <textarea class="uk-textarea" id="comment-textarea" rows="5" placeholder="Textarea"></textarea>
           </div>
+          <div class="uk-margin">
+          <div class="rating">
+                <i class="rating__star far fa-star"></i>
+                <i class="rating__star far fa-star"></i>
+                <i class="rating__star far fa-star"></i>
+                <i class="rating__star far fa-star"></i>
+                <i class="rating__star far fa-star"></i>
+          </div>
+          </div>
           <button class="comment-btn uk-button uk-button-small">Cancel</button>
           <button class="comment-btn uk-button uk-button-small">Submit</button>
           <legend class="uk-legend">Comments</legend>
@@ -883,13 +901,44 @@
     </div>
 </div>
 
+<script>
+  const ratingStars = [...document.getElementsByClassName("rating__star")];
+  let ratingReview = 0;
 
+function executeRating(stars) {
+  const starClassActive = "rating__star fas fa-star count";
+  const starClassActive2 = ".count";
+  const starClassInactive = "rating__star far fa-star";
+  const starsLength = stars.length;
+  let i;
+  stars.map((star) => {
+    star.onclick = () => {
+      i = stars.indexOf(star);
+
+      if (star.className===starClassInactive) {
+        for (i; i >= 0; --i) {
+          stars[i].className = starClassActive;
+        }
+      } else {
+        for (i; i < starsLength; ++i) {
+          stars[i].className = starClassInactive;
+        }
+      }
+      ratingReview = $(starClassActive2).length
+    };
+
+  });
+}
+executeRating(ratingStars);
+</script>
 
 
 @endsection
 
 @section('js')
 <script>
+
+
 $(function() { 
   $('.comment-btn').hide();
   $("#comment-textarea").on("focus", function( e ) {
