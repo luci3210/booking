@@ -64,6 +64,8 @@
     font-weight: 400;
     margin-top: 8px;
     color: black;
+    font-size: .8em;
+    text-align: center;
   }
   /* .icon-img{
     width: 40px;
@@ -140,6 +142,9 @@
       width: 50px;
       margin: 0 10px;
     }
+    .desc-two{
+      margin-left: 7px;
+    }
     #mobile div{
       padding: 0!important;
     }
@@ -151,6 +156,9 @@
     }
     /* .btn-room-details-m{
     } */
+    .mt-sm-slider{
+      margin-top: 20px;
+    }
   }
   @media only screen and (max-width: 414px) {
     .item-icon {
