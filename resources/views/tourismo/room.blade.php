@@ -68,6 +68,10 @@
    width: 180px;
 }
 
+.rating__star-comment {
+   cursor: pointer;
+   color: #dabd18b2;
+}
 .rating__star {
    cursor: pointer;
    color: #dabd18b2;
@@ -80,6 +84,36 @@
   z-index: 999;
   top: 0;
   right: 0;
+}
+
+
+.uk-button-small
+{
+  background-color: #502672 !important;
+  border-radius: 3px !important;
+  color: #fff !important;
+  border:none !important;
+  text-transform: capitalize !important;
+  font-weight: 800 !important;
+  font-size: 12px !important;
+}
+
+.uk-button-small:hover
+{
+  background-color: #2c0d45 !important;
+  border-radius: 3px !important;
+  border:none;
+  color: #fff !important;
+  text-transform: capitalize !important;
+  font-weight: 800 !important;
+  font-size: 12px !important;
+}
+.comment-text{
+  font-size: .9em;
+}
+
+.avatar-border-round{
+  border-radius: 50%;
 }
 </style>
 <!-- /. meta tags -->
@@ -629,24 +663,25 @@
       @csrf
         <fieldset class="uk-fieldset">
           <div class="uk-margin">
-              <textarea class="uk-textarea" id="comment-textarea" name="pr_review" rows="5" placeholder="Textarea"></textarea>
+              <textarea class="uk-textarea" id="comment-textarea"  name="pr_review" rows="5"  placeholder="Textarea"></textarea>
           </div>
           <div class="uk-margin">
           <div class="rating">
               <input class="" id="reviews-rating" name="pr_ratings" rows="5" type="number" hidden />
               <input class="" id="reviews-rating" name="pr_page_id" value="{{$room_details[0]->upload_id}}" rows="5" type="number" hidden />
-                
-                <i class="rating__star far fa-star"></i>
-                <i class="rating__star far fa-star"></i>
-                <i class="rating__star far fa-star"></i>
-                <i class="rating__star far fa-star"></i>
-                <i class="rating__star far fa-star"></i>
+                <i class="rating__star-comment far fa-star"></i>
+                <i class="rating__star-comment far fa-star"></i>
+                <i class="rating__star-comment far fa-star"></i>
+                <i class="rating__star-comment far fa-star"></i>
+                <i class="rating__star-comment far fa-star"></i>
           </div>
+          <p class='text-danger error-ratings'>ratings is required</p>
           </div>
           <button class="comment-btn uk-button uk-button-small">Cancel</button>
           @if(Auth::check())
             @auth
-            <button type="submit" class="comment-btn uk-button uk-button-small">Submit</button>
+            <button type="button" onclick="submitReview()" class="comment-btn uk-button uk-button-small">Submit</button>
+            <button type="submit" id="btn-review" class="comment-btn uk-button uk-button-small" hidden>Submit</button>
             @endauth
           @else 
           <a href="javascript:void(0)" uk-toggle="target: #checklogin" class="comment-btn uk-button uk-button-small">Submit</a>
@@ -659,19 +694,19 @@
       <!-- /.form -->
       @if($reviewsData )
         @if(count($reviewsData) >= 1)
-        <ul>
+        <div class="row">
           @foreach($reviewsData as $data)
-          <li>
-            <article class="uk-comment">
+          <!-- <li class="li-comment"> -->
+            <article class="uk-comment col-md-6 col-sm-12">
                 <header class="uk-comment-header">
                     <div class="uk-grid-medium uk-flex-middle" uk-grid>
-                        <div class="uk-width-auto">
-                            <img class="uk-comment-avatar" src="{{ asset('upload/merchant/profilepic/default.png') }}" width="80" height="80" alt="">
+                        <div class="uk-width-auto avatar-holder">
+                            <img class="uk-comment-avatar avatar-border-round" src="{{ asset('upload/merchant/profilepic/default.png') }}" width="80" height="80" alt="">
                         </div>
                         <div class="uk-width-expand">
                             <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">{{$data->name}}</a></h4>
                             <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
-                                <li><a href="#" style="color:black!important">35 days ago</a></li>
+                                <li><a href="#" style="color:black!important">{{ date("F j, Y, g:i a",strtotime($data->pr_created_at)) }}</a></li>
                                 <li>
                                   <div class="rating">
                                     @for($x = 1; $x <= $data->pr_ratings; $x++)
@@ -688,18 +723,19 @@
                     </div>
                 </header>
                 <div class="uk-comment-body">
-                    <p>@if(!empty($data->pr_review))
+                    <p class="comment-text">@if(!empty($data->pr_review))
                     {{$data->pr_review}}
                     @else
                     no review
                     @endif
                     </p>
                 </div>
+                <hr class="mt-1">
             </article>
             <!-- /. article -->
-          </li>
+          <!-- </li> -->
           @endforeach
-      </ul>
+        </div>
       <!-- /.ul -->
         @else
         <h3>no reviews</h3>
@@ -844,13 +880,13 @@
 </div>
 
 <script>
-  const ratingStars = [...document.getElementsByClassName("rating__star")];
+  const ratingStars = [...document.getElementsByClassName("rating__star-comment")];
   let ratingReview = 0;
 
 function executeRating(stars) {
-  const starClassActive = "rating__star fas fa-star count-star";
+  const starClassActive = "rating__star-comment fas fa-star count-star";
   const starClassActive2 = ".count-star";
-  const starClassInactive = "rating__star far fa-star";
+  const starClassInactive = "rating__star-comment far fa-star ";
   const starsLength = stars.length;
   let i;
   stars.map((star) => {
@@ -880,6 +916,18 @@ function executeRating(stars) {
   });
 }
 executeRating(ratingStars);
+
+
+  function submitReview(){
+    if(ratingReview >= 1){
+    $('#btn-review').click();
+
+      return;
+    }
+    $('.error-ratings').show();
+    return
+
+  }
 </script>
 
 
@@ -890,6 +938,8 @@ executeRating(ratingStars);
 
 
 $(document).ready(function() { 
+  $('.error-ratings').hide();
+
   $('.comment-btn').hide();
   $("#comment-textarea").on("focus", function( e ) {
       $('.comment-btn').show(500);

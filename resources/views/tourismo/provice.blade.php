@@ -51,6 +51,28 @@
   padding-left: 0px!important;
 }
 /* for social medial share */
+
+.uk-button-small
+{
+  background-color: #502672 !important;
+  border-radius: 3px !important;
+  color: #fff !important;
+  border:none !important;
+  text-transform: capitalize !important;
+  font-weight: 800 !important;
+  font-size: 12px !important;
+}
+
+.uk-button-small:hover
+{
+  background-color: #2c0d45 !important;
+  border-radius: 3px !important;
+  border:none;
+  color: #fff !important;
+  text-transform: capitalize !important;
+  font-weight: 800 !important;
+  font-size: 12px !important;
+}
 </style>
 
 <section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">

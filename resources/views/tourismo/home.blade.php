@@ -232,7 +232,7 @@
                 
 <div class="mem-button">
 
-  <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('provice', $list->id) }}">
+  <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="">
     Explore
   </a>
 
@@ -246,23 +246,23 @@
           <div uk-grid class="uk-flex-center mx-auto">
             <div class="uk-position-relative uk-visible-toggle uk-light social-slider-div" tabindex="-1" uk-slider>
               <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m">
-                  <li class="pointer social-media-share" onclick="copyLink('{{ route('provice', $list->provice_id) }}')">
+                  <li class="pointer social-media-share" onclick="">
                       <img src="{{ asset('image/socialmedia/cc.png')}}"  alt="fb">
                   </li>
                   <!-- embed -->
-                  <li class="pointer social-media-share" onclick="copyEmbed('{{ route('provice', $list->provice_id) }}', '{{ substr($list->destination_info,0,15) }}')">
+                  <li class="pointer social-media-share" onclick="">
                       <img src="{{ asset('image/socialmedia/em.png')}}"  alt="fb">
                   </li>
                   <!-- embed -->
-                  <li class="pointer social-media-share" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('provice', $list->provice_id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )">
+                  <li class="pointer social-media-share" onclick="">
                       <img src="{{ asset('image/socialmedia/fb.png')}}"  alt="fb">
                   </li>
                   <!-- /. fb -->
-                  <li class="pointer social-media-share" onclick="sendMessenger('{{ route('provice', $list->provice_id) }}')">
+                  <li class="pointer social-media-share" onclick="">
                       <img src="{{ asset('image/socialmedia/msg.png')}}" alt="">
                   </li>
                   <!-- /.messenger -->
-                  <li class="pointer social-media-share" onclick="window.open('https://twitter.com/intent/tweet?text={{ substr($list->destination_info,0,15) }}&url={{ route('provice', $list->provice_id) }}')">
+                  <li class="pointer social-media-share" onclick="">
                       <img src="{{ asset('image/socialmedia/tw.png')}}" alt="">
                   </li>
                   <!-- /.tw -->
@@ -274,7 +274,7 @@
                   </li>
                   <!-- /.viber -->
                   <li class="pointer social-media-share">
-                      <a  href="mailto:yourfriendsemail@sample.com?subject={{ $list->destination_info }}&body=No. of hotels : 150  visit the link {{ route('provice', $list->provice_id)}}"><img src="{{ asset('image/socialmedia/gm.png')}}" alt=""></a>
+                      <a  href=""><img src="{{ asset('image/socialmedia/gm.png')}}" alt=""></a>
                   </li>
                   <!-- /.gm -->
                   <li class="pointer social-media-share">
@@ -287,7 +287,7 @@
             <a class="uk-position-center-right uk-position-small bg-circle" href="#" uk-slidenav-next uk-slider-item="next"></a>
             </div>
             <div class="copy-link-div">
-             <p>{{ route('provice', $list->provice_id) }} <a class="copy-link" onclick="copyLink('{{ route('provice', $list->provice_id) }}')">copy link</a></p>
+             <p><a class="copy-link" onclick="">copy link</a></p>
             </div>
             <!-- /.slider -->
           </div>
