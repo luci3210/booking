@@ -53,6 +53,7 @@ Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merc
    Route::get('/address','Merchant\AddressController@addressCreateForm')
         ->name('create_address');
 
+
    Route::post('/address','Merchant\AddressController@addressSubmitForm')
         ->name('submit_address_form');
    
@@ -67,8 +68,12 @@ Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merc
         ->name('m-services');
 
    Route::get('/{id}/addnew', 'Merchant\ServiceController@index')->name('m-service-list');
-        
+     
 });
+
+// reviews
+Route::post('/review/hotel/submit', 'user\ReviewsController@sumbitHotelReview')->name('hotel_review');
+// reviews
 
 
 

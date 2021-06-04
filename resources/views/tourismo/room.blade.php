@@ -19,6 +19,68 @@
 .toggle-heart{
   font-size: 2em!important;
 }
+
+.share-icons{
+    cursor: pointer;
+}
+.pointer{
+  cursor: pointer;
+}
+
+.social-media-share {
+  padding: 25px;
+}
+
+.bg-circle{
+  padding: 12px 15px!important;
+  border-radius: 100%!important;
+  background-color: white!important;
+  color: #9e9e9e!important;
+  box-shadow: 0 4px 4px rgb(0 0 0 / 30%), 0 0 4px rgb(0 0 0 / 20%);
+  height: 46px;
+  width: 42px;
+}
+
+.social-slider-div{
+  margin-left: 30px;
+  padding-left: 0!important;
+}
+.uk-position-center-right {
+  right: -13px!important;
+}
+.uk-position-center-left {
+  left: -13px!important;
+}
+.mx-auto{
+  margin: auto!important;
+}
+.copy-link{
+  color: blue!important;
+  text-decoration: underline!important;
+}
+.copy-link-div{
+  margin: 0 auto!important;
+  padding-left: 0px!important;
+}
+/* for social medial share */
+
+.rating {
+   width: 180px;
+}
+
+.rating__star {
+   cursor: pointer;
+   color: #dabd18b2;
+}
+/* ratings */
+
+
+.error-msg{
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  right: 0;
+}
 </style>
 <!-- /. meta tags -->
 <section class="features">
@@ -178,11 +240,68 @@
 <li>
 <a class="uk-button uk-button-small uk-accordion-title " href="javascript:void(0)">Book Now <span uk-icon="chevron-down"></span></a>
 <!-- <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)">Like<span uk-icon="chevron-down"></span></a> -->
-<a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)" uk-toggle="target: #share" >
+<!-- <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)" uk-toggle="target: #rooms-selected-{{$room_details[0]->upload_id}}" >
     Like
     <span uk-icon="chevron-down"></span>
     
+  </a> -->
+  <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)"uk-toggle="target: #rooms-selected-{{$room_details[0]->upload_id}}" >
+    <i class="fas fa-share" style="font-size: 13px;padding-right: 4px;color: #ffffff;"></i> Share
   </a>
+  <div id="rooms-selected-{{$room_details[0]->upload_id}}" uk-modal class="uk-flex-top">
+      <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+          <h2 class="uk-modal-title"></h2>
+          <div uk-grid class="uk-flex-center mx-auto">
+            <div class="uk-position-relative uk-visible-toggle uk-light social-slider-div" tabindex="-1" uk-slider>
+              <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m">
+                <li class="pointer social-media-share" onclick="copyLink('{{ route('tourismo_room', $room_details[0]->upload_id) }}')">
+                    <img src="{{ asset('image/socialmedia/cc.png')}}"  alt="cc">
+                </li>
+                <!-- /.cc -->
+                <li class="pointer social-media-share" onclick="copyEmbed('{{ route('tourismo_room', $room_details[0]->upload_id) }}', '{{ $room_details[0]->roomname }}')">
+                    <img src="{{ asset('image/socialmedia/em.png')}}"  alt="fb">
+                </li>
+                <!-- /.embed -->
+                <li class="pointer social-media-share" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('tourismo_room', $room_details[0]->upload_id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )">
+                    <img src="{{ asset('image/socialmedia/fb.png')}}"  alt="fb">
+                </li>
+                <!-- /. fb -->
+                <li class="pointer social-media-share" onclick="sendMessenger('{{ route('tourismo_room', $room_details[0]->upload_id) }}')">
+                    <img src="{{ asset('image/socialmedia/msg.png')}}" alt="">
+                </li>
+                <!-- /.messenger -->
+                <li class="pointer social-media-share" onclick="window.open('https://twitter.com/intent/tweet?text={{ $room_details[0]->roomname }}&url={{ route('tourismo_room', $room_details[0]->upload_id) }}')">
+                    <img src="{{ asset('image/socialmedia/tw.png')}}" alt="">
+                </li>
+                <!-- /.tw -->
+                <li class="pointer social-media-share" >
+                    <img src="{{ asset('image/socialmedia/wazap.png')}}" alt="">
+                </li>
+                <li class="pointer social-media-share">
+                    <img src="{{ asset('image/socialmedia/vb.png')}}" alt="">
+                </li>
+                <!-- /.viber -->
+                <li class="pointer social-media-share">
+                    <a  href="mailto:yourfriendsemail@sample.com?subject={{ $room_details[0]->destination_info }}&body=No. of hotels : 150  visit the link {{ route('tourismo_room', $room_details[0]->upload_id)}}"><img src="{{ asset('image/socialmedia/gm.png')}}" alt=""></a>
+                </li>
+                <!-- /.gm -->
+                <li class="pointer social-media-share">
+                    <img src="{{ asset('image/socialmedia/we.png')}}" alt="">
+                    <!-- <div class="uk-position-center uk-panel"><h1>6</h1></div> -->
+                </li>
+                <!-- /.we -->
+              </ul>
+              <a class="uk-position-center-left uk-position-small  bg-circle" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+              <a class="uk-position-center-right uk-position-small bg-circle" href="#" uk-slidenav-next uk-slider-item="next"></a>
+            </div>
+            <div class="copy-link-div">
+                <p>{{ route('tourismo_room', $room_details[0]->upload_id) }} <a class="copy-link" onclick="copyLink('{{ route('tourismo_room', $room_details[0]->upload_id) }}')">copy link</a></p>
+            </div>
+          </div>
+          <!-- /.div center -->
+      </div>
+  </div>
+  <!-- /. share modal -->
 <a class="heart-icon btn" href="javascript:void(0)" onclick="wishListToggle('{{ $room_details[0]->upload_id }}')"> 
     @if($wishList)
     <i class="fas fa-heart toggle-heart" >
@@ -395,29 +514,68 @@
     Book Now
   </a>
 
-  <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)"uk-toggle="target: #share" >
+  <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)"uk-toggle="target: #rooms-selected-{{$room_details[0]->upload_id}}" >
     <i class="fas fa-share"></i> Share
   </a>
   <a class="heart-icon btn" href="javascript:void(0)" onclick="wishListToggle('{{ $room_details[0]->upload_id }}')"> 
       <i class="far fa-heart toggle-heart"></i> 
   </a>
-  
 
-  <!--  share modal  -->
-  <div id="share" uk-modal class="uk-flex-top">
+<div id="rooms-selected-{{$room_details[0]->upload_id}}" uk-modal class="uk-flex-top">
       <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
-          <!-- <h2 class="uk-modal-title">Share on social media via</h2> -->
-          <div uk-grid class="uk-flex-center">
-            <div><a onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )"><img src="{{ asset('image/socialmedia/fb.png')}}" height="50" width="50" ></a></div>
-            <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $room_details[0]->roomname }} price {{ $room_details[0]->price }} night{{ $room_details[0]->nonight }}&url={{ url()->current() }}')"><img src="{{ asset('image/socialmedia/tw.png')}}" height="50" width="50" ></a></div>
-            <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $room_details[0]->roomname }} price {{ $room_details[0]->price }} night{{ $room_details[0]->nonight }}&url={{ url()->current() }}')"><img src="{{ asset('image/socialmedia/ig.png')}}" height="50" width="50" ></a></div>
-            <div><a href="mailto:yourfriendsemail@sample.com?subject={{ $room_details[0]->destination_info }}&body=No. of hotels : 150  visit the link {{ url()->current() }}"><img src="{{ asset('image/socialmedia/gm.png')}}" height="50" width="50" ></a></div>
-            <div><a onclick="sendMessenger('{{ url()->current() }}')"><img src="{{ asset('image/socialmedia/msg.png')}}" height="50" width="50" ></a></div>
-            <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $room_details[0]->roomname }} price {{ $room_details[0]->price }} night{{ $room_details[0]->nonight }}&url={{ url()->current() }}')"><img src="{{ asset('image/socialmedia/we.png')}}" height="50" width="50" ></a></div>
+          <h2 class="uk-modal-title"></h2>
+          <div uk-grid class="uk-flex-center mx-auto">
+            <div class="uk-position-relative uk-visible-toggle uk-light social-slider-div" tabindex="-1" uk-slider>
+              <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m">
+                <li class="pointer social-media-share" onclick="copyLink('{{ route('tourismo_room', $room_details[0]->upload_id) }}')">
+                    <img src="{{ asset('image/socialmedia/cc.png')}}"  alt="cc">
+                </li>
+                <!-- /.cc -->
+                <li class="pointer social-media-share" onclick="copyEmbed('{{ route('tourismo_room', $room_details[0]->upload_id) }}', '{{ $room_details[0]->roomname }}')">
+                    <img src="{{ asset('image/socialmedia/em.png')}}"  alt="fb">
+                </li>
+                <!-- /.embed -->
+                <li class="pointer social-media-share" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('tourismo_room', $room_details[0]->upload_id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )">
+                    <img src="{{ asset('image/socialmedia/fb.png')}}"  alt="fb">
+                </li>
+                <!-- /. fb -->
+                <li class="pointer social-media-share" onclick="sendMessenger('{{ route('tourismo_room', $room_details[0]->upload_id) }}')">
+                    <img src="{{ asset('image/socialmedia/msg.png')}}" alt="">
+                </li>
+                <!-- /.messenger -->
+                <li class="pointer social-media-share" onclick="window.open('https://twitter.com/intent/tweet?text={{ $room_details[0]->roomname }}&url={{ route('tourismo_room', $room_details[0]->upload_id) }}')">
+                    <img src="{{ asset('image/socialmedia/tw.png')}}" alt="">
+                </li>
+                <!-- /.tw -->
+                <li class="pointer social-media-share" >
+                    <img src="{{ asset('image/socialmedia/wazap.png')}}" alt="">
+                </li>
+                <li class="pointer social-media-share">
+                    <img src="{{ asset('image/socialmedia/vb.png')}}" alt="">
+                </li>
+                <!-- /.viber -->
+                <li class="pointer social-media-share">
+                    <a  href="mailto:yourfriendsemail@sample.com?subject={{ $room_details[0]->destination_info }}&body=No. of hotels : 150  visit the link {{ route('tourismo_room', $room_details[0]->upload_id)}}"><img src="{{ asset('image/socialmedia/gm.png')}}" alt=""></a>
+                </li>
+                <!-- /.gm -->
+                <li class="pointer social-media-share">
+                    <img src="{{ asset('image/socialmedia/we.png')}}" alt="">
+                    <!-- <div class="uk-position-center uk-panel"><h1>6</h1></div> -->
+                </li>
+                <!-- /.we -->
+              </ul>
+              <a class="uk-position-center-left uk-position-small  bg-circle" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+              <a class="uk-position-center-right uk-position-small bg-circle" href="#" uk-slidenav-next uk-slider-item="next"></a>
+            </div>
+            <div class="copy-link-div">
+                <p>{{ route('tourismo_room', $room_details[0]->upload_id) }} <a class="copy-link" onclick="copyLink('{{ route('tourismo_room', $room_details[0]->upload_id) }}')">copy link</a></p>
+            </div>
           </div>
+          <!-- /.div center -->
       </div>
   </div>
   <!-- /. share modal -->
+
   <!-- <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)" uk-toggle="target: #checklogin">
     Like
   </a> -->
@@ -452,6 +610,14 @@
 </div>
 </section>
 
+
+
+@if($errors->any())
+<div class="alert alert-danger alert-dismissible fade show error-msg m-0" role="alert">
+ <p class="m-0"> <strong>Ratings!</strong> is required</p>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
 <section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500" id="reviews">
   <div class="container">
     <div class="row">
@@ -459,19 +625,42 @@
         <h2>Reviews</h2>
       </div>
       <!-- /.section title -->
-      <form>
+      <form method="post" action="{{route('hotel_review')}}" role="form">
+      @csrf
         <fieldset class="uk-fieldset">
           <div class="uk-margin">
-              <textarea class="uk-textarea" id="comment-textarea" rows="5" placeholder="Textarea"></textarea>
+              <textarea class="uk-textarea" id="comment-textarea" name="pr_review" rows="5" placeholder="Textarea"></textarea>
+          </div>
+          <div class="uk-margin">
+          <div class="rating">
+              <input class="" id="reviews-rating" name="pr_ratings" rows="5" type="number" hidden />
+              <input class="" id="reviews-rating" name="pr_page_id" value="{{$room_details[0]->upload_id}}" rows="5" type="number" hidden />
+                
+                <i class="rating__star far fa-star"></i>
+                <i class="rating__star far fa-star"></i>
+                <i class="rating__star far fa-star"></i>
+                <i class="rating__star far fa-star"></i>
+                <i class="rating__star far fa-star"></i>
+          </div>
           </div>
           <button class="comment-btn uk-button uk-button-small">Cancel</button>
-          <button class="comment-btn uk-button uk-button-small">Submit</button>
+          @if(Auth::check())
+            @auth
+            <button type="submit" class="comment-btn uk-button uk-button-small">Submit</button>
+            @endauth
+          @else 
+          <a href="javascript:void(0)" uk-toggle="target: #checklogin" class="comment-btn uk-button uk-button-small">Submit</a>
+
+          @endif
           <legend class="uk-legend">Comments</legend>
         </fieldset>
         <!-- /.fieldset -->
       </form>
       <!-- /.form -->
-      <ul>
+      @if($reviewsData )
+        @if(count($reviewsData) >= 1)
+        <ul>
+          @foreach($reviewsData as $data)
           <li>
             <article class="uk-comment">
                 <header class="uk-comment-header">
@@ -480,135 +669,46 @@
                             <img class="uk-comment-avatar" src="{{ asset('upload/merchant/profilepic/default.png') }}" width="80" height="80" alt="">
                         </div>
                         <div class="uk-width-expand">
-                            <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">User 1</a></h4>
+                            <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">{{$data->name}}</a></h4>
                             <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
                                 <li><a href="#" style="color:black!important">35 days ago</a></li>
-                                <li><a href="#" style="color:black!important">Reply</a></li>
+                                <li>
+                                  <div class="rating">
+                                    @for($x = 1; $x <= $data->pr_ratings; $x++)
+                                      <i class="rating__star fas fa-star"></i>
+                                    @endfor
+                                    @for($x = 1; $x <=  (5-$data->pr_ratings); $x++)
+                                    <i class="rating__star far fa-star"></i>
+                                    @endfor
+                                  </div>
+                                
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </header>
                 <div class="uk-comment-body">
-                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+                    <p>@if(!empty($data->pr_review))
+                    {{$data->pr_review}}
+                    @else
+                    no review
+                    @endif
+                    </p>
                 </div>
             </article>
             <!-- /. article -->
           </li>
-          <li>
-          <article class="uk-comment">
-                <header class="uk-comment-header">
-                    <div class="uk-grid-medium uk-flex-middle" uk-grid>
-                        <div class="uk-width-auto">
-                            <img class="uk-comment-avatar" src="{{ asset('upload/merchant/profilepic/default.png') }}" width="80" height="80" alt="">
-                        </div>
-                        <div class="uk-width-expand">
-                            <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">User 2</a></h4>
-                            <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
-                                <li><a href="#" style="color:black!important">30 days ago</a></li>
-                                <li><a href="#" style="color:black!important">Reply</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </header>
-                <div class="uk-comment-body">
-                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                </div>
-            </article>
-            <!-- /. article -->
-              <ul>
-                  <li>
-                  <article class="uk-comment">
-                      <header class="uk-comment-header">
-                          <div class="uk-grid-medium uk-flex-middle" uk-grid>
-                              <div class="uk-width-auto">
-                                  <img class="uk-comment-avatar" src="{{ asset('upload/merchant/profilepic/default.png') }}" width="80" height="80" alt="">
-                              </div>
-                              <div class="uk-width-expand">
-                                  <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">User 3</a></h4>
-                                  <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
-                                      <li><a href="#" style="color:black!important">2 days ago</a></li>
-                                      <li><a href="#" style="color:black!important">Reply</a></li>
-                                  </ul>
-                              </div>
-                          </div>
-                      </header>
-                      <div class="uk-comment-body">
-                          <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                      </div>
-                  </article>
-                  <!-- /. article -->
-                  </li>
-                  <li>
-                  <article class="uk-comment">
-                      <header class="uk-comment-header">
-                          <div class="uk-grid-medium uk-flex-middle" uk-grid>
-                              <div class="uk-width-auto">
-                                  <img class="uk-comment-avatar" src="{{ asset('upload/merchant/profilepic/default.png') }}" width="80" height="80" alt="">
-                              </div>
-                              <div class="uk-width-expand">
-                                  <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">User 1</a></h4>
-                                  <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
-                                      <li><a href="#" style="color:black!important">2 days ago</a></li>
-                                      <li><a href="#" style="color:black!important">Reply</a></li>
-                                  </ul>
-                              </div>
-                          </div>
-                      </header>
-                      <div class="uk-comment-body">
-                          <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                      </div>
-                  </article>
-                  <!-- /. article -->
-                  
-                  </li>
-              </ul>
-          </li>
-          <li>
-          <article class="uk-comment">
-              <header class="uk-comment-header">
-                  <div class="uk-grid-medium uk-flex-middle" uk-grid>
-                      <div class="uk-width-auto">
-                          <img class="uk-comment-avatar" src="{{ asset('upload/merchant/profilepic/default.png') }}" width="80" height="80" alt="">
-                      </div>
-                      <div class="uk-width-expand">
-                          <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">User 5</a></h4>
-                          <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
-                              <li><a href="#" style="color:black!important">2 days ago</a></li>
-                              <li><a href="#" style="color:black!important">Reply</a></li>
-                          </ul>
-                      </div>
-                  </div>
-              </header>
-              <div class="uk-comment-body">
-                  <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-              </div>
-          </article>
-          <!-- /. article -->
-          </li>
-          <li>
-          <article class="uk-comment">
-              <header class="uk-comment-header">
-                  <div class="uk-grid-medium uk-flex-middle" uk-grid>
-                      <div class="uk-width-auto">
-                          <img class="uk-comment-avatar" src="{{ asset('upload/merchant/profilepic/default.png') }}" width="80" height="80" alt="">
-                      </div>
-                      <div class="uk-width-expand">
-                          <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">User 6</a></h4>
-                          <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
-                              <li><a href="#" style="color:black!important">2 days ago</a></li>
-                              <li><a href="#" style="color:black!important">Reply</a></li>
-                          </ul>
-                      </div>
-                  </div>
-              </header>
-              <div class="uk-comment-body">
-                  <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-              </div>
-          </article>
-          <!-- /. article -->
-          </li>
+          @endforeach
       </ul>
       <!-- /.ul -->
+        @else
+        <h3>no reviews</h3>
+        @endif
+      @endif
+      @if(!$reviewsData)
+      <h3>something went wrong</h3>
+      @endif
+      
     </div>
   </div>
   <!-- /. container -->
@@ -659,24 +759,63 @@
               
               </div>
                 <div class="details-m">
-                  <a class="uk-button uk-button-default uk-button-small btn-room-details-m" href="javascript:void(0)" data-id="{{ $list->upload_id }}">Explore</a>
-                  <button class="uk-button uk-button-default uk-button-small" type="button" data-toggle="modal" data-id="{{ $list->id }}" uk-toggle="target: #related-rooms">Share</button>
+                  <a class="uk-button uk-button-default uk-button-small btn-room-details-m" href="{{route('tourismo_room', $list->upload_id) }}" data-id="{{ $list->upload_id }}">Explore</a>
+                  <button class="uk-button uk-button-default uk-button-small" type="button" data-toggle="modal" data-id="{{ $list->id }}" uk-toggle="target: #rooms-{{$list->upload_id}}">Share</button>
                 </div>
-                <!-- share modal -->
-                <div id="related-rooms" uk-modal class="uk-flex-top">
-                    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical" style="border-radius: 5px;">
-                        <h2 class="uk-modal-title"></h2>
-                        <div uk-grid class="uk-flex-center">
-                            <div><a onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('tourismo_room', $list->upload_id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )"><img src="{{ asset('image/socialmedia/fb.png')}}" height="50" width="50" ></a></div>
-                            <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->roomname }}&url={{ route('tourismo_room', $list->upload_id) }}')"><img src="{{ asset('image/socialmedia/tw.png')}}" height="50" width="50" ></a></div>
-                            <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->roomname }}&url={{ route('tourismo_room', $list->upload_id) }}')"><img src="{{ asset('image/socialmedia/ig.png')}}" height="50" width="50" ></a></div>
-                            <div><a href="mailto:yourfriendsemail@sample.com?subject={{ $list->roomname }}&body=No. of hotels : 150  visit the link {{ route('tourismo_room', $list->upload_id)}}"><img src="{{ asset('image/socialmedia/gm.png')}}" height="50" width="50" ></a></div>
-                            <div><a onclick="sendMessenger('{{ route('tourismo_room', $list->upload_id) }}')"><img src="{{ asset('image/socialmedia/msg.png')}}" height="50" width="50" ></a></div>
-                            <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->roomname }}&url={{ route('tourismo_room', $list->upload_id) }}')"><img src="{{ asset('image/socialmedia/we.png')}}" height="50" width="50" ></a></div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /. share modal -->
+  <div id="rooms-{{$list->upload_id}}" uk-modal class="uk-flex-top">
+        <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+            <h2 class="uk-modal-title"></h2>
+            <div uk-grid class="uk-flex-center mx-auto">
+              <div class="uk-position-relative uk-visible-toggle uk-light social-slider-div" tabindex="-1" uk-slider>
+                <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m">
+                  <li class="pointer social-media-share" onclick="copyLink('{{ route('tourismo_room', $list->upload_id) }}')">
+                      <img src="{{ asset('image/socialmedia/cc.png')}}"  alt="cc">
+                  </li>
+                  <!-- /.cc -->
+                  <li class="pointer social-media-share" onclick="copyEmbed('{{ route('tourismo_room', $list->upload_id) }}', '{{ $list->roomname }}')">
+                      <img src="{{ asset('image/socialmedia/em.png')}}"  alt="fb">
+                  </li>
+                  <!-- /.embed -->
+                  <li class="pointer social-media-share" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('tourismo_room', $list->upload_id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )">
+                      <img src="{{ asset('image/socialmedia/fb.png')}}"  alt="fb">
+                  </li>
+                  <!-- /. fb -->
+                  <li class="pointer social-media-share" onclick="sendMessenger('{{ route('tourismo_room', $list->upload_id) }}')">
+                      <img src="{{ asset('image/socialmedia/msg.png')}}" alt="">
+                  </li>
+                  <!-- /.messenger -->
+                  <li class="pointer social-media-share" onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->roomname }}&url={{ route('tourismo_room', $list->upload_id) }}')">
+                      <img src="{{ asset('image/socialmedia/tw.png')}}" alt="">
+                  </li>
+                  <!-- /.tw -->
+                  <li class="pointer social-media-share" >
+                      <img src="{{ asset('image/socialmedia/wazap.png')}}" alt="">
+                  </li>
+                  <li class="pointer social-media-share">
+                      <img src="{{ asset('image/socialmedia/vb.png')}}" alt="">
+                  </li>
+                  <!-- /.viber -->
+                  <li class="pointer social-media-share">
+                      <a  href="mailto:yourfriendsemail@sample.com?subject={{ $list->destination_info }}&body=No. of hotels : 150  visit the link {{ route('tourismo_room', $list->upload_id)}}"><img src="{{ asset('image/socialmedia/gm.png')}}" alt=""></a>
+                  </li>
+                  <!-- /.gm -->
+                  <li class="pointer social-media-share">
+                      <img src="{{ asset('image/socialmedia/we.png')}}" alt="">
+                      <!-- <div class="uk-position-center uk-panel"><h1>6</h1></div> -->
+                  </li>
+                  <!-- /.we -->
+                </ul>
+                <a class="uk-position-center-left uk-position-small  bg-circle" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+                <a class="uk-position-center-right uk-position-small bg-circle" href="#" uk-slidenav-next uk-slider-item="next"></a>
+              </div>
+              <div class="copy-link-div">
+                  <p>{{ route('tourismo_room', $list->upload_id) }} <a class="copy-link" onclick="copyLink('{{ route('tourismo_room', $list->upload_id) }}')">copy link</a></p>
+              </div>
+            </div>
+            <!-- /.div center -->
+        </div>
+  </div>
+  <!-- /. share modal -->
             </div>
           </div>
           </div>
@@ -704,22 +843,70 @@
     </div>
 </div>
 
+<script>
+  const ratingStars = [...document.getElementsByClassName("rating__star")];
+  let ratingReview = 0;
 
+function executeRating(stars) {
+  const starClassActive = "rating__star fas fa-star count-star";
+  const starClassActive2 = ".count-star";
+  const starClassInactive = "rating__star far fa-star";
+  const starsLength = stars.length;
+  let i;
+  stars.map((star) => {
+    star.onclick = () => {
+      i = stars.indexOf(star);
+
+      if (star.className===starClassInactive) {
+        for (i; i >= 0; --i) {
+          stars[i].className = starClassActive;
+        }
+      } else {
+        for (i; i < starsLength; ++i) {
+          stars[i].className = starClassInactive;
+        }
+      }
+      ratingReview = $(starClassActive2).length
+      var message = $('#comment-textarea').val();
+      var ratingInput = $('#reviews-rating');
+      ratingInput.val(parseInt(ratingReview))
+      if(ratingReview >= 1 || message.length >= 1){
+        $('.comment-btn').show(500);
+      }else{
+        $('.comment-btn').hide(500);
+      }
+    };
+
+  });
+}
+executeRating(ratingStars);
+</script>
 
 
 @endsection
 
 @section('js')
 <script>
-$(function() { 
+
+
+$(document).ready(function() { 
   $('.comment-btn').hide();
   $("#comment-textarea").on("focus", function( e ) {
       $('.comment-btn').show(500);
   });
 
   $("#comment-textarea").on("blur", function( e ) {
+      var message = $('#comment-textarea').val();
+      const starClassActive2 = ".count-star";
+      ratingReview = $(starClassActive2).length
+
+
+      if(message.length >= 1 ||  ratingReview >= 1){
+          return;
+      }
       $('.comment-btn').hide(500);
   });
+  
 });
 
 </script>
