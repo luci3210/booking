@@ -223,7 +223,8 @@ public function profile_update(Request $request, $id)
 }
 public function profile_contacts()
 {
-	return view('merchant.user.contact-form');
+    $contact = $this->contact();
+	return view('merchant.user.contact-form',compact('contact'));
 }
 public function profile_contacts_edit($id)
 {

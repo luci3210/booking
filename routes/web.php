@@ -46,11 +46,30 @@ Route::get('/tourismoph/hotel/{id}', 'Tourismo\HomeController@hotel_details')->n
 
 Auth::routes();
 
+
+// ---------------------------------address
 Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merchant/profile'], function() {
 
-        Route::get('/address','Merchant\AddressController@addressCreateForm')
+   Route::get('/address','Merchant\AddressController@addressCreateForm')
         ->name('create_address');
+
+   Route::post('/address','Merchant\AddressController@addressSubmitForm')
+        ->name('submit_address_form');
+   
+   Route::get('/address/delete/{id}','Merchant\AddressController@addressDelete')
+        ->name('delete_address');        
 });
+
+// ---------------------------------services
+Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merchant/service'], function() {
+
+   Route::get('/','Merchant\ServiceController@home')
+        ->name('m-services');
+
+   Route::get('/{id}/addnew', 'Merchant\ServiceController@index')->name('m-service-list');
+        
+});
+
 
 
 
@@ -76,7 +95,7 @@ Route::post('/merchant/profile/picture', 'Merchant\UploadController@crop')->name
 //SERVISES
 Route::get('/merchant/services/jayson/', 'Merchant\ServiceController@get_cover_id'); //extra
 
-Route::get('/merchant/services/{id}/addnew', 'Merchant\ServiceController@index')->name('service');
+
 Route::post('/merchant/services/', 'Merchant\ServiceController@savehotel')->name('service-submit');
 Route::post('/merchant/service/tour', 'Merchant\ServiceController@savetour')->name('service_tour_submit');
 
@@ -84,9 +103,8 @@ Route::post('/merchant/service/upload_cover', 'Merchant\ServiceController@upload
 Route::post('/merchant/service/upload_tour_photos', 'Merchant\ServiceController@upload_tour_photos')->name('tour_photos');
 
 //BOOKING
+
 Route::get('/merchant/booking/booked', 'Merchant\BookingController@booked')->name('merchant_booked');
-
-
 
 
 Route::post('dropzone/upload_image', 'Merchant\ServiceControllerr@upload_image')->name('dropzone.upload_image');
@@ -98,9 +116,6 @@ Route::get('/merchant/location/district/select/{id}', 'Merchant\ServiceControlle
 Route::get('/merchant/location/city/select/{id}', 'Merchant\ServiceController@find_city_id')->name('find_city_id');
 Route::get('/merchant/location/municipality/select/{id}', 'Merchant\ServiceController@find_municipality_id')->name('find_municipality_id');
 Route::get('/merchant/location/barangay/select/{id}', 'Merchant\ServiceController@find_barangay_id')->name('find_barangay_id');
-
-
-
 
 
 Route::get('/page/y/dd', 'Tourismo\SettingsController@index')->name('account-setting');

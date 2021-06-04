@@ -32,6 +32,11 @@ public function __construct() {
     	$this->middleware('auth:web');	
     }
 
+public function home() {
+
+    return view('merchant.services.home');    
+}
+
 public function room_facilities() {
 
     return RoomFaciliModel::join('temp_status','temp_status.id', 'room_facilities.temp_status')->where('temp_status.status', 'active')

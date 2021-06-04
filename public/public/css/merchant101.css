@@ -131,6 +131,12 @@ height: 100%;
   font-weight: bold;
   margin: 0px 0px 5px 2px;
 }
+.tbl-labelcoz
+{
+  font-size: 13px;
+  font-weight: 400;
+  margin: 0px 0px 5px 2px;
+}
 .hrmargin
 {
   margin: 30px 0px 15px 0px; 
@@ -186,4 +192,13 @@ a,.a-m-link-default
   font-size: 17px;
   color: #333333 !important;
   font-weight: 700 !important;
+}
+
+.uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle {
+  height: 20px !important;
+}
+.uk-navbar-nav > li > a {
+  font-weight: 400 !important;
+  font-size: 15px !important;
+  text-transform: capitalize !important;
 }

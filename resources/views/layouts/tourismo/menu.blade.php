@@ -38,32 +38,17 @@
  -->
 <ul uk-accordion class="list-group-unbordered mb-3">
 
-<li class="marg_menu">
-<a class="active uk-accordion-title" href="{{ route('profile-contact') }}"><span uk-icon="home"></span> <span class="uk-list-a"> Merchant</span></a>
-<div class="uk-accordion-content">
-  <p><a href="{{ route('m-user') }}" class="uk-link"><span uk-icon="check"></span>  Profile</a></p>
-  <p><a href="{{ route('profile-contact') }}" class="uk-link"><span uk-icon="check"></span>  Contact</a></p>
-  <p><a href="{{ route('profile-address') }}" class="uk-link"><span uk-icon="check"></span> Address</a></p>
-  <p><a href="{{ route('profile-address') }}" class="uk-link"><span uk-icon="check"></span> Plan & Re-new</a></p>
-</div>
-</li>
-
-<li class="marg_menu mm_mrg">
-<a class="uk-accordion-title" href="#"><span uk-icon="album"></span> <span class="uk-list-a"> Services</span></a>
-	<div class="uk-accordion-content">
-	@foreach($services as $service)
-	<p><a href="{{ route('service',$service->id) }}" class="uk-link"><span uk-icon="check"></span> {{ $service->name }}</a></p>
-	@endforeach 
-	</div>
+<li class="uk-list-spc">
+  <a class="uk-list-a" href="{{ route('m-user') }}">
+    <span uk-icon="home"></span> Merchant
+  </a>
 </li>
 
 
-<li class="marg_menu mm_mrg">
-<a class="uk-accordion-title" href="#"><span uk-icon="album"></span> <span class="uk-list-a"> Booking</span></a>
-  <div class="uk-accordion-content">
-    <p><a href="{{ route('merchant_booked') }}" class="uk-link"><span uk-icon="check">Booked</span></a></p>
-    <p><a href="#" class="uk-link"><span uk-icon="check"></span></a></p>
-  </div>
+<li class="uk-list-spc">
+  <a class="uk-list-a" href="{{ route('m-services') }}">
+    <span uk-icon="git-branch"></span> Services
+  </a>
 </li>
 
 

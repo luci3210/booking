@@ -11,6 +11,10 @@ use App\Model\Admin\LocationDistrictModel;
 use App\Model\Admin\LocationCityModel;
 use App\Model\Admin\LocationMunicipalityModel;
 use App\Model\Admin\LocationBarangayModel;
+use App\Model\Merchant\MerchantAddress;
+use App\Model\Merchant\Profile;
+use Illuminate\Support\Facades\Auth;
+
 
 use Illuminate\Http\Request;
 
@@ -24,7 +28,8 @@ class AddressController extends Controller
          
     public function addressCreateForm() {
 
-        $country                = $this->country();
+        $address = $this->getAddress();
+        $country = $this->country();
         return view('merchant.address.address_form',compact([
             'product','room_facilities','building_facilities','packages','country','address','profile_photo']));
     }
@@ -37,25 +42,42 @@ class AddressController extends Controller
                         ->get(['profiles.*','merchant_address.*']);
     }
 
-    public function profile_address_save(Request $request) {
+    public function addressSubmitForm(Request $request) {
 
-         $rules = [
-            'address' => 'required',
-            'longitude' => 'required',
-            'latitude' => 'required'
-        ];
+        $input_validate = ['address' => 'required|max:500',
+        'country' => 'required|numeric',
+        'region' => 'required|numeric',
+        'district' => 'required|numeric',
+        'city' => 'required|numeric',
+        'municipality' => 'required|numeric',
+        'barangay' => 'required|numeric',
+        'prof_id' => 'required|numeric'];
 
-        $errMessage = ['required' => '* Enter your :attribute'];
+        $errMessage = ['required' => '* Enter your :attribute','numeric'=>'invalid value :attribute'];
 
-        $this->validate($request, $rules, $errMessage);   
+        $this->validate($request, $input_validate, $errMessage);   
 
         MerchantAddress::create(['address' => $request->address,
-                        'longt' => $request->longitude,
-                        'latt' => $request->latitude,
-                        'temp_status' => 1,
-                        'prof_id' => $request->prof_id]);
+        'country_id' => $request->country,
+        'region_id' => $request->region,
+        'district_id' => $request->district,
+        'city_id' => $request->city,
+        'municipality_id' => $request->municipality,
+        'barangay_id' => $request->barangay,
+        'temp_status' => 1,
+        'prof_id' => $request->prof_id]);
         return redirect('merchant')->withSuccess('Successfully updated!');
     }
+
+    public function addressDelete(Request $request, $id)
+    {
+        $mAddress = MerchantAddress::find($id);
+        // $mAddress->temp_status()->attach($id);
+        $mAddress->update(['temp_status'=> 4]);
+        return redirect()->back()->withSuccess('Successfully deleted!');   
+        // return redirect('admin/tourismo/ph/page/1/product')->withSuccess('Successfully deleted!');
+    }
+
 
     public function country() {
 

@@ -76,7 +76,7 @@
 </div>
 
 <div class="col-md-3 form-group mt-3">
-  <label class="labelcoz"><span class="uk-text-danger">*</span> Quantity</label>
+  <label class="labelcoz"><span class="uk-text-danger">*</span> Quantity(Inventory)</label>
   <input type="text" name="qty" class="uk-input" id="qty" placeholder="Quantity">
   <div class="validate"></div>
 </div>
@@ -92,6 +92,14 @@
 <div class="col-md-12 form-group mt-3">
   <label class="labelcoz"><span class="uk-text-danger">*</span> What to expect</label>
   <textarea class="uk-textarea" name="tour_expect" id='tour_expect' rows="8" placeholder="Tour Package Description"rows="5"></textarea>
+  <div class="validate"></div>
+</div>
+
+
+
+<div class="col-md-12 form-group mt-3">
+  <label class="labelcoz"><span class="uk-text-danger">*</span> Cancelation (Memo) </label>
+  <textarea class="uk-textarea" name="tour_desc" id='tour_desc' rows="3" placeholder="Tour Package Description"rows="5"></textarea>
   <div class="validate"></div>
 </div>
 
@@ -135,6 +143,7 @@
   <div class="validate"></div>
 </div>
  -->
+
 <div class="col-md-12 form-group mt-3">
   <label class="labelcoz"><span class="uk-text-danger">*</span> Facilities </label>
   <select class="building uk-select" name="building[]" multiple="multiple">
@@ -162,6 +171,18 @@
     <li class="uk-active"><a href=""><b>Location</b> </a></li>
   </ul>
 </div>
+
+<div class="col-md-12 form-group mt-3">
+  <label class="labelcoz"><span class="uk-text-danger">*</span> Address </label>
+    <select class="uk-select" name="address">
+      <option value="" disabled="true" selected="-Select address-">-Select address-</option>
+      @foreach($address as $list)
+      <option value="{{ $list->id }}">{{ $list->address }}</option>
+      @endforeach
+    </select>
+  <div class="validate"></div>
+</div>
+
 
 <div class="col-md-4 form-group mt-3">
   <label class="labelcoz"><span class="uk-text-danger">*</span> Country </label>
@@ -215,6 +236,16 @@
     <option value="0" disabled="true" selected="true">-Select Barangay-</option>
   </select>
   <div class="validate"></div>
+</div>
+
+<div class="col-md-12 mt-5">
+  <hr class="uk-divider-icon">
+</div>
+
+<div class="col-md-12 mt-2">
+  <ul uk-tab>
+    <li class="uk-active"><a href=""><b>Application For Exclusive</b> </a></li>
+  </ul>
 </div>
 
 <!-- <div class="col-md-12 form-group mt-3">

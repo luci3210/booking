@@ -12,27 +12,59 @@
       @include('layouts.tourismo.menu')
 </div>
 
-<div class="col-lg-9">
-<form action="{{ route('profile-address-add') }}" method="post" role="form" id="valid-form" class="form-border">
+<div class="col-lg-9 form-border">
+<form action="{{ route('submit_address_form') }}" method="post" role="form" id="valid-form">
 @csrf
+
 <div class="row row-margin">
 
+<div class="col-md-12">
+<nav class="uk-navbar-container" uk-navbar>
+    <div class="uk-navbar-left">
 
-<div class="col-md-12 mt-3">
-<ul class="uk-breadcrumb">
+        <ul class="uk-navbar-nav">
 
-<li><a href="#" class="a-m-link-default">Merchant</a></li>
-<li><a href="#" class="a-m-link {{ (request()->is('create_address')) ? 'a-m-active' : '' }}">Profile</a></li>
-<li><a href="{{ route('create_address') }}" class="a-m-link {{ (request()->is('merchant/profile/address')) ? 'a-m-active' : '' }}">Address</a></li>
-<li><a href="#" class="a-m-link">contact</a></li>
+            <li class="uk-active"><a href="#"><b>MERCHANT</b></a></li>
+            
+            <li class="{{ (request()->is('merchant')) ? 'active' : '' }}">
+              <a href="{{ route('m-user') }}">Profile</a>
+            </li>
+            
+            <li class="{{ (request()->is('merchant/profile/address')) ? 'active' : '' }}">
+              <a href="{{ route('create_address') }}">Address</a>
+            </li>
 
-</ul>
+            <li class="{{ (request()->is('merchant')) ? 'active' : '' }}">
+              <a href="{{ route('profile-contact') }}">Contact</a>
+            </li>
+
+        </ul>
+
+
+    </div>
+</nav>
 </div>
+</div>
+<div class="row row-margin">
 
+{{--
+
+  <ul uk-tab="" class="uk-tab">
+
+    <li class="uk-active"><a href="">Merchant </a></li>
+    <li><a href="{{ route('m-user') }}">Profile </a></li>
+    <li class="{{ (request()->is('merchant/profile/address')) ? 'uk-active' : '' }}"><a href="{{ route('create_address') }}">Address </a></li>
+    <li><a href="">Contact </a></li>
+    
+  </ul>
+
+--}}
 
 <div class="form-group mt-3">
-<label class="labelcoz">Address</label>
-<input type="text" name="address" class="uk-input" placeholder="Address">
+<label class="labelcoz"><span class="uk-text-danger">*</span> Address</label>
+<input type="text" name="address" class="uk-input" placeholder="Complete Address">
+<input type="hidden" class="form-control" name="prof_id" value="{{ $gatemerchant_prof[0]->profid }}">
+
 <div class="validate"></div>
 </div>
 
@@ -94,7 +126,53 @@
 
 
 <div class="text-left"><br><button type="submit" class="btn btn-primary btn-block">Save</button></div>                
+</div>    
+
 </form>
+
+  <ul uk-tab="" class="uk-tab">
+    <li class="uk-active"><a href="">Address list </a></li>
+  </ul>
+
+@if(count($address) >= 1) 
+<div class="uk-overflow-auto">
+    <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
+        <thead>
+            <tr>
+                <th class="uk-table-shrink">Country</th>
+                <th class="uk-table-expand">Address</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($address as $list)
+            <tr>
+                <td class="tbl-labelcoz uk-text-center">{{ $loop->index + 1 }}</td>
+                <td class="uk-table-link tbl-labelcoz">{{ $list->address }}</td>
+                <td class="uk-text-nowrap">
+                  
+                  <button class="uk-button uk-button-primary uk-button-small" type="button">Edit</button>
+                  
+                  <a href="" onclick="if(confirm('Do you want to delete this address?  {{ $list->address }}'))event.preventDefault(); document.getElementById('delete-{{$list->id}}').submit();" class="uk-button uk-button-danger uk-button-small">Delete</a>    
+                                
+                  <form id="delete-{{ $list->id }}" method="get" action="{{ route('delete_address',$list->id) }}" style="display: none;">
+                    @csrf
+                  </form>
+
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
+@else 
+  <br><p class="uk-text-norma uk-text-center">Empty!</p></span> 
+@endif
+
+</div>
+
+
+
 
 @endsection
 @section('merchantjs')
