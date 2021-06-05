@@ -74,9 +74,7 @@
         padding-left: 5px;
         padding-right: 5px;
     }
-    .mt-sm-slider{
-        margin-top: 60px;
-    }
+    
     .min-vh-30{
         height: 30vh!important;
     }

@@ -3,7 +3,69 @@
 
 <!-- <div class="marg-header"></div> -->
 @section('banner')
-
+<div class="uk-width-1-1  p-20 block-l hide-xl mt-5">
+  <div class="uk-card uk-card-body uk-card-default uk-large uk-width-1-1@l center-item uk-flex">
+      <!-- /. desktop -->
+      <div id="mobile" class="block-l hide-xl center-item" uk-grid>
+        <div class="block-m hidden-xl center-item pd-xs-0">
+          <div class="uk-card item-icon  ">
+            <figure>
+              <img src="{{ asset('image/destination/hotel-icon.png') }}"alt="my img"/>
+              <figcaption class="icon-title">Hotel</figcaption>
+            </figure>
+          </div>
+          <div class="uk-card item-icon  ">
+            <figure>
+              <img class="figure-img desc-two" src="{{ asset('image/destination/tour-icon.png') }}"alt="my img"/>
+              <figcaption class="icon-title">Tour Package</figcaption>
+            </figure>
+          </div>
+          <div class="uk-card item-icon">
+            <figure>
+              <img class="figure-img" src="{{ asset('image/destination/launchpad-icon-flight.png') }}"alt="my img"/>
+              <figcaption class="icon-title">Flight</figcaption>
+            </figure>
+          </div>
+          <div class="uk-card item-icon ">
+            <figure>
+              <img class="figure-img" src="{{ asset('image/destination/cruise-icon.png') }}"alt="my img"/>
+              <figcaption class="icon-title">Cruise</figcaption>
+            </figure>
+          </div>
+        </div>
+        <!-- /. upper -->
+        <div class="block-m hidden-xl center-item pd-xs-0">
+          <div class="uk-card item-icon">
+            <figure>
+              <img class="figure-img" src="{{ asset('image/destination/events-icon.png') }}"alt="my img"/>
+              <figcaption class="icon-title">Mice Events</figcaption>
+            </figure>
+          </div>
+          <div class="uk-card item-icon  ">
+            <figure>
+              <img class="figure-img " src="{{ asset('image/destination/launchpad-icon-tourist-stop.png') }}"alt="my img"/>
+              <figcaption class="icon-title">Tourist Stop</figcaption>
+            </figure>
+          </div>
+          <div class="uk-card item-icon ">
+            <figure>
+              <img class="figure-img desc-two" src="{{ asset('image/destination/launchpad-icon-tour-guide.png') }}"alt="my img"/>
+              <figcaption class="icon-title">Tour Guide</figcaption>
+            </figure>
+          </div>
+          <div class="uk-card item-icon ">
+            <figure>
+              <img class="figure-img desc-two" src="{{ asset('image/destination/launchpad-icon-translator.png') }}"alt="my img"/>
+              <figcaption class="icon-title">Language Translator</figcaption>
+            </figure>
+          </div>
+        </div>
+        <!-- lower -->
+      </div>
+      <!-- /. mobile -->
+  </div>
+</div>
+<!-- /.mobile nav  -->
 <div class="uk-position-relative uk-visible-toggle uk-light mt-sm-slider" tabindex="-1" uk-slideshow="ratio: 10:3; animation: push">
     <ul class="uk-slideshow-items min-vh-30">
       @foreach($banner as $list)
@@ -26,130 +88,8 @@
 
 @section('content')
 
-<!-- <div class="uk-width-1-1 top-20 p-20">
-<div class="uk-card uk-card-body uk-card-default uk-large uk-width-1-1@l center-item uk-flex">
-    <div class="center-item hidden-m">
-      <div class="uk-card item-icon  uk-card-body">
-        <figure>
-          <img src="{{ asset('image/destination/hotel-icon.png') }}"alt="my img"/>
-          <figcaption class="icon-title">Hotel</figcaption>
-        </figure>
-      </div>
-      <div class="uk-card item-icon  uk-card-body ">
-        <figure>
-          <img class="figure-img" src="{{ asset('image/destination/tour-icon.png') }}"alt="my img"/>
-          <figcaption class="icon-title">Tour Package</figcaption>
-        </figure>
-      </div>
-      <div class="uk-card item-icon  uk-card-body ">
-        <figure>
-          <img class="figure-img" src="{{ asset('image/destination/launchpad-icon-flight.png') }}"alt="my img"/>
-          <figcaption class="icon-title">Flight</figcaption>
-        </figure>
-      </div>
-      <div class="uk-card item-icon  uk-card-body ">
-        <figure>
-          <img class="figure-img" src="{{ asset('image/destination/cruise-icon.png') }}"alt="my img"/>
-          <figcaption class="icon-title">Cruise</figcaption>
-        </figure>
-      </div>
-      <div class="uk-card item-icon  uk-card-body ">
-        <figure>
-          <img class="figure-img" src="{{ asset('image/destination/events-icon.png') }}"alt="my img"/>
-          <figcaption class="icon-title">Mice Events</figcaption>
-        </figure>
-      </div>
-      <div class="uk-card item-icon  uk-card-body ">
-        <figure>
-          <img class="figure-img" src="{{ asset('image/destination/launchpad-icon-tourist-stop.png') }}"alt="my img"/>
-          <figcaption class="icon-title">Tourist Stop</figcaption>
-        </figure>
-      </div>
-      <div class="uk-card item-icon  uk-card-body ">
-        <figure>
-          <img class="figure-img" src="{{ asset('image/destination/launchpad-icon-tour-guide.png') }}"alt="my img"/>
-          <figcaption class="icon-title">Tour Guide</figcaption>
-        </figure>
-      </div>
-      <div class="uk-card item-icon  uk-card-body ">
-        <figure>
-          <img class="figure-img" src="{{ asset('image/destination/launchpad-icon-translator.png') }}"alt="my img"/>
-          <figcaption class="icon-title">Language Translator</figcaption>
-        </figure>
-      </div>
-    </div>
-    <div id="mobile" class="block-l hide-xl center-item" uk-grid>
- -->      
 
-      <!-- /. desktop -->
-
-<!-- 
-    <div class="block-m hidden-xl center-item pd-xs-0">
-      <div class="uk-card item-icon  ">
-        <figure>
-          <img src="{{ asset('image/destination/hotel-icon.png') }}"alt="my img"/>
-          <figcaption class="icon-title">Hotel</figcaption>
-        </figure>
-      </div>
-      <div class="uk-card item-icon  ">
-        <figure>
-          <img class="figure-img" src="{{ asset('image/destination/tour-icon.png') }}"alt="my img"/>
-          <figcaption class="icon-title">Tour Package</figcaption>
-        </figure>
-      </div>
-      <div class="uk-card item-icon">
-        <figure>
-          <img class="figure-img" src="{{ asset('image/destination/launchpad-icon-flight.png') }}"alt="my img"/>
-          <figcaption class="icon-title">Flight</figcaption>
-        </figure>
-      </div>
-      <div class="uk-card item-icon ">
-        <figure>
-          <img class="figure-img" src="{{ asset('image/destination/cruise-icon.png') }}"alt="my img"/>
-          <figcaption class="icon-title">Cruise</figcaption>
-        </figure>
-      </div>
-    </div>
-    
-
-    /. upper -->
-
-
-    <!-- <div class="block-m hidden-xl center-item pd-xs-0">
-      <div class="uk-card item-icon">
-        <figure>
-          <img class="figure-img" src="{{ asset('image/destination/events-icon.png') }}"alt="my img"/>
-          <figcaption class="icon-title">Mice Events</figcaption>
-        </figure>
-      </div>
-      <div class="uk-card item-icon  ">
-        <figure>
-          <img class="figure-img" src="{{ asset('image/destination/launchpad-icon-tourist-stop.png') }}"alt="my img"/>
-          <figcaption class="icon-title">Tourist Stop</figcaption>
-        </figure>
-      </div>
-      <div class="uk-card item-icon ">
-        <figure>
-          <img class="figure-img" src="{{ asset('image/destination/launchpad-icon-tour-guide.png') }}"alt="my img"/>
-          <figcaption class="icon-title">Tour Guide</figcaption>
-        </figure>
-      </div>
-      <div class="uk-card item-icon ">
-        <figure>
-          <img class="figure-img" src="{{ asset('image/destination/launchpad-icon-translator.png') }}"alt="my img"/>
-          <figcaption class="icon-title">Language Translator</figcaption>
-        </figure>
-      </div>
-    </div>
- -->
-
-   <!-- lower -->
-    <!-- /. mobile -->
-
-    <!-- </div>
-</div>
-</div>
- -->
+ 
 
 
 <!-- 
@@ -229,7 +169,81 @@
                 <span>
                   <i class="fas fa-building"></i> Merchant Name
                 </span><br>
-     
+
+<div class="mem-button">
+
+  <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="">
+    Explore
+  </a>
+
+  <a class="uk-button uk-button-small mb-sm-1" href="javascript:void(0)" uk-toggle="target: #exclusive-{{$list->id}}">
+    <i class="fas fa-share"></i> Share
+  </a>
+  <!-- share modal -->
+  <div id="exclusive-{{$list->id}}" uk-modal class="uk-flex-top">
+      <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical" style="border-radius: 5px;">
+          <h2 class="uk-modal-title"></h2>
+          <div uk-grid class="uk-flex-center mx-auto">
+            <div class="uk-position-relative uk-visible-toggle uk-light social-slider-div" tabindex="-1" uk-slider>
+              <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m">
+                  <li class="pointer social-media-share" onclick="">
+                      <img src="{{ asset('image/socialmedia/cc.png')}}"  alt="fb">
+                  </li>
+                  <!-- embed -->
+                  <li class="pointer social-media-share" onclick="">
+                      <img src="{{ asset('image/socialmedia/em.png')}}"  alt="fb">
+                  </li>
+                  <!-- embed -->
+                  <li class="pointer social-media-share" onclick="">
+                      <img src="{{ asset('image/socialmedia/fb.png')}}"  alt="fb">
+                  </li>
+                  <!-- /. fb -->
+                  <li class="pointer social-media-share" onclick="">
+                      <img src="{{ asset('image/socialmedia/msg.png')}}" alt="">
+                  </li>
+                  <!-- /.messenger -->
+                  <li class="pointer social-media-share" onclick="">
+                      <img src="{{ asset('image/socialmedia/tw.png')}}" alt="">
+                  </li>
+                  <!-- /.tw -->
+                  <li class="pointer social-media-share" >
+                      <img src="{{ asset('image/socialmedia/wazap.png')}}" alt="">
+                  </li>
+                  <li class="pointer social-media-share">
+                      <img src="{{ asset('image/socialmedia/vb.png')}}" alt="">
+                  </li>
+                  <!-- /.viber -->
+                  <li class="pointer social-media-share">
+                      <a  href=""><img src="{{ asset('image/socialmedia/gm.png')}}" alt=""></a>
+                  </li>
+                  <!-- /.gm -->
+                  <li class="pointer social-media-share">
+                      <img src="{{ asset('image/socialmedia/we.png')}}" alt="">
+                      <!-- <div class="uk-position-center uk-panel"><h1>6</h1></div> -->
+                  </li>
+                  <!-- /.we -->
+              </ul>
+            <a class="uk-position-center-left uk-position-small  bg-circle" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small bg-circle" href="#" uk-slidenav-next uk-slider-item="next"></a>
+            </div>
+            <div class="copy-link-div">
+             <p><a class="copy-link" onclick="">copy link</a></p>
+            </div>
+            <!-- /.slider -->
+          </div>
+          <!-- /. main div center -->
+          <!-- <div uk-grid class="uk-flex-center">
+              <div><a onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('provice', $list->id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )"><img src="{{ asset('image/socialmedia/fb.png')}}" height="50" width="50" ></a></div>
+              <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->destination_info }}&url={{ route('provice', $list->id) }}')"><img src="{{ asset('image/socialmedia/tw.png')}}" height="50" width="50" ></a></div>
+              <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->destination_info }}&url={{ route('provice', $list->id) }}')"><img src="{{ asset('image/socialmedia/ig.png')}}" height="50" width="50" ></a></div>
+              <div><a href="mailto:yourfriendsemail@sample.com?subject={{ $list->destination_info }}&body=No. of hotels : 150  visit the link {{ route('provice', $list->id)}}"><img src="{{ asset('image/socialmedia/gm.png')}}" height="50" width="50" ></a></div>
+              <div><a onclick="sendMessenger('{{ route('provice', $list->id) }}')"><img src="{{ asset('image/socialmedia/msg.png')}}" height="50" width="50" ></a></div>
+              <div><a onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->destination_info }}&url={{ route('provice', $list->id) }}')"><img src="{{ asset('image/socialmedia/we.png')}}" height="50" width="50" ></a></div>
+          </div> -->
+      </div>
+  </div>
+  <!-- /. share modal -->
+</div>
 
               </div>
 

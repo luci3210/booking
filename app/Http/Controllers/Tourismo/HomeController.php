@@ -279,9 +279,10 @@ public function page_provice($id) {
 
 public function destination() {
     // $destination = new DestinationModel();
+    // $destination = $destination->join('locations_district', 'destinations.destination_id', 'locations_district.id');
     // $destination = $destination->where('destinations.temp_status',1);
-    // $destination = $destination->join('locations_district', 'destinations.id', '=', 'locations_district.id');
-    // $destination = $destination->get();
+    // $destination = $destination->where('destinations.country_id',1);
+    // $destination = $destination->get(['locations_district.id as province_id', 'destination.*']);
     // return $destination;
     
     return DestinationModel::join('locations_district','locations_district.id','destinations.destination_id')
@@ -291,8 +292,10 @@ public function destination() {
 }
 
 public function tourismo_exlusive() {
-
-    return ExclusiveModel::where('exclusives.temp_status',1)->get('exclusives.*');
+    $exclusive_tourismo = new ExclusiveModel();
+    $exclusive_tourismo = $exclusive_tourismo->where('exclusives.temp_status',1);
+    $exclusive_tourismo = $exclusive_tourismo->get();
+    return  $exclusive_tourismo;
 }
 
 public function desni_international() {
