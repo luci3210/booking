@@ -98,53 +98,19 @@
 
 
 <div class="col-md-12 form-group mt-3">
-  <label class="labelcoz"><span class="uk-text-danger">*</span> Cancelation (Memo) </label>
-  <textarea class="uk-textarea" name="tour_desc" id='tour_desc' rows="3" placeholder="Tour Package Description"rows="5"></textarea>
+  <label class="labelcoz"><span class="uk-text-danger">*</span> Cancelation and Refund Policy </label>
+  <textarea class="uk-textarea" name="can_ref_policy" id='can_ref_policy' rows="3" placeholder="Please indicate your Cancelation and Refund Policy"rows="5"></textarea>
   <div class="validate"></div>
 </div>
 
-<!-- 
-<div class="col-md-4 form-group mt-3">
-  <label class="labelcoz"><span class="uk-text-danger">*</span> Room Size</label>
-  <input type="text" name="roomsize" class="uk-input" id="roomsize" placeholder="Room Size">
-  <div class="validate"></div>
-</div>
 
-<div class="col-md-4 form-group mt-3">
-  <label class="labelcoz"><span class="uk-text-danger">*</span> View Deck </label>
-  <select class="uk-select" name="viewdeck">
-    <option value="1">City View</option>
-    <option value="2">Seaside View</option>
-    <option value="3">Forest View</option>
-  </select>
-  <div class="validate"></div>
-</div>
-
-<div class="col-md-4 form-group mt-3">
-  <label class="labelcoz"><span class="uk-text-danger">*</span> Number of Bed </label>
-  <input type="text" class="uk-input" name="numbed" id="numbed" placeholder="Number of Bed">
-  <div class="validate"></div><br>
-</div> -->
-
-<div class="col-md-12 mt-3">
+<div class="col-md-12 mt-5">
   <ul uk-tab>
     <li class="uk-active"><a href=""><b>Inclusion</b></a></li>
   </ul>
 </div>
 
-<!-- <div class="col-md-12 form-group mt-3">
-  <label class="labelcoz"><span class="uk-text-danger">*</span> Room Facilities </label>
-  <select class="room uk-select" name="room[]" multiple="multiple">
-    <option value="" disabled="true">-Select room facilities-</option>
-    @foreach($room_facilities as $list)
-    <option value="{{ $list->name }}">{{ $list->name }}</option>
-    @endforeach
-  </select>
-  <div class="validate"></div>
-</div>
- -->
-
-<div class="col-md-12 form-group mt-3">
+<div class="col-md-12 form-group mt-1">
   <label class="labelcoz"><span class="uk-text-danger">*</span> Facilities </label>
   <select class="building uk-select" name="building[]" multiple="multiple">
     <option value="" disabled="true">-Select building facilities-</option>
@@ -155,7 +121,7 @@
   <div class="validate"></div>
 </div>
 
-<div class="col-md-12 form-group mt-3">
+<div class="col-md-12 form-group mt-1">
   <label class="labelcoz"><span class="uk-text-danger">*</span> Package </label>
   <select class="package uk-select" name="package[]" multiple="multiple">
     <option value="" disabled="true">-Select packages-</option>
@@ -166,13 +132,13 @@
   <div class="validate"></div>
 </div>
 
-<div class="col-md-12 mt-3">
+<div class="col-md-12 mt-5">
   <ul uk-tab>
-    <li class="uk-active"><a href=""><b>Location</b> </a></li>
+    <li class="uk-active"><a href=""><b>Location and Address</b> </a></li>
   </ul>
 </div>
 
-<div class="col-md-12 form-group mt-3">
+<div class="col-md-12 form-group mt-1">
   <label class="labelcoz"><span class="uk-text-danger">*</span> Address </label>
     <select class="uk-select" name="address">
       <option value="" disabled="true" selected="-Select address-">-Select address-</option>
@@ -184,7 +150,7 @@
 </div>
 
 
-<div class="col-md-4 form-group mt-3">
+<div class="col-md-4 form-group mt-1">
   <label class="labelcoz"><span class="uk-text-danger">*</span> Country </label>
   <select class="uk-select" name="country" id="countryid">
     <option value="" disabled="true" selected="-Select country-">-Select country-</option>
@@ -196,7 +162,7 @@
 </div>
 
 
-<div class="col-md-4 form-group mt-3">
+<div class="col-md-4 form-group mt-1">
   <label class="labelcoz"><span class="uk-text-danger">*</span> Region </label>
   <select class="uk-select" name="region" id="regionid">
     <option value="0" disabled="true" selected="true">-Select Region-</option>
@@ -205,7 +171,7 @@
 </div>
 
 
-<div class="col-md-4 form-group mt-3">
+<div class="col-md-4 form-group mt-1">
   <label class="labelcoz"><span class="uk-text-danger">*</span> District </label>
     <select class="uk-select" name="district" id="districtid">
     <option value="0" disabled="true" selected="true">-Select District-</option>
@@ -214,7 +180,7 @@
 </div>
 
 
-<div class="col-md-4 form-group mt-3">
+<div class="col-md-4 form-group mt-1">
   <label class="labelcoz"><span class="uk-text-danger">*</span> City </label>
   <select class="uk-select" name="city" id="cityid">
     <option value="0" disabled="true" selected="true">-Select City-</option>
@@ -222,7 +188,7 @@
   <div class="validate"></div>
 </div>
 
-<div class="col-md-4 form-group mt-3">
+<div class="col-md-4 form-group mt-1">
   <label class="labelcoz"><span class="uk-text-danger">*</span> Municipality </label>
   <select class="uk-select" name="municipality" id="municipalityid">
     <option value="0" disabled="true" selected="true">-Select Municipality-</option>
@@ -230,7 +196,7 @@
   <div class="validate"></div>
 </div>
 
-<div class="col-md-4 form-group mt-3">
+<div class="col-md-4 form-group mt-1">
   <label class="labelcoz"><span class="uk-text-danger">*</span> Barangay </label>
     <select class="uk-select" name="barangay" id="barangayid">
     <option value="0" disabled="true" selected="true">-Select Barangay-</option>
@@ -248,24 +214,31 @@
   </ul>
 </div>
 
-<!-- <div class="col-md-12 form-group mt-3">
-  <label class="labelcoz"><span class="uk-text-danger">*</span> Address </label>
-    <select class="uk-select" name="address">
-      <option value="" disabled="true" selected="-Select address-">-Select address-</option>
-      @foreach($address as $list)
-      <option value="{{ $list->id }}">{{ $list->address }}</option>
-      @endforeach
-    </select>
+<div class="col-md-4 form-group mt-1">
+<label class="labelcoz"><span class="uk-text-danger">*</span> Price (Php)</label>
+  <input type="text" name="exclusive_price" id="currency-field" value="" data-type="currency" class="uk-input" placeholder="Price" data-rule="minlen:5">
   <div class="validate"></div>
-</div> -->
-
-<!-- <div class="col-md-12 mt-3">
-  <ul uk-tab>
-    <li class="uk-active"><a href=""><b>Aplicable Payment Method</b></a></li>
-  </ul>
 </div>
- -->
 
+
+<div class="col-md-4 form-group mt-1">
+  <label class="labelcoz"><span class="uk-text-danger">*</span> Date Start</label>
+  <input type="text" name="exclusive_date_start" class="uk-input" id="date_start" placeholder="mm/dd/yyyy">
+  <div class="validate"></div>
+</div>
+
+<div class="col-md-4 form-group mt-1">
+  <label class="labelcoz"><span class="uk-text-danger">*</span> Date End</label>
+  <input type="text" name="exclusive_date_end" class="uk-input" id="date_end" placeholder="mm/dd/yyyy">
+  <div class="validate"></div>
+</div>
+
+<div class="col-md-12 form-group mt-3">
+  <label class="labelcoz">
+    <input class="uk-checkbox" name="exclusive" value="1" type="checkbox">&nbsp;&nbsp; Please Confim. 
+  </label>
+</div>
+            
 
 <div class="col-md-12 mt-3">
   <ul uk-tab>

@@ -221,19 +221,31 @@ public function savetour(Request $request) {
 
 
          $rules = [
-            'tour_name' => 'required',
-            'price' => 'required',
-            'numnight' => 'required',
-            'numguest' => 'required',
-            'qty' => 'required',
-            'tour_desc' => 'required',
-            'tour_expect' => 'required',
-            'building' => 'required',
-            'package' => 'required',
+            'tour_name' => 'required|max:350',
+            'price' => 'required|max:12',
+            'numnight' => 'required|max:3',
+            'numguest' => 'required|max:3',
+            'qty' => 'required|max:3',
+            'tour_desc' => 'required|max:500',
+            'tour_expect' => 'required|max:500',
+            'can_ref_policy' => 'required|max:500',
+            'building' => 'required|max:500',
+            'package' => 'required|max:500',
 
-            'country' => 'required',
-            'region' => 'required',
-            'district' => 'required','service_id' => 'required'];
+            'address' => 'required|max:500',
+
+            'country' => 'required|max:3',
+            'region' => 'required|max:3',
+            'district' => 'required|max:3',
+            'city' => 'required|max:3',
+            'barangay' => 'required|max:3',
+
+            'exclusive_price' => 'required|max:12',
+            'exclusive_date_start' => 'required|max:12',
+            'exclusive_date_end' => 'required|max:12',
+            'exclusive' => 'required|max:3',
+
+            'service_id' => 'required|max:12'];
 
 
         $errMessage = ['required' => '* Enter your :attribute'];
@@ -248,14 +260,20 @@ public function savetour(Request $request) {
             'qty' => $request->qty,
             'tour_desc' => $request->tour_desc,
             'tour_expect' => $request->tour_expect,
+            'can_refu_policy' => $request->can_ref_policy,
             'building_facilities' => implode(',', $request->building),
             'booking_package'  => implode(',', $request->package),
+            'address_id'  => $request->address,
             'country'  => $request->country,
             'region'  => $request->region,
             'district'  => $request->district,
             'city'  => $request->city,
             'municipality'  => $request->municipality,
             'barangay'  => $request->barangay,
+            'exclusive_price'  => $request->exclusive_price,
+            'exclusive_date_start'  => $request->exclusive_date_start,
+            'exclusive_date_end'  => $request->exclusive_date_end,
+            'exclusive_confirmed'  => $request->exclusive,
             'temp_status'  => 2,
             'on_home'  => 2,
             'profid' => Auth::user()->id,
