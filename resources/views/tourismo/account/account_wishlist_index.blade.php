@@ -26,6 +26,12 @@
 .custom-container{
   padding: 10px;
 }
+.elips{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 85%;
+}
 @media only screen and (max-width: 650px) {
   .m-b-1{
     margin-bottom: .5em;
@@ -66,7 +72,6 @@
                         <th>Price</th>
                         <th>Hotel Address</th>
                         <th>Booking Details</th>
-                        <th></th>
                         <th>Package</th>
                         <th>Room Facilities</th>
                         <th>Building Facilities</th>
@@ -76,13 +81,13 @@
                 @if($hotelList && count($hotelList) >= 1)
                  @foreach($hotelList as $list)
                   <tr>
-                      <td><a href="{{ route('tourismo_room', $list->wh_page_id) }}">{{ $list->roomname }}</a></td>
-                      <td><b>₱ {{ $list->price }}</b> / For {{ $list->nonight }} Night</span></td>
-                      <td>{{ $list->address }}</td>
-                      <td colspan="2"><p><span><img style="padding-bottom: 3px;" src="{{ asset('upload/merchant/icons/baseline_supervisor_account_black_18dp.png')}}">Max Guests: {{ $list->noguest }}</span></p></td>
-                      <td>{{ $list->booking_package }}</td>
-                      <td>{{ $list->room_facilities }}</td>
-                      <td>{{ $list->building_facilities }}</td>
+                      <td class=""><a href="{{ route('tourismo_room', $list->wh_page_id) }}" ><div class="elips">{{ $list->roomname }}</div></a></td>
+                      <td ><div class="elips"><b>₱ {{ $list->price }}</b> / For {{ $list->nonight }} Night</span></div></td>
+                      <td class=""><div class="elips">{{ $list->address }}</div></td>
+                      <td class="" ><p class="elips"> <span><img style="padding-bottom: 3px;" src="{{ asset('upload/merchant/icons/baseline_supervisor_account_black_18dp.png')}}">Max Guests: {{ $list->noguest }}</span></p></td>
+                      <td class="" ><div class="elips">{{ $list->booking_package }}</div></td>
+                      <td class=""><div class="elips">{{ $list->room_facilities }}</div></td>
+                      <td class=""><div class="elips">{{ $list->building_facilities }}</div></td>
                   </tr>
                   @endforeach
                 @endif
@@ -114,9 +119,9 @@
                 @if($tourList && count($tourList) >= 1)
                  @foreach($tourList as $list)
                   <tr>
-                      <td><a href="{{ route('tourismo_room', $list->wh_page_id) }}">{{ $list->roomname }}</a></td>
+                      <td class="elips"><a href="{{ route('tourismo_room', $list->wh_page_id) }}">{{ $list->roomname }}</a></td>
                       <td><b>₱ {{ $list->price }}</b> / For {{ $list->nonight }} Night</span></td>
-                      <td>{{ $list->address }}</td>
+                      <td class="elips">{{ $list->address }}</td>
                       <td colspan="2"><p><span><img style="padding-bottom: 3px;" src="{{ asset('upload/merchant/icons/baseline_supervisor_account_black_18dp.png')}}">Max Guests: {{ $list->noguest }}</span></p></td>
                       <td>{{ $list->booking_package }}</td>
                       <td>{{ $list->room_facilities }}</td>
