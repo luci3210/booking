@@ -44,13 +44,6 @@
   <div class="container">
     <div class="row">
 
-      <div class="uk-background-tph">
-          <div class="uk-background-primary uk-light uk-padding uk-panel">
-              <p class="uk-h4">Account ID : AB000001</p>
-          </div>
-      </div>
-      <!-- /. header ID holder -->
-
 
       <div class="col-lg-3">
           @include('layouts.tourismo.acnt_menu', ['profilePic' => $data['data']['account'][0]->profpic ])
@@ -58,88 +51,92 @@
       <!-- /. col 3 info side -->
 
       <div class="col-lg-9 col-sm-12">
-      <ul class="uk-tab-bottom" uk-switcher uk-tab>
-          <li class="uk-active"><a href="#hotels">Hotels</a></li>
-           <li><a href="#Tour">Tour Package</a></li>
-      </ul>
-      <div  class="uk-switcher">
-        <li id="hotels" class="">
-          <div class="uk-overflow-auto">
-            <table class="uk-table uk-table-small uk-table-divider">
-                <thead>
-                    <tr>
-                        <th>Hotel Name</th>
-                        <th>Price</th>
-                        <th>Hotel Address</th>
-                        <th>Booking Details</th>
-                        <th>Package</th>
-                        <th>Room Facilities</th>
-                        <th>Building Facilities</th>
-                    </tr>
-                </thead>
-                <tbody>
-                @if($hotelList && count($hotelList) >= 1)
-                 @foreach($hotelList as $list)
-                  <tr>
-                      <td class=""><a href="{{ route('tourismo_room', $list->wh_page_id) }}" ><div class="elips">{{ $list->roomname }}</div></a></td>
-                      <td ><div class="elips"><b>₱ {{ $list->price }}</b> / For {{ $list->nonight }} Night</span></div></td>
-                      <td class=""><div class="elips">{{ $list->address }}</div></td>
-                      <td class="" ><p class="elips"> <span><img style="padding-bottom: 3px;" src="{{ asset('upload/merchant/icons/baseline_supervisor_account_black_18dp.png')}}">Max Guests: {{ $list->noguest }}</span></p></td>
-                      <td class="" ><div class="elips">{{ $list->booking_package }}</div></td>
-                      <td class=""><div class="elips">{{ $list->room_facilities }}</div></td>
-                      <td class=""><div class="elips">{{ $list->building_facilities }}</div></td>
-                  </tr>
-                  @endforeach
-                @endif
-                @if(!$hotelList || count($hotelList) <= 0)
-                  <tr>
-                      <td colspan="8">no data</td>
-                  </tr>
-                @endif
-                </tbody>
-            </table>
+        <div class="info-box p-3">
+            <ul class="uk-tab-bottom" uk-switcher uk-tab>
+              <li class="uk-active"><a href="#hotels">Hotels</a></li>
+              <li><a href="#Tour">Tour Package</a></li>
+          </ul>
+          <div  class="uk-switcher">
+            <li id="hotels" class="">
+              <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-small uk-table-divider">
+                    <thead>
+                        <tr>
+                            <th>Hotel Name</th>
+                            <th>Price</th>
+                            <th>Hotel Address</th>
+                            <th>Booking Details</th>
+                            <th>Package</th>
+                            <th>Room Facilities</th>
+                            <th>Building Facilities</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @if($hotelList && count($hotelList) >= 1)
+                    @foreach($hotelList as $list)
+                      <tr>
+                          <td class=""><a href="{{ route('tourismo_room', $list->wh_page_id) }}" ><div class="elips">{{ $list->roomname }}</div></a></td>
+                          <td ><div class="elips"><b>₱ {{ $list->price }}</b> / For {{ $list->nonight }} Night</span></div></td>
+                          <td class=""><div class="elips">{{ $list->address }}</div></td>
+                          <td class="" ><p class="elips"> <span><img style="padding-bottom: 3px;" src="{{ asset('upload/merchant/icons/baseline_supervisor_account_black_18dp.png')}}">Max Guests: {{ $list->noguest }}</span></p></td>
+                          <td class="" ><div class="elips">{{ $list->booking_package }}</div></td>
+                          <td class=""><div class="elips">{{ $list->room_facilities }}</div></td>
+                          <td class=""><div class="elips">{{ $list->building_facilities }}</div></td>
+                      </tr>
+                      @endforeach
+                    @endif
+                    @if(!$hotelList || count($hotelList) <= 0)
+                      <tr>
+                          <td colspan="8">no data</td>
+                      </tr>
+                    @endif
+                    </tbody>
+                </table>
+              </div>
+            </li>
+            <li id="Tour">
+            <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-small uk-table-divider">
+                    <thead>
+                        <tr>
+                            <th>Hotel Name</th>
+                            <th>Price</th>
+                            <th>Hotel Address</th>
+                            <th>Booking Details</th>
+                            <th></th>
+                            <th>Package</th>
+                            <th>Room Facilities</th>
+                            <th>Building Facilities</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @if($tourList && count($tourList) >= 1)
+                    @foreach($tourList as $list)
+                      <tr>
+                          <td class="elips"><a href="{{ route('tourismo_room', $list->wh_page_id) }}">{{ $list->roomname }}</a></td>
+                          <td><b>₱ {{ $list->price }}</b> / For {{ $list->nonight }} Night</span></td>
+                          <td class="elips">{{ $list->address }}</td>
+                          <td colspan="2"><p><span><img style="padding-bottom: 3px;" src="{{ asset('upload/merchant/icons/baseline_supervisor_account_black_18dp.png')}}">Max Guests: {{ $list->noguest }}</span></p></td>
+                          <td>{{ $list->booking_package }}</td>
+                          <td>{{ $list->room_facilities }}</td>
+                          <td>{{ $list->building_facilities }}</td>
+                      </tr>
+                      @endforeach
+                    @endif
+                    @if(!$tourList || count($tourList) <= 0)
+                      <tr>
+                          <td colspan="8">no data</td>
+                      </tr>
+                    @endif
+                    </tbody>
+                </table>
+              </div>
+            </li>
           </div>
-        </li>
-        <li id="Tour">
-        <div class="uk-overflow-auto">
-            <table class="uk-table uk-table-small uk-table-divider">
-                <thead>
-                    <tr>
-                        <th>Hotel Name</th>
-                        <th>Price</th>
-                        <th>Hotel Address</th>
-                        <th>Booking Details</th>
-                        <th></th>
-                        <th>Package</th>
-                        <th>Room Facilities</th>
-                        <th>Building Facilities</th>
-                    </tr>
-                </thead>
-                <tbody>
-                @if($tourList && count($tourList) >= 1)
-                 @foreach($tourList as $list)
-                  <tr>
-                      <td class="elips"><a href="{{ route('tourismo_room', $list->wh_page_id) }}">{{ $list->roomname }}</a></td>
-                      <td><b>₱ {{ $list->price }}</b> / For {{ $list->nonight }} Night</span></td>
-                      <td class="elips">{{ $list->address }}</td>
-                      <td colspan="2"><p><span><img style="padding-bottom: 3px;" src="{{ asset('upload/merchant/icons/baseline_supervisor_account_black_18dp.png')}}">Max Guests: {{ $list->noguest }}</span></p></td>
-                      <td>{{ $list->booking_package }}</td>
-                      <td>{{ $list->room_facilities }}</td>
-                      <td>{{ $list->building_facilities }}</td>
-                  </tr>
-                  @endforeach
-                @endif
-                @if(!$tourList || count($tourList) <= 0)
-                  <tr>
-                      <td colspan="8">no data</td>
-                  </tr>
-                @endif
-                </tbody>
-            </table>
-          </div>
-        </li>
+        </div>
+        <!-- cardinfo bbox -->
       </div>
-      </div>
+      <!-- /.col -->
     </div>
 <!-- /.row -->
 
