@@ -78,6 +78,10 @@
 }
 /* ratings */
 
+a.page-link {
+    color: black!important;
+}
+
 
 .error-msg{
   position: fixed;
@@ -386,6 +390,12 @@
     <div class="validate"></div>
 </div>
 
+<div class="col-md-6 form-group mt-3">
+    <label class="labelcoz">Country</label>
+    <input type="text" class="uk-input" name="billing_country" id="billing_country" value="{{ $userCountry[0]->country }}" readonly="readonly">
+    <div class="validate"></div>
+</div>
+
 <div class="col-md-12 form-group mt-3">
     <label class="labelcoz">Address</label>
     <input type="text" class="uk-input" name="billing_address_1" id="address" value="{{ Auth::user()->address }}" readonly="readonly">
@@ -481,7 +491,7 @@
         billing_middle_name: 'none',
         billing_company: 'none',
         billing_city: 'none',
-        billing_country: 'none',
+        billing_country: billing_country,
         billing_address_1: address_1,
         billing_state: 'none',
         billing_postcode: 'none',
@@ -697,7 +707,7 @@
         <div class="row">
           @foreach($reviewsData as $data)
           <!-- <li class="li-comment"> -->
-            <article class="uk-comment col-md-6 col-sm-12">
+            <article class="uk-comment col-md-8 col-sm-12">
                 <header class="uk-comment-header">
                     <div class="uk-grid-medium uk-flex-middle" uk-grid>
                         <div class="uk-width-auto avatar-holder">
@@ -736,6 +746,9 @@
           <!-- </li> -->
           @endforeach
         </div>
+        <ul class="pagination pagination-sm m-0 float-left">
+            {{$reviewsData->links() }}
+        </ul>
       <!-- /.ul -->
         @else
         <h3>no reviews</h3>
