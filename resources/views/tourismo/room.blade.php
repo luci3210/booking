@@ -525,7 +525,10 @@ a.page-link {
         billing_phone: phone,
         billing_email: email,
         billing_price: plan_price,
-        billing_plan_name: plan_name
+        billing_plan_name: plan_name,
+        id: '{{$room_details[0]->upload_id}}',
+        url_callback:'{{route('status_payment')}}',
+        myurl:'http://127.0.0.1:8000/payments',
       },
       success:function(data)
       {

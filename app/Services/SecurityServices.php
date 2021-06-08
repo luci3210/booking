@@ -15,5 +15,19 @@ class SecurityServices{
         # code...
     }
 
+    public function getDatetimeNow() {
+	    $tz_object = new \DateTimeZone('Asia/Manila');
+	    $datetime = new \DateTime();
+        $datetime->setTimezone($tz_object);
+	    return $datetime->format('Y\-m\-d\ H:i:s');
+    }
+
+    public function getDateNow() {
+	    $tz_object = new \DateTimeZone('Asia/Manila');
+	    $datetime = new \DateTime();
+        $datetime->setTimezone($tz_object);
+	    return $datetime->format('Y-m-d');
+    }
+
     
 }
