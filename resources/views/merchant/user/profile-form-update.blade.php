@@ -13,7 +13,7 @@
           <h2></h2>
           <ol>
             <li><a href="index.html">Merchant</a></li>
-            <li>About Us</li>
+            <li>About Usddd</li>
           </ol>
         </div>
       </div>

@@ -182,6 +182,7 @@ return [
         App\Providers\CompuserFrontMenu::class,
         App\Providers\MerchantGate::class,
         App\Providers\ProviderSLMenu::class,
+        App\Providers\MerchantSideBar::class
 
 
 

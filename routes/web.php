@@ -46,6 +46,36 @@ Route::get('/tourismoph/hotel/{id}', 'Tourismo\HomeController@hotel_details')->n
 
 Auth::routes();
 
+Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merchant_dashboard/profile'], function() {
+
+        Route::get('/profile','Merchant\ProfileController@index')
+        ->name('profile_index');
+
+        Route::get('/profile_form','Merchant\ProfileController@profile_form')
+        ->name('profile_form');
+
+        Route::post('/profile','Merchant\ProfileController@profile_form_submit')
+        ->name('profile_submit');
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // ---------------------------------address
 Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merchant/profile'], function() {
@@ -62,6 +92,7 @@ Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merc
 });
 
 // ---------------------------------services
+
 Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merchant/service'], function() {
 
    Route::get('/','Merchant\ServiceController@home')
@@ -70,6 +101,8 @@ Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merc
    Route::get('/{id}/addnew', 'Merchant\ServiceController@index')->name('m-service-list');
      
 });
+
+
 
 // reviews
 Route::post('/review/hotel/submit', 'user\ReviewsController@sumbitHotelReview')->name('hotel_review');
