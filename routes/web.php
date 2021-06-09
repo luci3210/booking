@@ -56,6 +56,16 @@ Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merc
         Route::post('/profile','Merchant\ProfileController@profile_form_submit')
         ->name('profile_submit');
 
+        Route::post('/profile','Merchant\ProfileController@profile_form_update')
+        ->name('profile_update');
+
+
+
+        // Route::get('/profile_contact_form','Merchant\ProfileController@profile_contact_form')
+        // ->name('profile_contact');
+
+
+
 });
 
 

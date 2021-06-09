@@ -16,7 +16,7 @@
 </li>
 
 <li class="nav-item">
-    <a href="{{ route('product') }}" class="nav-link">
+    <a href="{{ route('profile_index') }}" class="nav-link">
       <i class="nav-icon fa fa-product-hunt" aria-hidden="true"></i>
           <p>
         Profile

@@ -74,23 +74,65 @@
               <div class="time-label">
                 <span class="bg-green">&nbsp;Verification&nbsp;</span>
               </div>
-              <!-- /.timeline-label -->
-              <!-- timeline item -->
-              <div>
-                <i class="fas fa-times bg-red"></i>
-                <div class="timeline-item">
-                  
-                  <h3 class="timeline-header">Merchant Profile</h3>
 
-                  <div class="timeline-body">
-                    Please update your merchant identity.
-                  </div>
-                  <div class="timeline-footer">
-                    <a class="btn btn-danger btn-sm" href="{{ route('profile_form') }}">Update</a>
-                  </div>
-                </div>
-              </div>
+@if(empty($profile->user_id))
+  <div>
+      <i class="fas fa-times bg-red"></i>
+      <div class="timeline-item">
+        
+        <h3 class="timeline-header">Merchant Profile</h3>
 
+        <div class="timeline-body">
+          Please update your merchant identity.
+        </div>
+        <div class="timeline-footer">
+          <a class="btn btn-danger btn-sm" href="{{ route('profile_form') }}">Update</a>
+        </div>
+      </div>
+  </div>
+
+@else
+
+  <div>
+      <i class="fas fa-check bg-green"></i>
+      <div class="timeline-item">
+        
+        <h3 class="timeline-header">Merchant Profile</h3>
+
+        <div class="timeline-body">
+
+
+<div class="post">
+  <div class="user-block">
+    <img class="img-circle img-bordered-sm" src="https://www.thegoldenscope.com/wp-content/uploads/2015/11/boracay-1b-411x308.jpg" alt="user image">
+    <span class="username">
+      <a href="#">{{ $profile_details->company }}</a>
+    </span>
+    <span class="description">{{ $profile_details->address }}</span>
+  </div>
+
+  <p>
+    <b>About : </b>{{ $profile_details->about }}
+  </p>
+  <p  style="margin-top:-10px;">
+    <b>Email : </b>{{ $profile_details->email }}
+  </p>
+  <p  style="margin-top:-10px;">
+    <b>Tel/Phone No : </b>{{ $profile_details->telno }}
+  </p>
+  <p  style="margin-top:-10px;">
+    <b>Website  : </b>{{ $profile_details->website }}
+  </p>
+</div>
+
+
+        </div>
+        <div class="timeline-footer">
+          <a class="btn btn-danger btn-sm" href="{{ route('profile_form') }}">Edit</a>
+        </div>
+      </div>
+  </div>
+@endif
 
               <div>
                 <i class="fas fa-times bg-red"></i>
