@@ -38,7 +38,6 @@ Route::get('/tour_operators/ph', 'Tourismo\HomeController@page_tour_operator')->
 Route::get('/hotels/rooms/{id}', 'Tourismo\HomeController@room')->name('tourismo_room');
 Route::POST('/wishlist/toggle', 'user\WishListController@toggle_wishlist')->name('toggle_wishlist');
 Route::POST('payment/hotels/xxxx', 'PaymentController@pay_booking')->name('pay2');
-
 Route::get('/tourismoph/hotel/{id}', 'Tourismo\HomeController@hotel_details')->name('tourismo-hotel-details');
 
 

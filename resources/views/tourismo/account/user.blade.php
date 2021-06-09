@@ -13,13 +13,6 @@
 <div class="container">
 <div class="row">
 
-<div class="uk-background-tph">
-    <div class="uk-background-primary uk-light uk-padding uk-panel">
-        <p class="uk-h4">Account ID : AB000001</p>
-    </div>
-</div>
-
-
 <div class="col-lg-3">
     @include('layouts.tourismo.acnt_menu', ['profilePic' => $data['data']['account'][0]->profpic ])
 </div>

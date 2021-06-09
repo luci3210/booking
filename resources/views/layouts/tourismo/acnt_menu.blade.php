@@ -16,7 +16,7 @@
 
 <ul class="uk-list">
   <li class="uk-list-spc">
-    <a class="uk-list-a" href="{{ route('subscribe') }}">
+    <a class="uk-list-a" href="{{ route('accnt_profile') }}">
       <span uk-icon="user"></span><span class="uk-list-a"></span> 
         Profile
     </a>

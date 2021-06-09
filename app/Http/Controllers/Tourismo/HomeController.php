@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Auth;
 use App\user\WishlistHotelsRoom;
 use App\user\PageReviewsModel;
 
+use App\Model\Admin\LocationCountyModel;
+
 
 class HomeController extends Controller
 {
@@ -96,6 +98,7 @@ public function room($id) {
     			->join('merchant_address','merchant_address.id', 'hotels.address_id')
     				->where('hotels.id', $id)->get();
     $wishList = false;
+    $userCountry = [];
     if(Auth::check()){
         $checkList = WishlistHotelsRoom::where('wh_page_id', $id);
         $checkList = $checkList->where('wh_user_id', Auth::user()->id);
@@ -103,6 +106,12 @@ public function room($id) {
         $checkList = $checkList->where('wh_page_name', 'hotel');
         $checkList = $checkList->first();
         $datas = $checkList;
+        
+
+        $userCountry = new LocationCountyModel();
+        $userCountry = $userCountry->where('id',Auth::user()->country);
+        $userCountry = $userCountry->get();
+
         if($checkList != null){
             $wishList = true;
         }
@@ -111,8 +120,8 @@ public function room($id) {
     $reviewsData = $reviewsData->where('page_reviews.pr_temp_status', 1);
     $reviewsData = $reviewsData->where('page_reviews.pr_page_id', $id);
     $reviewsData = $reviewsData->join('users', 'page_reviews.pr_user_id', 'users.id');
-    $reviewsData = $reviewsData->get();
-    $reviewsData = $reviewsData->makeHidden(
+    $reviewsData = $reviewsData->paginate(2);
+    $reviewsData = $reviewsData->setCollection($reviewsData->getCollection()->makeHidden(
         ['id',
         'password', 
         'email',
@@ -125,12 +134,13 @@ public function room($id) {
         'remember_token',
         'email_verified_at',
         'job',
-        ]);
+        ]));
 
 
-
-	return view('tourismo.room', compact(['room_details', 'wishList', 'reviewsData']));
-    // return $room_details;
+	return view('tourismo.room', compact(['room_details', 'wishList', 'reviewsData','userCountry']));
+    $data['user'] = Auth::user();
+    $data['couttry'] = $userCountry;
+    return $data;
 }
 public function toggle_wishlist(Request $req){
     

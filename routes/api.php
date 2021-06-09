@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('user/register', 'mobile\UserAuthController@register')->name('regiser_mobile');
 Route::get('user/login', 'mobile\UserAuthController@login')->name('login_mobile');
+Route::post('payment/status/callback', 'PaymentController@status_callback')->name('status_payment');
 
 Route::get('search','mobile\UserAuthController@index');
 
