@@ -18,7 +18,6 @@ class PaymentController extends Controller
 	}
 
 	public function creds() {
-
 		return PayCredsModel::where('temp_status',1)->first();
 	}
 
@@ -151,7 +150,7 @@ class PaymentController extends Controller
             "billing_remark" => "N/A",
             "payment_method" => "",
             // 'status_notification_url' => 'https://6342a334.ngrok.io/callback',
-            'status_notification_url' => $req->url_callback,
+            'status_notification_url' => 'https://985da64a4975.ngrok.io/booking/public/api/payment/status/callback',
             'success_page_url' => $req->myurl.'-success',
             'failure_page_url' => $req->myurl.'-failed/',
             'cancel_page_url' => $req->myurl.'cancel&',
@@ -209,13 +208,7 @@ class PaymentController extends Controller
         return $data;
     }
 
-    public function status_callback(){
-        $status = new StatusPaymentModel();
-        $status->ps_payment_code = '3123213';
-        $status->ps_payment_status = 'update';
-        $status->save();
-        return 'payment';
-    }
+    
 
 
 }

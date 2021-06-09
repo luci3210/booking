@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 
+// testing email send
+Route::get('/send-email', 'email\MailSendController@mailsend')->name('test_mail');
+
 Route::get('/', 'Tourismo\HomeController@index')->name('myhome');
 
 
