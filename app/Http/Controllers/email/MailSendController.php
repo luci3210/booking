@@ -20,5 +20,7 @@ class MailSendController extends Controller
         ];
         Mail::to('hanscarreon0898@gmail.com')->send( new TestMail($details) );
         return view('emails.thanks');
+
+        
     }
 }
