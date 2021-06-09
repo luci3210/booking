@@ -4,9 +4,17 @@
 @endsection
 
 @section('content')
+
+
 <section class="contact aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
 <div class="container">
 <div class="row">
+
+
+
+
+
+
 
 <div class="col-lg-3">
       @include('layouts.tourismo.menu')

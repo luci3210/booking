@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.merchant-app')
 
 @section('content')
 
@@ -63,89 +63,99 @@
             </div>
           </div>
         </div>
-        
+      
 
 <div class="row">
   <div class="col-12">
 
-
     <div class="card">
     
       <div class="card-header">
-        <h3 class="card-title">Manage Exclusive » <a href="" class="py-0">Update</a></h3>
+        <h3 class="card-title">Merchant Profile</h3>
       </div>
 
-      <!-- <form role="form" id="form_valid"> -->
-<form role="form" method="POST" action="{{ route('exclusive_update_submit') }}" enctype="multipart/form-data">
-@csrf
 
-<div class="card-body">
+<form action="{{ route('profile_submit') }}" method="post" role="form" id="valid-form" class="form-border">
+  @csrf
+
+<div class="card-body"> 
 
 
-        
 <div class="form-group">
-  <label class="col-form-label">
-    Short Description
+  <label>
+  <span class="text-danger">*</span> Merchant Name
     <small class="text-danger has-error">
-      {{ $errors->has('info') ?  $errors->first('info') : '' }}
+      {{ $errors->has('merchant_name') ?  $errors->first('merchant_name') : '' }}
     </small>
   </label>
-<input type="text" name="short_desc" value="" class="form-control"placeholder="Title of the District/Provice">
+<input type="text" name="merchant_name" value="" class="form-control"placeholder="Merchant Name">
 </div>
       
 
 
 <div class="form-group">
-  <label class="col-form-label">
-    Long Description
+  <label>
+    <span class="text-danger">*</span> About
     <small class="text-danger has-error">
-      {{ $errors->has('desc') ?  $errors->first('desc') : '' }}
+      {{ $errors->has('about') ?  $errors->first('about') : '' }}
     </small>
   </label>
-<input type="text" name="long_desc" value="" class="form-control" placeholder="About">
+<textarea class="form-control" name="about" rows="3" placeholder="About"></textarea>
 </div>
-
 
 
 <div class="form-group">
-  <label class="col-form-label">
-    Status
+  <label>
+    <span class="text-danger">*</span> Merchant Main Address
     <small class="text-danger has-error">
-      {{ $errors->has('desc') ?  $errors->first('desc') : '' }}
+      {{ $errors->has('merchant_address') ?  $errors->first('merchant_address') : '' }}
     </small>
   </label>
+<input type="text" name="merchant_address" value="" class="form-control" placeholder="Merchant address">
+</div>
 
-<select class="form-control" name="ts">
-  <option>-Select Status-</option> 
-  @foreach($status as $list)
-  <option value="{{ $list->id }}">{{ $list->id }}</option>            
-  @endforeach 
-</select>
+<div class="row">
+
+<div class="form-group col-6">
+  <label>
+    <span class="text-danger">*</span> Email
+    <small class="text-danger has-error">
+      {{ $errors->has('mail') ?  $errors->first('mail') : '' }}
+    </small>
+  </label>
+<input type="text" name="mail" value="" class="form-control" placeholder="E-mail">
 </div>
 
 
-
-<div class="form-group">
-  <label for="exampleFormControlFile1">
-    Upload Image
-     <small class="text-danger has-error">
-      {{ $errors->has('image') ?  $errors->first('image') : '' }}
+<div class="form-group col-6">
+  <label>
+    Website
+    <small class="text-danger has-error">
+      {{ $errors->has('website') ?  $errors->first('website') : '' }}
     </small>
   </label>
-  <input type="file" name="file" class="form-control-file">
+<input type="text" name="website" value="" class="form-control" placeholder="Website">
 </div>
 
 
+<div class="form-group col-6">
+  <label>
+    <span class="text-danger">*</span>  Telephone No. / Mobile No
+    <small class="text-danger has-error">
+      {{ $errors->has('telno') ?  $errors->first('telno') : '' }}
+    </small>
+  </label>
+<input type="text" name="telno" value="" class="form-control" placeholder="Telephone No. / Mobile No">
+</div>
 
 
-
-
+</div>
 
         
 </div>
 
 <div class="card-footer">
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary">Update</button>
 </div>
 
 </form>
@@ -154,6 +164,8 @@
     </div>
   </div>
 </div>
+
+
 
 </div>
 </section>

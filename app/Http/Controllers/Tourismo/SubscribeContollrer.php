@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Tourismo;
 
 use App\Model\Admin\PlanModel;
+use App\Model\UserJobModel;
 use App\Model\Merchant\MyplanModel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -59,6 +60,8 @@ class SubscribeContollrer extends Controller
                     // 'expired' => $request->end_date,
                     'temp_status' => 1,
                     'terms' => $request->terms]);
+    UserJobModel::create(['user_id' => Auth::user()->id,'job_id' => 2]);
+
 
     return redirect('merchant')->withSuccess('Please update your merchant idintity.');
     }

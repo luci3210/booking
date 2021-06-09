@@ -233,6 +233,15 @@
   <div class="validate"></div>
 </div>
 
+
+<div class="col-md-12 form-group mt-3">
+  <label class="labelcoz">
+    Upload Image
+  </label>
+  <input type="file" name="file" class="form-control-file">
+</div>
+
+
 <div class="col-md-12 form-group mt-3">
   <label class="labelcoz">
     <input class="uk-checkbox" name="exclusive" value="1" type="checkbox">&nbsp;&nbsp; Please Confim. 

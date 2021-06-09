@@ -189,6 +189,7 @@ public function profiles(Request $request)
                       	'user_id'       => Auth::user()->id]);
 
         HotelModel::create(['profid' => Auth::user()->id]);
+        
     return redirect('merchant')->withSuccess('Successfully added!');
 }
 

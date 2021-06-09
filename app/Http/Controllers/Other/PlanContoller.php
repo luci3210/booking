@@ -45,4 +45,10 @@ class PlanContoller extends Controller
 	                ->where('plans.temp_status','=','1')->get(['plans.*','temp_status.status']);
 	}
 
+	public function getPlan() {
+
+        return MyplanModel::join('users','users.id', 'myplans.user_id')
+                ->where('myplans.user_id', Auth::user()->id)->get(['myplans.id as planid'])->first();
+    }
+
 }
