@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Merchant;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Other\PlanContoller;
-use App\Http\Controllers\Merchant\ProfileAddressController;
 
 use App\Model\Merchant\Profile;
 use App\Model\Merchant\HotelModel;
@@ -29,23 +28,29 @@ class ProfileController extends Controller
 		return Profile::where('user_id',Auth::user()->id)->get(['user_id','id'])->first();
 	}
 
-	public function address_check() {
-
-		return MerchantAddress::where('prof_id', $this->profile_check()->id)->get('prof_id')->first();
-	}
-
 	public function profile_details() {
 
 		return Profile::where('user_id',Auth::user()->id)->first();
 	}
+
+    public function address_check() {
+
+        return MerchantAddress::where('prof_id', $this->profile_check()->id)->get('prof_id')->first();
+    }
+
+    public function address_details() {
+
+        return MerchantAddress::where('prof_id', $this->profile_check()->id)->get();
+    }
 
     public function index() {
 
     	$profile = $this->profile_check();
     	$profile_details = $this->profile_details();
     	$profile_address = $this->address_check();
+        $profile_address_details = $this->address_details();
 
-    	return view('merchant_dashboard.profile.index',compact(['profile','profile_details','profile_address']));
+    	return view('merchant_dashboard.profile.index',compact(['profile','profile_details','profile_address','profile_address_details']));
     }
 
     public function profile_form() {
