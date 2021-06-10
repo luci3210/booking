@@ -149,22 +149,88 @@
                 </div>
               </div>
 
+@if(empty($profile_address->prof_id))
+  <div>
+    <i class="fas fa-times bg-red"></i>
+    <div class="timeline-item">
+      
+      <h3 class="timeline-header">Addresses</h3>
 
-              <div>
-                <i class="fas fa-times bg-red"></i>
-                <div class="timeline-item">
-                  
-                  <h3 class="timeline-header">Addresses</h3>
+      <div class="timeline-body">
+        Add at least one(1) address.sss
+      </div>
+      <div class="timeline-footer">
+        <a href="{{ route('profile_address_form') }}" class="btn btn-primary btn-sm">Add</a>
+      </div>
+    </div>
+  </div>
+@else 
+  <div>
+    <i class="fas fa-check bg-green"></i>
+    <div class="timeline-item">
+      
+      <h3 class="timeline-header">Addresses</h3>
 
-                  <div class="timeline-body">
-                    Add at least one(1) address.
-                  </div>
-                  <div class="timeline-footer">
-                    <a class="btn btn-primary btn-sm">Add</a>
-                  </div>
-                </div>
-              </div>
-
+      <div class="timeline-body">
+        <table class="table table-bordered">
+                  <thead>                  
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Task</th>
+                      <th>Progress</th>
+                      <th style="width: 40px">Label</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1.</td>
+                      <td>Update software</td>
+                      <td>
+                        <div class="progress progress-xs">
+                          <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
+                        </div>
+                      </td>
+                      <td><span class="badge bg-danger">55%</span></td>
+                    </tr>
+                    <tr>
+                      <td>2.</td>
+                      <td>Clean database</td>
+                      <td>
+                        <div class="progress progress-xs">
+                          <div class="progress-bar bg-warning" style="width: 70%"></div>
+                        </div>
+                      </td>
+                      <td><span class="badge bg-warning">70%</span></td>
+                    </tr>
+                    <tr>
+                      <td>3.</td>
+                      <td>Cron job running</td>
+                      <td>
+                        <div class="progress progress-xs progress-striped active">
+                          <div class="progress-bar bg-primary" style="width: 30%"></div>
+                        </div>
+                      </td>
+                      <td><span class="badge bg-primary">30%</span></td>
+                    </tr>
+                    <tr>
+                      <td>4.</td>
+                      <td>Fix and squish bugs</td>
+                      <td>
+                        <div class="progress progress-xs progress-striped active">
+                          <div class="progress-bar bg-success" style="width: 90%"></div>
+                        </div>
+                      </td>
+                      <td><span class="badge bg-success">90%</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+      </div>
+      <div class="timeline-footer">
+        <a class="btn btn-primary btn-sm">Add</a>
+      </div>
+    </div>
+  </div>
+@endif
 
               <div>
                 <i class="fas fa-times bg-red"></i>

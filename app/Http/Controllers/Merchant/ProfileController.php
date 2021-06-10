@@ -4,17 +4,18 @@ namespace App\Http\Controllers\Merchant;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Other\PlanContoller;
+use App\Http\Controllers\Merchant\ProfileAddressController;
+
 use App\Model\Merchant\Profile;
 use App\Model\Merchant\HotelModel;
+use App\Model\Merchant\MerchantAddress;
 use Illuminate\Contracts\Support\Renderable;
-
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-	private $myplan; 
+	private $myplan;
 
 	public function __construct(PlanContoller $myplan) {
 
@@ -25,7 +26,12 @@ class ProfileController extends Controller
 
 	public function profile_check() {
 
-		return Profile::where('user_id',Auth::user()->id)->get('user_id')->first();
+		return Profile::where('user_id',Auth::user()->id)->get(['user_id','id'])->first();
+	}
+
+	public function address_check() {
+
+		return MerchantAddress::where('prof_id', $this->profile_check()->id)->get('prof_id')->first();
 	}
 
 	public function profile_details() {
@@ -37,8 +43,9 @@ class ProfileController extends Controller
 
     	$profile = $this->profile_check();
     	$profile_details = $this->profile_details();
+    	$profile_address = $this->address_check();
 
-    	return view('merchant_dashboard.profile.index',compact(['profile','profile_details']));
+    	return view('merchant_dashboard.profile.index',compact(['profile','profile_details','profile_address']));
     }
 
     public function profile_form() {
@@ -72,7 +79,7 @@ class ProfileController extends Controller
                       	'user_id'       => Auth::user()->id]);
 
         HotelModel::create(['profid' => Auth::user()->id]);
-    return redirect('merchant_dashboard/profile/profile')->withSuccess('Successfully updated!');
+   		return redirect('merchant_dashboard/profile/profile')->withSuccess('Successfully updated!');
     // return redirect()->back()->withSuccess('Successfully updated!');
     }
 
