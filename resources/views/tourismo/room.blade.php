@@ -202,7 +202,9 @@ a.page-link {
   <b>
  <span style="font-weight: 500px;color:#ff2f00;"> ₱ </span>
   <span style="font-size:18px; font-weight:200px;color:#ff2f00;">
-    <span id='plan_price_checkout'>{{ $room_details[0]->price }}</span> / For {{ $room_details[0]->nonight }} Night
+    <span id=''>{{ $room_details[0]->price }}</span> / For {{ $room_details[0]->nonight }} Night
+    
+    <input id="plan_price_checkout" value="{{ floatval(str_replace(',', '', $room_details[0]->price)) }}" type="number" hidden>
   </span>
 </b>
 </h3>
@@ -483,37 +485,9 @@ a.page-link {
     var postcode = $('input[name="billing_postcode"]').val();
     var phone = $('input[name="billing_phone"]').val();
     var email = $('input[name="billing_email"]').val();
-    var plan_price = parseInt($('#plan_price_checkout').text());
+    var plan_price = $('#plan_price_checkout').val();
     var plan_name = $('#plan_name_checkout').text();
     var datam = {
-        billing_first_name: fname,
-        billing_last_name: lname,
-        billing_middle_name: 'none',
-        billing_company: 'none',
-        billing_city: 'none',
-        billing_country: billing_country,
-        billing_address_1: address_1,
-        billing_state: 'none',
-        billing_postcode: 'none',
-        billing_phone: phone,
-        billing_email: email,
-        billing_price: plan_price,
-        billing_plan_name: plan_name
-    };
-    console.log(datam);
-
-    var crfToken = $('meta[name="csrf-token"]').attr('content');
-    // console.log(crfToken);
-    $.ajaxSetup({
-      url: '{{ route('pay2') }}',
-      headers: {
-        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-        'Accept': 'application/json',
-        '_token': '{{ Session::token()  }}',
-        'Authorization': '{{ Session::token()  }}',
-      },
-      method:"post",
-      data:{
         billing_first_name: fname,
         billing_last_name: lname,
         billing_company: company,
@@ -526,10 +500,24 @@ a.page-link {
         billing_email: email,
         billing_price: plan_price,
         billing_plan_name: plan_name,
-        id: '{{$room_details[0]->upload_id}}',
-        url_callback:'{{route('status_payment')}}',
-        myurl:'http://127.0.0.1:8000/payments',
+        type:'hotel',
+        uid: '{{$room_details[0]->upload_id}}',
+        // url_callback:'{{route('status_payment')}}',
+        myurl:'http://127.0.0.1:8000/checkout',
+    };
+    console.log(datam);
+    window.localStorage.setItem('bookData',JSON.stringify(datam));
+    var crfToken = $('meta[name="csrf-token"]').attr('content');
+    $.ajaxSetup({
+      url: '{{ route('pay2') }}',
+      headers: {
+        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+        'Accept': 'application/json',
+        '_token': '{{ Session::token()  }}',
+        'Authorization': '{{ Session::token()  }}',
       },
+      method:"post",
+      data:datam,
       success:function(data)
       {
         let paymenyLink = data['dataresp']['form_link']
@@ -541,8 +529,6 @@ a.page-link {
       }
     });
     $.ajax();
-    
-
   }
 </script>
 
@@ -896,84 +882,13 @@ a.page-link {
 </div>
 
 <script>
-  const ratingStars = [...document.getElementsByClassName("rating__star-comment")];
-  let ratingReview = 0;
-
-function executeRating(stars) {
-  const starClassActive = "rating__star-comment fas fa-star count-star";
-  const starClassActive2 = ".count-star";
-  const starClassInactive = "rating__star-comment far fa-star ";
-  const starsLength = stars.length;
-  let i;
-  stars.map((star) => {
-    star.onclick = () => {
-      i = stars.indexOf(star);
-
-      if (star.className===starClassInactive) {
-        for (i; i >= 0; --i) {
-          stars[i].className = starClassActive;
-        }
-      } else {
-        for (i; i < starsLength; ++i) {
-          stars[i].className = starClassInactive;
-        }
-      }
-      ratingReview = $(starClassActive2).length
-      var message = $('#comment-textarea').val();
-      var ratingInput = $('#reviews-rating');
-      ratingInput.val(parseInt(ratingReview))
-      if(ratingReview >= 1 || message.length >= 1){
-        $('.comment-btn').show(500);
-      }else{
-        $('.comment-btn').hide(500);
-      }
-    };
-
-  });
-}
-executeRating(ratingStars);
-
-
-  function submitReview(){
-    if(ratingReview >= 1){
-    $('#btn-review').click();
-
-      return;
-    }
-    $('.error-ratings').show();
-    return
-
-  }
+const ratingStars=[...document.getElementsByClassName("rating__star-comment")];let ratingReview=0;function executeRating(t){const e=t.length;let a;t.map(n=>{n.onclick=(()=>{if(a=t.indexOf(n),"rating__star-comment far fa-star "===n.className)for(;a>=0;--a)t[a].className="rating__star-comment fas fa-star count-star";else for(;a<e;++a)t[a].className="rating__star-comment far fa-star ";ratingReview=$(".count-star").length;var r=$("#comment-textarea").val();$("#reviews-rating").val(parseInt(ratingReview)),ratingReview>=1||r.length>=1?$(".comment-btn").show(500):$(".comment-btn").hide(500)})})}function submitReview(){ratingReview>=1?$("#btn-review").click():$(".error-ratings").show()}executeRating(ratingStars),window.localStorage.removeItem("bookData");
 </script>
-
-
 @endsection
-
 @section('js')
 <script>
 
-
-$(document).ready(function() { 
-  $('.error-ratings').hide();
-
-  $('.comment-btn').hide();
-  $("#comment-textarea").on("focus", function( e ) {
-      $('.comment-btn').show(500);
-  });
-
-  $("#comment-textarea").on("blur", function( e ) {
-      var message = $('#comment-textarea').val();
-      const starClassActive2 = ".count-star";
-      ratingReview = $(starClassActive2).length
-
-
-      if(message.length >= 1 ||  ratingReview >= 1){
-          return;
-      }
-      $('.comment-btn').hide(500);
-  });
-  
-});
+$(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide(),$("#comment-textarea").on("focus",function(t){$(".comment-btn").show(500)}),$("#comment-textarea").on("blur",function(t){var e=$("#comment-textarea").val();ratingReview=$(".count-star").length,e.length>=1||ratingReview>=1||$(".comment-btn").hide(500)})});
 
 </script>
 

@@ -22,7 +22,7 @@ Class UserAuthService extends SecurityServices{
         ]);
 
         if($validator->fails()){
-        $data['token'] = base64_encode(json_encode($userData));
+            $data['token'] = base64_encode(json_encode($userData));
             $data['message'] = $validator->errors();
             return $data;
         }

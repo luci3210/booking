@@ -20,7 +20,6 @@ Route::get('/send-email', 'email\MailSendController@mailsend')->name('test_mail'
 
 Route::get('/', 'Tourismo\HomeController@index')->name('myhome');
 
-
 Route::get('/destination/ph', 'Tourismo\HomeController@page_destination')->name('destination');
 
 
@@ -47,6 +46,9 @@ Route::get('/tourismoph/hotel/{id}', 'Tourismo\HomeController@hotel_details')->n
 //});
 
 Auth::routes();
+// success payment traxion 
+Route::get('checkout', 'user\TraxionApiController@payment_status')->name('checkout_callback');
+
 
 Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merchant_dashboard/profile'], function() {
 
