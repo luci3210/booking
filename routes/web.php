@@ -71,8 +71,15 @@ Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merc
         Route::get('/address_form','Merchant\ProfileAddressController@address_form')
         ->name('profile_address_form');
 
-        Route::post('/address_form','Merchant\ProfileAddressController@address_form_update')
+        Route::post('/address_form','Merchant\ProfileAddressController@address_create')
         ->name('profile_address_form_update');
+
+        Route::get('/address_edit/{id}','Merchant\ProfileAddressController@address_edit')
+        ->name('profile_address_edit');
+
+        Route::post('/address_update/{id}','Merchant\ProfileAddressController@address_update')
+        ->name('profile_address_update');
+
 
 
 
