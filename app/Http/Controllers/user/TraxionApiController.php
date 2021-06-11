@@ -8,7 +8,7 @@ use App\Services\PaymentService;
 
 use App\Mail\TestMail;
 use Illuminate\Support\Facades\Mail;
-
+use PDF;
 class TraxionApiController extends Controller
 {
     //
@@ -29,13 +29,30 @@ class TraxionApiController extends Controller
         $extra = base64_decode($extra);
         $extra = (array)json_decode($extra);
 
-        $details = [
-            'title'=> 'Receipt',
-            'body'=>'test sending'
-        ];
-        Mail::to('hanscarreon0898@gmail.com')->send( new TestMail($details) );
+        // $details = [
+        //     'title'=> 'Receipt',
+        //     'body'=>'helloo thank you'
+        // ];
+
+        // Mail::to($extra['user_email'])->send( new TestMail($details) );
 
         return view('payment_traxion.payment_status_callback',compact(['statusRes']));
 
     }
+
+    public function invoice_copy(Request $req)
+    {
+        $extra = $req->query('extra');
+        $extra = base64_decode($extra);
+        $extra = (array)json_decode($extra);
+
+        $stausPayment = $req->query('status');
+        $stausPayment = base64_decode($stausPayment);
+        $stausPayment = (array)json_decode($stausPayment);
+        $pdf = PDF::loadView('invoice.payment_invoice',compact(['extra', 'stausPayment']));
+        return $pdf->download('invoice.pdf');
+        
+    }
 }
+
+

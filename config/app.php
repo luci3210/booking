@@ -182,7 +182,10 @@ return [
         App\Providers\CompuserFrontMenu::class,
         App\Providers\MerchantGate::class,
         App\Providers\ProviderSLMenu::class,
-        App\Providers\MerchantSideBar::class
+        App\Providers\MerchantSideBar::class,
+
+        // pdf
+        Barryvdh\DomPDF\ServiceProvider::class,
 
 
 
@@ -239,6 +242,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'DataTables'  =>  Yajra\DataTables\Facades\DataTables::class,
         // 'Image' => Intervention\Image\Facades\Image::class
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];
