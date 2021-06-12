@@ -11,19 +11,31 @@ use Illuminate\Support\Facades\Auth;
 
 
 
+use App\Mail\TestMail;
+use Illuminate\Support\Facades\Mail;
+
 
 
 Class PaymentService extends SecurityServices{
 
     public function SavePayment($id,$pagename,$pmStatus,$status)
     {
-        $data['pm_user_id'] = Auth::user()->id;
+        $user = Auth::user();
+        $data['pm_user_id'] = $user->id;
+        // $data['email'] = Auth::user()->email;
+        // $data['user_number'] = Auth::user()->pnumber;
+        // $data['user_fname'] = Auth::user()->fname;
+        // $data['user_lname'] = Auth::user()->lname;
         $data['pm_page_name'] = $this->clean_input($pagename);
         $data['pm_page_id'] = $this->clean_input((int)$id);
         $data['pm_payment_status'] = $this->clean_input($pmStatus);
         $data['pm_created_at'] = $this->getDatetimeNow();
         $data['pm_temp_status'] = $status;
         $data['pm_id'] = PaymentModel::insertGetId($data); // save
+        $data['user_email'] = $user->email;
+        $data['user_number'] = $user->pnumber;
+        $data['user_fname'] = $user->fname;
+        $data['user_lname'] = $user->fname;
         $data = base64_encode(json_encode($data));
         return $data;
     }
@@ -78,6 +90,21 @@ Class PaymentService extends SecurityServices{
             ]);
             $this->updatePayment($extra['pm_id'],$sp[0]['ps_id']);
         }
+
+        $statusPayment['ref_no'] = $req->ref_no;
+        $statusPayment['description'] = $req->description;
+        $statusPayment['payment_status'] = $req->status;
+        $statusPayment['payment_method'] = $req->payment_method;
+        $statusPayment = base64_encode(json_encode($statusPayment));
+        $extraData = base64_encode(json_encode($extra));
+        $details = [
+            'title'=> 'Receipt',
+            'body'=>'thank you for purchasing thru Tourismo',
+            'url'=>'https://80b129c14f55.ngrok.io/booking/public/invoice?',
+            'extra'=>$extraData,
+            'status'=>$statusPayment
+        ];
+        Mail::to($extra['user_email'])->send( new TestMail($details) );
         return 'payment';
     }
 
