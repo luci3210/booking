@@ -128,26 +128,83 @@
 
         </div>
         <div class="timeline-footer">
-          <a class="btn btn-danger btn-sm" href="{{ route('profile_form') }}">Edit</a>
+          <a class="btn btn-danger btn-sm" href="{{ route('profile_form') }}"><i class="fas fa-user-edit"></i> Edit</a>
         </div>
       </div>
   </div>
 @endif
 
-              <div>
-                <i class="fas fa-times bg-red"></i>
-                <div class="timeline-item">
-                  
-                  <h3 class="timeline-header">Contact</h3>
 
-                  <div class="timeline-body">
-                    Add at least one(1) contact person.
-                  </div>
-                  <div class="timeline-footer">
-                    <a class="btn btn-primary btn-sm">Add</a>
-                  </div>
-                </div>
-              </div>
+
+
+@if(empty($profile_contact->prof_id))
+
+  <div>
+    <i class="fas fa-times bg-red"></i>
+    <div class="timeline-item">
+      
+      <h3 class="timeline-header">Contact</h3>
+
+      <div class="timeline-body">
+        Add at least one(1) contact personsss.
+      </div>
+      <div class="timeline-footer">
+        <a class="btn btn-primary btn-sm" href="{{ route('profile_contact_form') }}"><i class="fas fa-plus"></i>  Add</a>
+      </div>
+    </div>
+  </div>
+
+@else
+
+  <div>
+    <i class="fas fa-check bg-green"></i>
+    <div class="timeline-item">
+      
+      <h3 class="timeline-header">Contact</h3>
+
+      <div class="timeline-body">
+          <table class="table table-bordered">
+                  <thead>                  
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Contact No</th>
+                      <th style="width: 40px" class="text-center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach($profile_contact_details as $contacts)
+                    <tr>
+                      <td>{{ $loop->index + 1 }}</td>
+                      <td>{{ $contacts->fname }} {{ $contacts->lname }}</td>
+                      <td>{{ $contacts->email }}</td>
+                      <td>{{ $contacts->phonno }}</td>
+                      <td style="width:130px;" class="text-center">
+                        <div class="btn-group">
+                        <a class="btn btn-primary btn-xs" href="{{ route('profile_contact_edit',$contacts->id) }}"><i class="fas fa-pencil-alt"></i> Edit</a>
+                        
+
+                        <a href="" onclick="if(confirm('Are sure, you want to delete this plan?'))event.preventDefault(); document.getElementById('delete-{{ $contacts->id }}').submit();" class="btn btn-danger btn-xs"><i class="fas fa-trash-alt"></i> Delete</a>
+                  <form id="delete-{{ $contacts->id }}" method="get" action="{{route('profile_contact_delete',$contacts->id )}}" style="display: none;">
+                  @csrf
+                </form>
+                      </div>
+                      </td>
+                    </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+      </div>
+      <div class="timeline-footer">
+        <a class="btn btn-primary btn-sm" href="{{ route('profile_contact_form') }}"><i class="fas fa-plus"></i>  Add</a>
+      </div>
+    </div>
+  </div>
+
+@endif
+
+
 
 @if(empty($profile_address->prof_id))
   <div>
@@ -177,7 +234,6 @@
                     <tr>
                       <th style="width: 10px">#</th>
                       <th>Address</th>
-                      <th>Status</th>
                       <th style="width: 40px" class="text-center">Action</th>
                     </tr>
                   </thead>
@@ -186,12 +242,15 @@
                     <tr>
                       <td>{{ $loop->index + 1 }}</td>
                       <td>{{ $addresses->address }}</td>
-                      <td>
-                      </td>
                       <td style="width:130px;" class="text-center">
                         <div class="btn-group">
                         <a class="btn btn-primary btn-xs" href="{{ route('profile_address_edit',$addresses->id) }}"><i class="fas fa-pencil-alt"></i> Edit</a>
-                        <a class="btn btn-danger btn-xs"><i class="fas fa-trash-alt"></i> Delete</a>
+                        
+
+                        <a href="" onclick="if(confirm('Are sure, you want to delete this plan?'))event.preventDefault(); document.getElementById('delete-{{ $addresses->id }}').submit();" class="btn btn-danger btn-xs"><i class="fas fa-trash-alt"></i> Delete</a>
+                  <form id="delete-{{ $addresses->id }}" method="get" action="{{route('address_delete',$addresses->id )}}" style="display: none;">
+                  @csrf
+                </form>
                       </div>
                       </td>
                     </tr>
@@ -206,29 +265,101 @@
   </div>
 @endif
 
-              <div>
-                <i class="fas fa-times bg-red"></i>
-                <div class="timeline-item">
-                  <span class="time"><i class="fas fa-clock"></i> 2 days ago</span>
-                  <h3 class="timeline-header"><a href="#">Required Id's or Permit</a> Add at least one(1) business permit or goverment Id.</h3>
-                  <div class="timeline-body">
-                    <div class="form-group">
-  <label>
-    Upload Business Permit
-     <small class="text-danger has-error">
-      {{ $errors->has('image') ?  $errors->first('image') : '' }}
-    </small>
-  </label>
-  <input type="file" name="file" class="form-control-file">
+
+
+@if(empty($profile_permit->prof_id))
+<div>
+  <i class="fas fa-times bg-red"></i>
+  <div class="timeline-item">
+    <span class="time"><i class="fas fa-clock"></i> 2 days ago</span>
+    <h3 class="timeline-header"><a href="#">Required Id's or Permit</a> Add at least one(1) business permit or goverment Id.</h3>
+    <div class="timeline-body">
+
+
+      <img src="http://placehold.it/150x100" alt="...">
+      <img src="http://placehold.it/150x100" alt="...">
+      <img src="http://placehold.it/150x100" alt="...">
+      <img src="http://placehold.it/150x100" alt="...">
+      <img src="http://placehold.it/150x100" alt="...">
+
+<br>
+<br>
+
+
+<form action="{{ route('merchant_permit_submit') }}" method="post" role="form" id="valid-form" class="form-border" enctype="multipart/form-data">
+  @csrf
+
+<div class="form-group">
+<label>
+Upload Business Permit
+<small class="text-danger has-error">
+{{ $errors->has('file') ?  $errors->first('file') : '' }}
+</small>
+</label>
+<input type="file" name="file" class="form-control-file">
 </div>
-                    <img src="http://placehold.it/150x100" alt="...">
-                    <img src="http://placehold.it/150x100" alt="...">
-                    <img src="http://placehold.it/150x100" alt="...">
-                    <img src="http://placehold.it/150x100" alt="...">
-                    <img src="http://placehold.it/150x100" alt="...">
+
+
+
                   </div>
-                </div>
-              </div>
+
+
+<div class="timeline-footer">
+<button type="submit" class="btn btn-primary"><i class="fas fa-share"></i> Submit</button>
+</div>
+</form>
+
+
+</div>
+</div>
+
+@else 
+
+
+
+<div>
+  <i class="fas fa-check bg-green"></i>
+  <div class="timeline-item">
+    <span class="time"><i class="fas fa-clock"></i> 2 days ago</span>
+    <h3 class="timeline-header"><a href="#">Required Id's or Permit</a> Add at least one(1) business permit or goverment Id.</h3>
+    <div class="timeline-body">
+
+@foreach($profile_permit_details as $permit)
+
+      <img src="{{ asset('image/permit') }}/{{ $permit->permit }}" style="width: 100px; height: 150px;" alt="...">
+
+@endforeach()
+<br>
+<br>
+
+
+<form action="{{ route('merchant_permit_submit') }}" method="post" role="form" id="valid-form" class="form-border" enctype="multipart/form-data">
+  @csrf
+
+<div class="form-group">
+<label>
+  Upload Business Permit
+  <small class="text-danger has-error">
+  {{ $errors->has('file') ?  $errors->first('file') : '' }}
+  </small>
+</label>
+<input type="file" name="file" class="form-control-file">
+</div>
+
+</div>
+
+<div class="timeline-footer">
+<button type="submit" class="btn btn-primary"><i class="fas fa-share"></i> Submit</button>
+</div>
+</form>
+
+
+</div>
+</div>
+
+
+
+@endif
               <!-- END timeline item -->
               
             </div>

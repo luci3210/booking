@@ -75,7 +75,7 @@
       </div>
 
 
-<form action="{{ route('profile_contact_create') }}" method="post" role="form" id="valid-form" class="form-border">
+<form action="{{ route('profile_contact_update',$contact->id) }}" method="post" role="form" id="valid-form" class="form-border">
   @csrf
 
 <div class="card-body"> 
@@ -89,7 +89,7 @@
       {{ $errors->has('fname') ?  $errors->first('fname') : '' }}
     </small>
   </label>
-<input type="text" name="fname" value="" class="form-control" placeholder="First Name">
+<input type="text" name="fname" value="{{ $contact->fname }}" class="form-control" placeholder="First Name">
 </div>
 
 
@@ -100,7 +100,7 @@
       {{ $errors->has('lname') ?  $errors->first('lname') : '' }}
     </small>
   </label>
-<input type="text" name="lname" value="" class="form-control" placeholder="Last Name">
+<input type="text" name="lname" value="{{ $contact->lname }}" class="form-control" placeholder="Last Name">
 </div>
 
 
@@ -111,7 +111,7 @@
       {{ $errors->has('email') ?  $errors->first('email') : '' }}
     </small>
   </label>
-<input type="text" name="email" value="" class="form-control" placeholder="E-mail Address">
+<input type="text" name="email" value="{{ $contact->email }}" class="form-control" placeholder="E-mail Address">
 </div>
 
 
@@ -122,7 +122,7 @@
       {{ $errors->has('contact') ?  $errors->first('contact') : '' }}
     </small>
   </label>
-<input type="text" name="contact" value="" class="form-control" placeholder="Contact No.">
+<input type="text" name="contact" value="{{ $contact->phonno }}" class="form-control" placeholder="Contact No.">
 </div>
 
 </div>
@@ -131,7 +131,7 @@
 </div>
 
 <div class="card-footer">
-  <button type="submit" class="btn btn-primary"><i class="far fa-save"></i> Save</button>
+  <button type="submit" class="btn btn-primary"><i class="fas fa-user-edit"></i> Update</button>
 </div>
 
 </form>

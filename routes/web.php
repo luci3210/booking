@@ -52,6 +52,7 @@ Route::get('checkout', 'user\TraxionApiController@payment_status')->name('checko
 
 Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merchant_dashboard/profile'], function() {
 
+
         Route::get('/profile','Merchant\ProfileController@index')
         ->name('profile_index');
 
@@ -63,6 +64,26 @@ Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merc
 
         Route::post('/profile','Merchant\ProfileController@profile_form_update')
         ->name('profile_update');
+
+        Route::post('/profile','Merchant\ProfileController@merchant_permit')
+        ->name('merchant_permit_submit');
+
+
+
+        Route::get('/contact_form','Merchant\ProfileContactController@contact_form')
+        ->name('profile_contact_form');
+
+        Route::post('/contact_form','Merchant\ProfileContactController@contact_create')
+        ->name('profile_contact_create');
+
+        Route::get('/contact_edit/{id}','Merchant\ProfileContactController@contact_edit')
+        ->name('profile_contact_edit');
+
+        Route::post('/contact_update/{id}','Merchant\ProfileContactController@contact_update')
+        ->name('profile_contact_update');
+
+        Route::get('/contact_delete/{id}','Merchant\ProfileContactController@contact_delete')
+        ->name('profile_contact_delete');
 
 
 
@@ -77,6 +98,9 @@ Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merc
 
         Route::post('/address_update/{id}','Merchant\ProfileAddressController@address_update')
         ->name('profile_address_update');
+
+        Route::get('/address_delete/{id}','Merchant\ProfileAddressController@address_delete')
+        ->name('address_delete');
 
 
 

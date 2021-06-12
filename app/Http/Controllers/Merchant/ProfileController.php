@@ -8,6 +8,8 @@ use App\Http\Controllers\Other\PlanContoller;
 use App\Model\Merchant\Profile;
 use App\Model\Merchant\HotelModel;
 use App\Model\Merchant\MerchantAddress;
+use App\Model\Merchant\MerchantContact;
+use App\Model\Merchant\MerchantPermit;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,6 +30,17 @@ class ProfileController extends Controller
 		return Profile::where('user_id',Auth::user()->id)->get(['user_id','id'])->first();
 	}
 
+    public function contact_check() {
+
+        return MerchantContact::where('prof_id', $this->profile_check()->id)->get('prof_id')->first();
+    }
+
+    public function contact_details() {
+
+        return MerchantContact::where('prof_id', $this->profile_check()->id)->where('temp_status',1)->get();
+    }
+
+
 	public function profile_details() {
 
 		return Profile::where('user_id',Auth::user()->id)->first();
@@ -40,17 +53,34 @@ class ProfileController extends Controller
 
     public function address_details() {
 
-        return MerchantAddress::where('prof_id', $this->profile_check()->id)->get();
+        return MerchantAddress::where('prof_id', $this->profile_check()->id)->where('temp_status',1)->get();
+    }
+
+    public function permit_check() {
+        
+        return MerchantPermit::where('prof_id', $this->profile_check()->id)->get('prof_id')->first();
+    }
+
+    public function permit_details() {
+        
+        return MerchantPermit::where('prof_id', $this->profile_check()->id)->where('temp_status',1)->get();
     }
 
     public function index() {
 
     	$profile = $this->profile_check();
     	$profile_details = $this->profile_details();
-    	$profile_address = $this->address_check();
+        
+        $profile_contact = $this->contact_check();
+        $profile_contact_details = $this->contact_details();
+    	
+        $profile_address = $this->address_check();
         $profile_address_details = $this->address_details();
 
-    	return view('merchant_dashboard.profile.index',compact(['profile','profile_details','profile_address','profile_address_details']));
+        $profile_permit = $this->permit_check();
+        $profile_permit_details = $this->permit_details();
+
+    	return view('merchant_dashboard.profile.index',compact(['profile','profile_details','profile_address','profile_address_details','profile_contact','profile_contact_details','profile_permit','profile_permit_details']));
     }
 
     public function profile_form() {
@@ -110,4 +140,24 @@ class ProfileController extends Controller
 
 	return redirect('merchant_dashboard/profile/profile')->withSuccess('Successfully updated!');
     }
+
+    public function merchant_permit(Request $request) {
+
+        // $validate = [
+        //     'file'       => 'required|mimes:jpeg,png,jpg',
+        // ];
+
+        $file = $request->file('file');
+        $new_image_name = 'permit'.'_'.$this->profile_check()->id.'_'.date('Ymd').uniqid().'.jpg';
+        $file->move(public_path('image/permit'), $new_image_name);
+
+        // $errMessage = ['required' => '* Enter your :attribute'];
+        // $this->validate($request, $validate, $errMessage);   
+
+        MerchantPermit::create(['permit'=>$new_image_name,'prof_id'=>$this->profile_check()->id,'temp_status'=> 1]);
+        return back()->withSuccess('Successfully added!');
+
+    }
+
+
 }
