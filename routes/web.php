@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -361,7 +362,7 @@ Route::get(
 
 
 Route::get(
-        '/tourismo/merchant/verification_list/{id}', 
+        '/tourismo/merchant/verification/{id}', 
         'Admin\VerificationRequestController@verification_edit_view')
         ->name('merchant_verification_edit_view');
         
@@ -388,4 +389,14 @@ Route::get(
     Route::post('/password/email', 'Auth\AdminForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
     Route::get('/password/reset/{token}', 'Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
     Route::post('/password/reset', 'Auth\AdminResetPasswordController@reset')->name('admin.password.update');
+});
+
+
+
+Route::get('/token', function (Request $request) {
+    $token = $request->session()->token();
+
+    $token = csrf_token();
+
+    // ...
 });
