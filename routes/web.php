@@ -349,7 +349,24 @@ Route::post(
         '/tourismo/banner/addnew', 
         'Admin\BannerController@banner_submit_form')
         ->name('banner_submit_form');  
-   
+
+//------------------------ Verificatio request ----------------
+
+        
+
+Route::get(
+        '/tourismo/merchant/verification_list', 
+        'Admin\VerificationRequestController@index')
+        ->name('merchant_verification');
+
+
+Route::get(
+        '/tourismo/merchant/verification_list/{id}', 
+        'Admin\VerificationRequestController@verification_edit_view')
+        ->name('merchant_verification_edit_view');
+        
+
+
     // Route::get('/tourismo/ph/page/4/inclusion/{id}/www/facilities/edit/{idt}', 'Admin\InclusionController@roomfacilities_edit')->name('facilities_edit');
 
     // Dashboard route

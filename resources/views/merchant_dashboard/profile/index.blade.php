@@ -68,12 +68,16 @@
 
 <div class="row">
   <div class="col-md-12">
-            <!-- The time line -->
-            <div class="timeline">
-              <!-- timeline time label -->
-              <div class="time-label">
-                <span class="bg-green">&nbsp;Verification&nbsp;</span>
-              </div>
+
+    <div class="timeline">
+      
+      <div class="time-label">
+        @if(empty($profile->user_id) || empty($profile_contact->prof_id) || empty($profile_address->prof_id) || empty($profile_permit->prof_id))
+          <span class="bg-red">&nbsp;Please Verify&nbsp;</span>
+        @else
+          <span class="bg-green">&nbsp;For Verification&nbsp;</span>
+        @endif
+      </div>
 
 @if(empty($profile->user_id))
   <div>
