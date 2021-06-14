@@ -503,7 +503,9 @@ a.page-link {
         type:'hotel',
         uid: '{{$room_details[0]->upload_id}}',
         // url_callback:'{{route('status_payment')}}',
-        myurl:'http://127.0.0.1:8000/checkout',
+        // myurl:'http://127.0.0.1:8000/checkout',
+        myurl:'https://booking.tourismo.ph/checkout',
+        
     };
     console.log(datam);
     window.localStorage.setItem('bookData',JSON.stringify(datam));

@@ -151,7 +151,9 @@ class PaymentController extends Controller
             "billing_remark" => "N/A",
             "payment_method" => "",
             // 'status_notification_url' => 'https://6342a334.ngrok.io/callback',
-            'status_notification_url' => 'https://80b129c14f55.ngrok.io/booking/public/api/payment/status/callback?extra='.$extraData,
+                
+            'status_notification_url' => 'https://booking.tourismo.ph/api/payment/status/callback?extra='.$extraData,
+            // 'status_notification_url' => 'https://80b129c14f55.ngrok.io/booking/public/api/payment/status/callback?extra='.$extraData,
             'success_page_url' => $req->myurl.'?extra='.$extraData.'&payment=success&',
             'failure_page_url' => $req->myurl.'?extra='.$extraData.'payment=failed&',
             'cancel_page_url' => $req->myurl.'?extra='.$extraData.'payment=cancel&',
