@@ -23,7 +23,7 @@
   </li>
 
   <li class="uk-list-spc">
-    <a class="uk-list-a" href="{{ route('subscribe') }}">
+    <a class="uk-list-a" href="{{ route('booking_index') }}">
       <span uk-icon="calendar"></span><span class="uk-list-a"></span> 
         Booking
     </a>

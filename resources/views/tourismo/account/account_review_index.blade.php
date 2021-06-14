@@ -1,44 +1,13 @@
-
-
 @extends('layouts.tourismo.ui')
 @section('merchant')
   <link rel="stylesheet" type="text/css" href="{{ asset('public/css/merchant101.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('public/css/profile.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('ijaboCropTool-master/ijaboCropTool.min.css') }}">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 @endsection
 
 @section('content')
-<style>
-.member-info > h4 {
-    font-weight: 700;
-    padding-left: 5px;
-    font-size: 18px;
-    padding-top: 10px;
-    color: #333!important;
-}
-.wishlist-box{
-  padding: 0 0 0 0!important;
-}
-.action-btn {
-  padding: 5px;
-}
 
-.custom-container{
-  padding: 10px;
-}
-.elips{
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 85%;
-}
-@media only screen and (max-width: 650px) {
-  .m-b-1{
-    margin-bottom: .5em;
-  }
-    
-}
-</style>
 
 <section class="contact aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
   <div class="container">

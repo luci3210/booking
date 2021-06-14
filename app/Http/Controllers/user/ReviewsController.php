@@ -53,6 +53,10 @@ class ReviewsController extends Controller
         return $hotelList;
         
     }
+    protected function getAllMyBooking()
+    {
+        # code...
+    }
 
     public function accnt_country() {
         return LocationCountyModel::where('temp_status',1)->get();
