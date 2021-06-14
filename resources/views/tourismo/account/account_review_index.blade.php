@@ -1,49 +1,17 @@
-
-
 @extends('layouts.tourismo.ui')
 @section('merchant')
   <link rel="stylesheet" type="text/css" href="{{ asset('public/css/merchant101.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('public/css/profile.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('ijaboCropTool-master/ijaboCropTool.min.css') }}">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 @endsection
 
 @section('content')
-<style>
-.member-info > h4 {
-    font-weight: 700;
-    padding-left: 5px;
-    font-size: 18px;
-    padding-top: 10px;
-    color: #333!important;
-}
-.wishlist-box{
-  padding: 0 0 0 0!important;
-}
-.action-btn {
-  padding: 5px;
-}
 
-.custom-container{
-  padding: 10px;
-}
-.elips{
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 85%;
-}
-@media only screen and (max-width: 650px) {
-  .m-b-1{
-    margin-bottom: .5em;
-  }
-    
-}
-</style>
 
 <section class="contact aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
   <div class="container">
     <div class="row">
-
 
       <div class="col-lg-3">
           @include('layouts.tourismo.acnt_menu', ['profilePic' => $data['data']['account'][0]->profpic ])
@@ -52,6 +20,8 @@
 
       <div class="col-lg-9 col-sm-12">
         <div class="info-box p-3">
+            <h3>REVIEWS</h3>
+
             <ul class="uk-tab-bottom" uk-switcher uk-tab>
               <li class="uk-active"><a href="#hotels">Hotels</a></li>
               <li><a href="#Tour">Tour Package</a></li>
@@ -63,6 +33,8 @@
                     <thead>
                         <tr>
                             <th>Hotel Name</th>
+                            <th>Comment</th>
+                            <th>Ratings</th>
                             <th>Price</th>
                             <th>Hotel Address</th>
                             <th>Booking Details</th>
@@ -75,7 +47,9 @@
                     @if($hotelList && count($hotelList) >= 1)
                     @foreach($hotelList as $list)
                       <tr>
-                          <td class=""><a href="{{ route('tourismo_room', $list->wh_page_id) }}" ><div class="elips">{{ $list->roomname }}</div></a></td>
+                          <td class=""><a href="{{ route('tourismo_room', $list->pr_page_id) }}" ><div class="elips">{{ $list->roomname }}</div></a></td>
+                          <td ><div class="elips"><p>{{$list->pr_review}}</p></div></td>
+                          <td ><div class="elips"><p>{{$list->pr_ratings}} Star</p></div></td>
                           <td ><div class="elips"><b>₱ {{ $list->price }}</b> / For {{ $list->nonight }} Night</span></div></td>
                           <td class=""><div class="elips">{{ $list->address }}</div></td>
                           <td class="" ><p class="elips"> <span><img style="padding-bottom: 3px;" src="{{ asset('upload/merchant/icons/baseline_supervisor_account_black_18dp.png')}}">Max Guests: {{ $list->noguest }}</span></p></td>

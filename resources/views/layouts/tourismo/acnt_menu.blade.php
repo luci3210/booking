@@ -23,14 +23,14 @@
   </li>
 
   <li class="uk-list-spc">
-    <a class="uk-list-a" href="{{ route('subscribe') }}">
+    <a class="uk-list-a" href="{{ route('booking_index') }}">
       <span uk-icon="calendar"></span><span class="uk-list-a"></span> 
         Booking
     </a>
   </li>
 
   <li class="uk-list-spc">
-    <a class="uk-list-a" href="{{ route('subscribe') }}">
+    <a class="uk-list-a" href="{{ route('reviews_index') }}">
       <span uk-icon="commenting"></span><span class="uk-list-a"></span> 
         Reviews
     </a>
@@ -44,7 +44,7 @@
   </li>
 
   <li class="uk-list-spc">
-    <a class="uk-list-a" href="{{ route('subscribe') }}">
+    <a class="uk-list-a" href="{{ route('show_resend_email') }}">
       <span uk-icon="check"></span><span class="uk-list-a"></span> 
         Verification
     </a>

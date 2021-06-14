@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,12 +17,18 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 
+// email verfication
+Auth::routes(['verify'=>true]);
+Route::get('/resend-email', 'user\EmailVerificationController@showResendForm')->name('show_resend_email');
+Route::post('/resend-email/verify', 'user\EmailVerificationController@resendEmailVerification')->name('resend_email');
+
 // testing email send
 Route::get('/send-email', 'email\MailSendController@mailsend')->name('test_mail');
 
 Route::get('/', 'Tourismo\HomeController@index')->name('myhome');
 
 Route::get('/destination/ph', 'Tourismo\HomeController@page_destination')->name('destination');
+
 
 
 //---------- exclusive --------------------
@@ -248,8 +255,11 @@ Route::prefix('tourismoph.payment')->group(function () {
 // --------------------------------------- ACCOUNT -------------------------------------
 
 
-Route::prefix('account')->group(function () {
-    Route::get('/wishlist/index', 'user\WishListController@index')->name('wishlist_index');
+Route::prefix('account')->middleware('auth')->group(function () {
+    Route::get('/wishlist/index', 'user\WishListController@index')->name('wishlist_index'); // wishlist
+    Route::get('/reviews/index', 'user\ReviewsController@index')->name('reviews_index');
+    Route::get('/booking/index', 'user\UserBookingController@index')->name('booking_index');
+
     Route::get('/profile', 'Tourismo\AccountController@profile')->name('accnt_profile');
     Route::post('/upload/new/photo', 'Tourismo\AccountController@change_profile_pic')->name('user_profile_upload');
     Route::patch('/profile/update/{id}', 'Tourismo\AccountController@accnt_profile_update')->name('accnt_profile_update');
