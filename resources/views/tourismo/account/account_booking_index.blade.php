@@ -20,7 +20,7 @@
 
       <div class="col-lg-9 col-sm-12">
         <div class="info-box p-3">
-            <h3>REVIEWS</h3>
+            <h3>BOOKING</h3>
 
             <ul class="uk-tab-bottom" uk-switcher uk-tab>
               <li class="uk-active"><a href="#hotels">Hotels</a></li>
