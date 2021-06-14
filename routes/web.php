@@ -360,11 +360,17 @@ Route::get(
         'Admin\VerificationRequestController@index')
         ->name('merchant_verification');
 
-
 Route::get(
         '/tourismo/merchant/verification/{id}', 
         'Admin\VerificationRequestController@verification_edit_view')
         ->name('merchant_verification_edit_view');
+
+
+Route::post(
+        '/tourismo/merchant/verification/{id}', 
+        'Admin\VerificationRequestController@verification_update')
+        ->name('verification_update');
+
         
 
 

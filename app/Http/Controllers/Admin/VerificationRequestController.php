@@ -11,6 +11,9 @@ use App\Model\Merchant\MerchantPermit;
 use App\Model\MerchantVerifyModel;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+
+use App\Http\Requests\AdminUpdateVerify;
+
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -23,12 +26,17 @@ class VerificationRequestController extends Controller
 
     public function profile_check() {
 
-        return Profile::where('user_id',Auth::user()->id)->get(['user_id','id'])->first();
+        return Profile::where('user_id',Auth::user()->id)->get(['   ','id'])->first();
     }
 
     public function profile() {
 
         return Profile::join('myplans','myplans.id','=','profiles.plan_id')->get(['profiles.id as planid','profiles.company','profiles.created_at','myplans.plan_name','myplans.validity']);
+    }
+
+    public function verify_check() {
+
+        return MerchantVerifyModel::where('prof_id',$this->profile_check()->id)->get();
     }
 
 
@@ -42,7 +50,8 @@ class VerificationRequestController extends Controller
     {
         $profile_check = $this->profile_check();
         $profile = $this->profile();
-        return view('admin.verification_request.index',compact(['profile','profile_check']));
+        $verify_check = $this->verify_check();
+        return view('admin.verification_request.index',compact(['profile','profile_check','verify_check']));
     }
 
     public function verification_edit_view($id) {
@@ -53,5 +62,12 @@ class VerificationRequestController extends Controller
         $permit_pic = MerchantPermit::where('prof_id', $id)->get();
 
         return view('admin.verification_request.verification_form_edit',compact(['profile_details','contact_details','address_details','permit_pic']));        
+    }
+
+    public function verification_update(AdminUpdateVerify $request, $id) {
+
+        MerchantVerifyModel::create(['prof_id' =>$id, 'verify_id' => $request->status, 'description'=>$request->message]);
+        Profile::where('id',$id)->update(['id1' =>$request->status]);
+        return redirect()->back()->withSuccess('Successfully Updated!');
     }
 }

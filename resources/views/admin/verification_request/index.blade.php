@@ -101,10 +101,10 @@
               <td>{{ $list->created_at }}</td>
               <td>{{ $list->plan_name }} - {{ $list->validity }}</td>
               <td class="text-center">
-                @if(empty($profile_check->prof_id))
-                  <span class="text-danger"> For Verification</span>
+                @if($list->plan_name != '1')
+                  <span class="text-danger"> Approved</span>
                 @else
-                      {{ $list->description }}
+ll
                 @endif
               </td>
               <td class="text-center">

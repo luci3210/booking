@@ -32,7 +32,7 @@ class ProfileController extends Controller
 
     public function contact_check() {
 
-        return MerchantContact::where('prof_id', $this->profile_check()->id)->get('prof_id')->first();
+        return MerchantContact::where('prof_id', $this->profile_check()->id)->get(['id','prof_id'])->first();
     }
 
     public function contact_details() {
