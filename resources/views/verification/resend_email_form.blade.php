@@ -12,7 +12,7 @@
 
     @if(session('success'))
     <div class="alert alert-success alert-dismissible fade show m-2" role="alert">
-        <p class="m-0"> <strong>{{session('success')}}!</strong> Please check your email for receipt</p>
+        <p class="m-0"> <strong>{{session('success')}}!</strong> Please check your email for verification</p>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     @endif
