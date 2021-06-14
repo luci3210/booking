@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,12 +17,18 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 
+// email verfication
+Auth::routes(['verify'=>true]);
+Route::get('/resend-email', 'user\EmailVerificationController@showResendForm')->name('show_resend_email');
+Route::post('/resend-email/verify', 'user\EmailVerificationController@resendEmailVerification')->name('resend_email');
+
 // testing email send
 Route::get('/send-email', 'email\MailSendController@mailsend')->name('test_mail');
 
 Route::get('/', 'Tourismo\HomeController@index')->name('myhome');
 
 Route::get('/destination/ph', 'Tourismo\HomeController@page_destination')->name('destination');
+
 
 
 //---------- exclusive --------------------

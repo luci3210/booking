@@ -44,7 +44,7 @@
   </li>
 
   <li class="uk-list-spc">
-    <a class="uk-list-a" href="{{ route('subscribe') }}">
+    <a class="uk-list-a" href="{{ route('show_resend_email') }}">
       <span uk-icon="check"></span><span class="uk-list-a"></span> 
         Verification
     </a>
