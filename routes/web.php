@@ -255,8 +255,10 @@ Route::prefix('tourismoph.payment')->group(function () {
 // --------------------------------------- ACCOUNT -------------------------------------
 
 
-Route::prefix('account')->group(function () {
-    Route::get('/wishlist/index', 'user\WishListController@index')->name('wishlist_index');
+Route::prefix('account')->middleware('auth')->group(function () {
+    Route::get('/wishlist/index', 'user\WishListController@index')->name('wishlist_index'); // wishlist
+    Route::get('/reviews/index', 'user\ReviewsController@index')->name('reviews_index');
+
     Route::get('/profile', 'Tourismo\AccountController@profile')->name('accnt_profile');
     Route::post('/upload/new/photo', 'Tourismo\AccountController@change_profile_pic')->name('user_profile_upload');
     Route::patch('/profile/update/{id}', 'Tourismo\AccountController@accnt_profile_update')->name('accnt_profile_update');

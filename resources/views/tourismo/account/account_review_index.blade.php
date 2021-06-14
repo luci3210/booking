@@ -44,7 +44,6 @@
   <div class="container">
     <div class="row">
 
-
       <div class="col-lg-3">
           @include('layouts.tourismo.acnt_menu', ['profilePic' => $data['data']['account'][0]->profpic ])
       </div>
@@ -52,6 +51,8 @@
 
       <div class="col-lg-9 col-sm-12">
         <div class="info-box p-3">
+            <h3>REVIEWS</h3>
+
             <ul class="uk-tab-bottom" uk-switcher uk-tab>
               <li class="uk-active"><a href="#hotels">Hotels</a></li>
               <li><a href="#Tour">Tour Package</a></li>
@@ -63,6 +64,8 @@
                     <thead>
                         <tr>
                             <th>Hotel Name</th>
+                            <th>Comment</th>
+                            <th>Ratings</th>
                             <th>Price</th>
                             <th>Hotel Address</th>
                             <th>Booking Details</th>
@@ -75,7 +78,9 @@
                     @if($hotelList && count($hotelList) >= 1)
                     @foreach($hotelList as $list)
                       <tr>
-                          <td class=""><a href="{{ route('tourismo_room', $list->wh_page_id) }}" ><div class="elips">{{ $list->roomname }}</div></a></td>
+                          <td class=""><a href="{{ route('tourismo_room', $list->pr_page_id) }}" ><div class="elips">{{ $list->roomname }}</div></a></td>
+                          <td ><div class="elips"><p>{{$list->pr_review}}</p></div></td>
+                          <td ><div class="elips"><p>{{$list->pr_ratings}} Star</p></div></td>
                           <td ><div class="elips"><b>₱ {{ $list->price }}</b> / For {{ $list->nonight }} Night</span></div></td>
                           <td class=""><div class="elips">{{ $list->address }}</div></td>
                           <td class="" ><p class="elips"> <span><img style="padding-bottom: 3px;" src="{{ asset('upload/merchant/icons/baseline_supervisor_account_black_18dp.png')}}">Max Guests: {{ $list->noguest }}</span></p></td>
