@@ -56,6 +56,14 @@ class ProfileAddressController extends Controller
     public function address_update(MerchantUpdateAddress $request, $id) {
 
         MerchantAddress::where('id',$id)->where('prof_id',$this->profile->profile_check()->id)->update(['address' => $request->address]);
-        return redirect()->back()->withSuccess('Successfully Added!');
+        return redirect('merchant_dashboard/profile/profile')->withSuccess('Successfully Updated!');
+    }
+
+    public function address_delete($id) {
+
+        $address_delete = MerchantAddress::where('id',$id)->where('prof_id',$this->profile->profile_check()->id)->firstOrFail();
+        $address_delete->update(['temp_status'=> 4]);
+
+        return redirect()->back()->withSuccess('Successfully deleted!');
     }
 }

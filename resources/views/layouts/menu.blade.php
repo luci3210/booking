@@ -135,6 +135,16 @@
 </li>
 
 
+<li class="nav-item">
+  <a href="{{ route('merchant_verification') }}" class="nav-link">
+    <i class="nav-icon fas fa-user-check"  aria-hidden="true"></i>
+      <p>
+        Verification Request  
+      </p>
+  </a>
+</li>
+
+
 
 
 <li class="nav-item">

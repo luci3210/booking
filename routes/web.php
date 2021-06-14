@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -54,6 +55,7 @@ Route::get('checkout', 'user\TraxionApiController@payment_status')->name('checko
 
 Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merchant_dashboard/profile'], function() {
 
+
         Route::get('/profile','Merchant\ProfileController@index')
         ->name('profile_index');
 
@@ -65,6 +67,26 @@ Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merc
 
         Route::post('/profile','Merchant\ProfileController@profile_form_update')
         ->name('profile_update');
+
+        Route::post('/profile','Merchant\ProfileController@merchant_permit')
+        ->name('merchant_permit_submit');
+
+
+
+        Route::get('/contact_form','Merchant\ProfileContactController@contact_form')
+        ->name('profile_contact_form');
+
+        Route::post('/contact_form','Merchant\ProfileContactController@contact_create')
+        ->name('profile_contact_create');
+
+        Route::get('/contact_edit/{id}','Merchant\ProfileContactController@contact_edit')
+        ->name('profile_contact_edit');
+
+        Route::post('/contact_update/{id}','Merchant\ProfileContactController@contact_update')
+        ->name('profile_contact_update');
+
+        Route::get('/contact_delete/{id}','Merchant\ProfileContactController@contact_delete')
+        ->name('profile_contact_delete');
 
 
 
@@ -79,6 +101,9 @@ Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merc
 
         Route::post('/address_update/{id}','Merchant\ProfileAddressController@address_update')
         ->name('profile_address_update');
+
+        Route::get('/address_delete/{id}','Merchant\ProfileAddressController@address_delete')
+        ->name('address_delete');
 
 
 
@@ -325,7 +350,24 @@ Route::post(
         '/tourismo/banner/addnew', 
         'Admin\BannerController@banner_submit_form')
         ->name('banner_submit_form');  
-   
+
+//------------------------ Verificatio request ----------------
+
+        
+
+Route::get(
+        '/tourismo/merchant/verification_list', 
+        'Admin\VerificationRequestController@index')
+        ->name('merchant_verification');
+
+
+Route::get(
+        '/tourismo/merchant/verification/{id}', 
+        'Admin\VerificationRequestController@verification_edit_view')
+        ->name('merchant_verification_edit_view');
+        
+
+
     // Route::get('/tourismo/ph/page/4/inclusion/{id}/www/facilities/edit/{idt}', 'Admin\InclusionController@roomfacilities_edit')->name('facilities_edit');
 
     // Dashboard route
@@ -347,4 +389,14 @@ Route::post(
     Route::post('/password/email', 'Auth\AdminForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
     Route::get('/password/reset/{token}', 'Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
     Route::post('/password/reset', 'Auth\AdminResetPasswordController@reset')->name('admin.password.update');
+});
+
+
+
+Route::get('/token', function (Request $request) {
+    $token = $request->session()->token();
+
+    $token = csrf_token();
+
+    // ...
 });
