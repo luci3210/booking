@@ -62,7 +62,6 @@ Route::get('checkout', 'user\TraxionApiController@payment_status')->name('checko
 
 Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merchant_dashboard/profile'], function() {
 
-
         Route::get('/profile','Merchant\ProfileController@index')
         ->name('profile_index');
 
@@ -112,11 +111,17 @@ Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merc
         Route::get('/address_delete/{id}','Merchant\ProfileAddressController@address_delete')
         ->name('address_delete');
 
-
-
-
 });
 
+
+Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merchant_dashboard/service_listing'], function() {
+
+        Route::get('/{destination}/','Merchant\ServiceListingController@index')
+        ->name('service_listing');
+
+        Route::get('/{destination}/create_post','Merchant\ServiceListingController@service_create_post')
+        ->name('service_listing_create_post');
+});
 
 
 

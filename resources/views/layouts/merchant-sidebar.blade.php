@@ -17,7 +17,7 @@
 
 <li class="nav-item">
     <a href="{{ route('profile_index') }}" class="nav-link">
-      <i class="nav-icon fa fa-product-hunt" aria-hidden="true"></i>
+      <i class="nav-icon far fa-address-card aria-hidden="true""></i>
           <p>
         Profile
       </p>
@@ -27,9 +27,9 @@
 
 <li class="nav-item has-treeview">
     <a href="#" class="nav-link">
-      <i class="nav-icon fa fa-get-pocket" aria-hidden="true"></i>
+      <i class="nav-icon fas fa-box-open" aria-hidden="true"></i>
       <p>
-        Services
+        Services listing
         <i class="fas fa-angle-left right"></i>
       </p>
     </a>
@@ -38,7 +38,7 @@
   @foreach($service_list as $service)
 
   <li class="nav-item">
-    <a href="{{ $service->name }}" class="nav-link">
+    <a href="{{ route('service_listing',$service->description) }}" class="nav-link">
       <i class="far fa fa-circle-o nav-icon" aria-hidden="true"></i>
       <p>{{ $service->name }}</p>
     </a>

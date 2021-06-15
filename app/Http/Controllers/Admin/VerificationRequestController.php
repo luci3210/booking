@@ -26,32 +26,51 @@ class VerificationRequestController extends Controller
 
     public function profile_check() {
 
-        return Profile::where('user_id',Auth::user()->id)->get(['   ','id'])->first();
+        return Profile::where('user_id',Auth::user()->id)->get(['id'])->first();
     }
+
+     public function contact_check() {
+
+        return MerchantContact::where('prof_id', $this->profile_check()->id)->get(['id','prof_id'])->first();
+    }
+
+    public function address_check() {
+
+        return MerchantAddress::where('prof_id', $this->profile_check()->id)->get('prof_id')->first();
+    }
+
+      public function permit_check() {
+        
+        return MerchantPermit::where('prof_id', $this->profile_check()->id)->get('prof_id')->first();
+    }
+
+
 
     public function profile() {
 
-        return Profile::join('myplans','myplans.id','=','profiles.plan_id')->get(['profiles.id as planid','profiles.company','profiles.created_at','myplans.plan_name','myplans.validity']);
+        return Profile::join('myplans','myplans.id','profiles.plan_id')->get(['profiles.id as planid','profiles.company','profiles.created_at','myplans.plan_name','myplans.id','profiles.id','profiles.user_id','profiles.id1']);
     }
 
     public function verify_check() {
 
-        return MerchantVerifyModel::where('prof_id',$this->profile_check()->id)->get();
+        return MerchantVerifyModel::where('prof_id',$this->profile_check()->id)->get()->first();
     }
 
 
     public function profile_details() {
 
-        return Profile::where('id',Auth::user()->id)->first();
+        return Profile::where('id',Auth::user()->id)->get()->first();
     }
-    
 
     public function index()
     {
-        $profile_check = $this->profile_check();
+
+        $contact_check = $this->contact_check();
+        $address_check = $this->address_check();
+        $permit_check = $this->permit_check();
         $profile = $this->profile();
-        $verify_check = $this->verify_check();
-        return view('admin.verification_request.index',compact(['profile','profile_check','verify_check']));
+
+        return view('admin.verification_request.index',compact(['profile','contact_check','address_check','permit_check']));
     }
 
     public function verification_edit_view($id) {

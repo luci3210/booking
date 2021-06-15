@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.merchant-app')
 
 @section('content')
 
@@ -76,58 +76,89 @@
     <div class="card">
       
       <div class="card-header">
-        <h3 class="card-title"><i class="fas fa-user-check"></i> Merchant Verification Request</h3>
+        <h3 class="card-title">
+          <i class="fas fa-box-open"></i> Service » {{ $service_name->name }} » 
+            <a href="{{ route('service_listing_create_post',$service_name->description) }}" class="py-0">Create Post</a>
+        </h3>
       </div>
 
     <div class="card-body">
-        <table class="table table-bordered">
         
-        <thead>                  
-            <tr>
-              <th style="width: 10px">#</th>
-              <th>Merchant</th>
-              <th>Verify Date</th>
-              <th>Plan Type</th>
-              <th class="text-center">Status</th>
-              <th class="text-center">Action</th>
-            </tr>
-        </thead>
-        
-        <tbody>
-            @foreach($profile as $list)
-            <tr>
-              <td>1.</td>
-              <td>{{ $list->company }}</td>
-              <td>{{ $list->created_at }}</td>
-              <td>{{ $list->plan_name }} - {{ $list->validity }}</td>
-              <td class="text-center">
-                
-                @if(empty($list->user_id) || empty($contact_check->prof_id) || empty($address_check->prof_id) || empty($permit_check->prof_id))
-                  <span class="bg-red">&nbsp;Basic Level : Please complete required below.&nbsp;</span>
-                @elseif(empty($list->id1))
-                  <span class="bg-green">&nbsp;For Verification&nbsp;</span>
-                @else
-                s
-                @endif
+        <div class="form-group">
+          <label>Tour Package</label>
+          <input type="text" class="form-control" placeholder="Enter email">
+        </div>
 
-              </td>
-              <td class="text-center">
-                <a class="btn btn-primary btn-xs" href="{{ route('merchant_verification_edit_view',$list->planid)}}"><i class="fas fa-eye"></i> View</a> 
-              </td>
-            </tr>
-            @endforeach
-        </tbody>
+<div class="row">
+
+  <div class="form-group col-3">
+    <label>
+      <span class="text-danger">*</span> First Name
+      <small class="text-danger has-error">
         
-        </table>
+      </small>
+    </label>
+  <input type="text" name="fname" value="" class="form-control" placeholder="First Name">
+  </div>
+
+
+<div class="form-group col-3">
+  <label>
+    Last Name
+    <small class="text-danger has-error">
+      
+    </small>
+  </label>
+<input type="text" name="lname" value="" class="form-control" placeholder="Last Name">
+</div>
+
+
+<div class="form-group col-3">
+  <label>
+    <span class="text-danger">*</span> E-mail Address
+    <small class="text-danger has-error">
+      
+    </small>
+  </label>
+<input type="text" name="email" value="" class="form-control" placeholder="E-mail Address">
+</div>
+
+
+<div class="form-group col-3">
+  <label>
+    Contact No.
+    <small class="text-danger has-error">
+      
+    </small>
+  </label>
+<input type="text" name="contact" value="" class="form-control" placeholder="Contact No.">
+</div>
+
+</div>
+
+
+
+<div class="form-group">
+  <label>Tour Package Description</label>
+  <textarea class="form-control" rows="3" placeholder="Tour Package Description ..."></textarea>
+</div>
+
+
+<div class="form-group">
+  <label>What to expect</label>
+  <textarea class="form-control" rows="3" placeholder="What to expect ...."></textarea>
+</div>
+
+<div class="form-group">
+  <label>Cancelation and Refund Policy</label>
+  <textarea class="form-control" rows="3" placeholder="What to expect ...."></textarea>
+</div>
+
+
     </div>
         
       <div class="card-footer clearfix">
-        <ul class="pagination pagination-sm m-0 float-right">
-          <li class="page-item"><a class="page-link" href="#">«</a></li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item"><a class="page-link" href="#">»</a></li>
+        <ul class="pagination pagination-sm m-0 float-left">
         </ul>
       </div>
 
@@ -136,6 +167,8 @@
 </div>
 
 </div>
+
+
 </section>
 
 @endsection

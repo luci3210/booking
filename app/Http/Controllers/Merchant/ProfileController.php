@@ -27,7 +27,7 @@ class ProfileController extends Controller
 
 	public function profile_check() {
 
-		return Profile::where('user_id',Auth::user()->id)->get(['user_id','id'])->first();
+		return Profile::where('user_id',Auth::user()->id)->get(['user_id','id','id1'])->first();
 	}
 
     public function contact_check() {
@@ -66,6 +66,11 @@ class ProfileController extends Controller
         return MerchantPermit::where('prof_id', $this->profile_check()->id)->where('temp_status',1)->get();
     }
 
+    public function verify_check() {
+
+        return Profile::join('merchant_verify','merchant_verify.prof_id','profiles.id')->get()->first();
+    }
+
     public function index() {
 
     	$profile = $this->profile_check();
@@ -80,7 +85,9 @@ class ProfileController extends Controller
         $profile_permit = $this->permit_check();
         $profile_permit_details = $this->permit_details();
 
-    	return view('merchant_dashboard.profile.index',compact(['profile','profile_details','profile_address','profile_address_details','profile_contact','profile_contact_details','profile_permit','profile_permit_details']));
+        $verify_check = $this->verify_check();
+
+    	return view('merchant_dashboard.profile.index',compact(['profile','profile_details','profile_address','profile_address_details','profile_contact','profile_contact_details','profile_permit','profile_permit_details','verify_check']));
     }
 
     public function profile_form() {
