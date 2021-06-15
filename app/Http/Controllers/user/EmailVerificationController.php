@@ -15,7 +15,9 @@ class EmailVerificationController extends Controller
 
     public function showResendForm(Request $req)
     {
-        return view('verification.resend_email_form');
+        $data = $req->query('data');
+        $data = base64_decode($data);
+        return view('verification.resend_email_form', compact('data'));
         
     }
 
@@ -23,6 +25,10 @@ class EmailVerificationController extends Controller
     {
         $this->validateResendRequest($req);
         $user = user::where('email',$req->email)->first();
+        if($user['email_verified_at']){
+
+        return redirect()->back()->withErrors(['email'=>'email already verified']);
+        }
         $user->sendEmailVerificationNotification();
         return redirect()->back()->withSuccess('Email activation has been resent.');
 

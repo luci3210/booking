@@ -27,7 +27,7 @@
                     <div class="uk-margin">
                         <div class="uk-inline uk-width-1-1">
                             <span class="uk-form-icon" uk-icon="icon: mail"></span>
-                            <input class="uk-input" type="text" placeholder="Email" id="email" type="email" name="email" value="{{ old('email') }}" required autofocus>
+                            <input class="uk-input" type="text" placeholder="Email" id="email" type="email" name="email" value="{{ $data }}" required autofocus readonly>
                         </div>
                         @if ($errors->has('email'))
                         <div class="text-left">
