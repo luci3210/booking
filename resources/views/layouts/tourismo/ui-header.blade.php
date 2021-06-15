@@ -31,6 +31,32 @@
 .nav-main{
     background-color: #ffffff!important;
 }
+.link-secondary{
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Droid Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+    cursor: pointer;
+    font-size: 14px;
+    color: #212121!important;
+    font-weight: 600;
+}
+
+.link-secondary:hover{
+    color: #36235a !important;
+    font-weight: 600;
+    background-color: #ececec;
+    border-radius: 70%;
+}
+.link-disabled{
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Droid Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    color: #212121!important;
+    font-weight: 600;
+    cursor:context-menu;
+}
+
+.border-1{
+    height: 1px;
+    background-color: #f5f5f5;;
+}
 
 @media only screen and (min-width: 982px) {
     .icon-div{
@@ -186,6 +212,23 @@
 
 
 </nav>
+<div class="col-12 bg-white mt-1">
+    <hr class="border-1 m-0" />
+</div>
+<div class="col-12 bg-white d-xl-block d-lg-block d-none">
+    <div class="uk-container">
+        <nav class="nav d-flex ">
+        <a class="p-2 link-secondary " href="{{ route('destination') }}">Hotel</a>
+        <a class="p-2 link-secondary " href="{{ route('tour_operator') }}">Tour Package</a>
+        <a class="p-2 link-disabled " href="#" onclick="return false;"disabled>Flight</a>
+        <a class="p-2 link-disabled " href="#" onclick="return false;">Cruise</a>
+        <a class="p-2 link-disabled " href="#" onclick="return false;">Mice Event</a>
+        <a class="p-2 link-disabled " href="#" onclick="return false;"> Tourist Stop</a>
+        <a class="p-2 link-disabled " href="#" onclick="return false;">Tour Guide</a>
+        <a class="p-2 link-disabled " href="#" onclick="return false;">Langauge Translator</a>
+        </nav>
+    </div>
+</div>
 <div class="col-lg-12 pd-2 hidden-xl block-sm uk-navbar-container search-mt-1">
     <form class="">
         <input class="form-control" type="search" placeholder="Search" aria-label="Search" style="border-radius: 23px;">
@@ -321,8 +364,14 @@
                                     <div class="uk-margin">
                                         <button type="submit" class="uk-button uk-button-primary uk-button-meduim uk-width-1-1">Login</button>
                                     </div>
-                                    <div class="uk-text-small uk-text-center text-dark">
-                                    <a href="#register" uk-toggle class="text-dark">Not registered? Register</a>
+                                    <div class="uk-text-small uk-text-center row">
+                                        <div class="col-12">
+                                            <a href="#register " uk-toggle class="text-dark">Not registered? Register</a>
+                                        </div>
+                                        <div class="col-12">
+                                            <a href="/password/reset" uk-toggle class="text-dark">Forgot Password?</a>
+                                        </div>
+                                    
                                     </div>
                                 </form>
                             </div>
