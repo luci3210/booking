@@ -44,18 +44,18 @@
   </li>
 
   <li class="uk-list-spc">
-    <a class="uk-list-a" href="{{ route('show_resend_email') }}">
+    <a class="uk-list-a" href="{{route('show_resend_email', '?data='.base64_encode($data['data']['account'][0]->email))}}">
       <span uk-icon="check"></span><span class="uk-list-a"></span> 
         Verification
     </a>
   </li>
 
-  <li class="uk-list-spc">
+  <!-- <li class="uk-list-spc">
     <a class="uk-list-a" href="{{ route('subscribe') }}">
       <span uk-icon="cog"></span><span class="uk-list-a"></span> 
         Settings
     </a>
-  </li>
+  </li> -->
 
 </ul>
 

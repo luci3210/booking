@@ -7,18 +7,18 @@
 .nav-main{
     box-shadow: 0px 1px #8e8e8e38 !important;
 }
-.col-lg-6{
+/* .col-lg-6{
     width: 50%;
-}
+} */
 .hidden-xl{
     display: none;
 }
 .block-xl{
     display: block;
 }
-.col-12{
+/* .col-12{
     width: 100%;
-}
+} */
 .pd-2{
     padding: 2px 2px;
 }
@@ -60,9 +60,9 @@
     .mobile-nav-toggle{
         margin-top: 20px;
     }
-    .col-sm-12{
+    /* .col-sm-12{
         width: 100%;
-    }
+    } */
     .hidden-sm{
         display: none!important;
     }
@@ -91,9 +91,9 @@
     .mobile-nav-toggle{
         margin-top: 20px;
     }
-    .col-sm-12{
+    /* .col-sm-12{
         width: 100%;
-    }
+    } */
     
     .hidden-sm{
         display: none!important;
@@ -116,9 +116,9 @@
     .mobile-nav-toggle{
         margin-top: 10px;
     }
-    .col-sm-12{
+    /* .col-sm-12{
         width: 100%;
-    }
+    } */
     .hidden-sm{
         display: none;
     }
@@ -208,25 +208,27 @@
                                 <h3 class="uk-card-title uk-text-center">Tourismo</h3>
                                 <p class="login-box-msg uk-text-center">Register a new membership</p>
 
-                                <form method="post" action="{{ route('register') }}">
+                                <form method="post" action="{{ route('register') }}" id="reg-form">
                                 @csrf
-                                    <div class="uk-margin">
+                                    <div class="uk-margin err">
                                         <div class="uk-inline uk-width-1-1">
                                             <span class="uk-form-icon" uk-icon="icon: user"></span>
                                             <input class="uk-input uk-form-meduim" placeholder="Full name" name="name" value="{{ old('name') }}" required autocomplete="email" autofocus>
-                                        </div>
+                                        </div> 
+                                        <span class="err uk-width-1-1"></span>
                                         @error('name')
-                                        <span class="invalid-feedback" role="alert">
+                                        <span class="invalid-feedback " role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                         @enderror
                                     </div>
 
-                                    <div class="uk-margin">
+                                    <div class="uk-margin err">
                                         <div class="uk-inline uk-width-1-1">
                                             <span class="uk-form-icon" uk-icon="icon: mail"></span>
                                             <input class="uk-input uk-form-meduim" placeholder="Email"  type="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                                         </div>
+                                        <span class="err uk-width-1-1"></span>
                                         @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -234,11 +236,12 @@
                                         @enderror
                                     </div>
 
-                                    <div class="uk-margin">
+                                    <div class="uk-margin err">
                                         <div class="uk-inline uk-width-1-1">
                                             <span class="uk-form-icon" uk-icon="icon: lock"></span>
-                                            <input class="uk-input uk-form-meduim" type="password" name="password" placeholder="Password" required autocomplete="current-password">  
+                                            <input class="uk-input uk-form-meduim" type="password" id="reg-pass" name="password" placeholder="Password" required autocomplete="current-password">  
                                         </div>
+                                        <span class="err uk-width-1-1"></span>
                                         @error('password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -246,11 +249,12 @@
                                         @enderror
                                     </div>
 
-                                    <div class="uk-margin">
+                                    <div class="uk-margin err">
                                         <div class="uk-inline uk-width-1-1">
                                             <span class="uk-form-icon" uk-icon="icon: lock"></span>
                                             <input class="uk-input uk-form-meduim" type="password" name="password_confirmation" placeholder="Confirm Password" required autocomplete="current-password">  
                                         </div>
+                                        <span class="err uk-width-1-1"></span>
                                         @error('password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -259,15 +263,16 @@
                                     </div>
 
 
-                                    <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
-                                        <label><input class="uk-checkbox" type="checkbox"> I aggree in terms</label>
+                                    <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid err">
+                                        <label><input class="uk-checkbox" name="terms" type="checkbox"> I aggree in terms</label>
+                                        <span class="err uk-width-1-1"></span>
                                     </div>
 
                                     <div class="uk-margin">
                                         <button type="submit" class="uk-button uk-button-primary uk-button-meduim uk-width-1-1">Login</button>
                                     </div>
-                                    <div class="uk-text-small uk-text-center">
-                                        Not registered? <a href="#register" uk-toggle>Register</a>
+                                    <div class="uk-text-small uk-text-center text-dark">
+                                        <a href="#register" uk-toggle class="text-dark">Not registered? Register</a>
                                     </div>
                                 </form>
                             </div>
@@ -291,20 +296,22 @@
                         <div class="uk-width-1-1@m">
                             <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
                                 <h3 class="uk-card-title uk-text-center">Booking Tourismo</h3>
-                                <form method="POST" action="{{ route('login') }}">
+                                <form method="POST" action="{{ route('login') }}" id="login-form">
                                 @csrf
-                                    <div class="uk-margin">
+                                    <div class="uk-margin err">
                                         <div class="uk-inline uk-width-1-1">
                                             <span class="uk-form-icon" uk-icon="icon: mail"></span>
-                                            <input class="uk-input uk-form-meduim" type="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                            <input class="uk-input uk-form-meduim" placeholder="Email" type="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                                         </div>
+                                        <span class="err uk-width-1-1"></span>
                                     </div>
 
-                                    <div class="uk-margin">
+                                    <div class="uk-margin err">
                                         <div class="uk-inline uk-width-1-1">
                                             <span class="uk-form-icon" uk-icon="icon: lock"></span>
-                                            <input class="uk-input uk-form-meduim" type="password" name="password" required autocomplete="current-password">  
+                                            <input class="uk-input uk-form-meduim" placeholder="Password" type="password" name="password" required autocomplete="current-password">  
                                         </div>
+                                        <span class="err uk-width-1-1"></span>
                                     </div>
 
                                     <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
@@ -314,8 +321,8 @@
                                     <div class="uk-margin">
                                         <button type="submit" class="uk-button uk-button-primary uk-button-meduim uk-width-1-1">Login</button>
                                     </div>
-                                    <div class="uk-text-small uk-text-center">
-                                        Not registered? <a href="#register" uk-toggle>Register</a>
+                                    <div class="uk-text-small uk-text-center text-dark">
+                                    <a href="#register" uk-toggle class="text-dark">Not registered? Register</a>
                                     </div>
                                 </form>
                             </div>

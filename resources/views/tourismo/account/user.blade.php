@@ -9,6 +9,12 @@
 
 @section('content')
 
+<style>
+
+  .pointer{
+    cursor: pointer!important;
+  }
+</style>
 <section class="contact aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
 <div class="container">
 <div class="row">
@@ -79,9 +85,17 @@
     <div class="validate"></div>
     </div>
 
-    <div class="col-md-3 form-group mt-3">
-    <label class="labelcoz">Email</label>
-    <input type="text" class="uk-input" value="{{ $data['data']['account'][0]->email }}" placeholder="Email" disabled="disabled">
+    <div class="col-md-3 form-group mt-3 pointer">
+      <a class="pointer" href="{{route('show_resend_email', '?data='.base64_encode($data['data']['account'][0]->email))}}">
+        <label class="labelcoz pointer">Email 
+          @if($data['data']['account'][0]->email_verified_at)
+            <span class="text-success">verified</span> 
+          @else
+          <span class="text-danger">please verify your email</span> 
+          @endif
+        </label>
+        <input type="text" class="uk-input pointer" value="{{ $data['data']['account'][0]->email }}" placeholder="Email" disabled="disabled">
+      </a>
     <div class="validate"></div>
     </div>
 

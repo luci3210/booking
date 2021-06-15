@@ -28,6 +28,7 @@ class TraxionApiController extends Controller
         $extra = $req->query('extra');
         $extra = base64_decode($extra);
         $extra = (array)json_decode($extra);
+        
 
         // $details = [
         //     'title'=> 'Receipt',
