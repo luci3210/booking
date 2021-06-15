@@ -159,6 +159,7 @@
   <script src='https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.2/js/uikit.js'></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.2/js/uikit-icons.js'></script>
   <script src="https://kit.fontawesome.com/f0c1ec087f.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
   <script>
   async function sendMessenger(routeDestination) {
     var TempText = document.createElement("input");
@@ -215,7 +216,96 @@
     var notifications =  await UIkit.notification('Embed Copied', 'success');
   }
 
+  $('#login-form').validate({
+    rules: {
+      email:{
+        required:true,
+        email: true
+      },
+      password: {
+        required: true,
+      },
+    },
+    messages: {
+      email: {
+        required: "Please enter a email ",
+        email:'invalid email',
+      },
+      password: {
+        required: "Please provide a password",
+      },
+    },
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+      error.addClass('invalid-feedback');
+      element.closest('.err').append(error);
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass('text-danger');
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).removeClass('text-danger');
+    }
+  });
 
+
+  $('#reg-form').validate({
+    rules: {
+      name: {
+        required: true,
+      },
+      email:{
+        required:true,
+        email: true
+      },
+      password: {
+        required: true,
+        minlength: 6,
+      },
+      password_confirmation :{
+          required: true,
+          minlength : 6,
+          equalTo : "#reg-pass",
+      },
+      terms:{
+        required:true,
+      }
+    },
+    messages: {
+      name: {
+        required: "Please enter a full name ",
+      },
+      email: {
+        required: "Please enter a email ",
+        email:'invalid email',
+      },
+      password: {
+        required: "Please provide a password",
+        minlength: "Your password must be at least 6 characters long",
+        passwordCheck:"password atleast one uppercase",
+
+      },
+      password_confirmation: {
+        required: "Please provide a password",
+        minlength: "Your password must be at least 6 characters long",
+        equalTo:"Password not match",
+      },
+      terms:{
+        required:"Check if you agree in our terms & conditions"
+      }
+    },
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+      error.addClass('invalid-feedback');
+      element.closest('.err').append(error);
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass('text-danger');
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).removeClass('text-danger');
+    }
+  });
 
 
 </script>

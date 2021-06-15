@@ -139,7 +139,7 @@
 </section>
  -->
 
-<section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+<section class="services team aos-init aos-animate mb-5" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
   <div class="container">
     <div class="row">
 
@@ -266,7 +266,7 @@
 
 
 
-<section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+<section class="services team aos-init aos-animate " data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
   <div class="container" style="margin-top: -45px;">
     <div class="row">
 
