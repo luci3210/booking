@@ -114,7 +114,7 @@ Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merc
 });
 
 
-Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merchant_dashboard/service_listing'], function() {
+Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merchant_dashboard/service'], function() {
 
         Route::get('/{destination}/','Merchant\ServiceListingController@index')
         ->name('service_listing');
@@ -122,6 +122,16 @@ Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merc
         Route::get('/{destination}/create_post','Merchant\ServiceListingController@service_create_post')
         ->name('service_listing_create_post');
 });
+
+
+
+Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merchant_dashboard/manage_booking'], function() {
+
+        Route::get('/booking/','Merchant\BookingController@index')
+        ->name('booking-index');
+
+});
+
 
 
 

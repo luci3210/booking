@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 
 class BookingController extends Controller
 {
-    public function booked() {
+    public function index() {
 
-    	return view('merchant.booking.booked');
+    	return 'page';
     }
 }

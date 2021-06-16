@@ -85,77 +85,118 @@
     <div class="card-body">
         
         <div class="form-group">
-          <label>Tour Package</label>
-          <input type="text" class="form-control" placeholder="Enter email">
+          <label>
+            <span class="text-danger">*</span> Tour Package Name
+            <small class="text-danger has-error">
+                {{ $errors->has('tour_package_name') ?  $errors->first('tour_package_name') : '' }}
+            </small>
+          </label>
+          <input type="text" name="tour_package_name" value="" class="form-control" placeholder="Tour Package">
         </div>
 
 <div class="row">
 
   <div class="form-group col-3">
     <label>
-      <span class="text-danger">*</span> First Name
+      <span class="text-danger">*</span> Price (Php)
       <small class="text-danger has-error">
-        
+        {{ $errors->has('price') ?  $errors->first('price') : '' }}
       </small>
     </label>
-  <input type="text" name="fname" value="" class="form-control" placeholder="First Name">
+  <input type="text" name="price" value="" class="form-control" placeholder="Price">
   </div>
 
 
 <div class="form-group col-3">
   <label>
-    Last Name
-    <small class="text-danger has-error">
-      
-    </small>
+    <span class="text-danger">*</span> No. of Night
+      <small class="text-danger has-error">
+        {{ $errors->has('no_night') ?  $errors->first('no_night') : '' }}
+      </small>
   </label>
-<input type="text" name="lname" value="" class="form-control" placeholder="Last Name">
+<input type="text" name="no_night" value="" class="form-control" placeholder="Number of Night">
 </div>
 
 
 <div class="form-group col-3">
   <label>
-    <span class="text-danger">*</span> E-mail Address
+    <span class="text-danger">*</span> No. of Guest (Max)
     <small class="text-danger has-error">
-      
+      {{ $errors->has('no_guest') ?  $errors->first('no_guest') : '' }}
     </small>
   </label>
-<input type="text" name="email" value="" class="form-control" placeholder="E-mail Address">
+<input type="text" name="no_guest" value="" class="form-control" placeholder="Number of Guest">
 </div>
 
 
 <div class="form-group col-3">
   <label>
-    Contact No.
+    <span class="text-danger">*</span> Quantity (Inventory)
     <small class="text-danger has-error">
-      
+      {{ $errors->has('quantity') ?  $errors->first('quantity') : '' }}
     </small>
   </label>
-<input type="text" name="contact" value="" class="form-control" placeholder="Contact No.">
+<input type="text" name="quantity" value="" class="form-control" placeholder="Quantity">
 </div>
 
-</div>
-
-
-
-<div class="form-group">
-  <label>Tour Package Description</label>
-  <textarea class="form-control" rows="3" placeholder="Tour Package Description ..."></textarea>
-</div>
-
-
-<div class="form-group">
-  <label>What to expect</label>
-  <textarea class="form-control" rows="3" placeholder="What to expect ...."></textarea>
 </div>
 
 <div class="form-group">
-  <label>Cancelation and Refund Policy</label>
-  <textarea class="form-control" rows="3" placeholder="What to expect ...."></textarea>
+  <label>
+    <span class="text-danger">*</span> Tour Package Description
+    <small class="text-danger has-error">
+      {{ $errors->has('tour_package_desc') ?  $errors->first('tour_package_desc') : '' }}
+    </small>
+  </label>
+  <textarea name="tour_package_desc" class="form-control" rows="3" placeholder="Tour Package Description ..."></textarea>
 </div>
 
 
-    </div>
+<div class="form-group">
+  <label>
+    <span class="text-danger">*</span> What to expect
+    <small class="text-danger has-error">
+      {{ $errors->has('what_expect') ?  $errors->first('what_expect') : '' }}
+    </small>
+  </label>
+  <textarea name="what_expect" class="form-control" rows="3" placeholder="What to expect ...."></textarea>
+</div>
+
+<div class="form-group">
+  <label>
+    <span class="text-danger">*</span> Cancelation and Refund Policy
+    <small class="text-danger has-error">
+      {{ $errors->has('cancelation') ?  $errors->first('cancelation') : '' }}
+    </small>
+  </label>
+  <textarea name="cancelation" class="form-control" rows="3" placeholder="Cancelation and Refund Policy"></textarea>
+</div>
+
+<div  style="padding:5px 0px 5px;">
+<hr>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
         
       <div class="card-footer clearfix">
         <ul class="pagination pagination-sm m-0 float-left">
