@@ -121,6 +121,17 @@ Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merc
 
         Route::get('/{destination}/create_post','Merchant\ServiceListingController@service_create_post')
         ->name('service_listing_create_post');
+
+        Route::post('create_post/{id}','Merchant\ServiceListingController@service_save_post')
+        ->name('service_listing_save_post');
+
+        Route::get('/{id}/upload_photos/{description}','Merchant\ServiceListingController@service_update_photos')
+        ->name('act_upload_photos');
+
+        Route::post('/merchant/service/upload_photos/{id}', 'Merchant\ServiceListingController@service_upload_photos')
+        ->name('service_upload_photos');
+
+
 });
 
 

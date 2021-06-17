@@ -70,7 +70,8 @@
 
 
 
-
+<form action="{{ route('service_listing_save_post',$service_name->id) }}" method="post">
+  @csrf
 <div class="row">
   <div class="col-12">
     <div class="card">
@@ -174,9 +175,99 @@
 
 <div  style="padding:5px 0px 5px;">
 <hr>
+<strong><i class="fas fa-list-ul"></i> Inclusion</strong>
 </div>
 
 
+<div class="form-group">
+  <label>
+    <span class="text-danger">*</span> Facilities
+    <small>{{ $errors->has('facilities') ?  $errors->first('facilities') : '' }}</small>
+  </label>
+  <select class="custom-select facilities" name="facilities[]" multiple="multiple">
+      <option value="" disabled="true">-Select Facilities-</option>
+        @foreach($building_facilities as $list)
+      <option value="{{ $list->name }}">{{ $list->name }}</option>
+        @endforeach
+  </select>
+</div>
+
+
+<div class="form-group">
+  <label>
+    <span class="text-danger">*</span> Packages
+    <small>{{ $errors->has('package') ?  $errors->first('package') : '' }}</small>
+  </label>
+  <select class="custom-select facilities" name="package[]" multiple="multiple">
+      <option value="" disabled="true">-Select Package-</option>
+        @foreach($packages_facilities as $list)
+      <option value="{{ $list->name }}">{{ $list->name }}</option>
+        @endforeach
+  </select>
+</div>
+
+
+<div  style="padding:5px 0px 5px;">
+<hr>
+<strong> <i class="fas fa-map-marked-alt"></i> Location and Address</strong>
+</div>
+
+
+
+<div class="form-group">
+  <label>
+    <span class="text-danger">*</span> Address
+    <small class="text-danger has-error">
+      {{ $errors->has('address') ?  $errors->first('address') : '' }}
+    </small>
+  </label>
+  <textarea name="address" class="form-control" rows="2" placeholder="Address...."></textarea>
+</div>
+
+<div class="row">
+
+
+
+<div class="col-md-4 form-group">
+  <label><span class="text-danger">*</span> Country
+  <small class="text-danger has-error">
+    {{ $errors->has('country') ?  $errors->first('country') : '' }}
+  </small> 
+  </label>
+  <select class="custom-select" name="country" id="countryid">
+    <option value="" disabled="true" selected="-Select country-">-Select country-</option>
+    @foreach($country as $list)
+    <option value="{{ $list->id }}">{{ $list->country }}</option>
+    @endforeach
+  </select>
+</div>
+
+
+<div class="col-md-4 form-group">
+  <label>
+    <span class="text-danger">*</span> Province 
+    <small class="text-danger has-error">
+      {{ $errors->has('province') ?  $errors->first('province') : '' }}
+    </small>
+  </label>
+    <select class="custom-select" name="province" id="districtid">
+    <option value="0" disabled="true" selected="true">-Select Province-</option>
+  </select>
+</div>
+
+<div class="col-md-4 form-group">
+  <label><span class="text-danger">*</span> Place
+    <small class="text-danger has-error">
+      {{ $errors->has('place') ?  $errors->first('place') : '' }}
+    </small>
+  </label>
+  <select class="custom-select" name="place" id="cityid">
+    <option value="0" disabled="true" selected="true">-Select Place-</option>
+  </select>
+  <div class="validate"></div>
+</div>
+
+</div>
 
 
 
@@ -198,18 +289,124 @@
 
 </div>
         
-      <div class="card-footer clearfix">
-        <ul class="pagination pagination-sm m-0 float-left">
-        </ul>
-      </div>
+<div class="card-footer">
+  <button type="submit" class="btn btn-info"><i class="fas fa-save"></i> Submit</button>
+</div>
+
 
     </div>
   </div>
+
 </div>
+
+</form>
 
 </div>
 
 
 </section>
 
+@endsection
+@section('merchantjs')
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.0/js/fileinput.min.js" type="text/javascript"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/js/fileinput.js" type="text/javascript"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.4/themes/fa/theme.min.js" type="text/javascript"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" type="text/javascript"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" type="text/javascript"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<script type="text/javascript">
+
+$('.facilities').select2( {
+  allowClear:true
+});
+
+
+
+$(document).ready(function () {
+      
+$('#countryid').on('change', function () {
+
+        let id = $(this).val();
+        
+        $('#districtid').empty();
+        $('#districtid').append(`<option value="0" disabled selected>Searching . . .</option>`);
+        $.ajax( {
+           type: 'GET',
+           url: '/merchant/location/district/select/' + id,
+           
+            success: function (response) {
+            var response = JSON.parse(response);
+            console.log(response);   
+            
+            $('#districtid').empty();
+      
+            $('#districtid').append(`<option value="0" disabled selected>-Select Provice-</option>`);
+            response.forEach(element => {
+            $('#districtid').append(`<option value="${element['id']}">${element['district']}</option>`);
+          });
+      
+      }
+  });
+});
+
+
+$('#districtid').on('change', function () {
+
+        let id = $(this).val();
+        
+        $('#cityid').empty();
+        $('#cityid').append(`<option value="0" disabled selected>Searching . . .</option>`);
+        $.ajax( {
+           type: 'GET',
+           url: '/merchant/location/city/select/' + id,
+           
+            success: function (response) {
+            var response = JSON.parse(response);
+            console.log(response);   
+            
+            $('#cityid').empty();
+      
+            $('#cityid').append(`<option value="0" disabled selected>-Select Region-</option>`);
+            response.forEach(element => {
+            $('#cityid').append(`<option value="${element['id']}">${element['city']}</option>`);
+          });
+      
+      }
+  });
+});
+
+
+$('#cityid').on('change', function () {
+
+        let id = $(this).val();
+        
+        $('#municipalityid').empty();
+        $('#municipalityid').append(`<option value="0" disabled selected>Searching . . .</option>`);
+        $.ajax( {
+           type: 'GET',
+           url: '/merchant/location/municipality/select/' + id,
+           
+            success: function (response) {
+            var response = JSON.parse(response);
+            console.log(response);   
+            
+            $('#municipalityid').empty();
+      
+            $('#municipalityid').append(`<option value="0" disabled selected>-Select Region-</option>`);
+            response.forEach(element => {
+            $('#municipalityid').append(`<option value="${element['id']}">${element['municipality']}</option>`);
+          });
+      
+      }
+  });
+});
+
+});
+
+
+</script>
 @endsection

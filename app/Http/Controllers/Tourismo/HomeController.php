@@ -97,6 +97,7 @@ public function room($id) {
     		->join('hotel_photos', 'hotels.id','hotel_photos.upload_id')
     			->join('merchant_address','merchant_address.id', 'hotels.address_id')
     				->where('hotels.id', $id)->get();
+
     $wishList = false;
     $userCountry = [];
     if(Auth::check()){
@@ -142,7 +143,7 @@ public function room($id) {
     $data['couttry'] = $userCountry;
     return $data;
 }
-public function toggle_wishlist(Request $req){
+public function toggle_wishlist(Request $req) {
     
     $data['error'] = [];
     $data['data'] = [];

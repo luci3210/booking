@@ -152,5 +152,6 @@ $('#update_loadpacklist').select2({
 });
 </script>
 @livewareScripts
+@yield('merchantjs')
 </body>
 </html>

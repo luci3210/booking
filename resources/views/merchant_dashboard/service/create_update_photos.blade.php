@@ -1,5 +1,9 @@
 @extends('layouts.merchant-app')
+@section('third_party_stylesheets')
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
+
+@endsection
 @section('content')
 
 <section class="content">
@@ -83,47 +87,23 @@
       </div>
 
     <div class="card-body">
-        <table class="table table-bordered">
-        <thead>                  
-            <tr>
-              <th style="width: 10px">#</th>
-              <th>Pic</th>
-              <th>Name</th>
-              <th>Price</th>
-              <th>#Night</th>
-              <th>#Guest</th>
-              <th>Qty</th>
-              <th style="width: 180px" class="text-center">Action</th>
-            </tr>
-            @foreach($service_post as $post)
-            <tr>
-              <td style="width: 10px">#</td>
-              <td>
-                
-              <div class="user-block">
-                <img class="img-circle img-bordered-sm" src="https://www.hotelnewsnow.com/Media/Default/Images2016/Locations/Westin-Wilmington-Front.jpg" alt="user image">
-              </div>
+        
+     <div class="form-group">
+          <label>
+            <span class="text-danger">*</span> Tour Package Name
+            <small class="text-danger has-error">
+                {{ $errors->has('tour_package_name') ?  $errors->first('tour_package_name') : '' }}
+            </small>
+          </label>
+          <input type="text" name="tour_package_name" value="{{ $service_post->tour_name }}" class="form-control" readonly="tour_package_name" placeholder="Tour Package">
+        </div>
 
-              </td>
-              <td>{{ $post->tour_name }}</td>
-              <td>{{ $post->price }}</td>
-              <td>{{ $post->nonight }}</td>
-              <td>{{ $post->noguest }}</td>
-              <td>{{ $post->qty }}</td>
-              <td class="text-center">
-                      <div class="btn-group btn-group-sm">
-                        <a href="{{ route('act_upload_photos',[$post->id,$service_name->description]) }}" class="btn btn-info"><i class="fas fa-eye"></i> Edit</a>
-                        <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</a>
-                      </div>
-                    </td>
-            </tr>
-            @endforeach
-        </thead>
-        
-        <tbody>
-        </tbody>
-        
-        </table>
+      {!! csrf_field() !!}
+          <div class="file-loading">
+              <input id="file-1" type="file" name="file" multiple class="file" data-min-file-count="2">
+          </div>
+
+
     </div>
         
       <div class="card-footer clearfix">
@@ -138,4 +118,29 @@
 </div>
 </section>
 
+@endsection
+@section('merchantjs')
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.0/js/fileinput.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.4/themes/fa/theme.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $("#file-1").fileinput({
+        theme: 'fa',
+        uploadUrl: "{{ route('service_upload_photos',$service_post->id) }}",
+        uploadExtraData: function() {
+            return {
+                _token: $("input[name='_token']").val(),
+
+            };
+        },
+        allowedFileExtensions: ['jpg', 'png', 'gif'],
+        overwriteInitial: false,
+        maxFileSize:2000,
+        maxFilesNum: 10,
+        initialCaption: "Please upload GreaterThan 1 and LessThan 10 photos",
+        slugCallback: function (filename) {
+            return filename.replace('(', '_').replace(']', '_');
+        }
+    });
+</script>
 @endsection
