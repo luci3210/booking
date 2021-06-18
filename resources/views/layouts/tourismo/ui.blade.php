@@ -310,6 +310,139 @@
 
 </script>
 
+<script>
+    $(document).ready(function(){
+    // typing variable
+    var typingTimer;                //timer identifier
+    var doneTypingInterval = 1000;  //time in ms, 5 second for example
+    var key_search = $("input[name='desktop-search']");
+
+    var typingTimer2;                //timer identifier
+    var doneTypingInterval2 = 1000;  //time in ms, 5 second for example
+    var key_search2 = $("input[name='mobile-search']");
+    //  desktop input search model start =========  
+
+
+    //on keyup, start the countdown
+    key_search.on('keyup', function () {
+      clearTimeout(typingTimer);
+      typingTimer = setTimeout(doneTyping, doneTypingInterval);
+    });
+    //on keydown, clear the countdown 
+    key_search.on('keydown', function () {
+      clearTimeout(typingTimer);
+      showLoading()
+
+    });
+
+     //user is "finished typing,"
+    async function doneTyping () {
+      let val = key_search.val();
+      key_search2.val(val);// mobile input 
+      await ajaxSearch(val)
+      hideLoading()
+    }
+
+    //on keyup, start the countdown
+    key_search2.on('keyup', function () {
+      clearTimeout(typingTimer2);
+      typingTimer2 = setTimeout(doneTyping2, doneTypingInterval2);
+    });
+    //on keydown, clear the countdown 
+    key_search2.on('keydown', function () {
+      clearTimeout(typingTimer2);
+      showLoading()
+    });
+    async function doneTyping2 () {
+      let val = key_search2.val();
+      key_search.val(val);// desktop input mot model
+      await ajaxSearch(val)
+      hideLoading()
+    }
+
+    function toggleLoading(){
+      $('#loading-data').toggleClass('d-none')
+      $('#loading-data2').toggleClass('d-none')
+    }
+    function hideLoading(){
+      $('#loading-data').addClass('d-none')
+      $('#loading-data2').addClass('d-none')
+    }
+    function showLoading(){
+      $('#loading-data').removeClass('d-none')
+      $('#loading-data2').removeClass('d-none')
+      clearData()
+    }
+
+    function clearData(){
+      $('#hotels-loader').html('');
+      $('#tours-loader').html('');
+      $('#hotels-loader2').html('');
+      $('#tours-loader2').html('');
+    }
+
+    function ajaxSearch(search) {
+      $.ajaxSetup({
+        url: '{{ route('search') }}',
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            'Accept': 'application/json',
+            '_token': '{{ Session::token()  }}',
+            'Authorization': '{{ Session::token()  }}',
+        },
+        method:"POST",
+        data:{
+          search: search,
+        },  
+        success:function(data)
+        {
+
+          if(data['success']){
+            console.log(data['data']['hotel']);
+            if(data['data']['hotel'].length >= 1){
+              data['data']['hotel'].forEach(loadHotel);
+            }
+            if(data['data']['tour'].length >= 1){
+              data['data']['tour'].forEach(loadTour);
+            }
+            console.log(data['data']['tour']);
+
+          }
+        },
+        error:function(data){
+          console.log('error',data)
+        }
+    });
+    $.ajax();
+    }
+    // mobile input 
+
+    function loadHotel(item,index){
+      document.getElementById("hotels-loader").innerHTML += `<div class="row pointer" onClick="window.location='/hotels/rooms/${item['upload_id']}'" >
+     <div class="search-img col-auto mt-1" style="background-image: url('{{ asset('upload/merchant/coverphoto') }}/${item['photo']}')"></div>
+      <div class="col-9"><h5 class="mb-0 title-search">${item['roomname']}</h5><p class="m-0 desc-search">${item['roomdesc']}</p></div></div>`; 
+      //dekstop
+      document.getElementById("hotels-loader2").innerHTML += `<div class="row pointer" onClick="window.location='/hotels/rooms/${item['upload_id']}'" >
+     <div class="search-img col-auto mt-1" style="background-image: url('{{ asset('upload/merchant/coverphoto') }}/${item['photo']}')"></div>
+      <div class="col-9"><h5 class="mb-0 title-search">${item['roomname']}</h5><p class="m-0 desc-search">${item['roomdesc']}</p></div></div>`; 
+      //mobile
+    }
+    function loadTour(item,index){
+      document.getElementById("hotels-loader").innerHTML += `<div class="row pointer" onClick="alert('tour')" >
+     <div class="search-img col-auto mt-1" style="background-image: url('{{ asset('upload/merchant/tour') }}/${item['photo']}')"></div>
+      <div class="col-9"><h5 class="mb-0 title-search">${item['tour_name']}</h5><p class="m-0 desc-search">${item['tour_desc']}</p></div></div>`;
+      // desktop 
+
+      document.getElementById("hotels-loader2").innerHTML += `<div class="row pointer" onClick="alert('tour')" >
+     <div class="search-img col-auto mt-1" style="background-image: url('{{ asset('upload/merchant/tour') }}/${item['photo']}')"></div>
+      <div class="col-9"><h5 class="mb-0 title-search">${item['tour_name']}</h5><p class="m-0 desc-search">${item['tour_desc']}</p></div></div>`; 
+      // mobile
+
+
+    }
+    })
+</script>
+
   @yield('merchantjs')
   @yield('js')
 

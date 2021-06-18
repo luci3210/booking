@@ -39,11 +39,27 @@
     font-weight: 600;
 }
 
+
+
 .link-secondary:hover{
     color: #36235a !important;
     font-weight: 600;
     background-color: #ececec;
     border-radius: 70%;
+}
+
+.link-secondary-search{
+    color: #36235a !important;
+    font-weight: 600;
+    background-color: #ececec;
+    border-radius: 70%;
+    font-size: .8em;
+    margin-right: 3px;
+    text-align: center;
+}
+
+.link-secondary-search:hover{
+    background-color: #f5f5f5;
 }
 .link-disabled{
     font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Droid Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
@@ -56,6 +72,24 @@
 .border-1{
     height: 1px;
     background-color: #f5f5f5;;
+}
+.search-img{
+    margin-right: 8px;
+    -webkit-box-flex: 0;
+    flex: 0 0 32px;
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-color: #eee;
+}
+.title-search{
+    font-size: .8em;
+    font-weight: 700;
+}    
+.desc-search{
+    font-size: .7em;
 }
 
 @media only screen and (min-width: 982px) {
@@ -166,7 +200,24 @@
             </div>
             <div class="col-lg-6 hidden-sm">
                 <form class="">
-                    <input class="form-control" type="search" placeholder="Search" aria-label="Search" style="border-radius: 23px;">
+                    <input class="form-control"  type="search" placeholder="Search" name="desktop-search" aria-label="Search" style="border-radius: 23px;">
+                    <div uk-dropdown="animation: uk-animation-slide-top-small; duration: 1000;mode: click" class="uk-width-xlarge">
+                        <div id="load-data">
+                            <h6>Destinations</h6>
+                            <div class="d-flex">
+                            <a class="p-2 link-secondary-search " href="{{ route('destination') }}">Tourismo Exclusive</a>
+                            <a class="p-2 link-secondary-search " href="{{ route('destination') }}">Local Destination</a>
+                            <a class="p-2 link-secondary-search " href="{{ route('destination') }}">International Destination</a>
+                            </div>
+                            <div id="hotels-loader" class="uk-width-1-1 mt-2">
+                            </div>
+                            <div id="tours-loader" class="uk-width-1-1 mt-2">
+                            </div>
+                        </div>
+                        <div class="uk-width-1-1 text-center">
+                         <div uk-spinner id="loading-data" class="d-none"></div>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -231,7 +282,24 @@
 </div>
 <div class="col-lg-12 pd-2 hidden-xl block-sm uk-navbar-container search-mt-1">
     <form class="">
-        <input class="form-control" type="search" placeholder="Search" aria-label="Search" style="border-radius: 23px;">
+        <input class="form-control" name="mobile-search"  type="search" placeholder="Search" aria-label="Search" style="border-radius: 23px;">
+        <div uk-dropdown="animation: uk-animation-slide-top-small; duration: 1000;mode: click" class="uk-width-xlarge">
+            <div id="load-data">
+                <h6>Destinations</h6>
+                <div class="d-flex">
+                <a class="p-2 link-secondary-search " href="{{ route('destination') }}">Tourismo Exclusive</a>
+                <a class="p-2 link-secondary-search " href="{{ route('destination') }}">Local Destination</a>
+                <a class="p-2 link-secondary-search " href="{{ route('destination') }}">International Destination</a>
+                </div>
+                <div id="hotels-loader2" class="uk-width-1-1 mt-2">
+                </div>
+                <div id="tours-loader2" class="uk-width-1-1 mt-2">
+                </div>
+            </div>
+            <div class="uk-width-1-1 text-center">
+                <div uk-spinner id="loading-data2" class="d-none"></div>
+            </div>
+        </div>
     </form>
 </div>
 
@@ -452,4 +520,6 @@
 
 </div>
 </div>
+
+
 

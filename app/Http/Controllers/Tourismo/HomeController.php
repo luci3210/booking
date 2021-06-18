@@ -355,7 +355,6 @@ public function page_tour_operator() {
 }
 
 public function hotel() {
-
     return ProfileModel::where('type',10016)->where('temp_status',1)->get();
 }
 
