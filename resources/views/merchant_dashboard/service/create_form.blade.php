@@ -69,8 +69,12 @@
         
 
 
+@if($service_name->name == 'Hotel')
+  <form action="{{ route('service_listing_save_hotel',$service_name->id) }}" method="post">
+@else
+  <form action="{{ route('service_listing_save_post',$service_name->id) }}" method="post">
+@endif
 
-<form action="{{ route('service_listing_save_post',$service_name->id) }}" method="post">
   @csrf
 <div class="row">
   <div class="col-12">
@@ -85,18 +89,45 @@
 
     <div class="card-body">
         
-        <div class="form-group">
-          <label>
-            <span class="text-danger">*</span> Tour Package Name
-            <small class="text-danger has-error">
-                {{ $errors->has('tour_package_name') ?  $errors->first('tour_package_name') : '' }}
-            </small>
-          </label>
-          <input type="text" name="tour_package_name" value="" class="form-control" placeholder="Tour Package">
-        </div>
+@if($service_name->name == 'Hotel')
+
+<div class="form-group">
+  <label>
+    <span class="text-danger">*</span> Room Name
+      <small class="text-danger has-error">
+          {{ $errors->has('room_name') ?  $errors->first('room_name') : '' }}
+      </small>
+  </label>
+  <input type="text" name="room_name" value="" class="form-control" placeholder="Room Name">
+</div>
+
+<div class="form-group">
+  <label>
+    <span class="text-danger">*</span> Room Description
+    <small class="text-danger has-error">
+      {{ $errors->has('room_description') ?  $errors->first('room_description') : '' }}
+    </small>
+  </label>
+  <textarea name="room_description" class="form-control" rows="2" placeholder="Room Description ..."></textarea>
+</div>
+
+
+
+@else 
+
+<div class="form-group">
+  <label>
+    <span class="text-danger">*</span> Tour Package Name
+    <small class="text-danger has-error">
+        {{ $errors->has('tour_package_name') ?  $errors->first('tour_package_name') : '' }}
+    </small>
+  </label>
+  <input type="text" name="tour_package_name" value="" class="form-control" placeholder="Tour Package">
+</div>
+
+@endif
 
 <div class="row">
-
   <div class="form-group col-3">
     <label>
       <span class="text-danger">*</span> Price (Php)
@@ -104,7 +135,7 @@
         {{ $errors->has('price') ?  $errors->first('price') : '' }}
       </small>
     </label>
-  <input type="text" name="price" value="" class="form-control" placeholder="Price">
+  <input type="text" name="price" value="" id="currency-field" data-type="currency" class="form-control" placeholder="Price" data-rule="minlen:5">
   </div>
 
 
@@ -139,8 +170,49 @@
   </label>
 <input type="text" name="quantity" value="" class="form-control" placeholder="Quantity">
 </div>
-
 </div>
+
+@if($service_name->name == 'Hotel')
+
+<div class="row">
+  <div class="form-group col-4">
+    <label>
+      <span class="text-danger">*</span> Room Size
+      <small class="text-danger has-error">
+        {{ $errors->has('room_size') ?  $errors->first('room_size') : '' }}
+      </small>
+    </label>
+  <input type="text" name="room_size" value=""  class="form-control" placeholder="Room Size">
+  </div>
+
+
+<div class="form-group col-4">
+  <label>
+    <span class="text-danger">*</span> View
+    <small class="text-danger has-error">{{ $errors->has('views') ?  $errors->first('views') : '' }}</small>
+  </label>
+  <select class="custom-select" name="views">
+      <option value="" selected="selected" disabled="true">-Select View-</option>
+        
+      <option value="City View">City View</option>
+      <option value="Forest View">Forest View</option>
+      <option value="Seaside View">Seaside View</option>
+
+  </select>
+</div>
+
+<div class="form-group col-4">
+  <label>
+    <span class="text-danger">*</span> No. of Bed
+    <small class="text-danger has-error">
+      {{ $errors->has('number_bed') ?  $errors->first('number_bed') : '' }}
+    </small>
+  </label>
+<input type="text" name="number_bed" value="" class="form-control" placeholder="Number of Bed">
+</div>
+</div>
+
+@else
 
 <div class="form-group">
   <label>
@@ -173,19 +245,37 @@
   <textarea name="cancelation" class="form-control" rows="3" placeholder="Cancelation and Refund Policy"></textarea>
 </div>
 
+@endif
+
+
 <div  style="padding:5px 0px 5px;">
 <hr>
 <strong><i class="fas fa-list-ul"></i> Inclusion</strong>
 </div>
 
+@if($service_name->name == 'Hotel')
 
 <div class="form-group">
   <label>
-    <span class="text-danger">*</span> Facilities
-    <small>{{ $errors->has('facilities') ?  $errors->first('facilities') : '' }}</small>
+    <span class="text-danger">*</span> Room Facilities
+    <small class="text-danger has-error">{{ $errors->has('room_facilities') ?  $errors->first('room_facilities') : '' }}</small>
   </label>
-  <select class="custom-select facilities" name="facilities[]" multiple="multiple">
-      <option value="" disabled="true">-Select Facilities-</option>
+  <select class="custom-select facilities" name="room_facilities[]" multiple="multiple">
+      <option value="" disabled="true">-Select Room Facilities-</option>
+        @foreach($room_facilities as $list)
+      <option value="{{ $list->name }}">{{ $list->name }}</option>
+        @endforeach
+  </select>
+</div>
+
+
+<div class="form-group">
+  <label>
+    <span class="text-danger">*</span> Building Facilities
+    <small class="text-danger has-error">{{ $errors->has('buiding_facilities') ?  $errors->first('buiding_facilities') : '' }}</small>
+  </label>
+  <select class="custom-select facilities" name="buiding_facilities[]" multiple="multiple">
+      <option value="" disabled="true">-Select Building Facilities-</option>
         @foreach($building_facilities as $list)
       <option value="{{ $list->name }}">{{ $list->name }}</option>
         @endforeach
@@ -195,8 +285,36 @@
 
 <div class="form-group">
   <label>
+    <span class="text-danger">*</span> Booking Packages
+    <small class="text-danger has-error">{{ $errors->has('booking_package') ?  $errors->first('booking_package') : '' }}</small>
+  </label>
+  <select class="custom-select facilities" name="booking_package[]" multiple="multiple">
+      <option value="" disabled="true">-Select Package-</option>
+        @foreach($packages_facilities as $list)
+      <option value="{{ $list->name }}">{{ $list->name }}</option>
+        @endforeach
+  </select>
+</div>
+
+@else
+
+<div class="form-group">
+  <label>
+    <span class="text-danger">*</span> Facilities
+    <small class="text-danger has-error">{{ $errors->has('facilities') ?  $errors->first('facilities') : '' }}</small>
+  </label>
+  <select class="custom-select facilities" name="facilities[]" multiple="multiple">
+      <option value="" disabled="true">-Select Facilities-</option>
+        @foreach($building_facilities as $list)
+      <option value="{{ $list->name }}">{{ $list->name }}</option>
+        @endforeach
+  </select>
+</div>
+
+<div class="form-group">
+  <label>
     <span class="text-danger">*</span> Packages
-    <small>{{ $errors->has('package') ?  $errors->first('package') : '' }}</small>
+    <small class="text-danger has-error">{{ $errors->has('package') ?  $errors->first('package') : '' }}</small>
   </label>
   <select class="custom-select facilities" name="package[]" multiple="multiple">
       <option value="" disabled="true">-Select Package-</option>
@@ -207,12 +325,30 @@
 </div>
 
 
+@endif
+
 <div  style="padding:5px 0px 5px;">
 <hr>
 <strong> <i class="fas fa-map-marked-alt"></i> Location and Address</strong>
 </div>
 
 
+@if($service_name->name == 'Hotel')
+
+<div class="form-group">
+  <label>
+    <span class="text-danger">*</span> Address
+    <small class="text-danger has-error">{{ $errors->has('address') ?  $errors->first('address') : '' }}</small>
+  </label>
+  <select class="custom-select" name="address">
+      <option value="" disabled="true">-Select address-</option>
+        @foreach($address as $list)
+      <option value="{{ $list->id }}">{{ $list->address }}</option>
+        @endforeach
+  </select>
+</div>
+
+@else
 
 <div class="form-group">
   <label>
@@ -223,6 +359,8 @@
   </label>
   <textarea name="address" class="form-control" rows="2" placeholder="Address...."></textarea>
 </div>
+
+@endif
 
 <div class="row">
 
@@ -407,6 +545,93 @@ $('#cityid').on('change', function () {
 
 });
 
+</script>
+
+
+<script type="text/javascript">
+
+  $("input[data-type='currency']").on({
+    keyup: function() {
+      formatCurrency($(this));
+    },
+    blur: function() { 
+      formatCurrency($(this), "blur");
+    }
+});
+
+
+function formatNumber(n) {
+  // format number 1000000 to 1,234,567
+  return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+}
+
+
+function formatCurrency(input, blur) {
+  // appends $ to value, validates decimal side
+  // and puts cursor back in right position.
+  
+  // get input value
+  var input_val = input.val();
+  
+  // don't validate empty input
+  if (input_val === "") { return; }
+  
+  // original length
+  var original_len = input_val.length;
+
+  // initial caret position 
+  var caret_pos = input.prop("selectionStart");
+    
+  // check for decimal
+  if (input_val.indexOf(".") >= 0) {
+
+    // get position of first decimal
+    // this prevents multiple decimals from
+    // being entered
+    var decimal_pos = input_val.indexOf(".");
+
+    // split number by decimal point
+    var left_side = input_val.substring(0, decimal_pos);
+    var right_side = input_val.substring(decimal_pos);
+
+    // add commas to left side of number
+    left_side = formatNumber(left_side);
+
+    // validate right side
+    right_side = formatNumber(right_side);
+    
+    // On blur make sure 2 numbers after decimal
+    if (blur === "blur") {
+      right_side += "00";
+    }
+    
+    // Limit decimal to only 2 digits
+    right_side = right_side.substring(0, 2);
+
+    // join number by .
+    input_val = "" + left_side + "." + right_side;
+
+  } else {
+    // no decimal entered
+    // add commas to number
+    // remove all non-digits
+    input_val = formatNumber(input_val);
+    input_val = "" + input_val;
+    
+    // final formatting
+    if (blur === "blur") {
+      input_val += ".00";
+    }
+  }
+  
+  // send updated string to input
+  input.val(input_val);
+
+  // put caret back in the right position
+  var updated_len = input_val.length;
+  caret_pos = updated_len - original_len + caret_pos;
+  input[0].setSelectionRange(caret_pos, caret_pos);
+}
 
 </script>
 @endsection

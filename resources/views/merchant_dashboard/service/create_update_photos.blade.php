@@ -81,24 +81,23 @@
       
       <div class="card-header">
         <h3 class="card-title">
-          <i class="fas fa-box-open"></i> Service » {{ $service_name->name }} » 
-            <a href="{{ route('service_listing_create_post',$service_name->description) }}" class="py-0">Create Post</a>
+          <i class="fas fa-box-open"></i> Service » {{ $service_name->name }} 
+            <a href="{{ route('service_listing_create_post',$service_name->description) }}" class="py-0"></a>
         </h3>
       </div>
 
     <div class="card-body">
-        
-     <div class="form-group">
-          <label>
-            <span class="text-danger">*</span> Tour Package Name
-            <small class="text-danger has-error">
-                {{ $errors->has('tour_package_name') ?  $errors->first('tour_package_name') : '' }}
-            </small>
-          </label>
-          <input type="text" name="tour_package_name" value="{{ $service_post->tour_name }}" class="form-control" readonly="tour_package_name" placeholder="Tour Package">
-        </div>
 
-      {!! csrf_field() !!}
+
+
+<div class="alert alert-warning alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+  <h5><i class="fas fa-exclamation-circle"></i> Please continue and upload photos for</h5> <h4>* {{ $service_post->tour_name }}</h4>
+</div>
+
+
+
+          @csrf
           <div class="file-loading">
               <input id="file-1" type="file" name="file" multiple class="file" data-min-file-count="2">
           </div>

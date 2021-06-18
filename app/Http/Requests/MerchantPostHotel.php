@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MerchantPostTour extends FormRequest
+class MerchantPostHotel extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,16 +24,21 @@ class MerchantPostTour extends FormRequest
     public function rules()
     {
         return [
-            'tour_package_name'=>'required',
+            'room_name'=>'required',
+            'room_description'=>'required',
             'price'=>'required',
             'no_night'=>'required',
             'no_guest'=>'required',
             'quantity'=>'required',
-            'tour_package_desc'=>'required',
-            'what_expect'=>'required',
-            'cancelation'=>'required',
-            'facilities'=>'required',
-            'package'=>'required',
+
+            'room_size'=>'required',
+            'views'=>'required',
+            'number_bed'=>'required',
+            
+            'room_facilities'=>'required',
+            'buiding_facilities'=>'required',
+            'booking_package'=>'required',
+            
             'address'=>'required',
             'country'=>'required',
             'province'=>'required',

@@ -11,6 +11,7 @@ class TourModel extends Model
     	'price',
     	'nonight',
     	'tour_name',
+        'roomdesc',
         'tour_desc',
     	'roomsize',
     	'viewdeck',

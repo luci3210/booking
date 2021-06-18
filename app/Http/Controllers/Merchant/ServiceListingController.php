@@ -15,11 +15,13 @@ use App\Model\Merchant\LocationDistrictModel;
 use App\Model\Merchant\LocationRegionModel;
 use App\Model\Merchant\TourModel;
 use App\Model\Merchant\TourPhoModel;
+use App\Model\Merchant\MerchantAddress;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Merchant\ProfileController;
 
 use App\Http\Requests\MerchantPostTour;
+use App\Http\Requests\MerchantPostHotel;
 use Illuminate\Http\Request;
 
 class ServiceListingController extends Controller
@@ -59,10 +61,16 @@ class ServiceListingController extends Controller
         $room_facilities = $this->room_facilities();
         $building_facilities = $this->building_facilities();
         $packages_facilities = $this->packages_facilities();
+        $address = $this->address();
 
         $country = $this->country();
 
-        return view('merchant_dashboard.service.create_form',compact('service_name','room_facilities','building_facilities','packages_facilities','country'));   
+        return view('merchant_dashboard.service.create_form',compact('address','service_name','room_facilities','building_facilities','packages_facilities','country'));   
+    }
+
+    public function address() {
+
+        return MerchantAddress::where('prof_id',$this->profile->profile_check()->id)->where('temp_status',1)->get();
     }
 
     public function service_save_post(MerchantPostTour $request, $id) {
@@ -92,16 +100,54 @@ class ServiceListingController extends Controller
 
         $serviceName = ProductModel::where('id',$lastService)->get()->first();
 
+        return Redirect('merchant_dashboard/service/'.$lastId.'/upload_photos/'.$serviceName->description.'')->withSuccess('Successfully submit, Please continue adding photos.');
+
+    }
+
+    public function service_save_hotel(MerchantPostHotel $request, $id) {
+
+        $getLastData = TourModel::create([
+            'tour_name' => $request->room_name,
+            'price' => $request->price,
+            'nonight' => $request->no_night,
+            'noguest' => $request->no_guest,
+            'qty' => $request->quantity,
+
+            'roomdesc' => $request->room_description,
+
+            'roomsize' => $request->room_size,
+            'viewdeck' => $request->views,
+            'nobed' => $request->number_bed,
+
+            'room_facilities' => implode(',', $request->room_facilities),
+            'building_facilities' => implode(',', $request->buiding_facilities),
+            'booking_package' => implode(',', $request->booking_package),
+
+            'serviceid' => $request->address,
+            'country' => $request->country,
+            'district' => $request->province,
+            'city' => $request->place,
+            'profid' => $this->profile->profile_check()->id,
+            'service_id' => $id,
+            'temp_status' => 2
+          ]);
+
+        $lastId = $getLastData->id;
+        $lastService = $getLastData->service_id;
+
+        $serviceName = ProductModel::where('id',$lastService)->get()->first();
 
         return Redirect('merchant_dashboard/service/'.$lastId.'/upload_photos/'.$serviceName->description.'')->withSuccess('Successfully submit, Please continue adding photos.');
 
     }
 
+    
+
     public function service_update_photos($id,$desc) {
 
         $service_name = $this->desc_name($desc);
         $service_post = $this->get_post($id);
-        // $service_post = TourModel::where('id',$id)->get('id')->first();
+
         return view('merchant_dashboard.service.create_update_photos',compact(['service_name','service_post']));   
 
     }
@@ -114,11 +160,10 @@ class ServiceListingController extends Controller
     public function service_upload_photos(Request $request, $id)  {
     
         $imageName = $request->file('file');
-        $new_image_name = '2021'.date('Ymd').uniqid().'.jpg';
-       
+        
+        $new_image_name = '2021'.$this->profile->profile_check()->id.date('Ymd').uniqid().'.jpg';
         request()->file->move(public_path('image/tour/2021'), $new_image_name);
-
-        TourPhoModel::create(['merchant_id' => $this->profile->profile_check()->id, 'upload_id' => $id, 'photo' => $new_image_name]); 
+        TourPhoModel::create(['merchant_id' => $this->profile->profile_check()->id, 'upload_id' => $id, 'photo' => $new_image_name]);
 
         return response()->json(['uploaded' => '/image/tour/2021'.$new_image_name]);
     }
