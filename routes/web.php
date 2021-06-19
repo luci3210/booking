@@ -71,10 +71,10 @@ Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merc
         Route::post('/profile','Merchant\ProfileController@profile_form_submit')
         ->name('profile_submit');
 
-        Route::post('/profile','Merchant\ProfileController@profile_form_update')
+        Route::post('/profile_update','Merchant\ProfileController@profile_form_update')
         ->name('profile_update');
 
-        Route::post('/profile','Merchant\ProfileController@merchant_permit')
+        Route::post('/profile_','Merchant\ProfileController@merchant_permit')
         ->name('merchant_permit_submit');
 
 

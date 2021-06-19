@@ -91,7 +91,7 @@
   <div class="user-block">
     <img class="img-circle img-bordered-sm" src="https://www.thegoldenscope.com/wp-content/uploads/2015/11/boracay-1b-411x308.jpg" alt="user image">
     <span class="username">
-      <a href="#">{{ $profile_details->id }}</a>
+      <a href="#">{{ $profile_details->company }}</a>
     </span>
     <span class="description">{{ $profile_details->address }}</span>
   </div>

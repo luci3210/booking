@@ -66,8 +66,59 @@
           </div>
           <!-- ./col -->
         </div>
-        
 
+
+@if(empty($verify)) 
+
+
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">
+          <i class="fas fa-box-open"></i> Service » {{ $service_name->name }} » 
+            <a href="{{ route('service_listing_create_post',$service_name->description) }}" class="py-0">Create Post</a>
+        </h3>
+      </div>
+      <div class="card-body">
+      
+        
+        <div class="alert alert-info alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <h5><i class="icon fas fa-info"></i> Information</h5>
+                    This account is for verification and kindly wait for the admin response. 
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+@elseif($verify->verify_id != 1)
+  <div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">
+          <i class="fas fa-box-open"></i> Service » {{ $service_name->name }} » 
+            <a href="{{ route('service_listing_create_post',$service_name->description) }}" class="py-0">Create Post</a>
+        </h3>
+      </div>
+      <div class="card-body">
+      
+        
+        <div class="alert alert-info alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <h5><i class="icon fas fa-info"></i> Information</h5>
+                    {{ $verify->description }}
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+@else
 
 @if($service_name->name == 'Hotel')
   <form action="{{ route('service_listing_save_hotel',$service_name->id) }}" method="post">
@@ -438,6 +489,10 @@
 </div>
 
 </form>
+
+
+@endif       
+
 
 </div>
 

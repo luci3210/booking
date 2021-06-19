@@ -39,10 +39,10 @@ class ProfileAddressController extends Controller
     }
 
     public function address_create(MerchantPostCreateRequest $request) {
-        MerchantAddress::create(['address' => $request->address,'country_id' => $request->country,
-        'region_id' => $request->region,'district_id' => $request->district,'city_id' => $request->city,'municipality_id' => $request->municipality,'barangay_id' => $request->barangay,'temp_status' => 1, 'prof_id'=> $this->profile->profile_check()->id]);
+        MerchantAddress::create(['address' => $request->address,'temp_status' => 1, 'prof_id'=> $this->profile->profile_check()->id]);
+                return redirect('merchant_dashboard/profile/profile')->withSuccess('Successfully added!');
 
-        return redirect()->back()->withSuccess('Successfully Added!');
+        // return redirect()->back()->withSuccess('Successfully Added!');
     }
 
     public function address_edit($id) {

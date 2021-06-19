@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Tourismo;
 
+use App\Model\Merchant\Profile;
+
 use App\Model\Admin\PlanModel;
 use App\Model\UserJobModel;
 use App\Model\Merchant\MyplanModel;
@@ -61,6 +63,7 @@ class SubscribeContollrer extends Controller
                     'temp_status' => 1,
                     'terms' => $request->terms]);
     UserJobModel::create(['user_id' => Auth::user()->id,'job_id' => 2]);
+    Profile::create(['user_id' => Auth::user()->id]);
 
 
     return redirect('merchant')->withSuccess('Please update your merchant idintity.');

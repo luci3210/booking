@@ -15,6 +15,7 @@ use App\Model\Merchant\LocationDistrictModel;
 use App\Model\Merchant\LocationRegionModel;
 use App\Model\Merchant\TourModel;
 use App\Model\Merchant\TourPhoModel;
+use App\Model\MerchantVerifyModel;
 use App\Model\Merchant\MerchantAddress;
 
 use App\Http\Controllers\Controller;
@@ -62,11 +63,17 @@ class ServiceListingController extends Controller
         $building_facilities = $this->building_facilities();
         $packages_facilities = $this->packages_facilities();
         $address = $this->address();
+        $verify = $this->account_verify();
 
         $country = $this->country();
 
-        return view('merchant_dashboard.service.create_form',compact('address','service_name','room_facilities','building_facilities','packages_facilities','country'));   
+        return view('merchant_dashboard.service.create_form',compact('address','service_name','room_facilities','building_facilities','packages_facilities','country','verify'));   
     }
+
+    public function account_verify() {
+
+            return MerchantVerifyModel::where('prof_id',$this->profile->profile_check()->id)->orderBy('id', 'DESC')->first();
+        }
 
     public function address() {
 

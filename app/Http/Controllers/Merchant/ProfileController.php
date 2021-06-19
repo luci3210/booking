@@ -43,7 +43,7 @@ class ProfileController extends Controller
 
 	public function profile_details() {
 
-		return Profile::where('user_id',Auth::user()->id)->first();
+		return Profile::where('user_id',Auth::user()->id)->get()->first();
 	}
 
     public function address_check() {
@@ -68,7 +68,7 @@ class ProfileController extends Controller
 
     public function verify_check() {
 
-        return Profile::join('merchant_verify','merchant_verify.prof_id','profiles.id')->get()->first();
+        return Profile::join('merchant_verify','merchant_verify.prof_id','profiles.id')->orderBy('merchant_verify.id','desc')->first();
     }
 
     public function index() {
@@ -138,7 +138,7 @@ class ProfileController extends Controller
 
    	$this->validate($request, $validate_input, $validate_message); 
 
-    Profile::where('plan_id',$this->myplan->getPlan()->planid)->update(['company' => $request->merchant_name,
+    Profile::where('user_id',Auth::user()->id)->update(['company' => $request->merchant_name,
                         'address'       => $request->merchant_address,
                         'about'         => $request->about,
                         'email'         => $request->mail,

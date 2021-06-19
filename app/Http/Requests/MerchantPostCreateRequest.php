@@ -25,12 +25,12 @@ class MerchantPostCreateRequest extends FormRequest
     {
         return [
             'address' => 'required|max:500',
-            'country' => 'required|numeric',
-            'region' => 'required|numeric',
-            'district' => 'required|numeric',
-            'city' => 'required|numeric',
-            'municipality' => 'required|numeric',
-            'barangay' => 'required|numeric',
+            // 'country' => 'required|numeric',
+            // 'region' => 'required|numeric',
+            // 'district' => 'required|numeric',
+            // 'city' => 'required|numeric',
+            // 'municipality' => 'required|numeric',
+            // 'barangay' => 'required|numeric',
         ];
     }
 }
