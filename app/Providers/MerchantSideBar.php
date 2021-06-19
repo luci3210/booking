@@ -30,7 +30,7 @@ class MerchantSideBar extends ServiceProvider
          View::composer('*', function ($view) {
            
            return $view->with('service_list', ProductModel::join('temp_status','temp_status.id','products.temp_status')
-                        ->where('products.temp_status',1)
+                        ->where('products.temp_status', '!=',5)
                         ->get(['products.name','products.id','products.description']));
         });
     }

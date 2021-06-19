@@ -39,12 +39,10 @@
     font-weight: 600;
 }
 
-
-
 .link-secondary:hover{
     color: #36235a !important;
     font-weight: 600;
-    background-color: #ececec;
+    /* background-color: #ececec; */
     border-radius: 70%;
 }
 
@@ -52,7 +50,7 @@
     color: #36235a !important;
     font-weight: 600;
     background-color: #ececec;
-    border-radius: 70%;
+    border-radius: 5px;
     font-size: .8em;
     margin-right: 3px;
     text-align: center;
@@ -69,6 +67,16 @@
     cursor:context-menu;
 }
 
+.fade-disabled {
+    color: grey!important;
+}
+.search-focus-custom:focus{
+    color: #212529;
+    background-color: #fff;
+    border-color: #36235a;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgb(54 35 90 / 25%)
+}
 .border-1{
     height: 1px;
     background-color: #f5f5f5;;
@@ -95,6 +103,10 @@
 @media only screen and (min-width: 982px) {
     .icon-div{
         padding-left: 0;
+    }
+    .icon-profile{
+        font-size: 1.4em;
+
     }
 
 }
@@ -191,16 +203,16 @@
     
     <div class="uk-navbar-left sm-m-view">
         <div class="uk-grid" uk-grid>
-            <div class="col-lg-6 col-sm-12 icon-div">
+            <div class="col-lg-4 col-sm-12 icon-div">
                 <a href="{{ route('myhome') }}">
-                    <span>
-                        <img src="{{ asset('image/logo/logoab.png') }}"  style="padding-top: 5px; padding-right: 20px;">
-                    </span>
+                    <!-- <span> -->
+                        <img src="{{ asset('image/logo/logov2.jpg') }}"  style=" padding-right: 15px;">
+                    <!-- </span> -->
                 </a>
             </div>
-            <div class="col-lg-6 hidden-sm">
+            <div class="col-lg-8 hidden-sm p-0">
                 <form class="">
-                    <input class="form-control"  type="search" placeholder="Search" name="desktop-search" aria-label="Search" style="border-radius: 23px;">
+                    <input class="form-control search-focus-custom"  type="search" placeholder="Search" name="desktop-search" aria-label="Search" style="border-radius: 23px;">
                     <div uk-dropdown="animation: uk-animation-slide-top-small; duration: 1000;mode: click" class="uk-width-xlarge">
                         <div id="load-data">
                             <h6>Destinations</h6>
@@ -236,14 +248,14 @@
             @if (Route::has('login'))
 
             @auth
-                <li class="drop-down"><a href=""><i class="fas fa-user-circle"></i> Account</a>
-                <ul>
+                <li class="active"><a href="{{ route('accnt_profile') }}" ><i class="fas fa-user-circle icon-profile"></i><span class="d-sm-block d-md-none d-lg-none d-xl-none d-xl-block"> Account</span> </a>
+                <!-- <ul>
                     <li><a href="{{ route('accnt_profile') }}">Profile</a></li>
                     <li><a href="#">Booking </a></li>
                     <li><a href="#">Like Page</a></li>
                     <li><a href="{{ route('account-setting') }}"><span uk-icon="settings"></span> Settings</a></li>
                     <li><a href="#">LogOut</a></li>
-                </ul>
+                </ul> -->
                 </li>
                 <li><a href="{{ route('logout') }}"><i class="fas fa-sign-out-alt"></i> Signout</a></li>
             @else
@@ -263,26 +275,35 @@
 
 
 </nav>
-<div class="col-12 bg-white mt-1">
+<div class="col-12 bg-white mt-1 hidden-sm">
     <hr class="border-1 m-0" />
 </div>
 <div class="col-12 bg-white d-xl-block d-lg-block d-none">
     <div class="uk-container">
-        <nav class="nav d-flex ">
-        <a class="p-2 link-secondary " href="{{ route('destination') }}">Hotel</a>
-        <a class="p-2 link-secondary " href="{{ route('tour_operator') }}">Tour Package</a>
-        <a class="p-2 link-disabled " href="#" onclick="return false;"disabled>Flight</a>
-        <a class="p-2 link-disabled " href="#" onclick="return false;">Cruise</a>
-        <a class="p-2 link-disabled " href="#" onclick="return false;">Mice Event</a>
-        <a class="p-2 link-disabled " href="#" onclick="return false;"> Tourist Stop</a>
-        <a class="p-2 link-disabled " href="#" onclick="return false;">Tour Guide</a>
-        <a class="p-2 link-disabled " href="#" onclick="return false;">Langauge Translator</a>
+    <nav class="nav d-flex " >
+
+    @foreach($slmenu as $data)
+        @if($data->status == 'active')
+        <a class="p-3 link-secondary " href="{{ route('destination') }}" >{{$data->name}}</a>
+        @else
+        <a class="p-3 link-disabled fade-disabled" href="#" onclick="return false;"disabled>{{$data->name}}</a>
+        @endif
+
+    @endforeach
+        <!-- <a class="p-3 link-secondary " href="{{ route('destination') }}">Hotel</a>
+        <a class="p-3 link-secondary " href="{{ route('tour_operator') }}">Tour Package</a>
+        <a class="p-3 link-disabled " href="#" onclick="return false;"disabled>Flight</a>
+        <a class="p-3 link-disabled " href="#" onclick="return false;">Cruise</a>
+        <a class="p-3 link-disabled " href="#" onclick="return false;">Mice Event</a>
+        <a class="p-3 link-disabled " href="#" onclick="return false;"> Tourist Stop</a>
+        <a class="p-3 link-disabled " href="#" onclick="return false;">Tour Guide</a>
+        <a class="p-3 link-disabled " href="#" onclick="return false;">Langauge Translator</a> -->
         </nav>
     </div>
 </div>
 <div class="col-lg-12 pd-2 hidden-xl block-sm uk-navbar-container search-mt-1">
     <form class="">
-        <input class="form-control" name="mobile-search"  type="search" placeholder="Search" aria-label="Search" style="border-radius: 23px;">
+        <input class="form-control search-focus-custom" name="mobile-search"  type="search" placeholder="Search" aria-label="Search" style="border-radius: 23px;">
         <div uk-dropdown="animation: uk-animation-slide-top-small; duration: 1000;mode: click" class="uk-width-xlarge">
             <div id="load-data">
                 <h6>Destinations</h6>
