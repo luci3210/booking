@@ -53,17 +53,20 @@ class SubscribeContollrer extends Controller
 
     $this->validate($request, $input_validate, $errMessage);   
 
-    MyplanModel::create(['user_id' => Auth::user()->id,
-                    'plan_auth' => uniqid().''.Auth::user()->id.''.substr(sha1(Auth::user()->id),12, 19),
-                    'plan_name' => $request->plan_name,
-                    'plan_price' => $request->price,
-                    'plan_list' => $request->package,
-                    'validity' => $request->validity,
-                    // 'expired' => $request->end_date,
-                    'temp_status' => 1,
-                    'terms' => $request->terms]);
+    $getLastData = MyplanModel::create(['user_id' => Auth::user()->id,
+            'plan_name' => $request->plan_name,
+            'plan_price' => $request->price,
+            'plan_list' => $request->package,
+            'validity' => $request->validity,
+            // 'expired' => $request->end_date,
+            'temp_status' => 1,
+            'terms' => $request->terms]);
+
+    $lastId = $getLastData->id;
+    $lastService = $getLastData->service_id;
+
     UserJobModel::create(['user_id' => Auth::user()->id,'job_id' => 2]);
-    Profile::create(['user_id' => Auth::user()->id]);
+    Profile::create(['plan_id'=>$lastId,'user_id' => Auth::user()->id,'account_id' => uniqid().''.Auth::user()->id.''.substr(sha1(Auth::user()->id),19,-15)]);
 
 
     return redirect('merchant')->withSuccess('Please update your merchant idintity.');

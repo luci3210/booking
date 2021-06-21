@@ -34,7 +34,7 @@ class ProfileContactController extends Controller
         MerchantContact::create(['fname' => $request->fname,'lname' => $request->lname,
         'email' => $request->email,'phonno' => $request->contact,'temp_status' => 1, 'prof_id'=> $this->profile->profile_check()->id]);
 
-        return redirect()->back()->withSuccess('Successfully Added!');
+        return redirect('merchant_dashboard/profile/profile')->withSuccess('Successfully Added!');
     }
 
     public function contact_edit($id) {

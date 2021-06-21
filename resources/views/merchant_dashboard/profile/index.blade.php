@@ -73,9 +73,9 @@
       
       <div class="time-label">
         @if(empty($profile->user_id) || empty($profile_contact->prof_id) || empty($profile_address->prof_id) || empty($profile_permit->prof_id))
-          <span class="bg-red"><i class="fas fa-times"></i> Please complete required below.&nbsp;</span>
+          <span class="bg-red">Information :  Basic Level "Please complete required below."&nbsp;</span>
         @elseif(empty($profile->id1))
-          <span class="bg-green">&nbsp;For Verification&nbsp;</span>
+          <span class="bg-green">&nbsp;Information : For Verification level&nbsp;</span>
         @elseif($verify_check->verify_id != 1)
           <span class="bg-yellow">&nbsp; Info : {{ $verify_check->description }}</span>
         @elseif($verify_check)
@@ -83,7 +83,7 @@
         @endif
       </div>
 
-@if(empty($profile->user_id))
+@if(empty($profile_details->company))
   <div>
       <i class="fas fa-times bg-red"></i>
       <div class="timeline-item">
@@ -94,7 +94,7 @@
           Please update your merchant identity.
         </div>
         <div class="timeline-footer">
-          <a class="btn btn-danger btn-sm" href="{{ route('profile_form') }}">Update</a>
+          <a class="btn btn-danger btn-sm" href="{{ route('profile_form') }}"><i class="fas fa-pen-square"></i> Update</a>
         </div>
       </div>
   </div>
@@ -154,10 +154,10 @@
       <h3 class="timeline-header">Contact</h3>
 
       <div class="timeline-body">
-        Add at least one(1) contact personsss.
+        Add at least one(1) contact person
       </div>
       <div class="timeline-footer">
-        <a class="btn btn-primary btn-sm" href="{{ route('profile_contact_form') }}"><i class="fas fa-plus"></i>  Add</a>
+        <a class="btn btn-primary btn-sm" href="{{ route('profile_contact_form') }}"><i class="fas fa-plus-circle"></i>  Add</a>
       </div>
     </div>
   </div>
@@ -205,7 +205,7 @@
                 </table>
       </div>
       <div class="timeline-footer">
-        <a class="btn btn-primary btn-sm" href="{{ route('profile_contact_form') }}"><i class="fas fa-plus"></i>  Add</a>
+        <a class="btn btn-primary btn-sm" href="{{ route('profile_contact_form') }}"><i class="fas fa-plus-circle"></i>  Add</a>
       </div>
     </div>
   </div>
@@ -219,13 +219,13 @@
     <i class="fas fa-times bg-red"></i>
     <div class="timeline-item">
       
-      <h3 class="timeline-header">Addresses</h3>
+      <h3 class="timeline-header">Address</h3>
 
       <div class="timeline-body">
-        Add at least one(1) address.sss
+        Add at least one(1) address
       </div>
       <div class="timeline-footer">
-        <a href="{{ route('profile_address_form') }}" class="btn btn-primary btn-sm">Add</a>
+        <a href="{{ route('profile_address_form') }}" class="btn btn-primary btn-sm"><i class="fas fa-plus-circle"></i> Add</a>
       </div>
     </div>
   </div>
@@ -234,7 +234,7 @@
     <i class="fas fa-check bg-green"></i>
     <div class="timeline-item">
       
-      <h3 class="timeline-header">Addresses</h3>
+      <h3 class="timeline-header">Address</h3>
 
       <div class="timeline-body">
         <table class="table table-bordered">
@@ -267,7 +267,7 @@
                 </table>
       </div>
       <div class="timeline-footer">
-        <a class="btn btn-primary btn-sm" href="{{ route('profile_address_form') }}"><i class="fas fa-plus"></i> Add</a>
+        <a class="btn btn-primary btn-sm" href="{{ route('profile_address_form') }}"><i class="fas fa-plus-circle"></i> Add</a>
       </div>
     </div>
   </div>
