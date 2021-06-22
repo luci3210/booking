@@ -64,7 +64,6 @@ class ServiceListingController extends Controller
         $packages_facilities = $this->packages_facilities();
         $address = $this->address();
         $verify = $this->account_verify();
-
         $country = $this->country();
 
         return view('merchant_dashboard.service.create_form',compact('address','service_name','room_facilities','building_facilities','packages_facilities','country','verify'));   

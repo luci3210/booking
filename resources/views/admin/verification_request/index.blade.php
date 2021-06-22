@@ -102,10 +102,9 @@
               <td>{{ $list->plan_name }} - {{ $list->validity }}</td>
               <td class="text-center">
                 
-                @if(empty($list->user_id) || empty($contact_check->prof_id) || empty($address_check->prof_id) || empty($permit_check->prof_id))
+                @if(!$permit_check->permit)
                   <span class="bg-red">&nbsp;Basic Level : Please complete required below.&nbsp;</span>
-                @elseif(empty($list->id1))
-                  <span class="bg-green">&nbsp;For Verification&nbsp;</span>
+                
                 @else
                 s
                 @endif

@@ -120,7 +120,7 @@ class ProfileController extends Controller
                         'website'       => $request->website,
                       	'user_id'       => Auth::user()->id]);
 
-        HotelModel::create(['profid' => Auth::user()->id]);
+        // HotelModel::create(['profid' => Auth::user()->id]);
    		return redirect('merchant_dashboard/profile/profile')->withSuccess('Successfully updated!');
     // return redirect()->back()->withSuccess('Successfully updated!');
     }
@@ -138,14 +138,30 @@ class ProfileController extends Controller
 
    	$this->validate($request, $validate_input, $validate_message); 
 
-    Profile::where('user_id',Auth::user()->id)->update(['company' => $request->merchant_name,
-                        'address'       => $request->merchant_address,
-                        'about'         => $request->about,
-                        'email'         => $request->mail,
-                        'telno'         => $request->telno,
-                        'website'       => $request->website]);
+    if(empty($this->contact_check()->prof_id) || empty($this->address_check()->prof_id) || empty($this->permit_check()->prof_id)) {
 
-	return redirect('merchant_dashboard/profile/profile')->withSuccess('Successfully updated!');
+        Profile::where('user_id',Auth::user()->id)->update(['company' => $request->merchant_name,
+            'address'       => $request->merchant_address,
+            'about'         => $request->about,
+            'email'         => $request->mail,
+            'telno'         => $request->telno,
+            'website'       => $request->website]);   
+
+        return redirect('merchant_dashboard/profile/profile')->withSuccess('Successfully updated!');
+
+    } else {
+
+        Profile::where('user_id',Auth::user()->id)->update(['company' => $request->merchant_name,
+            'address'       => $request->merchant_address,
+            'about'         => $request->about,
+            'email'         => $request->mail,
+            'telno'         => $request->telno,
+            'website'       => $request->website,
+            'id1'       => 1]);  
+
+        return redirect('merchant_dashboard/profile/profile')->withSuccess('Successfully updated!');
+    }
+
     }
 
     public function merchant_permit(Request $request) {

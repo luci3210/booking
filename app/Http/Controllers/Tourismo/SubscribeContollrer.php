@@ -62,11 +62,11 @@ class SubscribeContollrer extends Controller
             'temp_status' => 1,
             'terms' => $request->terms]);
 
-    $lastId = $getLastData->id;
+    $PlanId = $getLastData->id;
     $lastService = $getLastData->service_id;
 
     UserJobModel::create(['user_id' => Auth::user()->id,'job_id' => 2]);
-    Profile::create(['plan_id'=>$lastId,'user_id' => Auth::user()->id,'account_id' => uniqid().''.Auth::user()->id.''.substr(sha1(Auth::user()->id),19,-15)]);
+    Profile::create(['plan_id'=>$PlanId,'user_id' => Auth::user()->id,'account_id' => uniqid().''.Auth::user()->id.''.substr(sha1(Auth::user()->id),19,-15)]);
 
 
     return redirect('merchant')->withSuccess('Please update your merchant idintity.');
