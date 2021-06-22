@@ -128,6 +128,25 @@ class PaymentController extends Controller
         $auth_hash = hash_hmac('sha256', $public_key, $secret_key, false);
         $paymentService = new PaymentService();
         $extraData = $paymentService->SavePayment($req->uid,$req->type,'pending',1);
+        // $bookDetails['name'] = $req->billing_plan_name;
+        // $bookDetails['desc'] = $req->desc;
+        // $bookDetails['expect'] = $req->expect;
+        // $bookDetails['noguest'] = $req->noguest;
+        // $bookDetailsss = array(
+        //     'name'=> $req->billing_plan_name,
+        //     'desc'=>$req->desc,
+        //     'expect'=>$req->expect,
+        //     'noguest'=>$req->noguest,
+        // );
+        $bookDetailsss['uid'] = $req->uid;
+        $bookDetailsss['type'] = $req->type;
+        $bookDetailsss = base64_encode(json_encode($bookDetailsss));
+        $data['bookdetails'] = $bookDetailsss;
+        $data['extraData'] = $extraData;
+
+        // return $bookDetailsss;
+
+        
         $customer_array = array (
             'merchant_id' => $merchant_id,
             'merchant_ref_no' => '5a8c12eb19016',
@@ -152,12 +171,13 @@ class PaymentController extends Controller
             "payment_method" => "",
             // 'status_notification_url' => 'https://6342a334.ngrok.io/callback',
                 
-            'status_notification_url' => 'https://booking.tourismo.ph/api/payment/status/callback?extra='.$extraData,
-            // 'status_notification_url' => 'https://80b129c14f55.ngrok.io/booking/public/api/payment/status/callback?extra='.$extraData,
-            'success_page_url' => $req->myurl.'?extra='.$extraData.'&payment=success&',
-            'failure_page_url' => $req->myurl.'?extra='.$extraData.'payment=failed&',
-            'cancel_page_url' => $req->myurl.'?extra='.$extraData.'payment=cancel&',
-            'pending_page_url' => $req->myurl.'?extra='.$extraData.'payment=pending&',
+            // 'status_notification_url' => 'https://booking.tourismo.ph/api/payment/status/callback?extra='.$extraData,
+            // 'status_notification_url' => 'https://5cd521835102.ngrok.io/booking/public/api/payment/status/callback?extra='.$extraData.'&details='.$req->proid,
+            'status_notification_url' => 'https://5cd521835102.ngrok.io/booking/public/api/payment/status/callback?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData,
+            'success_page_url' => $req->url_callback.'?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData.'&payment=success&',
+            'failure_page_url' => $req->url_callback.'?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData.'&payment=failed&',
+            'cancel_page_url' => $req->url_callback.'?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData.'&payment=cancel&',
+            'pending_page_url' => $req->url_callback.'?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData.'&payment=pending&',
 
             // 'success_page_url' => 'https://booking.etourismo.com/listing-checkout/?payment=success&',
             // 'failure_page_url' => 'https://booking.etourismo.com/payment-failed/',

@@ -42,11 +42,12 @@
             <div class="col-sm-6">
             <h4>From:</h4>
             <address>
-                <strong>Company Inc.</strong><br>
-                123 Company Ave. <br>
-                Toronto, Ontario - L2R 4U6<br>
-                P: (416) 123 - 4567 <br>
-                E: company@company.com
+                <strong>{{$cdetails[0]->company}}</strong><br>
+                A: {{$cdetails[0]->address}} <br>
+                T: {{$cdetails[0]->telno}} <br>
+                P: {{$cdetails[0]->phonno}} <br>
+                E: {{$cdetails[0]->email}} <br>
+                W: {{$cdetails[0]->website}}
             </address>
             </div>
 
@@ -56,11 +57,10 @@
         </div>
 
         <div class="row">
-
             <div class="col-sm-7">
-            <h4>To:</h4>
             <address>
-                <strong>{{$extra['user_fname']}} {{$extra['user_lname']}}</strong><br>
+                <strong>To:</strong>
+                <span>{{$extra['user_fname']}} {{$extra['user_lname']}}</span><br>
                 <span>123 Cool St.</span><br>
                 <span>{{$extra['user_email']}}</span>
             </address>
@@ -75,7 +75,7 @@
                 </tr>
                 <tr>
                     <th> Invoice Date: </th>
-                    <td>Jun 24, 2019</td>
+                    <td>{{ date("F j, Y, g:i a",strtotime($extra['pm_created_at']))}}</td>
                 </tr>
                 </tbody>
             </table>
@@ -116,7 +116,10 @@
                 <tr>
                 <td>
                     <strong>Service</strong>
-                    <p>Description here. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita perferendis doloribus, quaerat molestias est eum, adipisci dolorem nulla rerum voluptatibus.</p>
+                    <p>Nights no.{{$detailsOfBooking['nonights']}}</p>
+                    <p>Guest no.{{$detailsOfBooking['noguest']}}</p>
+                    <p>{{$detailsOfBooking['desc']}}</p>
+                    <p>{{$detailsOfBooking['expect']}}</p>
                 </td>
                 <td></td>
                 <td class="text-right">$600</td>

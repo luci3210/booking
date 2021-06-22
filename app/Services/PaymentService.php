@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Mail\TestMail;
 use Illuminate\Support\Facades\Mail;
 
+use App\Model\Merchant\TourModel;
+use App\Model\Merchant\HotelModel;
 
 
 Class PaymentService extends SecurityServices{
@@ -35,9 +37,38 @@ Class PaymentService extends SecurityServices{
         $data['user_email'] = $user->email;
         $data['user_number'] = $user->pnumber;
         $data['user_fname'] = $user->fname;
-        $data['user_lname'] = $user->fname;
+        $data['user_lname'] = $user->lname;
         $data = base64_encode(json_encode($data));
         return $data;
+    }
+    
+    public function getBookDetails($id,$type)
+    {
+        if($type == 'hotel'){
+            $hotelDetails = new HotelModel();
+            $hotelDetails = $hotelDetails->where('id', $id);
+            $hotelDetails = $hotelDetails->get();
+            $data['name'] = $hotelDetails[0]['roomname'];
+            $data['desc'] = $hotelDetails[0]['roomdesc'];
+            $data['expect'] = '';
+            $data['noguest'] = $hotelDetails[0]['noguest'];
+            // $data = base64_encode(json_encode($data));
+            return $data;
+        }
+
+        if($type == 'tour'){
+            $tourDetails = new TourModel();
+            $tourDetails = $tourDetails->where('id', $id);
+            $tourDetails = $tourDetails->get();
+            $data['name'] = $tourDetails[0]['tour_name'];
+            $data['desc'] = $tourDetails[0]['tour_desc'];
+            $data['expect'] = $tourDetails[0]['tour_expect'];
+            $data['noguest'] = $tourDetails[0]['noguest'];
+            $data = base64_encode(json_encode($data));
+            return $data;
+        }
+        return [];
+        
     }
 
     public function updatePayment($id,$statusID)
@@ -52,7 +83,7 @@ Class PaymentService extends SecurityServices{
 
     }
 
-    public function updatePaymentStatus(Request $req,$extra)
+    public function updatePaymentStatus(Request $req,$extra,$cn,$bdetails)
     {
         $sp = new StatusPaymentModel();
         $sp = $sp->where('ps_ref_no',$req->ref_no)->get();
@@ -100,9 +131,11 @@ Class PaymentService extends SecurityServices{
         $details = [
             'title'=> 'Receipt',
             'body'=>'thank you for purchasing thru Tourismo',
-            'url'=>'https://80b129c14f55.ngrok.io/booking/public/invoice?',
+            'url'=>'https://5cd521835102.ngrok.io/booking/public/invoice?',
             'extra'=>$extraData,
-            'status'=>$statusPayment
+            'status'=>$statusPayment,
+            'profileID'=>$cn,
+            'bdetails'=>$bdetails
         ];
         Mail::to($extra['user_email'])->send( new TestMail($details) );
         return 'payment';
