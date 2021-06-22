@@ -4,6 +4,7 @@ namespace App\Model\Merchant;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class TourPhoModel extends Model
 {
     protected $table = 'service_tour_photos';

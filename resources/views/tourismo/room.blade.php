@@ -6,6 +6,8 @@
 @section('img', asset( 'upload/merchant/coverphoto'. $room_details[0]->photo))
 @section('curUrl', url()->current())
 <meta name="csrf-token" content="{{ csrf_token() }}">
+<!-- /. meta tags -->
+
 
 <style>
 .heart-icon{
@@ -120,7 +122,6 @@ a.page-link {
   border-radius: 50%;
 }
 </style>
-<!-- /. meta tags -->
 <section class="features">
       <div class="container">
 
@@ -162,11 +163,11 @@ a.page-link {
 
  <h3 class="uikit-title">Booking Details</h3>
   <ul>
-  <li><i class="icofont-check"></i>Room size: <b>{{ $room_details[0]->roomsize }} m²</b></li>
-  <li><i class="icofont-check"></i>View : <b>City View</b></li>
-  <li><i class="icofont-check"></i>Max guest: <b>{{ $room_details[0]->noguest }}</b></li>
-  <li><i class="icofont-check"></i>No. of Bed: <b>{{ $room_details[0]->nobed }}</b></li>
-</ul>
+    <li><i class="icofont-check"></i>Room size: <b>{{ $room_details[0]->roomsize }} m²</b></li>
+    <li><i class="icofont-check"></i>View : <b>City View</b></li>
+    <li><i class="icofont-check"></i>Max guest: <b>{{ $room_details[0]->noguest }}</b></li>
+    <li><i class="icofont-check"></i>No. of Bed: <b>{{ $room_details[0]->nobed }}</b></li>
+  </ul>
 
 <h3 class="uikit-title">
   Package
@@ -401,16 +402,16 @@ a.page-link {
 <div class="col-md-12 form-group mt-3">
     <label class="labelcoz">Address</label>
     <input type="text" class="uk-input" name="billing_address_1" id="address" value="{{ Auth::user()->address }}" readonly="readonly">
-    <input type="hidden" class="uk-input" name="country" id="country" value="{{ Auth::user()->country }}" readonly="readonly">
+    <!-- <input type="hidden" class="uk-input" name="country" id="country" value="{{ Auth::user()->country }}" readonly="readonly"> -->
     <div class="validate"></div>
 </div>
 
 <div class="col-md-12 form-group mt-3">
-<div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
-            <label><input class="uk-radio" type="radio" name="payment-method" value="paypal" checked> Pay with PayPal</label>
-            <label><input class="uk-radio" type="radio" name="payment-method" value="traxion" checked> Pay with TraxionPay</label>
-        </div>
-        </div>
+  <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+      <label><input class="uk-radio" type="radio" name="payment-method" value="paypal" checked> Pay with PayPal</label>
+      <label><input class="uk-radio" type="radio" name="payment-method" value="traxion" checked> Pay with TraxionPay</label>
+  </div>
+</div>
 <div class="col-md-12 form-group mt-3">
 <button type="button" class="uk-button uk-button-primary" onClick="checkPaymentMethod()">Continue</button>
 </div>
@@ -552,7 +553,7 @@ a.page-link {
   <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)"uk-toggle="target: #rooms-selected-{{$room_details[0]->upload_id}}" >
     <i class="fas fa-share"></i> Share
   </a>
-  <a class="heart-icon btn" href="javascript:void(0)" onclick="wishListToggle('{{ $room_details[0]->upload_id }}')"> 
+  <a class="heart-icon btn" href="javascript:void(0)" uk-toggle="target: #checklogin"> 
       <i class="far fa-heart toggle-heart"></i> 
   </a>
 

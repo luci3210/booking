@@ -34,15 +34,38 @@ public function hotels() {
 
     }
 
-public function tour_packages() {
+    public function tour_packages() 
+    {
+        $tourModel = new TourModel();
+        $tourModel = $tourModel->join('service_tour_photos','service_tour_photos.upload_id', 'service_tour.id');
+        $tourModel = $tourModel->where('service_tour.service_id', 10011);
+        $tourModel = $tourModel->where('service_tour.temp_status', 1);
+        $tourModel = $tourModel->where('service_tour_photos.temp_status', 1);
+        $tourModel = $tourModel->groupBy('service_tour_photos.upload_id');
+        return $tourModel->get();
 
-    return TourModel::join('service_tour_photos','service_tour_photos.upload_id', 'service_tour.id')
-                ->where('service_tour.service_id',10011)
-                ->where('service_tour.on_home',1)
-                ->where('service_tour.temp_status',1)
-            ->select(['service_tour.*','service_tour_photos.*'])
-            ->groupBy('service_tour_photos.upload_id')->get();
+    }
 
+    public function getTourPackage()
+    {
+
+        // $tourModel = new TourModel();
+        // $tourModel = $tourModel->join('service_tour_photos','service_tour_photos.upload_id', 'service_tour.id');
+        // $tourModel = $tourModel->where('service_tour.service_id', 10011);
+        // $tourModel = $tourModel->where('service_tour.temp_status', 1);
+        // $tourModel = $tourModel->where('service_tour_photos.temp_status', 1);
+        // $tourModel = $tourModel->groupBy('service_tour.id');
+        // return $tourModel->get();
+
+
+        // return TourModel::join('service_tour_photos','service_tour_photos.upload_id', 'service_tour.id')
+        //         ->where('service_tour.service_id',10011)
+        //         ->where('service_tour.on_home',1)
+        //         ->where('service_tour.temp_status',1)
+        //     ->select(['service_tour.*','service_tour_photos.*'])
+        //     ->groupBy('service_tour_photos.upload_id')->get();
+
+        
     }
 
 public function  room_details($id) {
@@ -74,7 +97,8 @@ public function banner() {
     return BannerModel::where('banners.temp_status',1)->where('banners.location',1)->get(['banners.banner_img','banners.short_des','banners.long_desc']);
 
 }
-public function index()
+
+    public function index()
     {
 
     	$home_hotel 	= $this->hotels();
@@ -85,10 +109,13 @@ public function index()
         $tour_package   = $this->tour_package(); 
         $tour_packages   = $this->tour_packages();
         $banner            = $this->banner();
-        // return $destination;
+        // return $tour_packages;
 
-            return view('tourismo.home', compact(['banner','tourismo_exlusive','international','home_hotel','destination','hotels','tour_package','tour_packages']));
+        return view('tourismo.home', compact(['banner','tourismo_exlusive','international','home_hotel','destination','hotels','tour_package','tour_packages']));
     }
+    
+    
+
 
 public function room($id) {
 	
@@ -123,19 +150,19 @@ public function room($id) {
     $reviewsData = $reviewsData->join('users', 'page_reviews.pr_user_id', 'users.id');
     $reviewsData = $reviewsData->paginate(2);
     $reviewsData = $reviewsData->setCollection($reviewsData->getCollection()->makeHidden(
-        ['id',
-        'password', 
-        'email',
-        'created_at',
-        'updated_at',
-        'bdate',
-        'accnt_nu',
-        'address',
-        'pnumber',
-        'remember_token',
-        'email_verified_at',
-        'job',
-        ]));
+    ['id',
+    'password', 
+    'email',
+    'created_at',
+    'updated_at',
+    'bdate',
+    'accnt_nu',
+    'address',
+    'pnumber',
+    'remember_token',
+    'email_verified_at',
+    'job',
+    ]));
 
 
 	return view('tourismo.room', compact(['room_details', 'wishList', 'reviewsData','userCountry']));

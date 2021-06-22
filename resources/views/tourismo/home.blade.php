@@ -683,7 +683,7 @@ Founded in 2018, Tourismo PH envisioned a company that is committed in energizin
       <div class="member">
 
         <div class="member-img" style="height: 180px;">
-          <img src="{{ asset('upload/merchant/tour')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}" class="img-fluid" alt=""  style="border-radius: 4px;">
+          <img src="{{ asset('image/tour/2021')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}" class="img-fluid" alt=""  style="border-radius: 4px;">
         </div>
 
         <div class="member-info">
@@ -703,7 +703,7 @@ Founded in 2018, Tourismo PH envisioned a company that is committed in energizin
         </div>
 
 <div class="details-m">
-<a class="uk-button uk-button-default uk-button-small btn-room-details-m" href="{{ route('tourismo_room', $list->upload_id) }}">Explore</a>
+<a class="uk-button uk-button-default uk-button-small btn-room-details-m" href="{{ route('tourimos_tour_package', $list->upload_id) }}">Explore</a>
 
 <a class="uk-button uk-button-small " href="javascript:void(0)" uk-toggle="target: #tour-package-{{$list->upload_id}}">
     <i class="fas fa-share"></i> Share
