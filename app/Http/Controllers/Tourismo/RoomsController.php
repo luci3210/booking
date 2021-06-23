@@ -4,36 +4,34 @@ namespace App\Http\Controllers\Tourismo;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Auth;
 
-use App\Model\Merchant\TourPhoModel;
-use App\Model\Merchant\TourModel;
 use App\user\WishlistHotelsRoom;
 use App\Model\Admin\LocationCountyModel;
 use App\user\PageReviewsModel;
 use App\Model\Merchant\ProfileModel;
+use App\Model\Merchant\HotelModel;
+use App\Model\Merchant\HotelPhoMoldel;
 
-class TourPackageController extends Controller
+
+class RoomsController extends Controller
 {
     //
 
     public function index(Request $req)
     {
-        $id = $this->clean_input($req->id);
-        $tourPhotos = $this->getPhotos($id);
-        $tourDetails = $this->getTourDetails($id);
+        # code...
 
+        $id = $this->clean_input($req->id);
+        $room_details = $this->getRoomDetails($id);
         $wishList = $this->checkWishlist($id);
         $userCountry = $this->userCountry();
         $reviewsData = $this->getReviews($id);
-        $profileID = $tourDetails[0]['profid'];
+	    return view('tourismo.room', compact(['room_details', 'wishList', 'reviewsData','userCountry']));
 
-        $profileData = $this->getProfileCompany($profileID);
-
-
-        return view('tourismo.tour_package', compact(['tourPhotos', 'tourDetails','wishList','userCountry', 'reviewsData', 'profileData']));
     }
-    
+
     protected function getProfileCompany($id){
         $profile = new ProfileModel();
         $profile = $profile->where('id', $id);
@@ -41,18 +39,18 @@ class TourPackageController extends Controller
         return $profile->get();
     }
 
-    protected function getPhotos($id){
-        $photos = new TourPhoModel();
-        $photos = $photos->where('service_tour_photos.upload_id', $id);
-        $photos = $photos->where('service_tour_photos.temp_status', 1);
-        return $photos->get();
+    protected function getRoomDetails($id){
 
-    }
+        return $room_details = HotelModel::join('users','users.id', 'hotels.profid')
+    	->join('temp_status','temp_status.id', 'hotels.temp_status')
+    		->join('hotel_photos', 'hotels.id','hotel_photos.upload_id')
+    			->join('merchant_address','merchant_address.id', 'hotels.address_id')
+    				->where('hotels.id', $id)->get();
 
-    protected function getTourDetails($id){
-        $tourDetails = new TourModel();
-        $tourDetails = $tourDetails->where('id', $id);
-        return $tourDetails->get();
+
+        // $roomDetails = new HotelModel();
+        // $roomDetails = $roomDetails->where('id', $id);
+        // return $roomDetails->get();
     }
 
     protected function checkWishlist($id){
@@ -60,7 +58,7 @@ class TourPackageController extends Controller
             $checkList = WishlistHotelsRoom::where('wh_page_id', $id);
             $checkList = $checkList->where('wh_user_id', Auth::user()->id);
             $checkList = $checkList->where('wh_temp_status', 1);
-            $checkList = $checkList->where('wh_page_name', 'tour');
+            $checkList = $checkList->where('wh_page_name', 'hotel');
             $checkList = $checkList->first();
             $datas = $checkList;
             // $userCountry = new LocationCountyModel();
@@ -74,8 +72,8 @@ class TourPackageController extends Controller
         return false;
 
     }
+
     protected function userCountry(){
-       
         if(Auth::check()){
             $userCountry = new LocationCountyModel();
             $userCountry = $userCountry->where('id',Auth::user()->country);
@@ -84,6 +82,7 @@ class TourPackageController extends Controller
         return [];
 
     }
+
     protected function getReviews($id){
         $reviewsData = new PageReviewsModel();
         $reviewsData = $reviewsData->where('page_reviews.pr_temp_status', 1);
@@ -107,4 +106,5 @@ class TourPackageController extends Controller
 
         return $reviewsData;
     }
+
 }

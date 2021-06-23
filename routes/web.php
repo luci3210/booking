@@ -45,7 +45,7 @@ Route::get('/destination/region/provice/{id}/ph', 'Tourismo\HomeController@page_
 Route::get('/hotel_and_resort/ph', 'Tourismo\HomeController@page_hotels')->name('hotel_and_resort');
 Route::get('/tour_operators/ph', 'Tourismo\HomeController@page_tour_operator')->name('tour_operator');
 
-Route::get('/hotels/rooms/{id}', 'Tourismo\HomeController@room')->name('tourismo_room');
+Route::get('/hotels/rooms/{id}', 'Tourismo\RoomsController@index')->name('tourismo_room');
 Route::get('/tour-package/{id}', 'Tourismo\TourPackageController@index')->name('tourimos_tour_package');
 Route::POST('/wishlist/toggle', 'user\WishListController@toggle_wishlist')->name('toggle_wishlist');
 Route::POST('payment/hotels/xxxx', 'PaymentController@pay_booking')->name('pay2');
