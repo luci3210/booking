@@ -27,13 +27,13 @@ class TourPackageController extends Controller
         $userCountry = $this->userCountry();
         $reviewsData = $this->getReviews($id);
         $profileID = $tourDetails[0]['profid'];
-
+        $curDate = $this->getDateNow().'T00:00:00';
         $profileData = $this->getProfileCompany($profileID);
 
 
-        return view('tourismo.tour_package', compact(['tourPhotos', 'tourDetails','wishList','userCountry', 'reviewsData', 'profileData']));
+        return view('tourismo.tour_package', compact(['tourPhotos', 'tourDetails','wishList','userCountry', 'reviewsData', 'profileData', 'curDate']));
     }
-    
+
     protected function getProfileCompany($id){
         $profile = new ProfileModel();
         $profile = $profile->where('id', $id);

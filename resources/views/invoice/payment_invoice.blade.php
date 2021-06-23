@@ -116,6 +116,7 @@
                 <tr>
                 <td>
                     <strong>Service</strong>
+                    <p><strong>Book Date</strong> {{ date("F j, Y, g:i a",$extra['pm_book_date'])}} </p>
                     <p>Nights no.{{$detailsOfBooking['nonights']}}</p>
                     <p>Guest no.{{$detailsOfBooking['noguest']}}</p>
                     <p>{{$detailsOfBooking['desc']}}</p>

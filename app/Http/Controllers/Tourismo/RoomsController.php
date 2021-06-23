@@ -22,13 +22,17 @@ class RoomsController extends Controller
     public function index(Request $req)
     {
         # code...
+        // $d = '2025-09-23 14:44:00';
+        // date("Y-m-d H:i:s", 1624084625);
+        // return strtotime($d);
 
         $id = $this->clean_input($req->id);
         $room_details = $this->getRoomDetails($id);
         $wishList = $this->checkWishlist($id);
         $userCountry = $this->userCountry();
         $reviewsData = $this->getReviews($id);
-	    return view('tourismo.room', compact(['room_details', 'wishList', 'reviewsData','userCountry']));
+        $curDate = $this->getDateNow().'T00:00:00';
+	    return view('tourismo.room', compact(['room_details', 'wishList', 'reviewsData','userCountry', 'curDate']));
 
     }
 

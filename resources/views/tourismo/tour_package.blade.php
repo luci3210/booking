@@ -316,6 +316,11 @@ a.page-link {
                                             <input type="text" class="uk-input" name="billing_country" id="billing_country" value="{{ $userCountry[0]->country }}" readonly="readonly">
                                             <div class="validate"></div>
                                         </div>
+                                        <div class="col-md-6 form-group mt-3">
+                                            <label class="labelcoz">Book Date</label>
+                                            <input type="datetime-local" class="uk-input" name="book_date" id="book_date" min="{{$curDate}}" required="" >
+                                            <div class="validate"></div>
+                                        </div>
                                         <div class="col-md-12 form-group mt-3">
                                             <label class="labelcoz">Address</label>
                                             <input type="text" class="uk-input" name="billing_address_1" id="address" value="{{ Auth::user()->address }}" readonly="readonly">
@@ -636,6 +641,7 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
     }
   }
   function paybyTraxion(){
+    var bookdate = $('input[name="book_date"]').val();
     var fname = $('input[name="billing_first_name"]').val();
     var lname = $('input[name="billing_last_name"]').val();
     var company = $('input[name="billing_company"]').val();
@@ -648,6 +654,15 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
     var email = $('input[name="billing_email"]').val();
     var plan_price = $('#plan_price_checkout').val();
     var plan_name = $('#plan_name_checkout').text();
+
+    if(bookdate == null || bookdate.length <= 0 || bookdate == undefined){
+      swal({
+        text: "Select a book date",
+        icon:"error"
+      });
+      return;
+    }
+
     var datam = {
         billing_first_name: fname,
         billing_last_name: lname,
@@ -661,6 +676,7 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
         billing_email: email,
         billing_price: plan_price,
         billing_plan_name: plan_name,
+        book_date:bookdate,
         desc:'{{$tourDetails[0]->tour_desc}}',
         expect:'{{$tourDetails[0]->tour_expect}}',
         noguest:'{{$tourDetails[0]->noguest}}',
@@ -685,9 +701,10 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
       },
       method:"post",
       data:datam,
-      success:function(data)
+      success: async function(data)
       {
-        let paymenyLink = data['dataresp']['form_link']
+        let data = await data
+        let paymenyLink =   data['dataresp']['form_link']
         window.open(paymenyLink);
         console.log(paymenyLink);
         console.log(data);
@@ -699,4 +716,6 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
     $.ajax();
   }
 </script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 @endsection
