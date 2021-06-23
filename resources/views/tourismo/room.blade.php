@@ -399,6 +399,12 @@ a.page-link {
     <div class="validate"></div>
 </div>
 
+<div class="col-md-6 form-group mt-3">
+    <label class="labelcoz">Book Date</label>
+    <input type="datetime-local" class="uk-input" name="book_date" id="book_date" min="{{$curDate}}" >
+    <div class="validate"></div>
+</div>
+
 <div class="col-md-12 form-group mt-3">
     <label class="labelcoz">Address</label>
     <input type="text" class="uk-input" name="billing_address_1" id="address" value="{{ Auth::user()->address }}" readonly="readonly">
@@ -476,6 +482,7 @@ a.page-link {
     }
   }
   function paybyTraxion(){
+    var bookdate = $('input[name="book_date"]').val();
     var fname = $('input[name="billing_first_name"]').val();
     var lname = $('input[name="billing_last_name"]').val();
     var company = $('input[name="billing_company"]').val();
@@ -488,6 +495,16 @@ a.page-link {
     var email = $('input[name="billing_email"]').val();
     var plan_price = $('#plan_price_checkout').val();
     var plan_name = $('#plan_name_checkout').text();
+
+    if(bookdate == null || bookdate.length <= 0 || bookdate == undefined){
+      swal({
+        text: "Select a book date",
+        icon:"error"
+      });
+      return;
+    }
+
+    
     var datam = {
         billing_first_name: fname,
         billing_last_name: lname,
@@ -501,6 +518,7 @@ a.page-link {
         billing_email: email,
         billing_price: plan_price,
         billing_plan_name: plan_name,
+        book_date:bookdate,
         type:'hotel',
         proid:'{{$room_details[0]->profid}}',
         uid: '{{$room_details[0]->upload_id}}',
@@ -527,7 +545,8 @@ a.page-link {
       {
         let paymenyLink = data['dataresp']['form_link']
         window.open(paymenyLink);
-        console.log(paymenyLink);
+        // console.log(paymenyLink);
+        // console.log(data);
       },
       fail:function(jqXHR, textStatus) {
         console.log( "Request failed: xxxx" + textStatus );
@@ -896,6 +915,7 @@ const ratingStars=[...document.getElementsByClassName("rating__star-comment")];l
 $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide(),$("#comment-textarea").on("focus",function(t){$(".comment-btn").show(500)}),$("#comment-textarea").on("blur",function(t){var e=$("#comment-textarea").val();ratingReview=$(".count-star").length,e.length>=1||ratingReview>=1||$(".comment-btn").hide(500)})});
 
 </script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 @endsection
 

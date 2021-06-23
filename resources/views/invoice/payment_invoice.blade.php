@@ -36,10 +36,10 @@
 
 <div class=" ">
 <div class="row">
-    <div class="col-lg-10 col-lg-offset-1">
+    <div class="col-lg-12 ">
         <div class="invoice">
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-4">
             <h4>From:</h4>
             <address>
                 <strong>{{$cdetails[0]->company}}</strong><br>
@@ -51,8 +51,9 @@
             </address>
             </div>
 
-            <div class="col-sm-6 text-right">
-            <img src="https://testruntourismoph.wanderlustmusicfestival.com/public/image/logo/logoab.png" alt="logo">
+
+            <div class="col-sm-4 text-right">
+            <img class="float-right" src="https://testruntourismoph.wanderlustmusicfestival.com/public/image/logo/logoab.png" alt="logo">
             </div>
         </div>
 
@@ -61,7 +62,6 @@
             <address>
                 <strong>To:</strong>
                 <span>{{$extra['user_fname']}} {{$extra['user_lname']}}</span><br>
-                <span>123 Cool St.</span><br>
                 <span>{{$extra['user_email']}}</span>
             </address>
             </div>
@@ -70,7 +70,7 @@
             <table class="w-full">
                 <tbody>
                 <tr>
-                    <th>Invoice Num:</th>
+                    <th>Invoice Number:</th>
                     <td>{{$stausPayment['ref_no']}}</td>
                 </tr>
                 <tr>
@@ -90,8 +90,6 @@
                 </tr>
                 </tbody>
             </table>
-
-
             </div>
         </div>
 
@@ -116,6 +114,7 @@
                 <tr>
                 <td>
                     <strong>Service</strong>
+                    <p><strong>Book Date</strong> {{ date("F j, Y, g:i a",$extra['pm_book_date'])}} </p>
                     <p>Nights no.{{$detailsOfBooking['nonights']}}</p>
                     <p>Guest no.{{$detailsOfBooking['noguest']}}</p>
                     <p>{{$detailsOfBooking['desc']}}</p>

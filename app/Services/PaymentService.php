@@ -20,26 +20,36 @@ use App\Model\Merchant\HotelModel;
 
 Class PaymentService extends SecurityServices{
 
-    public function SavePayment($id,$pagename,$pmStatus,$status)
+    public function SavePayment($id,$pagename,$pmStatus,$bookdate)
     {
-        $user = Auth::user();
-        $data['pm_user_id'] = $user->id;
-        // $data['email'] = Auth::user()->email;
-        // $data['user_number'] = Auth::user()->pnumber;
-        // $data['user_fname'] = Auth::user()->fname;
-        // $data['user_lname'] = Auth::user()->lname;
-        $data['pm_page_name'] = $this->clean_input($pagename);
-        $data['pm_page_id'] = $this->clean_input((int)$id);
-        $data['pm_payment_status'] = $this->clean_input($pmStatus);
-        $data['pm_created_at'] = $this->getDatetimeNow();
-        $data['pm_temp_status'] = $status;
-        $data['pm_id'] = PaymentModel::insertGetId($data); // save
-        $data['user_email'] = $user->email;
-        $data['user_number'] = $user->pnumber;
-        $data['user_fname'] = $user->fname;
-        $data['user_lname'] = $user->lname;
-        $data = base64_encode(json_encode($data));
-        return $data;
+        try {
+            $user = Auth::user();
+            $data['pm_user_id'] = $user->id;
+            // $data['email'] = Auth::user()->email;
+            // $data['user_number'] = Auth::user()->pnumber;
+            // $data['user_fname'] = Auth::user()->fname;
+            // $data['user_lname'] = Auth::user()->lname;
+            $data['pm_page_name'] = $this->clean_input($pagename);
+            $data['pm_page_id'] = $this->clean_input((int)$id);
+            $data['pm_payment_status'] = $this->clean_input($pmStatus);
+            $data['pm_book_date'] = $bookdate;
+            $data['pm_created_at'] = $this->getDatetimeNow();
+            $data['pm_id'] = PaymentModel::insertGetId($data); // save
+            $data['user_email'] = $user->email;
+            $data['user_number'] = $user->pnumber;
+            $data['user_fname'] = $user->fname;
+            $data['user_lname'] = $user->lname;
+            $data['pm_book_date'] = strtotime($bookdate);
+
+            // $bookdate = '2025-09-23 14:44:00';
+            // date("Y-m-d H:i:s", 1624084625);
+            // return strtotime($d);
+            $data = base64_encode(json_encode($data));
+            return $data;
+        } catch (\Exception $e) {
+            return $e;
+        }
+      
     }
     
     public function getBookDetails($id,$type)
@@ -131,7 +141,7 @@ Class PaymentService extends SecurityServices{
         $details = [
             'title'=> 'Receipt',
             'body'=>'thank you for purchasing thru Tourismo',
-            'url'=>'https://d7d5b98252d4.ngrok.io/booking/public/invoice?',
+            'url'=>'https://973ac00f121c.ngrok.io/booking/public/invoice?',
             'extra'=>$extraData,
             'status'=>$statusPayment,
             'profileID'=>$cn,

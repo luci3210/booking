@@ -65,14 +65,21 @@
       <div class="uk-margin">
         <label class="labelcoz">Country</label>
           <select class="uk-select" name="country">
-          <option value="" selected="selected">
+          <option value="" >
             select country...
           </option>
           @if($data['data']['country'])
             @foreach($data['data']['country'] as $info)
-                <option value="{{$info->id}}" >
-                {{ $info->country }}
+          
+                @if($data['data']['account'][0]->country  == $info->id)
+                <option value="{{$info->id}}"  selected>
+                     {{ $info->country }}
                 </option>
+                @else
+                <option value="{{$info->id}}"  >
+                     {{ $info->country }}
+                </option>
+                @endif
             @endforeach
           @endif
           </select>
@@ -81,7 +88,7 @@
 
     <div class="col-md-3 form-group mt-3">
     <label class="labelcoz">Phone Number</label>
-    <input type="text" class="uk-input" name="pnumber" id="pnumber" value="{{ $data['data']['account'][0]->pnumber }}" placeholder="Phone Number">
+    <input type="text" class="uk-input" name="pnumber" id="pnumber" value="{{ $data['data']['account'][0]->pnumber }}" placeholder="Phone Number" readonly>
     <div class="validate"></div>
     </div>
 
@@ -101,7 +108,7 @@
 
       <div class="col-md-3 form-group mt-3">
     <label class="labelcoz">Birthdate</label>
-    <input type="text" class="uk-input" name="bdate" id="bdate" value="{{ $data['data']['account'][0]->bdate }}" placeholder="Birthdate">
+    <input type="date" class="uk-input" name="bdate" id="bdate" value="{{ $data['data']['account'][0]->bdate }}" placeholder="Birthdate">
     <div class="validate"></div>
     </div>
   
@@ -125,6 +132,7 @@
 
 
 </section>
+@endsection
 
 @section('js')
 <script src="{{ asset('public/merchant-validation/jquery-validation/jquery.validate.min.js') }}"></script>
@@ -159,5 +167,4 @@
        });
   </script>
   
-@endsection
 @endsection
