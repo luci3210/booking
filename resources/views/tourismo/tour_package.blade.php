@@ -318,7 +318,7 @@ a.page-link {
                                         </div>
                                         <div class="col-md-6 form-group mt-3">
                                             <label class="labelcoz">Book Date</label>
-                                            <input type="datetime-local" class="uk-input" name="book_date" id="book_date" min="{{$curDate}}" required="" >
+                                            <input type="datetime-local" class="uk-input" name="book_date" id="book_date" min="{{$curDate}}"  >
                                             <div class="validate"></div>
                                         </div>
                                         <div class="col-md-12 form-group mt-3">
@@ -703,8 +703,7 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
       data:datam,
       success: async function(data)
       {
-        let data = await data
-        let paymenyLink =   data['dataresp']['form_link']
+        let paymenyLink = data['dataresp']['form_link']
         window.open(paymenyLink);
         console.log(paymenyLink);
         console.log(data);

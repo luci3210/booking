@@ -144,7 +144,7 @@ class PaymentController extends Controller
         $data['bookdetails'] = $bookDetailsss;
         $data['extraData'] = $extraData;
 
-        // return $bookDetailsss;
+        // return $extraData;
 
         
         $customer_array = array (
