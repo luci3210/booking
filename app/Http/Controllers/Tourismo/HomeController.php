@@ -38,10 +38,14 @@ public function hotels() {
     {
         $tourModel = new TourModel();
         $tourModel = $tourModel->join('service_tour_photos','service_tour_photos.upload_id', 'service_tour.id');
+        $tourModel = $tourModel->join('profiles','profiles.id', 'service_tour.profid');
+        // $tourModel = $tourModel->join('page_reviews','page_reviews.pr_page_id', 'service_tour.id');
+        // $tourModel = $tourModel->where('page_reviews.pr_page_name', 'tour');
         $tourModel = $tourModel->where('service_tour.service_id', 10011);
         $tourModel = $tourModel->where('service_tour.temp_status', 1);
         $tourModel = $tourModel->where('service_tour_photos.temp_status', 1);
         $tourModel = $tourModel->groupBy('service_tour_photos.upload_id');
+
         return $tourModel->get();
 
     }

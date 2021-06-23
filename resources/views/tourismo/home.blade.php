@@ -688,7 +688,9 @@ Founded in 2018, Tourismo PH envisioned a company that is committed in energizin
 
         <div class="member-info">
 
-          <h4>{{ substr($list->tour_name,0,25) }}...</h4>
+          <h4 class="m-1">{{ substr($list->tour_name,0,25) }}...</h4>
+          <div class="comp-title"><i class="fas fa-building"></i>  {{ $list->company }}</div>
+
           <span style="font-weight: 500px; font-size: 14px;color:#ff2f00;"><b>₱ {{ $list->price }}</b> / For {{ $list->nonight }} Night</span>
 
           <span>
