@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Merchant;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Merchant\ProfileController;
 
-use App\Model\Merchant\MerchantAddress;
 use App\Model\Merchant\MerchantCountyModel;
+use App\Model\Merchant\MerchantContact;
+use App\Model\Merchant\MerchantAddress;
+use App\Model\Merchant\MerchantPermit;
+use App\Model\Merchant\Profile;
 
 use App\Http\Requests\MerchantPostCreateRequest;
 use App\Http\Requests\MerchantUpdateAddress;
@@ -26,9 +29,20 @@ class ProfileAddressController extends Controller
         $this->profile = $profile;
     }
 
+
+    public function permit_check() {
+        
+        return MerchantPermit::where('prof_id', $this->profile->profile_check()->id)->get('prof_id')->first();
+    }
+
+    public function contact_check() {
+
+        return MerchantContact::where('prof_id', $this->profile->profile_check()->id)->get(['id','prof_id'])->first();
+    }
+
     public function country() {
 
-    return MerchantCountyModel::where('temp_status',1)->orderBy('country')->get();
+        return MerchantCountyModel::where('temp_status',1)->orderBy('country')->get();
     }
 
     public function address_form() {
@@ -39,10 +53,20 @@ class ProfileAddressController extends Controller
     }
 
     public function address_create(MerchantPostCreateRequest $request) {
-        MerchantAddress::create(['address' => $request->address,'temp_status' => 1, 'prof_id'=> $this->profile->profile_check()->id]);
-                return redirect('merchant_dashboard/profile/profile')->withSuccess('Successfully added!');
 
-        // return redirect()->back()->withSuccess('Successfully Added!');
+        MerchantAddress::create(['address' => $request->address,'temp_status' => 1, 'prof_id'=> $this->profile->profile_check()->id]);
+
+        if(empty($this->contact_check()->prof_id) || empty($this->permit_check()->prof_id) || empty($this->profile->profile_check()->company)) {
+
+            return redirect('merchant_dashboard/profile/profile')->withSuccess('Successfully added!');
+        
+        } else {
+
+            Profile::where('user_id',Auth::user()->id)->update(['request_at' => date('Ymd'), 'id1'=> 1]);  
+
+            return redirect('merchant_dashboard/profile/profile')->withSuccess('Successfully added!');
+        
+        }
     }
 
     public function address_edit($id) {
@@ -50,7 +74,7 @@ class ProfileAddressController extends Controller
         $address = MerchantAddress::where('id',$id)->firstOrFail();
         $country = $this->country();
 
-     return view('merchant_dashboard.profile.profile_address_form_edit',compact(['address','country']));
+        return view('merchant_dashboard.profile.profile_address_form_edit',compact(['address','country']));
 
     }
     public function address_update(MerchantUpdateAddress $request, $id) {

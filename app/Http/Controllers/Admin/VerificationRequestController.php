@@ -44,16 +44,16 @@ class VerificationRequestController extends Controller
         return MerchantPermit::join('profiles','merchant_permit.prof_id','profiles.id')->get('merchant_permit.prof_id as permit')->first();
     }
 
-
-
     public function profile() {
 
-        return Profile::join('myplans','myplans.id','profiles.plan_id')->get(['profiles.id as planid','profiles.company','profiles.created_at','myplans.plan_name','myplans.id','profiles.id','profiles.user_id','profiles.id1']);
+        return Profile::join('myplans','myplans.id','profiles.plan_id')
+            ->whereIn('profiles.id1',[1,2])
+        ->get(['profiles.request_at','profiles.id as planid','profiles.company','myplans.validity','myplans.plan_name','myplans.id','profiles.user_id','profiles.id1']);
     }
 
     public function verify_check() {
 
-        return MerchantVerifyModel::where('prof_id',$this->profile_check()->id)->get()->first();
+        return Profile::join('merchant_verify','merchant_verify.prof_id','profiles.id')->orderBy('merchant_verify.id','desc')->first();
     }
 
 
@@ -69,10 +69,9 @@ class VerificationRequestController extends Controller
         $address_check = $this->address_check();
         $permit_check = $this->permit_check();
         $profile = $this->profile();
+        $verify_check = $this->verify_check();  
 
-
-
-        return view('admin.verification_request.index',compact(['profile','contact_check','address_check','permit_check']));
+        return view('admin.verification_request.index',compact(['verify_check','profile','contact_check','address_check','permit_check']));
     }
 
     public function verification_edit_view($id) {
@@ -87,8 +86,8 @@ class VerificationRequestController extends Controller
 
     public function verification_update(AdminUpdateVerify $request, $id) {
 
-        MerchantVerifyModel::create(['prof_id' =>$id, 'verify_id' => $request->status, 'description'=>$request->message]);
-        Profile::where('id',$id)->update(['id1' =>$request->status]);
-        return redirect()->back()->withSuccess('Successfully Updated!');
+            MerchantVerifyModel::create(['prof_id' =>$id, 'verify_id' => $request->status, 'description'=>$request->message]);
+            Profile::where('id',$id)->update(['id1' =>$request->status]);
+            return redirect()->back()->withSuccess('Successfully Updated!');
     }
 }

@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Merchant\ProfileController;
 
 use App\Model\Merchant\MerchantContact;
+use App\Model\Merchant\MerchantAddress;
+use App\Model\Merchant\MerchantPermit;
+use App\Model\Merchant\Profile;
 
 use App\Http\Requests\MerchantCreateContact;
 use Illuminate\Http\Request;
@@ -24,6 +27,17 @@ class ProfileContactController extends Controller
         $this->profile = $profile;
     }
 
+
+    public function address_check() {
+
+        return MerchantAddress::where('prof_id', $this->profile->profile_check()->id)->get('prof_id')->first();
+    }
+
+    public function permit_check() {
+        
+        return MerchantPermit::where('prof_id', $this->profile->profile_check()->id)->get('prof_id')->first();
+    }
+
     public function contact_form() {
 
         return view('merchant_dashboard.profile.profile_contact');
@@ -32,9 +46,20 @@ class ProfileContactController extends Controller
     public function contact_create(MerchantCreateContact $request) {
 
         MerchantContact::create(['fname' => $request->fname,'lname' => $request->lname,
-        'email' => $request->email,'phonno' => $request->contact,'temp_status' => 1, 'prof_id'=> $this->profile->profile_check()->id]);
+            'email' => $request->email,'phonno' => $request->contact,'temp_status' => 1, 'prof_id'=> $this->profile->profile_check()->id]);
 
-        return redirect('merchant_dashboard/profile/profile')->withSuccess('Successfully Added!');
+
+        if(empty($this->address_check()->prof_id) || empty($this->permit_check()->prof_id) || empty($this->profile->profile_check()->company)) {
+
+            return redirect('merchant_dashboard/profile/profile')->withSuccess('Successfully Added!');
+
+        } else {
+
+            Profile::where('user_id',Auth::user()->id)->update(['request_at' => date('Ymd'), 'id1'=> 1]);  
+
+            return redirect('merchant_dashboard/profile/profile')->withSuccess('Successfully Added!');
+
+        }
     }
 
     public function contact_edit($id) {

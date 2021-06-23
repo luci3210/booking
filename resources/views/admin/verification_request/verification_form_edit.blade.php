@@ -72,9 +72,13 @@
     <div class="timeline">
       
       <div class="time-label">
+        @if($profile_details->id1 == 1)
+          <span class="bg-green"> Information : For Verification level </span>
+        @elseif($profile_details->id1 == 2)
+          <span class="bg-red"> Information : For Compliance&nbsp;</span>
+        @else
 
-          <span class="bg-green">&nbsp;For Verification&nbsp;</span>
-      
+        @endif
       </div>
 
 
@@ -212,7 +216,7 @@
           </label>
         <select class="form-control" name="status">
           <option value="">-Select Update-</option>
-          <option value="1">Account Appproved</option>
+          <option value="3">Account Appproved</option>
           <option value="2">For Compliance</option>
         </select>
       </div>

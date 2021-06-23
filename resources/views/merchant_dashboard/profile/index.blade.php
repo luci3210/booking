@@ -74,12 +74,12 @@
       <div class="time-label">
         @if(empty($profile->user_id) || empty($profile_contact->prof_id) || empty($profile_address->prof_id) || empty($profile_permit->prof_id))
           <span class="bg-red">Information :  Basic Level "Please complete required below."&nbsp;</span>
-        @elseif(empty($profile->id1))
+        @elseif($profile->id1 == 1)
           <span class="bg-green">&nbsp;Information : For Verification level&nbsp;</span>
-        @elseif($verify_check->verify_id != 1)
-          <span class="bg-yellow">&nbsp; Inxxxfo : {{ $verify_check->description }}</span>
-        @elseif($verify_check)
-          <span class="bg-green">&nbsp; Info s: {{ $verify_check->description }}</span>
+        @elseif($profile->id1 == 2)
+          <span class="bg-yellow">&nbsp; Information : For compliance, {{ $verify_check->description }}</span>
+        @elseif($profile->id1 == 3)
+          <span class="bg-green">&nbsp;{{ $verify_check->description }}&nbsp; </span>
         @endif
       </div>
 

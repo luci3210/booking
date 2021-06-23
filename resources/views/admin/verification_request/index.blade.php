@@ -98,18 +98,19 @@
             <tr>
               <td>1.</td>
               <td>{{ $list->company }}</td>
-              <td>{{ $list->created_at }}</td>
+              <td>{{ $list->request_at }}</td>
               <td>{{ $list->plan_name }} - {{ $list->validity }}</td>
-              <td class="text-center">
-                
-                @if(!$permit_check->permit)
-                  <span class="bg-red">&nbsp;Basic Level : Please complete required below.&nbsp;</span>
-                
-                @else
-                s
-                @endif
 
+              <td>
+                @if($list->id1 == 1)
+                   For Verification level
+                @elseif($list->id1 == 2)
+                   <span class="text-danger">For Compliance </span>
+                @else 
+                   Wrong status
+                @endif
               </td>
+              
               <td class="text-center">
                 <a class="btn btn-primary btn-xs" href="{{ route('merchant_verification_edit_view',$list->planid)}}"><i class="fas fa-eye"></i> View</a> 
               </td>
