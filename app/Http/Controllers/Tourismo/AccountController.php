@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Support\Facades\Validator;
+
 
 class AccountController extends Controller
 {
@@ -62,34 +64,38 @@ class AccountController extends Controller
     return response()->json(['status'=>1, 'msg'=>'Image has been cropped successfully.', 'profilepic'=>$new_image_name]);
 }
 
- public function accnt_profile_update(Request $request,$id) {
+    public function accnt_profile_update(Request $req) 
+    {
+        $userData['name'] = $req->name;
+        $userData['fname'] = $req->fname;
+        $userData['lname'] = $req->lname;
+        $userData['mname'] = $req->mname;
+        $userData['country'] = $req->country;
+        $userData['pnumber'] = $req->pnumber;
+        $userData['address'] = $req->address;
+        $userData['bdate'] = $req->bdate;
 
-    $rules = [
-        'name'          => 'required',
-        'fname'         => 'required',
-        'lname'         => 'required',
-        'mname'         => 'required',
-        'country'       => 'required',
-        'pnumber'       => 'required',
-        'address'       => 'required',
-        'bdate'         => 'required'];
+        $validator = Validator::make($userData, [ 
+            'name' => ['required', 'string', ],
+            'fname' => ['required', 'string', ],
+            'lname' => ['required', 'string', ],
+            'mname' => ['required', 'string', ],
+            'country' => ['required', ],
+            'address' => ['required', 'string'],
+            'bdate' => ['required',],
+            'pnumber'=> ['required','min:11', 'string'],
+        ]);
 
-    $errMessage = ['required' => 'Enter your :attribute'];
+        if($validator->fails()){
+            $data['message'] = $validator->errors();
+            return $data;
+        }
 
-    $this->validate($request, $rules, $errMessage);
+        $updateUser = UserModel::where('users.id', $req->id);
+        $updateUser = $updateUser->update($userData);
 
-    $profile = UserModel::find($id);
-    $profile->update(['name' => $request->name,
-        'fname'     => $request->fname,
-        'lname'     => $request->lname,
-        'mname'     => $request->mname,
-        'country'   => $request->country,
-        'pnumber'   => $request->pnumber,
-        'bdate'     => $request->bdate,
-        'address'   => $request->address]);
-
-    return redirect('account/profile')->withSuccess('Successfully updated!');
- }
+        return redirect('account/profile')->withSuccess('Successfully updated!');
+    }
 
 
 
