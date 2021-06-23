@@ -61,7 +61,11 @@ Auth::routes();
 Route::get('checkout', 'user\TraxionApiController@payment_status')->name('checkout_callback');
 
 
+
+#merchant---
 Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merchant_dashboard/profile'], function() {
+
+        #profile---
 
         Route::get('/profile','Merchant\ProfileController@index')
         ->name('profile_index');
@@ -78,7 +82,7 @@ Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merc
         Route::post('/profile_','Merchant\ProfileController@merchant_permit')
         ->name('merchant_permit_submit');
 
-
+        #contact---
 
         Route::get('/contact_form','Merchant\ProfileContactController@contact_form')
         ->name('profile_contact_form');
@@ -95,7 +99,7 @@ Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merc
         Route::get('/contact_delete/{id}','Merchant\ProfileContactController@contact_delete')
         ->name('profile_contact_delete');
 
-
+        #address--- 
 
         Route::get('/address_form','Merchant\ProfileAddressController@address_form')
         ->name('profile_address_form');
@@ -396,11 +400,7 @@ Route::post(
 //------------------------ Verificatio request ----------------
 
         
-
-Route::get(
-        '/tourismo/merchant/verification_list', 
-        'Admin\VerificationRequestController@index')
-        ->name('merchant_verification');
+Route::get('/tourismo/merchant/verification_list', 'Admin\VerificationRequestController@index')->name('merchant_verification');
 
 Route::get(
         '/tourismo/merchant/verification/{id}', 

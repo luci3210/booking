@@ -27,7 +27,7 @@ class ProfileController extends Controller
 
 	public function profile_check() {
 
-		return Profile::where('user_id',Auth::user()->id)->get(['user_id','id','id1'])->first();
+		return Profile::where('user_id',Auth::user()->id)->get(['user_id','id','id1','company'])->first();
 	}
 
     public function contact_check() {
@@ -157,6 +157,7 @@ class ProfileController extends Controller
             'email'         => $request->mail,
             'telno'         => $request->telno,
             'website'       => $request->website,
+            'request_at' => date('Y/m/d'),
             'id1'       => 1]);  
 
         return redirect('merchant_dashboard/profile/profile')->withSuccess('Successfully updated!');
@@ -178,7 +179,17 @@ class ProfileController extends Controller
         // $this->validate($request, $validate, $errMessage);   
 
         MerchantPermit::create(['permit'=>$new_image_name,'prof_id'=>$this->profile_check()->id,'temp_status'=> 1]);
+
+        if(empty($this->contact_check()->prof_id) || empty($this->address_check()->prof_id) || empty($this->profile_check()->company)) {
+
         return back()->withSuccess('Successfully added!');
+
+        } else {
+
+        Profile::where('user_id',Auth::user()->id)->update(['request_at' => date('Y/m/d'),'id1'=> 1]);  
+        return back()->withSuccess('Successfully added!');
+
+        }
 
     }
 
