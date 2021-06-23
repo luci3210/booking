@@ -75,7 +75,7 @@ class AccountController extends Controller
         $userData['address'] = $req->address;
         $userData['bdate'] = $req->bdate;
 
-        $validator = Validator::make($userData, [ 
+        $this->validate($req,[ 
             'name' => ['required', 'string', ],
             'fname' => ['required', 'string', ],
             'lname' => ['required', 'string', ],
@@ -85,11 +85,6 @@ class AccountController extends Controller
             'bdate' => ['required',],
             'pnumber'=> ['required','min:11', 'string'],
         ]);
-
-        if($validator->fails()){
-            $data['message'] = $validator->errors();
-            return $data;
-        }
 
         $updateUser = UserModel::where('users.id', $req->id);
         $updateUser = $updateUser->update($userData);

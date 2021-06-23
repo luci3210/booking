@@ -44,7 +44,7 @@ public function hotels() {
         $tourModel = $tourModel->where('service_tour.service_id', 10011);
         $tourModel = $tourModel->where('service_tour.temp_status', 1);
         $tourModel = $tourModel->where('service_tour_photos.temp_status', 1);
-        $tourModel = $tourModel->groupBy('service_tour_photos.upload_id');
+        $tourModel = $tourModel->groupBy('service_tour.id');
 
         return $tourModel->get();
 
