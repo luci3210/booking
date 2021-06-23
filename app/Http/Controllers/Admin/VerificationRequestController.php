@@ -41,7 +41,7 @@ class VerificationRequestController extends Controller
 
       public function permit_check() {
         
-        return MerchantPermit::where('prof_id', $this->profile_check()->id)->get('prof_id')->first();
+        return MerchantPermit::join('profiles','merchant_permit.prof_id','profiles.id')->get('merchant_permit.prof_id as permit')->first();
     }
 
 
@@ -69,6 +69,8 @@ class VerificationRequestController extends Controller
         $address_check = $this->address_check();
         $permit_check = $this->permit_check();
         $profile = $this->profile();
+
+
 
         return view('admin.verification_request.index',compact(['profile','contact_check','address_check','permit_check']));
     }

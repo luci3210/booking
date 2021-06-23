@@ -77,9 +77,9 @@
         @elseif(empty($profile->id1))
           <span class="bg-green">&nbsp;Information : For Verification level&nbsp;</span>
         @elseif($verify_check->verify_id != 1)
-          <span class="bg-yellow">&nbsp; Info : {{ $verify_check->description }}</span>
+          <span class="bg-yellow">&nbsp; Inxxxfo : {{ $verify_check->description }}</span>
         @elseif($verify_check)
-          <span class="bg-green">&nbsp; Info : {{ $verify_check->description }}</span>
+          <span class="bg-green">&nbsp; Info s: {{ $verify_check->description }}</span>
         @endif
       </div>
 

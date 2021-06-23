@@ -212,8 +212,8 @@
           </label>
         <select class="form-control" name="status">
           <option value="">-Select Update-</option>
-          <option value="1">Appproved</option>
-          <option value="2">Disapproved</option>
+          <option value="1">Account Appproved</option>
+          <option value="2">For Compliance</option>
         </select>
       </div>
 
