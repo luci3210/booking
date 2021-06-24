@@ -275,32 +275,27 @@
 
 
 </nav>
+
 <div class="col-12 bg-white mt-1 hidden-sm">
     <hr class="border-1 m-0" />
 </div>
+
 <div class="col-12 bg-white d-xl-block d-lg-block d-none">
     <div class="uk-container">
-    <nav class="nav d-flex " >
+        <nav class="nav d-flex " >
 
-    @foreach($slmenu as $data)
-        @if($data->status == 'active')
-        <a class="p-3 link-secondary " href="{{ route('destination') }}" >{{$data->name}}</a>
-        @else
-        <a class="p-3 link-disabled fade-disabled" href="#" onclick="return false;"disabled>{{$data->name}}</a>
-        @endif
-
-    @endforeach
-        <!-- <a class="p-3 link-secondary " href="{{ route('destination') }}">Hotel</a>
-        <a class="p-3 link-secondary " href="{{ route('tour_operator') }}">Tour Package</a>
-        <a class="p-3 link-disabled " href="#" onclick="return false;"disabled>Flight</a>
-        <a class="p-3 link-disabled " href="#" onclick="return false;">Cruise</a>
-        <a class="p-3 link-disabled " href="#" onclick="return false;">Mice Event</a>
-        <a class="p-3 link-disabled " href="#" onclick="return false;"> Tourist Stop</a>
-        <a class="p-3 link-disabled " href="#" onclick="return false;">Tour Guide</a>
-        <a class="p-3 link-disabled " href="#" onclick="return false;">Langauge Translator</a> -->
+            @foreach($slmenu as $data)
+                @if($data->status == 'active')
+                <a class="p-3 link-secondary " href="{{ route('open_services',$data->description) }}" ><i class="{{$data->icon_id}}"></i> {{$data->name}}</a>
+                @else
+                <a class="p-3 link-disabled fade-disabled" href="#" onclick="return false;"><i class="{{$data->icon_id}}"></i> {{$data->name}}</a>
+                @endif
+            @endforeach
+            
         </nav>
     </div>
 </div>
+
 <div class="col-lg-12 pd-2 hidden-xl block-sm uk-navbar-container search-mt-1">
     <form class="">
         <input class="form-control search-focus-custom" name="mobile-search"  type="search" placeholder="Search" aria-label="Search" style="border-radius: 23px;">

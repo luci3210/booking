@@ -19,13 +19,18 @@ use Illuminate\Support\Facades\Route;
 
 // email verfication
 Auth::routes(['verify'=>true]);
+
 Route::get('/resend-email', 'user\EmailVerificationController@showResendForm')->name('show_resend_email');
 Route::post('/resend-email/verify', 'user\EmailVerificationController@resendEmailVerification')->name('resend_email');
 
 // testing email send
 Route::get('/send-email', 'email\MailSendController@mailsend')->name('test_mail');
 
+//home
 Route::get('/', 'Tourismo\HomeController@index')->name('myhome');
+
+//navigation menu
+Route::get('/{service}/', 'Tourismo\ServicesController@service')->name('open_services');
 
 Route::get('/destination/ph', 'Tourismo\HomeController@page_destination')->name('destination');
 

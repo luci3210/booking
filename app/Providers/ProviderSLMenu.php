@@ -29,7 +29,7 @@ class ProviderSLMenu extends ServiceProvider
 
         View::composer('*', function ($view) {
             $view->with('slmenu', ProductModel::join('temp_status','temp_status.id', 'products.temp_status')
-                    ->whereIn('temp_status.status', ['active','disable'])->get());
+                    ->whereIn('temp_status.status', ['active','disabled'])->orderBy('temp_status.id','asc')->get());
         });
     }
 }

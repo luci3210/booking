@@ -12,8 +12,19 @@ class ServicesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:web');
+
     }
+
+    public function service($req) {
+
+        return $req;
+
+    }
+
+
+
+    
+
     public function index()
     {
 		$product = ProductModel::join('temp_status','temp_status.id','=','products.temp_status')
