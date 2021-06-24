@@ -1,71 +1,7 @@
 @extends('layouts.tourismo.ui')
 <link href="{{ asset('css/home_index.css') }}" rel="stylesheet">
 
-<!-- <div class="marg-header"></div> -->
 @section('banner')
-<div class="uk-width-1-1  p-20 block-l hide-xl mt-5">
-  <div class="uk-card uk-card-body uk-card-default uk-large uk-width-1-1@l center-item uk-flex">
-      <!-- /. desktop -->
-      <div id="mobile" class="block-l hide-xl center-item" uk-grid>
-        <div class="block-m hidden-xl center-item pd-xs-0">
-          <div class="uk-card item-icon  ">
-            <figure>
-              <img src="{{ asset('image/destination/hotel-icon.png') }}"alt="my img"/>
-              <figcaption class="icon-title">Hotel</figcaption>
-            </figure>
-          </div>
-          <div class="uk-card item-icon  ">
-            <figure>
-              <img class="figure-img desc-two" src="{{ asset('image/destination/tour-icon.png') }}"alt="my img"/>
-              <figcaption class="icon-title">Tour Package</figcaption>
-            </figure>
-          </div>
-          <div class="uk-card item-icon">
-            <figure>
-              <img class="figure-img" src="{{ asset('image/destination/launchpad-icon-flight.png') }}"alt="my img"/>
-              <figcaption class="icon-title">Flight</figcaption>
-            </figure>
-          </div>
-          <div class="uk-card item-icon ">
-            <figure>
-              <img class="figure-img" src="{{ asset('image/destination/cruise-icon.png') }}"alt="my img"/>
-              <figcaption class="icon-title">Cruise</figcaption>
-            </figure>
-          </div>
-        </div>
-        <!-- /. upper -->
-        <div class="block-m hidden-xl center-item pd-xs-0">
-          <div class="uk-card item-icon">
-            <figure>
-              <img class="figure-img" src="{{ asset('image/destination/events-icon.png') }}"alt="my img"/>
-              <figcaption class="icon-title">Mice Events</figcaption>
-            </figure>
-          </div>
-          <div class="uk-card item-icon  ">
-            <figure>
-              <img class="figure-img " src="{{ asset('image/destination/launchpad-icon-tourist-stop.png') }}"alt="my img"/>
-              <figcaption class="icon-title">Tourist Stop</figcaption>
-            </figure>
-          </div>
-          <div class="uk-card item-icon ">
-            <figure>
-              <img class="figure-img desc-two" src="{{ asset('image/destination/launchpad-icon-tour-guide.png') }}"alt="my img"/>
-              <figcaption class="icon-title">Tour Guide</figcaption>
-            </figure>
-          </div>
-          <div class="uk-card item-icon ">
-            <figure>
-              <img class="figure-img desc-two" src="{{ asset('image/destination/launchpad-icon-translator.png') }}"alt="my img"/>
-              <figcaption class="icon-title">Language Translator</figcaption>
-            </figure>
-          </div>
-        </div>
-        <!-- lower -->
-      </div>
-      <!-- /. mobile -->
-  </div>
-</div>
-<!-- /.mobile nav  -->
 <div class="uk-position-relative uk-visible-toggle uk-light mt-sm-slider" tabindex="-1" uk-slideshow="ratio: 10:3; animation: push">
     <ul class="uk-slideshow-items min-vh-30">
       @foreach($banner as $list)
@@ -85,66 +21,14 @@
 @endsection
 
 
-
 @section('content')
-
-
- 
-
-
-<!-- 
-<section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
-  <div class="container">
-    <div class="row">
-
-<div class="section-title">
-  <h2><b>Exclusives </b> <span style="font-size: 15px;padding-left: 25px;"><a href="{{ route('destination') }}" class="uk-link"><i class="fas fa-chevron-right"></i> Explore all {{ $number_of_distination->count() }} Deals</a></span></h2>
-</div>
-
-<div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider>
-    <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid">
-
-
-
-        @foreach($destination as $list)
-        <li>
-          <div class="icon-box icon-box-pink">
-
-
-              <div class="uk-panel">
-                  <img src="{{ asset('image/destination')}}/{{ $list->destination_image == '' ? 'default.png' : $list->destination_image }}" alt="" style="border-radius: 4px;">
-                  <div class="uk-position-center uk-panel"> </div>
-              </div>
-
-              <div class="member-info">
-
-                <p class="mem-title"><i class="fas fa-map-marked-alt"></i>  {{ $list->destination_info }}</p>
-
-
-              </div>
-
-            </div>
-        </li>
-        @endforeach
-        
-    </ul>
-
-    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
-
-</div>
-
-    </div>
-  </div>
-</section>
- -->
 
 <section class="services team aos-init aos-animate mb-5" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
   <div class="container">
     <div class="row">
 
 <div class="section-title">
-  <h2><b>Tourismo Exclusive </b> <span style="font-size: 15px;padding-left: 25px;"><a href="{{ route('destination') }}" class="uk-link"><i class="fas fa-chevron-right"></i> Explore all {{ $international[0]->count() }} Exclusive</a></span></h2>
+  <h2><b>Tourismo Exclusive </b> <span style="font-size: 15px;padding-left: 25px;"><a href="{{ route('open_services',$slmenu_exlusive[0]->description) }}" class="uk-link"><i class="fas fa-chevron-right"></i> Explore all {{ $slmenu_exlusive[0]->count() }} Exclusive</a></span></h2>
 </div>
 
 <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider>

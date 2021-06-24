@@ -8,6 +8,9 @@ use App\Model\Admin\ProductModel;
 use App\Model\Merchant\TourPhoModel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 //use Illuminate\Support\Facades\Auth;
 
 
@@ -20,12 +23,35 @@ class ServicesController extends Controller
 
     public function service($req) {
 
-        $data = ProductModel::join('service_tour','products.id','service_tour.service_id')->where('products.description',$req)->get();
+        $data = ProductModel::join('service_tour','products.id','service_tour.service_id')->join('service_tour_photos','service_tour.id','service_tour_photos.upload_id')->where('products.description',$req)->groupBy('service_tour.id')->paginate(25);
 
-        return view('tourismo.services.index',compact('data'));
+        if($data->isEmpty()) {
+        
+            abort(404,'404 Error - the requested page does not exist.');
+        
+        } else {
 
+            return view('tourismo.services.index',compact('data'));
+        
+        }
+        
     }
 
+    public function service_get_all($req) {
+
+        $data = ProductModel::join('service_tour','products.id','service_tour.service_id')->join('service_tour_photos','service_tour.id','service_tour_photos.upload_id')->where('products.description',$req)->groupBy('service_tour.id')->get();
+
+        if($data->isEmpty()) {
+        
+            abort(404,'404 Error - the requested page does not exist.');
+        
+        } else {
+
+            return view('tourismo.services.index',compact('data'));
+        
+        }
+        
+    }
 
 
     

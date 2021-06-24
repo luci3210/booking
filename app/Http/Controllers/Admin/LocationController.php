@@ -203,7 +203,7 @@ class LocationController extends Controller
                         break;
 
                 default:
-                     abort(404, 'Not Found.');
+                     abort(404, '404 Error - the requested page does not exist.');
                     break;
             }
     }

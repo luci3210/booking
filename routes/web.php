@@ -29,8 +29,12 @@ Route::get('/send-email', 'email\MailSendController@mailsend')->name('test_mail'
 //home
 Route::get('/', 'Tourismo\HomeController@index')->name('myhome');
 
-//navigation menu
+//navigation with pagination
 Route::get('/{service}/', 'Tourismo\ServicesController@service')->name('open_services');
+
+//navigation view all
+Route::get('/{service}/view_all', 'Tourismo\ServicesController@service_get_all')->name('all_services');
+
 
 Route::get('/destination/ph', 'Tourismo\HomeController@page_destination')->name('destination');
 

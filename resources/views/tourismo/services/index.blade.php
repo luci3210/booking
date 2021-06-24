@@ -7,7 +7,7 @@
     <div class="row">
 
 <div class="section-title">
-  <h2><b>Tour Operator </b><span style="font-size: 15px;padding-left: 25px;"><a href="{{ route('destination') }}" class="uk-link"> View All</a></span></h2>
+  <h2><b>{{ $data[0]->name }} </b><span style="font-size: 15px;padding-left: 25px;"><a href="{{ route('all_services',$data[0]->description) }}" class="uk-link"> View All</a></span></h2>
 </div>
 
 <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider>
@@ -18,7 +18,7 @@
 <li>
 <div class="icon-box icon-box-pink">
 <div class="uk-panel">  
-  <img src="{{ asset('upload/merchant/profilepic')}}/{{ $list->company == '' ? 'default.png' : $list->company }}" alt="">
+  <img src="{{ asset('image/tour/2021/')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}" alt="">
   <div class="uk-position-center uk-panel"> </div>
 </div>
 
