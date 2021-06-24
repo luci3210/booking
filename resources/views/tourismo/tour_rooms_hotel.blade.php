@@ -600,7 +600,7 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
         method:"POST",
         data:{
           data_id: id,
-          wh_page_name:'tour'
+          wh_page_name:'hotel'
         },
         success:function(data)
         {

@@ -11,8 +11,8 @@ use App\user\WishlistHotelsRoom;
 use App\Model\Admin\LocationCountyModel;
 use App\user\PageReviewsModel;
 use App\Model\Merchant\ProfileModel;
-use App\Model\Merchant\HotelModel;
-use App\Model\Merchant\HotelPhoMoldel;
+use App\Model\Merchant\TourPhoModel;
+use App\Model\Merchant\TourModel;
 
 
 class RoomsController extends Controller
@@ -27,34 +27,40 @@ class RoomsController extends Controller
         // return strtotime($d);
 
         $id = $this->clean_input($req->id);
-        $room_details = $this->getRoomDetails($id);
+        $tourDetails = $this->getRoomDetails($id);
+        $tourPhotos = $this->getPhotos($id);
+
         $wishList = $this->checkWishlist($id);
         $userCountry = $this->userCountry();
         $reviewsData = $this->getReviews($id);
+        $profileID = $tourDetails[0]['profid'];
         $curDate = $this->getDateNow().'T00:00:00';
-	    return view('tourismo.room', compact(['room_details', 'wishList', 'reviewsData','userCountry', 'curDate']));
+        $profileData = $this->getProfileCompany($profileID);
+
+        // return $userCountry;
+        
+        return view('tourismo.tour_rooms_hotel', compact(['tourDetails', 'tourPhotos', 'profileData', 'wishList', 'reviewsData','userCountry', 'curDate']));
+
+    }
+
+    protected function getPhotos($id){
+        $photos = new TourPhoModel();
+        $photos = $photos->where('service_tour_photos.upload_id', $id);
+        $photos = $photos->where('service_tour_photos.temp_status', 1);
+        return $photos->get();
 
     }
 
     protected function getProfileCompany($id){
         $profile = new ProfileModel();
         $profile = $profile->where('id', $id);
-
         return $profile->get();
     }
 
     protected function getRoomDetails($id){
-
-        return $room_details = HotelModel::join('users','users.id', 'hotels.profid')
-    	->join('temp_status','temp_status.id', 'hotels.temp_status')
-    		->join('hotel_photos', 'hotels.id','hotel_photos.upload_id')
-    			->join('merchant_address','merchant_address.id', 'hotels.address_id')
-    				->where('hotels.id', $id)->get();
-
-
-        // $roomDetails = new HotelModel();
-        // $roomDetails = $roomDetails->where('id', $id);
-        // return $roomDetails->get();
+        $tourDetails = new TourModel();
+        $tourDetails = $tourDetails->where('id', $id);
+        return $tourDetails->get();
     }
 
     protected function checkWishlist($id){

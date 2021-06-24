@@ -161,6 +161,33 @@
   <script src="https://kit.fontawesome.com/f0c1ec087f.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
   <script>
+  async function openApp(routeDestination,openLink) {
+    var TempText = document.createElement("input");
+    TempText.value = routeDestination;
+    document.body.appendChild(TempText);
+    TempText.select();
+    
+    document.execCommand("copy");
+    document.body.removeChild(TempText);
+
+    var sticky = UIkit.sticky('.sticky', {
+        offset: 50,
+        top: 100
+    });
+
+    var notifications =  await UIkit.notification('Link Copied', 'success');
+    if(notifications){
+      setTimeout(()=>{
+        if(openLink == 'viber'){
+          window.open('viber://pa?chatURI')
+        }
+        if(openLink == 'wazap'){
+          window.open('https://api.whatsapp.com/send?phone=0000000')
+        }
+      },1500)
+    }
+
+  }
   async function sendMessenger(routeDestination) {
     var TempText = document.createElement("input");
     TempText.value = routeDestination;

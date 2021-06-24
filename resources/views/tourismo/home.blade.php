@@ -337,10 +337,10 @@
                       <img src="{{ asset('image/socialmedia/tw.png')}}" alt="">
                   </li>
                   <!-- /.tw -->
-                  <li class="pointer social-media-share" >
+                  <li class="pointer social-media-share" onclick="openApp('{{ route('provice', $list->provice_id) }}', 'wazap')" >
                       <img src="{{ asset('image/socialmedia/wazap.png')}}" alt="">
                   </li>
-                  <li class="pointer social-media-share">
+                  <li class="pointer social-media-share" onclick="openApp('{{ route('provice', $list->provice_id) }}', 'viber')">
                       <img src="{{ asset('image/socialmedia/vb.png')}}" alt="">
                   </li>
                   <!-- /.viber -->
@@ -473,10 +473,10 @@
                       <img src="{{ asset('image/socialmedia/tw.png')}}" alt="">
                   </li>
                   <!-- /.tw -->
-                  <li class="pointer social-media-share" >
+                  <li class="pointer social-media-share" onclick="openApp('{{ route('provice', $list->provice_id) }}', 'wazap')" >
                       <img src="{{ asset('image/socialmedia/wazap.png')}}" alt="">
                   </li>
-                  <li class="pointer social-media-share">
+                  <li class="pointer social-media-share" onclick="openApp('{{ route('provice', $list->provice_id) }}', 'viber')">
                       <img src="{{ asset('image/socialmedia/vb.png')}}" alt="">
                   </li>
                   <!-- /.viber -->
@@ -624,10 +624,10 @@ Founded in 2018, Tourismo PH envisioned a company that is committed in energizin
                     <img src="{{ asset('image/socialmedia/tw.png')}}" alt="">
                 </li>
                 <!-- /.tw -->
-                <li class="pointer social-media-share" >
+                <li class="pointer social-media-share" onclick="openApp('{{ route('tourismo_room', $list->upload_id) }}', 'wazap')" >
                     <img src="{{ asset('image/socialmedia/wazap.png')}}" alt="">
                 </li>
-                <li class="pointer social-media-share">
+                <li class="pointer social-media-share" onclick="openApp('{{ route('tourismo_room', $list->upload_id) }}', 'viber')">
                     <img src="{{ asset('image/socialmedia/vb.png')}}" alt="">
                 </li>
                 <!-- /.viber -->
@@ -718,35 +718,35 @@ Founded in 2018, Tourismo PH envisioned a company that is committed in energizin
           <div uk-grid class="uk-flex-center mx-auto">
             <div class="uk-position-relative uk-visible-toggle uk-light social-slider-div" tabindex="-1" uk-slider>
               <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m">
-                <li class="pointer social-media-share" onclick="copyLink('{{ route('tourismo_room', $list->upload_id) }}')">
+                <li class="pointer social-media-share" onclick="copyLink('{{ route('tourimos_tour_package', $list->upload_id) }}')">
                     <img src="{{ asset('image/socialmedia/cc.png')}}"  alt="cc">
                 </li>
                 <!-- /.cc -->
-                <li class="pointer social-media-share" onclick="copyEmbed('{{ route('tourismo_room', $list->upload_id) }}', '{{ $list->roomname }}')">
+                <li class="pointer social-media-share" onclick="copyEmbed('{{ route('tourimos_tour_package', $list->upload_id) }}', '{{ $list->roomname }}')">
                     <img src="{{ asset('image/socialmedia/em.png')}}"  alt="fb">
                 </li>
                 <!-- /.embed -->
-                <li class="pointer social-media-share" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('tourismo_room', $list->upload_id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )">
+                <li class="pointer social-media-share" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('tourimos_tour_package', $list->upload_id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )">
                     <img src="{{ asset('image/socialmedia/fb.png')}}"  alt="fb">
                 </li>
                 <!-- /. fb -->
-                <li class="pointer social-media-share" onclick="sendMessenger('{{ route('tourismo_room', $list->upload_id) }}')">
+                <li class="pointer social-media-share" onclick="sendMessenger('{{ route('tourimos_tour_package', $list->upload_id) }}')">
                     <img src="{{ asset('image/socialmedia/msg.png')}}" alt="">
                 </li>
                 <!-- /.messenger -->
-                <li class="pointer social-media-share" onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->roomname }}&url={{ route('tourismo_room', $list->upload_id) }}')">
+                <li class="pointer social-media-share" onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->tour_name }}&url={{ route('tourimos_tour_package', $list->upload_id) }}')">
                     <img src="{{ asset('image/socialmedia/tw.png')}}" alt="">
                 </li>
                 <!-- /.tw -->
-                <li class="pointer social-media-share" >
+                <li class="pointer social-media-share" onclick="openApp('{{ route('tourimos_tour_package', $list->upload_id) }}', 'wazap')" >
                     <img src="{{ asset('image/socialmedia/wazap.png')}}" alt="">
                 </li>
-                <li class="pointer social-media-share">
+                <li class="pointer social-media-share" onclick="openApp('{{ route('tourimos_tour_package', $list->upload_id) }}', 'viber')">
                     <img src="{{ asset('image/socialmedia/vb.png')}}" alt="">
                 </li>
                 <!-- /.viber -->
                 <li class="pointer social-media-share">
-                    <a  href="mailto:yourfriendsemail@sample.com?subject={{ $list->destination_info }}&body=No. of hotels : 150  visit the link {{ route('tourismo_room', $list->upload_id)}}"><img src="{{ asset('image/socialmedia/gm.png')}}" alt=""></a>
+                    <a  href="mailto:yourfriendsemail@sample.com?subject={{ $list->destination_info }}&body=No. of hotels : 150  visit the link {{ route('tourimos_tour_package', $list->upload_id)}}"><img src="{{ asset('image/socialmedia/gm.png')}}" alt=""></a>
                 </li>
                 <!-- /.gm -->
                 <li class="pointer social-media-share">
@@ -759,7 +759,7 @@ Founded in 2018, Tourismo PH envisioned a company that is committed in energizin
               <a class="uk-position-center-right uk-position-small bg-circle" href="#" uk-slidenav-next uk-slider-item="next"></a>
             </div>
             <div class="copy-link-div">
-                <p>{{ route('tourismo_room', $list->upload_id) }} <a class="copy-link" onclick="copyLink('{{ route('tourismo_room', $list->upload_id) }}')">copy link</a></p>
+                <p>{{ route('tourismo_room', $list->upload_id) }} <a class="copy-link" onclick="copyLink('{{ route('tourimos_tour_package', $list->upload_id) }}')">copy link</a></p>
             </div>
           </div>
           <!-- /.div center -->
