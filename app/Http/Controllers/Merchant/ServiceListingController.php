@@ -67,7 +67,7 @@ class ServiceListingController extends Controller
         $verify = $this->account_verify();
         $country = $this->country();
 
-        if($desc == 'exlusive') {
+        if($desc == 'exlcusive') {
 
             return view('merchant_dashboard.service.create_form_exlusive',compact('address','service_name','room_facilities','building_facilities','packages_facilities','country','verify'));
 
@@ -210,7 +210,7 @@ class ServiceListingController extends Controller
         $imageName = $request->file('file');
         
         $new_image_name = '2021'.$this->profile->profile_check()->id.date('Ymd').uniqid().'.jpg';
-        
+
         request()->file->move(public_path('image/tour/2021'), $new_image_name);
         TourPhoModel::create(['merchant_id' => $this->profile->profile_check()->id, 'upload_id' => $id, 'photo' => $new_image_name]);
 

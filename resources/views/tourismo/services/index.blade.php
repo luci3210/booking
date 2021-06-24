@@ -1,83 +1,84 @@
-@extends('layouts.tourismo.ui-user')
+@extends('layouts.tourismo.ui')
 @section('content')
 
-    <section class="breadcrumbs">
-      <div class="container">
 
-        <div class="d-flex justify-content-between align-items-center">
-          <h2></h2>
-          <ol>
-            <li><a href="{{ route('myhome') }}">Home</a></li>
-            <li>Settings</li>
-          </ol>
-        </div>
+<section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+  <div class="container">
+    <div class="row">
 
-      </div>
-    </section>
-
-    <!-- <section class="why-us section-bg" data-aos="fade-up" date-aos-delay="200"> -->
-<section>
-<div class="container">
-
-<div class="row">
-<div class="col-md-3">
- @include('layouts.tourismo.menu')
+<div class="section-title">
+  <h2><b>Tour Operator </b><span style="font-size: 15px;padding-left: 25px;"><a href="{{ route('destination') }}" class="uk-link"> View All</a></span></h2>
 </div>
 
+<div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider>
+<ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid">
 
-<div class="col-md-9">
-  <div class="card card-primary card-outline">
+@foreach($data as $list)
 
-    <div class="pricing-title">
-          <h2>{{ $menu->name }}</h2>
-          <p></p>
-        </div>
+<li>
+<div class="icon-box icon-box-pink">
+<div class="uk-panel">  
+  <img src="{{ asset('upload/merchant/profilepic')}}/{{ $list->company == '' ? 'default.png' : $list->company }}" alt="">
+  <div class="uk-position-center uk-panel"> </div>
+</div>
 
-<div class="card-body">
-  <div class="tab-content">
-    <div class="active tab-pane" id="activity">
+  <div class="member-info">
+    
+    <p class="mem-title"><i class="fas fa-building"></i>  {{ $list->tour_name }}</p>
+    
+    <span>
+      <i class="fas fa-star"></i> 5 Star Hotels and Resort
+    </span><br>
+    
+    <span>
+      <i class="fas fa-person-booth"></i> Posted rooms : 150
+    </span><br>
 
-      <div class="post">        
+    <div class="mem-button">
+      <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)" uk-toggle="target: #unavailable">
+        Explore
+      </a>
+    </div>
 
+  </div>
 
-    <section class="services">
-      <div class="container">
+</div>
+</li>
+
+@endforeach
         
-        <div class="row">
+    </ul>
 
-<!-- 
-<div class="col-md-6 col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="icon-box icon-box-cyan">
-              <div class="icon"><i class="bx bx-file"></i></div>
-              <h4 class="title"><a href="">Sed ut perspiciatis</a></h4>
-              <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
-            </div>
-          </div> -->
-<!--
-          <div class="col-md-6 col-lg-4 d-flex align-items-stretch aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
-            <div class="icon-box icon-box-green">
-              <div class="icon"><i class="bx bx-file"></i></div>
-              <h4 class="title"><a href="">Magni Dolores</a></h4>
-              <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-            </div>
-          </div> -->
+    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
 
-        </div>
-
-      </div>
-    </section>
-
-
-      </div>
+</div>
 
     </div>
   </div>
-</div>
-
-</div>
-</div>
-
-</div>
 </section>
 
+
+
+
+
+
+
+<!-- ------------------------modal share ------------------------>
+
+<div id="modal-center" class="uk-flex-top" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+    </div>
+</div>
+
+@endsection
+
+@section('js')
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v10.0&appId=2142027805833973&autoLogAppEvents=1" nonce="uUSyMk8o"></script>
 @endsection

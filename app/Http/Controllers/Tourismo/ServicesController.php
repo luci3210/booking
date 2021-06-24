@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Tourismo;
 
+use App\Model\Merchant\TourModel;
 use App\Model\Admin\ProductModel;
+
+use App\Model\Merchant\TourPhoModel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+//use Illuminate\Support\Facades\Auth;
 
 
 class ServicesController extends Controller
@@ -17,7 +20,9 @@ class ServicesController extends Controller
 
     public function service($req) {
 
-        return $req;
+        $data = ProductModel::join('service_tour','products.id','service_tour.service_id')->where('products.description',$req)->get();
+
+        return view('tourismo.services.index',compact('data'));
 
     }
 
