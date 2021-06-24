@@ -559,21 +559,21 @@ Founded in 2018, Tourismo PH envisioned a company that is committed in energizin
     <div class="row">
 
       <div class="section-title">
-        <h2><b>Rooms </b> <span style="font-size: 15px;padding-left: 25px;"><a href="{{ route('tour_operator') }}" class="uk-link"><i class="fas fa-chevron-right"></i> Explore {{ $home_hotel->count() }} Rooms and Convention</a></span></h2>
+        <h2><b>Rooms </b> <span style="font-size: 15px;padding-left: 25px;"><a href="{{ route('tour_operator') }}" class="uk-link"><i class="fas fa-chevron-right"></i> Explore {{ $hotel_packages->count() }} Rooms and Convention</a></span></h2>
       </div>
 
-@foreach($home_hotel as $list)
+@foreach($hotel_packages as $list)
 <div class="col-md-6 col-lg-3 d-flex align-items-stretch aos-init aos-animate" data-aos="fade-up">
   <div class="icon-box icon-box-pink">
   
     <div class="member">
 
       <div class="member-img">
-        <img src="{{ asset('upload/merchant/coverphoto')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}" class="img-fluid" alt=""  style="border-radius: 4px;">
+        <img src="{{ asset('image/tour/2021')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}" class="img-fluid" alt=""  style="border-radius: 4px;">
       </div>
 
       <div class="member-info">
-        <h4>{{ $list->roomname }}</h4>
+        <h4>{{ $list->tour_name }}</h4>
         <span style="font-weight: 500px; font-size: 14px;color:#ff2f00;"><b>₱ {{ $list->price }}</b> / For {{ $list->nonight }} Night</span>
 
         <span>
@@ -587,7 +587,7 @@ Founded in 2018, Tourismo PH envisioned a company that is committed in energizin
         </span>
         
         <span>
-          <img style="padding-bottom: 1px;" src="{{ asset('upload/merchant/icons/baseline_visibility_black_18dp.png')}}"> City View
+          <img style="padding-bottom: 1px;" src="{{ asset('upload/merchant/icons/baseline_visibility_black_18dp.png')}}"> {{$list->viewdeck}}
         </span>
       </div>
 
@@ -620,7 +620,7 @@ Founded in 2018, Tourismo PH envisioned a company that is committed in energizin
                     <img src="{{ asset('image/socialmedia/msg.png')}}" alt="">
                 </li>
                 <!-- /.messenger -->
-                <li class="pointer social-media-share" onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->roomname }}&url={{ route('tourismo_room', $list->upload_id) }}')">
+                <li class="pointer social-media-share" onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->tour_name }}&url={{ route('tourismo_room', $list->upload_id) }}')">
                     <img src="{{ asset('image/socialmedia/tw.png')}}" alt="">
                 </li>
                 <!-- /.tw -->
