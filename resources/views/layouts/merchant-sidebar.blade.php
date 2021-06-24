@@ -29,7 +29,7 @@
     <a href="#" class="nav-link">
       <i class="nav-icon fas fa-box-open" aria-hidden="true"></i>
       <p>
-        Services
+        Post Services
         <i class="fas fa-angle-left right"></i>
       </p>
     </a>
@@ -47,9 +47,17 @@
   @endforeach
 
 </ul>
+
 </li>
 
-
+<li class="nav-item">
+  <a href="{{ route('service_listing',$service_exlusive->description) }}" class="nav-link">
+    <i class="nav-icon fas fa-border-all" aria-hidden="true"></i>
+        <p>
+          Post Exlusive
+        </p>
+  </a>
+</li>
 
 <li class="nav-item">
   <a href="{{ route('booking-index') }}" class="nav-link">

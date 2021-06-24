@@ -126,6 +126,7 @@ Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merc
 
 Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merchant_dashboard/service'], function() {
 
+        #services---
         Route::get('/{destination}/','Merchant\ServiceListingController@index')
         ->name('service_listing');
 
@@ -145,7 +146,8 @@ Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merc
         ->name('service_listing_save_hotel');
 
 
-
+        Route::post('exlusive_save_post/{id}','Merchant\ServiceListingController@exlusive_create_post')
+        ->name('exlusive_save_post');
 
 });
 

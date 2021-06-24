@@ -291,6 +291,16 @@
                 <a class="p-3 link-disabled fade-disabled" href="#" onclick="return false;"><i class="{{$data->icon_id}}"></i> {{$data->name}}</a>
                 @endif
             @endforeach
+    
+    <a class="p-3 link-disabled fade-disabled" href="" onclick="return false;">|</a>
+    
+              @foreach($slmenu_exlusive as $data)
+                @if($data->status == 'active')
+                <a class="p-3 link-secondary " href="{{ route('open_services',$data->description) }}" ><i class="{{$data->icon_id}}"></i> {{$data->name}}</a>
+                @else
+                <a class="p-3 link-disabled fade-disabled" href="" onclick="return false;"><i class="{{$data->icon_id}}"></i> {{$data->name}}</a>
+                @endif
+            @endforeach
             
         </nav>
     </div>

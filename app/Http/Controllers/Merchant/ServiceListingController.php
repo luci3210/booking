@@ -23,6 +23,7 @@ use App\Http\Controllers\Merchant\ProfileController;
 
 use App\Http\Requests\MerchantPostTour;
 use App\Http\Requests\MerchantPostHotel;
+use App\Http\Requests\MerchantPostExlusive;
 use Illuminate\Http\Request;
 
 class ServiceListingController extends Controller
@@ -66,7 +67,16 @@ class ServiceListingController extends Controller
         $verify = $this->account_verify();
         $country = $this->country();
 
-        return view('merchant_dashboard.service.create_form',compact('address','service_name','room_facilities','building_facilities','packages_facilities','country','verify'));   
+        if($desc == 'exlusive') {
+
+            return view('merchant_dashboard.service.create_form_exlusive',compact('address','service_name','room_facilities','building_facilities','packages_facilities','country','verify'));
+
+        } else {
+
+            return view('merchant_dashboard.service.create_form',compact('address','service_name','room_facilities','building_facilities','packages_facilities','country','verify'));   
+    
+        }
+
     }
 
     public function account_verify() {
@@ -77,6 +87,38 @@ class ServiceListingController extends Controller
     public function address() {
 
         return MerchantAddress::where('prof_id',$this->profile->profile_check()->id)->where('temp_status',1)->get();
+    }
+
+
+    public function exlusive_create_post(MerchantPostExlusive $request, $id) {
+
+        $getLastData = TourModel::create([
+            'tour_name' => $request->tour_package_name,
+            'price' => $request->price,
+            'nonight' => $request->no_night,
+            'noguest' => $request->no_guest,
+            'qty' => $request->quantity,
+            'tour_desc' => $request->tour_package_desc,
+            'tour_expect' => $request->what_expect,
+            'can_ref_policy' => $request->cancelation,
+            'building_facilities' => implode(',', $request->facilities),
+            'booking_package' => implode(',', $request->package),
+            'serviceid' => $request->address,
+            'country' => $request->country,
+            'district' => $request->province,
+            'city' => $request->place,
+            'profid' => $this->profile->profile_check()->id,
+            'service_id' => $id,
+            'temp_status' => 2
+          ]);
+
+        $lastId = $getLastData->id;
+        $lastService = $getLastData->service_id;
+
+        $serviceName = ProductModel::where('id',$lastService)->get()->first();
+
+        return Redirect('merchant_dashboard/service/'.$lastId.'/upload_photos/'.$serviceName->description.'')->withSuccess('Successfully submit, Please continue adding photos.');
+
     }
 
     public function service_save_post(MerchantPostTour $request, $id) {
@@ -168,6 +210,7 @@ class ServiceListingController extends Controller
         $imageName = $request->file('file');
         
         $new_image_name = '2021'.$this->profile->profile_check()->id.date('Ymd').uniqid().'.jpg';
+        
         request()->file->move(public_path('image/tour/2021'), $new_image_name);
         TourPhoModel::create(['merchant_id' => $this->profile->profile_check()->id, 'upload_id' => $id, 'photo' => $new_image_name]);
 
