@@ -56,14 +56,15 @@ Route::POST('/wishlist/toggle', 'user\WishListController@toggle_wishlist')->name
 Route::POST('payment/hotels/xxxx', 'PaymentController@pay_booking')->name('pay2');
 Route::get('/tourismoph/hotel/{id}', 'Tourismo\HomeController@hotel_details')->name('tourismo-hotel-details');
 
-Route::get('/invoice','user\TraxionApiController@invoice_copy')->name('invoice_payment');
+Route::get('/invoice/download','user\TraxionApiController@invoice_copy')->name('invoice_payment');
 
 
 //});
 
 Auth::routes();
 // success payment traxion 
-Route::get('checkout', 'user\TraxionApiController@payment_status')->name('checkout_callback');
+Route::get('/checkout/status', 'user\TraxionApiController@payment_status')->name('checkout_callback');
+
 
 
 
