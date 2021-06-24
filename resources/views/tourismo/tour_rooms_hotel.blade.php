@@ -600,7 +600,7 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
         method:"POST",
         data:{
           data_id: id,
-          wh_page_name:'tour'
+          wh_page_name:'hotel'
         },
         success:function(data)
         {
@@ -682,7 +682,7 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
         desc:'{{$tourDetails[0]->tour_desc}}',
         expect:'{{$tourDetails[0]->tour_expect}}',
         noguest:'{{$tourDetails[0]->noguest}}',
-        type:'tour',
+        type:'hotel',
         proid:'{{$profileData[0]->id}}',
         uid: '{{$tourDetails[0]->id}}',
         url_callback:'{{route('checkout_callback')}}',

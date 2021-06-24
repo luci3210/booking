@@ -50,29 +50,25 @@ public function hotels() {
 
     }
 
-    public function getTourPackage()
+    public function getHotels()
     {
 
-        // $tourModel = new TourModel();
-        // $tourModel = $tourModel->join('service_tour_photos','service_tour_photos.upload_id', 'service_tour.id');
-        // $tourModel = $tourModel->where('service_tour.service_id', 10011);
-        // $tourModel = $tourModel->where('service_tour.temp_status', 1);
-        // $tourModel = $tourModel->where('service_tour_photos.temp_status', 1);
-        // $tourModel = $tourModel->groupBy('service_tour.id');
-        // return $tourModel->get();
+        $tourModel = new TourModel();
+        $tourModel = $tourModel->join('service_tour_photos','service_tour_photos.upload_id', 'service_tour.id');
+        $tourModel = $tourModel->join('profiles','profiles.id', 'service_tour.profid');
+        // $tourModel = $tourModel->join('page_reviews','page_reviews.pr_page_id', 'service_tour.id');
+        // $tourModel = $tourModel->where('page_reviews.pr_page_name', 'tour');
+        $tourModel = $tourModel->where('service_tour.service_id', 10016);
+        $tourModel = $tourModel->where('service_tour.temp_status', 1);
+        $tourModel = $tourModel->where('service_tour_photos.temp_status', 1);
+        $tourModel = $tourModel->groupBy('service_tour.id');
 
-
-        // return TourModel::join('service_tour_photos','service_tour_photos.upload_id', 'service_tour.id')
-        //         ->where('service_tour.service_id',10011)
-        //         ->where('service_tour.on_home',1)
-        //         ->where('service_tour.temp_status',1)
-        //     ->select(['service_tour.*','service_tour_photos.*'])
-        //     ->groupBy('service_tour_photos.upload_id')->get();
-
+        return $tourModel->get();
         
     }
 
-public function  room_details($id) {
+    public function  room_details($id) {
+    
 
    return Response::json(HotelModel::join('users','users.id', 'hotels.profid')
     	->join('temp_status','temp_status.id', 'hotels.temp_status')
@@ -111,11 +107,13 @@ public function banner() {
         $tourismo_exlusive    = $this->tourismo_exlusive();
         $hotels         = $this->hotel();
         $tour_package   = $this->tour_package(); 
-        $tour_packages   = $this->tour_packages();
-        $banner            = $this->banner();
-        // return $tour_packages;
 
-        return view('tourismo.home', compact(['banner','tourismo_exlusive','international','home_hotel','destination','hotels','tour_package','tour_packages']));
+        $tour_packages   = $this->tour_packages(); // new from service_tour tbl
+    	$hotel_packages 	= $this->getHotels(); // new from service_tour tbl
+        $banner            = $this->banner();
+        // return $hotel_packages;
+
+        return view('tourismo.home', compact(['banner','tourismo_exlusive','international','home_hotel','destination','hotels','tour_package','tour_packages', 'hotel_packages']));
     }
     
     

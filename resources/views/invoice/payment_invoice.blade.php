@@ -145,9 +145,7 @@
                 Thank you for your business. <br>
                 <br>
                 <h4>Payment Terms and Methods</h4>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium cumque neque velit tenetur pariatur perspiciatis dignissimos corporis laborum doloribus, inventore.
-                </p>
+                <p>{{$detailsOfBooking['cancel']}}</p>
                 </div>
             </div>
             </div>

@@ -55,14 +55,16 @@ Class PaymentService extends SecurityServices{
     public function getBookDetails($id,$type)
     {
         if($type == 'hotel'){
-            $hotelDetails = new HotelModel();
-            $hotelDetails = $hotelDetails->where('id', $id);
-            $hotelDetails = $hotelDetails->get();
-            $data['name'] = $hotelDetails[0]['roomname'];
-            $data['desc'] = $hotelDetails[0]['roomdesc'];
-            $data['expect'] = '';
-            $data['noguest'] = $hotelDetails[0]['noguest'];
-            // $data = base64_encode(json_encode($data));
+            $tourDetails = new TourModel();
+            $tourDetails = $tourDetails->where('id', $id);
+            $tourDetails = $tourDetails->get();
+            $data['name'] = $tourDetails[0]['tour_name'];
+            $data['desc'] = $tourDetails[0]['roomdesc'];
+            $data['expect'] = $tourDetails[0]['tour_expect'];
+            $data['noguest'] = $tourDetails[0]['noguest'];
+            $data['nonights'] = $tourDetails[0]['nonights'];
+            $data['cancel'] = $tourDetails[0]['can_refu_policy'];
+            $data = base64_encode(json_encode($data));
             return $data;
         }
 
@@ -74,6 +76,7 @@ Class PaymentService extends SecurityServices{
             $data['desc'] = $tourDetails[0]['tour_desc'];
             $data['expect'] = $tourDetails[0]['tour_expect'];
             $data['noguest'] = $tourDetails[0]['noguest'];
+            $data['cancel'] = $tourDetails[0]['can_refu_policy'];
             $data = base64_encode(json_encode($data));
             return $data;
         }
@@ -141,7 +144,7 @@ Class PaymentService extends SecurityServices{
         $details = [
             'title'=> 'Receipt',
             'body'=>'thank you for purchasing thru Tourismo',
-            'url'=>'https://973ac00f121c.ngrok.io/booking/public/invoice?',
+            'url'=>'https://67cddc33c253.ngrok.io/booking/public/invoice/download?',
             'extra'=>$extraData,
             'status'=>$statusPayment,
             'profileID'=>$cn,

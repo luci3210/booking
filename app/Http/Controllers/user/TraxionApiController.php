@@ -30,6 +30,11 @@ class TraxionApiController extends Controller
         return 'payment';
     }
 
+    public function indextest(Request $req)
+    {
+        return 'bobo';
+    }
+
     public function payment_status(Request $req)
     {
         $statusRes = $req->query('payment');
@@ -41,28 +46,7 @@ class TraxionApiController extends Controller
         $bdetails = base64_decode($bdetails);
         $bdetails = (array)json_decode($bdetails);
 
-        // $test = 'eyJ1aWQiOiI0OCIsInR5cGUiOiJ0b3VyIn0';
-        // $test = base64_decode($test);
-        // $test = (array)json_decode($test);
-
-        // $tourDetails = new TourModel();
-        // $tourDetails = $tourDetails->where('id', $test['uid']);
-        // $tourDetails = $tourDetails->get();
-        // $data['name'] = $tourDetails[0]['tour_name'];
-        // $data['desc'] = $tourDetails[0]['tour_desc'];
-        // $data['expect'] = $tourDetails[0]['tour_expect'];
-        // $data['noguest'] = $tourDetails[0]['noguest'];
-        // return $data[0]->name;
-
-        // return $test['uid'];
-
-        // $details = [
-        //     'title'=> 'Receipt',
-        //     'body'=>'helloo thank you'
-        // ];
-
-        // Mail::to($extra['user_email'])->send( new TestMail($details) );
-
+      
         return view('payment_traxion.payment_status_callback',compact(['statusRes',]));
 
     }
@@ -99,14 +83,15 @@ class TraxionApiController extends Controller
     protected function getPackageDetails($id,$type){
 
         if($type == 'hotel'){
-            $hotelDetails = new HotelModel();
-            $hotelDetails = $hotelDetails->where('id', $id);
-            $hotelDetails = $hotelDetails->get();
-            $data['name'] = $hotelDetails[0]['roomname'];
-            $data['desc'] = $hotelDetails[0]['roomdesc'];
-            $data['expect'] = '';
-            $data['noguest'] = $hotelDetails[0]['noguest'];
-            $data['nonights'] = $hotelDetails[0]['nonights'];
+            $tourDetails = new TourModel();
+            $tourDetails = $tourDetails->where('id', $id);
+            $tourDetails = $tourDetails->get();
+            $data['name'] = $tourDetails[0]['tour_name'];
+            $data['desc'] = $tourDetails[0]['roomdesc'];
+            $data['expect'] = $tourDetails[0]['tour_expect'];
+            $data['noguest'] = $tourDetails[0]['noguest'];
+            $data['nonights'] = $tourDetails[0]['nonights'];
+            $data['cancel'] = $tourDetails[0]['can_refu_policy'];
             return $data;
         }
 
@@ -118,7 +103,7 @@ class TraxionApiController extends Controller
             $data['desc'] = $tourDetails[0]['tour_desc'];
             $data['expect'] = $tourDetails[0]['tour_expect'];
             $data['noguest'] = $tourDetails[0]['noguest'];
-            $data['nonights'] = $tourDetails[0]['nonights'];
+            $data['cancel'] = $tourDetails[0]['can_refu_policy'];
             return $data;
         }
         return [];
