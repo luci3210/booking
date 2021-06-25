@@ -25,6 +25,7 @@ use App\Http\Requests\MerchantPostTour;
 use App\Http\Requests\MerchantPostHotel;
 use App\Http\Requests\MerchantPostExlusive;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ServiceListingController extends Controller
 {
@@ -40,13 +41,15 @@ class ServiceListingController extends Controller
 
     public function desc_name($desc)  {
 
-        return  ProductModel::where('temp_status',1)->where('description',$desc)->get(['id','name','description'])->first();
+        return ProductModel::where('temp_status',1)->where('description',$desc)->get(['id','name','description'])->first();
 
     }
 
     public function service_post($desc) {
 
+
         return TourModel::where('service_id',$this->desc_name($desc)->id)->where('profid',$this->profile->profile_check()->id)->get();    
+        
     }
 
     public function index($desc) {
@@ -54,7 +57,7 @@ class ServiceListingController extends Controller
         $service_name = $this->desc_name($desc);
         $service_post = $this->service_post($desc);
 
-        return view('merchant_dashboard.service.index',compact(['service_name','service_post']));
+        return view('merchant_dashboard.service.index',compact('service_name','service_post'));
     }
 
     public function service_create_post($desc) {
