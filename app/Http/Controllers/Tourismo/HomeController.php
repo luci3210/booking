@@ -23,7 +23,7 @@ use App\Model\Admin\LocationCountyModel;
 class HomeController extends Controller
 {
 
-public function hotels() {
+    public function hotels() {
 
     return HotelModel::join('users','users.id', 'hotels.profid')
     	->join('temp_status','temp_status.id', 'hotels.temp_status')
@@ -32,39 +32,6 @@ public function hotels() {
             ->select(['hotels.*','temp_status.*','hotel_photos.*','users.*'])
             ->groupBy('hotel_photos.upload_id')->limit(4)->get();
 
-    }
-
-    public function tour_packages() 
-    {
-        $tourModel = new TourModel();
-        $tourModel = $tourModel->join('service_tour_photos','service_tour_photos.upload_id', 'service_tour.id');
-        $tourModel = $tourModel->join('profiles','profiles.id', 'service_tour.profid');
-        // $tourModel = $tourModel->join('page_reviews','page_reviews.pr_page_id', 'service_tour.id');
-        // $tourModel = $tourModel->where('page_reviews.pr_page_name', 'tour');
-        $tourModel = $tourModel->where('service_tour.service_id', 10011);
-        $tourModel = $tourModel->where('service_tour.temp_status', 1);
-        $tourModel = $tourModel->where('service_tour_photos.temp_status', 1);
-        $tourModel = $tourModel->groupBy('service_tour.id');
-
-        return $tourModel->get();
-
-    }
-
-    public function getHotels()
-    {
-
-        $tourModel = new TourModel();
-        $tourModel = $tourModel->join('service_tour_photos','service_tour_photos.upload_id', 'service_tour.id');
-        $tourModel = $tourModel->join('profiles','profiles.id', 'service_tour.profid');
-        // $tourModel = $tourModel->join('page_reviews','page_reviews.pr_page_id', 'service_tour.id');
-        // $tourModel = $tourModel->where('page_reviews.pr_page_name', 'tour');
-        $tourModel = $tourModel->where('service_tour.service_id', 10016);
-        $tourModel = $tourModel->where('service_tour.temp_status', 1);
-        $tourModel = $tourModel->where('service_tour_photos.temp_status', 1);
-        $tourModel = $tourModel->groupBy('service_tour.id');
-
-        return $tourModel->get();
-        
     }
 
     public function  room_details($id) {
@@ -80,9 +47,10 @@ public function hotels() {
 
     }
 
-public function  hotel_details($id) {
+    public function  hotel_details($id) 
+    {
 
-   return Response::json(HotelModel::join('users','users.id', 'hotels.profid')
+        return Response::json(HotelModel::join('users','users.id', 'hotels.profid')
     	->join('temp_status','temp_status.id', 'hotels.temp_status')
     		->join('hotel_photos', 'hotels.id','hotel_photos.upload_id')
     			->join('merchant_address','merchant_address.id', 'hotels.address_id')
@@ -92,11 +60,27 @@ public function  hotel_details($id) {
     // return json_encode(LocationDistrictModel::select()->where('region_id',$id)->get());
 
     }
-public function banner() {
+    public function banner() 
+    {
 
-    return BannerModel::where('banners.temp_status',1)->where('banners.location',1)->get(['banners.banner_img','banners.short_des','banners.long_desc']);
+        return BannerModel::where('banners.temp_status',1)->where('banners.location',1)->get(['banners.banner_img','banners.short_des','banners.long_desc']);
 
-}
+    }
+
+    protected function getServiceTourData($service_id,$limit)
+    {
+
+        $tourModel = new TourModel();
+        $tourModel = $tourModel->join('service_tour_photos','service_tour_photos.upload_id', 'service_tour.id');
+        $tourModel = $tourModel->join('profiles','profiles.id', 'service_tour.profid');
+        $tourModel = $tourModel->where('service_tour.service_id', $service_id);
+        $tourModel = $tourModel->where('service_tour.temp_status', 1);
+        $tourModel = $tourModel->where('service_tour_photos.temp_status', 1);
+        // $tourModel = $tourModel->random();
+        $tourModel = $tourModel->groupBy('service_tour.id');
+        return $tourModel->inRandomOrder()->limit($limit    )->get();
+        
+    }
 
     public function index()
     {
@@ -108,12 +92,14 @@ public function banner() {
         $hotels         = $this->hotel();
         $tour_package   = $this->tour_package(); 
 
-        $tour_packages   = $this->tour_packages(); // new from service_tour tbl
-    	$hotel_packages 	= $this->getHotels(); // new from service_tour tbl
+        $tour_packages   = $this->getServiceTourData('10011',10); // new from service_tour tbl
+    	$hotel_packages 	= $this->getServiceTourData('10016',10); // new from service_tour tbl
+    	$exclusive_packages 	= $this->getServiceTourData('100113',10); // new from service_tour tbl
         $banner            = $this->banner();
         // return $hotel_packages;
+        
 
-        return view('tourismo.home', compact(['banner','tourismo_exlusive','international','home_hotel','destination','hotels','tour_package','tour_packages', 'hotel_packages']));
+        return view('tourismo.home', compact(['banner','tourismo_exlusive','international','home_hotel','destination','hotels','tour_package','tour_packages', 'hotel_packages', 'exclusive_packages']));
     }
     
     

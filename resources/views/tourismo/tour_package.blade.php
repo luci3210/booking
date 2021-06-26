@@ -545,10 +545,10 @@ a.page-link {
                     <img src="{{ asset('image/socialmedia/tw.png')}}" alt="">
                 </li>
                 <!-- /.tw -->
-                <li class="pointer social-media-share" >
+                <li class="pointer social-media-share" onclick="openApp('{{ route('tourimos_tour_package', $tourDetails[0]->id) }}', 'wazap')" >
                     <img src="{{ asset('image/socialmedia/wazap.png')}}" alt="">
                 </li>
-                <li class="pointer social-media-share">
+                <li class="pointer social-media-share" onclick="openApp('{{ route('tourimos_tour_package', $tourDetails[0]->id) }}', 'viber')">
                     <img src="{{ asset('image/socialmedia/vb.png')}}" alt="">
                 </li>
                 <!-- /.viber -->

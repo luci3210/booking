@@ -21,17 +21,11 @@
       <div class="col-lg-9 col-sm-12">
         <div class="info-box p-3">
             <h3>WISHLIST</h3>
-            <ul class="uk-tab-bottom" uk-switcher uk-tab>
-              <li class="uk-active"><a href="#hotels">Hotels</a></li>
-              <li><a href="#Tour">Tour Package</a></li>
-          </ul>
-          <div  class="uk-switcher">
-            <li id="hotels" class="">
               <div class="uk-overflow-auto">
                 <table class="uk-table uk-table-small uk-table-divider">
                     <thead>
                         <tr>
-                            <th>Hotel Name</th>
+                            <th>Name</th>
                             <th>Price</th>
                             <th>Hotel Address</th>
                             <th>Booking Details</th>
@@ -41,10 +35,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @if($hotelList && count($hotelList) >= 1)
-                    @foreach($hotelList as $list)
+                    @if($wishListData && count($wishListData) >= 1)
+                    @foreach($wishListData as $list)
                       <tr>
-                          <td class=""><a href="{{ route('tourismo_room', $list->wh_page_id) }}" ><div class="elips">{{ $list->roomname }}</div></a></td>
+                          <td class="text-nowrap">
+                          @if($list->service_id == "10016")
+                            <a href="{{ route('tourismo_room', $list->wh_page_id) }}" >
+                          @else
+                          <a href="{{ route('tourimos_tour_package', $list->wh_page_id) }}" >
+                          @endif
+                            <div class="">{{ $list->tour_name }}</div></a>
+                          </td>
                           <td ><div class="elips"><b>₱ {{ $list->price }}</b> / For {{ $list->nonight }} Night</span></div></td>
                           <td class=""><div class="elips">{{ $list->address }}</div></td>
                           <td class="" ><p class="elips"> <span><img style="padding-bottom: 3px;" src="{{ asset('upload/merchant/icons/baseline_supervisor_account_black_18dp.png')}}">Max Guests: {{ $list->noguest }}</span></p></td>
@@ -54,7 +55,7 @@
                       </tr>
                       @endforeach
                     @endif
-                    @if(!$hotelList || count($hotelList) <= 0)
+                    @if(!$wishListData || count($wishListData) <= 0)
                       <tr>
                           <td colspan="8">no data</td>
                       </tr>
@@ -62,48 +63,11 @@
                     </tbody>
                 </table>
               </div>
-            </li>
-            <li id="Tour">
-            <div class="uk-overflow-auto">
-                <table class="uk-table uk-table-small uk-table-divider">
-                    <thead>
-                        <tr>
-                            <th>Hotel Name</th>
-                            <th>Price</th>
-                            <th>Hotel Address</th>
-                            <th>Booking Details</th>
-                            <th></th>
-                            <th>Package</th>
-                            <th>Room Facilities</th>
-                            <th>Building Facilities</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    @if($tourList && count($tourList) >= 1)
-                    @foreach($tourList as $list)
-                      <tr>
-                          <td class="elips"><a href="{{ route('tourismo_room', $list->wh_page_id) }}">{{ $list->roomname }}</a></td>
-                          <td><b>₱ {{ $list->price }}</b> / For {{ $list->nonight }} Night</span></td>
-                          <td class="elips">{{ $list->address }}</td>
-                          <td colspan="2"><p><span><img style="padding-bottom: 3px;" src="{{ asset('upload/merchant/icons/baseline_supervisor_account_black_18dp.png')}}">Max Guests: {{ $list->noguest }}</span></p></td>
-                          <td>{{ $list->booking_package }}</td>
-                          <td>{{ $list->room_facilities }}</td>
-                          <td>{{ $list->building_facilities }}</td>
-                      </tr>
-                      @endforeach
-                    @endif
-                    @if(!$tourList || count($tourList) <= 0)
-                      <tr>
-                          <td colspan="8">no data</td>
-                      </tr>
-                    @endif
-                    </tbody>
-                </table>
-              </div>
-            </li>
-          </div>
         </div>
         <!-- cardinfo bbox -->
+        <ul class="pagination pagination-sm m-0 float-left">
+            {{$wishListData->links() }}
+        </ul>
       </div>
       <!-- /.col -->
     </div>

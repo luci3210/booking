@@ -1,8 +1,12 @@
 @extends('layouts.tourismo.ui')
 @section('content')
 
-
-<section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+<style>
+  .bg-img-cover{
+  min-height: 20vh;
+}
+</style>
+<section class="services team aos-init aos-animate" style="min-height: 80vh;" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
   <div class="container">
     <div class="row">
 
@@ -10,17 +14,25 @@
   <h2><b>{{ $data[0]->name }} </b><span style="font-size: 15px;padding-left: 25px;"><a href="{{ route('all_services',$data[0]->description) }}" class="uk-link"> View All</a></span></h2>
 </div>
 
-<div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider>
-<ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid">
-
+<div class="row ">
 @foreach($data as $list)
 
-<li>
+<div class="col-lg-3 col-md-4 col-sm-4">
+
+
 <div class="icon-box icon-box-pink">
-<div class="uk-panel">  
-  <img src="{{ asset('image/tour/2021/')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}" alt="">
+
+<div class="uk-panel">
+  <div class="spacer-width" style="width: 100rem;">
+  </div>
+  <div class="member-img bg-img-cover" style="background-image: url('{{ asset('image/tour/2021')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;">
+  </div>
   <div class="uk-position-center uk-panel"> </div>
 </div>
+<!-- /. uk panel -->
 
   <div class="member-info">
     
@@ -43,16 +55,11 @@
   </div>
 
 </div>
-</li>
-
-@endforeach
         
-    </ul>
-
-    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
 
 </div>
+@endforeach
+
 
     </div>
   </div>
