@@ -525,35 +525,35 @@ a.page-link {
         <div uk-grid class="uk-flex-center mx-auto">
             <div class="uk-position-relative uk-visible-toggle uk-light social-slider-div" tabindex="-1" uk-slider>
             <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m">
-                <li class="pointer social-media-share" onclick="copyLink('{{ route('tourimos_tour_package', $tourDetails[0]->id) }}')">
+                <li class="pointer social-media-share" onclick="copyLink('{{ route('tourismo_room', $tourDetails[0]->id) }}')">
                     <img src="{{ asset('image/socialmedia/cc.png')}}"  alt="cc">
                 </li>
                 <!-- /.cc -->
-                <li class="pointer social-media-share" onclick="copyEmbed('{{ route('tourimos_tour_package', $tourDetails[0]->id) }}', '{{ $tourDetails[0]->tour_name }}')">
+                <li class="pointer social-media-share" onclick="copyEmbed('{{ route('tourismo_room', $tourDetails[0]->id) }}', '{{ $tourDetails[0]->tour_name }}')">
                     <img src="{{ asset('image/socialmedia/em.png')}}"  alt="fb">
                 </li>
                 <!-- /.embed -->
-                <li class="pointer social-media-share" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('tourimos_tour_package', $tourDetails[0]->id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )">
+                <li class="pointer social-media-share" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('tourismo_room', $tourDetails[0]->id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )">
                     <img src="{{ asset('image/socialmedia/fb.png')}}"  alt="fb">
                 </li>
                 <!-- /. fb -->
-                <li class="pointer social-media-share" onclick="sendMessenger('{{ route('tourimos_tour_package', $tourDetails[0]->id) }}')">
+                <li class="pointer social-media-share" onclick="sendMessenger('{{ route('tourismo_room', $tourDetails[0]->id) }}')">
                     <img src="{{ asset('image/socialmedia/msg.png')}}" alt="">
                 </li>
                 <!-- /.messenger -->
-                <li class="pointer social-media-share" onclick="window.open('https://twitter.com/intent/tweet?text={{ $tourDetails[0]->tour_name }}&url={{ route('tourimos_tour_package', $tourDetails[0]->id) }}')">
+                <li class="pointer social-media-share" onclick="window.open('https://twitter.com/intent/tweet?text={{ $tourDetails[0]->tour_name }}&url={{ route('tourismo_room', $tourDetails[0]->id) }}')">
                     <img src="{{ asset('image/socialmedia/tw.png')}}" alt="">
                 </li>
                 <!-- /.tw -->
-                <li class="pointer social-media-share" >
+                <li class="pointer social-media-share" onclick="openApp('{{ route('tourismo_room', $tourDetails[0]->id) }}', 'wazap')" >
                     <img src="{{ asset('image/socialmedia/wazap.png')}}" alt="">
                 </li>
-                <li class="pointer social-media-share">
+                <li class="pointer social-media-share" onclick="openApp('{{ route('tourismo_room', $tourDetails[0]->id) }}', 'viber')">
                     <img src="{{ asset('image/socialmedia/vb.png')}}" alt="">
                 </li>
                 <!-- /.viber -->
                 <li class="pointer social-media-share">
-                    <a  href="mailto:yourfriendsemail@sample.com?subject={{ $tourDetails[0]->roomdesc }}&body=No. of hotels : 150  visit the link {{ route('tourimos_tour_package', $tourDetails[0]->id)}}"><img src="{{ asset('image/socialmedia/gm.png')}}" alt=""></a>
+                    <a  href="mailto:yourfriendsemail@sample.com?subject={{ $tourDetails[0]->roomdesc }}&body=No. of hotels : 150  visit the link {{ route('tourismo_room', $tourDetails[0]->id)}}"><img src="{{ asset('image/socialmedia/gm.png')}}" alt=""></a>
                 </li>
                 <!-- /.gm -->
                 <li class="pointer social-media-share">
@@ -566,7 +566,7 @@ a.page-link {
             <a class="uk-position-center-right uk-position-small bg-circle" href="#" uk-slidenav-next uk-slider-item="next"></a>
             </div>
             <div class="copy-link-div">
-                <p>{{ route('tourimos_tour_package', $tourDetails[0]->id) }} <a class="copy-link" onclick="copyLink('{{ route('tourimos_tour_package', $tourDetails[0]->id) }}')">copy link</a></p>
+                <p>{{ route('tourismo_room', $tourDetails[0]->id) }} <a class="copy-link" onclick="copyLink('{{ route('tourismo_room', $tourDetails[0]->id) }}')">copy link</a></p>
             </div>
         </div>
         <!-- /.div center -->

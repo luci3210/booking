@@ -23,51 +23,33 @@ class WishListController extends Controller
     }
     
     public function index(){
-    $data['error'] = [];
-    $data['msg'] = [];
-    $data['data'] = [];
-    // /. data declaration
+        $data['error'] = [];
+        $data['msg'] = [];
+        $data['data'] = [];
+        // /. data declaration
 
 
-    $country = $this->accnt_country();
-    // /. get countries
-    $account = UserModel::where('users.id', Auth::user()->id)->get();
-    // /.users info
+        $country = $this->accnt_country();
+        // /. get countries
+        $account = UserModel::where('users.id', Auth::user()->id)->get();
+        // /.users info
 
-    $data['data']['account'] = $account;
-    $data['data']['country'] = $country;
-    $hotel_ids = [];
+        $data['data']['account'] = $account;
+        $data['data']['country'] = $country;
+        $hotel_ids = [];
 
-    $hotelList = WishlistHotelsRoom::where('wishlist.wh_user_id', Auth::user()->id);
-    $hotelList = $hotelList->where('wishlist.wh_temp_status',1);
-    $hotelList = $hotelList->where('wishlist.wh_page_name','hotel');
-    $hotelList = $hotelList->join('hotels', 'wishlist.wh_page_id', '=', 'hotels.id');
-    $hotelList = $hotelList->join('merchant_address', 'hotels.address_id', '=', 'merchant_address.id');
-    // $hotelList = $hotelList->join('hotel_photos', 'wishlist.wh_page_id', '=', 'hotels.id');
-    // $hotelList = $hotelList->where('hotel_photos.temp_status',1);
-    $hotelList = $hotelList->get();
-    // $hotelList[0]['photos'] = ['das;djkas.jpg', 'dasdjhsadasd.jpg'];
-    // $hotelList['id'] = $hotelList[0]['id'];
-    for($i=0; $i<count($hotelList); $i++){
-        array_push($hotel_ids, $hotelList[$i]['id']);
+        $wishListData = $this->getAllMyWishList();
+        // return $wishListData;
+        return view('tourismo.account.account_wishlist_index',compact("data","wishListData"));
     }
-    $photos = HotelPhoMoldel::whereIn('upload_id',$hotel_ids);
-    $photos = $photos->where('temp_status', 1);
-    $photos = $photos->get();
-    // $hotelList['idsss'] = $hotel_ids;
-    // $hotelList['potato'] = $photos;
-    // return $hotelList;
 
-    $tourList = WishlistHotelsRoom::where('wishlist.wh_user_id', Auth::user()->id);
-    $tourList = $tourList->where('wishlist.wh_temp_status',1);
-    $tourList = $tourList->where('wishlist.wh_page_name','tour');
-    $tourList = $tourList->join('service_tour', 'wishlist.wh_page_id', '=', 'service_tour.id');
-    $tourList = $tourList->get();
+    protected function getAllMyWishList(){
 
-    // return $hotelList;
-
-    
-    return view('tourismo.account.account_wishlist_index',compact("data","hotelList","photos", "tourList"));
+        $tourList = WishlistHotelsRoom::where('wishlist.wh_user_id', Auth::user()->id);
+        $tourList = $tourList->where('wishlist.wh_temp_status',1);
+        $tourList = $tourList->join('service_tour', 'wishlist.wh_page_id', '=', 'service_tour.id');
+        $tourList = $tourList->paginate(9);
+        return $tourList;
     }
     
     public function accnt_country() {

@@ -13,6 +13,9 @@ use App\Model\Admin\LocationCountyModel;
 use App\user\WishlistHotelsRoom;
 use App\user\PaymentModel;
 
+use App\Model\Merchant\TourPhoModel;
+use App\Model\Merchant\TourModel;
+
 class UserBookingController extends Controller
 {
     //
@@ -31,24 +34,36 @@ class UserBookingController extends Controller
         // /. get countries
         $account = UserModel::where('users.id', Auth::user()->id)->get();
         
-        $hotelList = $this->getAllMyBookingHotel();
+        $hotelList = $this->getAllMyBookingHotel($req->type,$req->payment,$req->status);
         // /.users info
         $data['data']['account'] = $account;
         $data['data']['country'] = $country;
+        // return $hotelList;
         return view('tourismo.account.account_booking_index',compact("hotelList", "tourList","data"));
 
     }
 
-    protected function getAllMyBookingHotel()
+    protected function getAllMyBookingHotel($type,$payment,$status)
     {
        $hotelList = new PaymentModel();
        $hotelList = $hotelList->where('pm_user_id',Auth::user()->id);
-       $hotelList = $hotelList->where('pm_temp_status',1);
-       $hotelList = $hotelList->where('pm_page_name','hotel');
-       $hotelList = $hotelList->join('hotels', 'payments.pm_page_id', '=', 'hotels.id');
-       $hotelList = $hotelList->join('merchant_address', 'hotels.address_id', '=', 'merchant_address.id');
-       $hotelList = $hotelList->join('status_payment', 'payments.pm_ps_id', '=', 'status_payment.ps_id');
-       $hotelList = $hotelList->get();
+       $hotelList = $hotelList->join('status_payment', 'status_payment.ps_id', '=', 'payments.pm_ps_id');
+       $hotelList = $hotelList->join('service_tour', 'service_tour.id', '=', 'payments.pm_page_id');
+       if($type != 'type'){
+         $hotelList = $hotelList->where('service_tour.service_id', $type);
+       }
+
+       if($type != 'type'){
+            $hotelList = $hotelList->where('service_tour.service_id', $type);
+        }
+        if($status != 'status'){
+            $hotelList = $hotelList->where('status_payment.ps_payment_status', $status);
+        }
+        if($payment != 'payment'){
+            $hotelList = $hotelList->where('status_payment.ps_payment_code', $payment);
+        }
+       
+       $hotelList = $hotelList->paginate(9);
        return $hotelList;
        
         

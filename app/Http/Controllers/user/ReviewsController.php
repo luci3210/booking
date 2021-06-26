@@ -33,24 +33,24 @@ class ReviewsController extends Controller
         // /. get countries
         $account = UserModel::where('users.id', Auth::user()->id)->get();
         
-        $hotelList = $this->getAllMyReviewsHotel();
+        $reviewList = $this->getAllMyReviews();
         // /.users info
         $data['data']['account'] = $account;
         $data['data']['country'] = $country;
-        return view('tourismo.account.account_review_index',compact("hotelList", "tourList","data"));
+        // return $reviewList;
+        return view('tourismo.account.account_review_index',compact("reviewList","data"));
 
     }
 
-    protected function getAllMyReviewsHotel()
+    protected function getAllMyReviews()
     {
 
-        $hotelList = PageReviewsModel::where('page_reviews.pr_user_id', Auth::user()->id);
-        $hotelList = $hotelList->where('page_reviews.pr_temp_status',1);
-        $hotelList = $hotelList->where('page_reviews.pr_page_name','hotel');
-        $hotelList = $hotelList->join('hotels', 'page_reviews.pr_page_id', '=', 'hotels.id');
-        $hotelList = $hotelList->join('merchant_address', 'hotels.address_id', '=', 'merchant_address.id');
-        $hotelList = $hotelList->get();
-        return $hotelList;
+        $reviewDatas = PageReviewsModel::where('page_reviews.pr_user_id', Auth::user()->id);
+        $reviewDatas = $reviewDatas->where('page_reviews.pr_temp_status',1);
+        $reviewDatas = $reviewDatas->where('page_reviews.pr_page_name','hotel');
+        $reviewDatas = $reviewDatas->join('service_tour', 'service_tour.id', '=', 'page_reviews.pr_page_id');
+        $reviewDatas = $reviewDatas->paginate(9);
+        return $reviewDatas;
         
     }
     protected function getAllMyBooking()

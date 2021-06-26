@@ -115,6 +115,9 @@
   font-weight: 800 !important;
   font-size: 12px !important;
 }
+.bg-img-cover{
+  min-height: 20vh;
+}
 
   @media only screen and (max-width: 1000px) {
     .item-icon {
