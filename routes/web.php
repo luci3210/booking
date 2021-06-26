@@ -285,18 +285,15 @@ Route::prefix('merchant')->group(function () {
     Route::get('/subscription_plan', 'Other\PlanContoller@index')->name('other-plan');
     Route::get('/subscription_plan/step-1/{id}/plan','Tourismo\SubscribeContollrer@subscribe')->name('subscribe-steps');
     Route::post('/subscription_plan/step-1/submit','Tourismo\SubscribeContollrer@add_subscribe')->name('subscribe-submit');
-
     
     });
 
 // --------------------------------------- PAYMENT -------------------------------------
 
-
 Route::prefix('tourismoph.payment')->group(function () {
 
     Route::get('/hotels/xxx', 'PaymentController@sssss')->name('xxxx');
     Route::POST('/hotels/xxxx', 'PaymentController@pay_booking')->name('xxx');
-
 
 });
 
@@ -312,8 +309,6 @@ Route::prefix('account')->middleware('auth')->group(function () {
     Route::post('/upload/new/photo', 'Tourismo\AccountController@change_profile_pic')->name('user_profile_upload');
     Route::patch('/profile/update/{id}', 'Tourismo\AccountController@accnt_profile_update')->name('accnt_profile_update');
 });
-
-
 
 // --------------------------------------ADMIN---------------------------------------
 
@@ -364,7 +359,6 @@ Route::prefix('admin')->group(function () {
     Route::get('/location/region/select/{id}', 'Admin\LocationController@find_region_id')->name('find_region_id');
     Route::get('/location/district/select/{id}', 'Admin\LocationController@find_district_id')->name('find_district_id');
     Route::get('/location/city/select/{id}', 'Admin\LocationController@find_city_id')->name('find_city_id');
-   
     Route::get('/location/municipality/select/{id}', 'Admin\LocationController@find_municipality_id')->name('find_municipality_id');
 
     // Route::get('/location/region/selecta', [\App\Http\Livewire\Location::class,'render'])->name('asas.ss');
@@ -449,7 +443,18 @@ Route::post(
     Route::post('/password/email', 'Auth\AdminForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
     Route::get('/password/reset/{token}', 'Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
     Route::post('/password/reset', 'Auth\AdminResetPasswordController@reset')->name('admin.password.update');
+
+    #posting-request
+    Route::get('/get_request/{url}/','Admin\PostRequestController@index')->name('get_posting_request');  
+    Route::get('/{id}/view_request/{url}/','Admin\PostRequestController@posting_check')->name('view_posting');  
+
 });
+
+
+// Route::group(['middleware'=>'jobs','jobs'=>['admin'], 'prefix'=>'admin321?/posting_request'], function() {
+
+//    Route::get('/view_request','Admin\PostRequestController@index')->name('view_posting_request');  
+// });
 
 
 

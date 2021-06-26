@@ -1,13 +1,3 @@
-<!-- need to remove -->
-<!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
-        </div>
-      </div> -->
-
 <li class="nav-item">
     <a href="{{ route('admin.dashboard') }}" class="nav-link active">
         <i class="nav-icon fas fa-home"></i>
@@ -134,6 +124,14 @@
   </a>
 </li>
 
+<li class="nav-item">
+  <a href="{{ route('get_posting_request',$url) }}" class="nav-link">
+    <i class="nav-icon fas fa-clipboard"  aria-hidden="true"></i>
+      <p>
+        Posting Request  
+      </p>
+  </a>
+</li>
 
 <li class="nav-item">
   <a href="{{ route('merchant_verification') }}" class="nav-link">

@@ -183,6 +183,7 @@ return [
         App\Providers\MerchantGate::class,
         App\Providers\ProviderSLMenu::class,
         App\Providers\MerchantSideBar::class,
+        App\Providers\AccUrlToken::class,
 
         // pdf
         Barryvdh\DomPDF\ServiceProvider::class,

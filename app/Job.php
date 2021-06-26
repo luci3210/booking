@@ -16,4 +16,9 @@ class Job extends Model
         return $this->belongsToMany('App\User','users_jobs','job_id','user_id');
     }
 
+    public function users_admin() {
+
+        return $this->belongsToMany('App\Admin','users_jobs','job_id','user_id');
+    }
+
 }

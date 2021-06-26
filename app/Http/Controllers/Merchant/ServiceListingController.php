@@ -32,6 +32,7 @@ class ServiceListingController extends Controller
 
     private $profile;
 
+
     public function __construct(ProfileController $profile) {
 
         $this->middleware('auth:web');
