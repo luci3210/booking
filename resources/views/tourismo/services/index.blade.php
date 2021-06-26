@@ -1,8 +1,12 @@
 @extends('layouts.tourismo.ui')
 @section('content')
 
-
-<section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+<style>
+  .bg-img-cover{
+  min-height: 20vh;
+}
+</style>
+<section class="services team aos-init aos-animate" style="min-height: 80vh;" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
   <div class="container">
     <div class="row">
 
@@ -17,10 +21,18 @@
 
 <li>
 <div class="icon-box icon-box-pink">
-<div class="uk-panel">  
-  <img src="{{ asset('image/tour/2021/')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}" alt="">
+
+<div class="uk-panel">
+  <div class="spacer-width" style="width: 100rem;">
+  </div>
+  <div class="member-img bg-img-cover" style="background-image: url('{{ asset('image/tour/2021')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;">
+  </div>
   <div class="uk-position-center uk-panel"> </div>
 </div>
+<!-- /. uk panel -->
 
   <div class="member-info">
     

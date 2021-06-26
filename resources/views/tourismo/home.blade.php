@@ -581,7 +581,6 @@ Founded in 2018, Tourismo PH envisioned a company that is committed in energizin
                 background-size: cover;
                 background-repeat: no-repeat;">
               </div>
-                  <!-- <img src="{{ asset('image/exclusive')}}/{{ $list->exclusive_image == '' ? 'default.png' : $list->exclusive_image }}" alt=""  style="border-radius: 4px;"> -->
               <div class="uk-position-center uk-panel"> </div>
             </div>
             <!-- /. uk panel -->
