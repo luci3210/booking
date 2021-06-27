@@ -447,6 +447,8 @@ Route::post(
     #posting-request
     Route::get('/get_request/{url}/','Admin\PostRequestController@index')->name('get_posting_request');  
     Route::get('/{id}/view_request/{url}/','Admin\PostRequestController@posting_check')->name('view_posting');  
+    Route::post('/{id}/update_request/{url}/','Admin\PostRequestController@update_posting_status')->name('update_posting');  
+
 
 });
 
