@@ -160,7 +160,7 @@ Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merc
 
 Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merchant_dashboard/manage_booking'], function() {
 
-        Route::get('/booking/','Merchant\BookingController@index')
+        Route::get('/booking/{service}/{payment}/{status}/{refid}','Merchant\BookingController@index')
         ->name('booking-index');
 
 });

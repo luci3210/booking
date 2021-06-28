@@ -94,28 +94,27 @@
               <th>Payment Method</th>
               <th style="width: 180px" class="text-center">Action</th>
             </tr>
-            @if($service_post)
-            @foreach($service_post as $post)
+            @if($bookData)
+            @foreach($bookData as $post)
             <tr>
-              <td style="width: 10px">#</td>
+              <td style="width: 10px">#{{ $post->ps_ref_no }}</td>
               <td>
                 
               <div class="user-block">
                 <img class="img-circle img-bordered-sm" src="https://www.hotelnewsnow.com/Media/Default/Images2016/Locations/Westin-Wilmington-Front.jpg" alt="user image">
               </div>
-
               </td>
               <td>{{ $post->tour_name }}</td>
               <td>{{ $post->price }}</td>
-              <td>{{ $post->nonight }}</td>
+              <td>{{ $post->ps_payment_status }}</td>
               <td>{{ $post->noguest }}</td>
-              <td>{{ $post->qty }}</td>
+              <td>{{ $post->ps_payment_method  }}</td>
               <td class="text-center">
-                      <div class="btn-group btn-group-sm">
-                        <a href="{{ route('act_upload_photos',[$post->id,$service_name->description]) }}" class="btn btn-info"><i class="fas fa-eye"></i> Edit</a>
-                        <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</a>
-                      </div>
-                    </td>
+                <div class="btn-group btn-group-sm">
+                  <a href="" class="btn btn-info"><i class="fas fa-eye"></i> Edit</a>
+                  <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</a>
+                </div>
+              </td>
             </tr>
             @endforeach
             @endif
@@ -129,6 +128,7 @@
         
       <div class="card-footer clearfix">
         <ul class="pagination pagination-sm m-0 float-left">
+          {{$bookData->links()}}
         </ul>
       </div>
 

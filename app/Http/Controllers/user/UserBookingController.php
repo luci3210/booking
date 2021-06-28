@@ -53,9 +53,6 @@ class UserBookingController extends Controller
          $hotelList = $hotelList->where('service_tour.service_id', $type);
        }
 
-       if($type != 'type'){
-            $hotelList = $hotelList->where('service_tour.service_id', $type);
-        }
         if($status != 'status'){
             $hotelList = $hotelList->where('status_payment.ps_payment_status', $status);
         }
@@ -63,7 +60,7 @@ class UserBookingController extends Controller
             $hotelList = $hotelList->where('status_payment.ps_payment_code', $payment);
         }
        
-       $hotelList = $hotelList->paginate(9);
+       $hotelList = $hotelList->paginate(10);
        return $hotelList;
        
         

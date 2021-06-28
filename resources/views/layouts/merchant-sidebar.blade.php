@@ -60,7 +60,7 @@
 </li>
 
 <li class="nav-item">
-  <a href="{{ route('booking-index') }}" class="nav-link">
+  <a href="{{ route('booking-index', ['service'=> 'service', 'payment'=> 'payment', 'status'=> 'status','refid'=>'refid' ] ) }}" class="nav-link">
     <i class="nav-icon fas fa-book-reader" aria-hidden="true"></i>
         <p>
       Booking
