@@ -7,26 +7,27 @@
   <meta content="" name="Tourismo">
   <!--  meta tags SEO -->
   <!-- google -->
-      <meta name="title" content="@yield('keywords')">
-      <meta name="description" content="@yield('description')">
-      <meta name="keywords" content="@yield('keywords')">
+      <meta name="title" content="{{ $keywords ?? 'tourismo ph' }}">
+      <meta name="description" content="{{$description ?? 'TOURSIMO PH'}}">
+      <meta name="keywords" content="{{$keywords ?? 'tourismo ph' }}">
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
       <meta name="language" content="English">
       <meta name="author" content="Tourismo admin">
-      <meta itemprop="image" content="@yield('img')">
+      <meta itemprop="image" content="{{  $img ?? asset('/upload/merchant/profilepic/default.png') }}">
+      
   <!-- /.google -->
   <!-- fb tags -->
       <meta property="og:url" content="@yield('curUrl')" />
       <meta property="og:type" content="website" />
-      <meta property="og:title" content="@yield('keywords')" />
-      <meta property="og:description" content="@yield('description')" />
-      <meta property="og:image" content="@yield('img')" />
+      <meta property="og:title" content="{{ $keywords ?? 'tourismo ph'}}" />
+      <meta property="og:description" content="{{$description ?? 'TOURSIMO PH'}}" />
+      <meta property="og:image" content="{{  $img ?? asset('/upload/merchant/profilepic/default.png') }}" />
   <!-- /. fb tags -->
   <!-- Twitter Meta Tags -->
       <meta name="twitter:card" content="summary_large_image">
-      <meta name="twitter:title" content="@yield('keywords')">
-      <meta name="twitter:description" content="@yield('description')">
-      <meta name="twitter:image" content="@yield('img')">
+      <meta name="twitter:title" content="{{ $keywords ?? 'tourismo ph' }}">
+      <meta name="twitter:description" content="{{$description ?? 'TOURSIMO PH'}}">
+      <meta name="twitter:image" content="{{  $img ?? asset('/upload/merchant/profilepic/default.png') }}">
   <!-- /. Twitter Meta Tags -->
 
 

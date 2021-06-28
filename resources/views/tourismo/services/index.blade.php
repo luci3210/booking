@@ -72,49 +72,48 @@
     </span><br>
 
     <div class="mem-button">
-    @if($list->service_id == '10016')
-        <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('tourismo_room', $list->upload_id) }}">
+        <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('service_tour_view', $list->upload_id) }}">
           Explore
         </a>
-        <a class="uk-button uk-button-small mb-sm-1" href="javascript:void(0)" uk-toggle="target: #rooms-{{$list->upload_id}}" >
+        <a class="uk-button uk-button-small mb-sm-1" href="javascript:void(0)" uk-toggle="target: #modals-{{$list->upload_id}}" >
           <i class="fas fa-share"></i> Share
         </a>
         <!-- share modal -->
-        <div id="rooms-{{$list->upload_id}}" uk-modal class="uk-flex-top">
+        <div id="modals-{{$list->upload_id}}" uk-modal class="uk-flex-top">
             <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
                 <h2 class="uk-modal-title"></h2>
                 <div uk-grid class="uk-flex-center mx-auto">
                 <div class="uk-position-relative uk-visible-toggle uk-light social-slider-div" tabindex="-1" uk-slider>
                     <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m">
-                    <li class="pointer social-media-share" onclick="copyLink('{{ route('tourismo_room', $list->upload_id) }}')">
+                    <li class="pointer social-media-share" onclick="copyLink('{{ route('service_tour_view', $list->upload_id) }}')">
                         <img src="{{ asset('image/socialmedia/cc.png')}}"  alt="cc">
                     </li>
                     <!-- /.cc -->
-                    <li class="pointer social-media-share" onclick="copyEmbed('{{ route('tourismo_room', $list->upload_id) }}', '{{ $list->roomname }}')">
+                    <li class="pointer social-media-share" onclick="copyEmbed('{{ route('service_tour_view', $list->upload_id) }}', '{{ $list->tour_name }}')">
                         <img src="{{ asset('image/socialmedia/em.png')}}"  alt="fb">
                     </li>
                     <!-- /.embed -->
-                    <li class="pointer social-media-share" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('tourismo_room', $list->upload_id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )">
+                    <li class="pointer social-media-share" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('service_tour_view', $list->upload_id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )">
                         <img src="{{ asset('image/socialmedia/fb.png')}}"  alt="fb">
                     </li>
                     <!-- /. fb -->
-                    <li class="pointer social-media-share" onclick="sendMessenger('{{ route('tourismo_room', $list->upload_id) }}')">
+                    <li class="pointer social-media-share" onclick="sendMessenger('{{ route('service_tour_view', $list->upload_id) }}')">
                         <img src="{{ asset('image/socialmedia/msg.png')}}" alt="">
                     </li>
                     <!-- /.messenger -->
-                    <li class="pointer social-media-share" onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->tour_name }}&url={{ route('tourismo_room', $list->upload_id) }}')">
+                    <li class="pointer social-media-share" onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->tour_name }}&url={{ route('service_tour_view', $list->upload_id) }}')">
                         <img src="{{ asset('image/socialmedia/tw.png')}}" alt="">
                     </li>
                     <!-- /.tw -->
-                    <li class="pointer social-media-share" onclick="openApp('{{ route('tourismo_room', $list->upload_id) }}', 'wazap')" >
+                    <li class="pointer social-media-share" onclick="openApp('{{ route('service_tour_view', $list->upload_id) }}', 'wazap')" >
                         <img src="{{ asset('image/socialmedia/wazap.png')}}" alt="">
                     </li>
-                    <li class="pointer social-media-share" onclick="openApp('{{ route('tourismo_room', $list->upload_id) }}', 'viber')">
+                    <li class="pointer social-media-share" onclick="openApp('{{ route('service_tour_view', $list->upload_id) }}', 'viber')">
                         <img src="{{ asset('image/socialmedia/vb.png')}}" alt="">
                     </li>
                     <!-- /.viber -->
                     <li class="pointer social-media-share">
-                        <a  href="mailto:yourfriendsemail@sample.com?subject={{ $list->destination_info }}&body=No. of hotels : 150  visit the link {{ route('tourismo_room', $list->upload_id)}}"><img src="{{ asset('image/socialmedia/gm.png')}}" alt=""></a>
+                        <a  href="mailto:yourfriendsemail@sample.com?subject={{ $list->tour_name }}&body=No. of hotels : 150  visit the link {{ route('service_tour_view', $list->upload_id)}}"><img src="{{ asset('image/socialmedia/gm.png')}}" alt=""></a>
                     </li>
                     <!-- /.gm -->
                     <li class="pointer social-media-share">
@@ -127,85 +126,13 @@
                     <a class="uk-position-center-right uk-position-small bg-circle" href="#" uk-slidenav-next uk-slider-item="next"></a>
                 </div>
                 <div class="copy-link-div">
-                    <p>{{ route('tourismo_room', $list->upload_id) }} <a class="copy-link" onclick="copyLink('{{ route('tourismo_room', $list->upload_id) }}')">copy link</a></p>
+                    <p>{{ route('service_tour_view', $list->upload_id) }} <a class="copy-link" onclick="copyLink('{{ route('service_tour_view', $list->upload_id) }}')">copy link</a></p>
                 </div>
                 </div>
                 <!-- /.div center -->
             </div>
         </div>
         <!-- /. share modal -->
-        
-      @elseif($list->service_id == '10011')
-        <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('tourimos_tour_package', $list->upload_id) }}">
-          Explore
-        </a>
-        <a class="uk-button uk-button-small mb-sm-1" href="javascript:void(0)" uk-toggle="target: #tour-{{$list->upload_id}}" >
-          <i class="fas fa-share"></i> Share
-        </a>
-        <!-- share modal -->
-        <div id="tour-{{$list->upload_id}}" uk-modal class="uk-flex-top">
-                      <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
-                          <h2 class="uk-modal-title"></h2>
-                          <div uk-grid class="uk-flex-center mx-auto">
-                          <div class="uk-position-relative uk-visible-toggle uk-light social-slider-div" tabindex="-1" uk-slider>
-                              <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m">
-                              <li class="pointer social-media-share" onclick="copyLink('{{ route('tourimos_tour_package', $list->upload_id) }}')">
-                                  <img src="{{ asset('image/socialmedia/cc.png')}}"  alt="cc">
-                              </li>
-                              <!-- /.cc -->
-                              <li class="pointer social-media-share" onclick="copyEmbed('{{ route('tourimos_tour_package', $list->upload_id) }}', '{{ $list->roomname }}')">
-                                  <img src="{{ asset('image/socialmedia/em.png')}}"  alt="fb">
-                              </li>
-                              <!-- /.embed -->
-                              <li class="pointer social-media-share" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('tourimos_tour_package', $list->upload_id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )">
-                                  <img src="{{ asset('image/socialmedia/fb.png')}}"  alt="fb">
-                              </li>
-                              <!-- /. fb -->
-                              <li class="pointer social-media-share" onclick="sendMessenger('{{ route('tourimos_tour_package', $list->upload_id) }}')">
-                                  <img src="{{ asset('image/socialmedia/msg.png')}}" alt="">
-                              </li>
-                              <!-- /.messenger -->
-                              <li class="pointer social-media-share" onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->tour_name }}&url={{ route('tourimos_tour_package', $list->upload_id) }}')">
-                                  <img src="{{ asset('image/socialmedia/tw.png')}}" alt="">
-                              </li>
-                              <!-- /.tw -->
-                              <li class="pointer social-media-share" onclick="openApp('{{ route('tourimos_tour_package', $list->upload_id) }}', 'wazap')" >
-                                  <img src="{{ asset('image/socialmedia/wazap.png')}}" alt="">
-                              </li>
-                              <li class="pointer social-media-share" onclick="openApp('{{ route('tourimos_tour_package', $list->upload_id) }}', 'viber')">
-                                  <img src="{{ asset('image/socialmedia/vb.png')}}" alt="">
-                              </li>
-                              <!-- /.viber -->
-                              <li class="pointer social-media-share">
-                                  <a  href="mailto:yourfriendsemail@sample.com?subject={{ $list->destination_info }}&body=No. of hotels : 150  visit the link {{ route('tourimos_tour_package', $list->upload_id)}}"><img src="{{ asset('image/socialmedia/gm.png')}}" alt=""></a>
-                              </li>
-                              <!-- /.gm -->
-                              <li class="pointer social-media-share">
-                                  <img src="{{ asset('image/socialmedia/we.png')}}" alt="">
-                                  <!-- <div class="uk-position-center uk-panel"><h1>6</h1></div> -->
-                              </li>
-                              <!-- /.we -->
-                              </ul>
-                              <a class="uk-position-center-left uk-position-small  bg-circle" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-                              <a class="uk-position-center-right uk-position-small bg-circle" href="#" uk-slidenav-next uk-slider-item="next"></a>
-                          </div>
-                          <div class="copy-link-div">
-                              <p>{{ route('tourimos_tour_package', $list->upload_id) }} <a class="copy-link" onclick="copyLink('{{ route('tourimos_tour_package', $list->upload_id) }}')">copy link</a></p>
-                          </div>
-                          </div>
-                          <!-- /.div center -->
-                      </div>
-                  </div>
-                  <!-- /. share modal -->
-        @else
-        <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)" uk-toggle="target: #unavailable">
-          Explore
-        </a>
-        <a class="uk-button uk-button-small mb-sm-1" href="javascript:void(0)" >
-          <i class="fas fa-share"></i> Share
-        </a>
-      @endif
-     
     </div>
 
   </div>

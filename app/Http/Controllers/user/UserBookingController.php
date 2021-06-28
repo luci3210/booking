@@ -34,7 +34,7 @@ class UserBookingController extends Controller
         // /. get countries
         $account = UserModel::where('users.id', Auth::user()->id)->get();
         
-        $hotelList = $this->getAllMyBookingHotel($req->type,$req->payment,$req->status);
+        $hotelList = $this->getAllMyBookingHotel($req->service,$req->payment,$req->status);
         // /.users info
         $data['data']['account'] = $account;
         $data['data']['country'] = $country;
@@ -43,14 +43,14 @@ class UserBookingController extends Controller
 
     }
 
-    protected function getAllMyBookingHotel($type,$payment,$status)
+    protected function getAllMyBookingHotel($service,$payment,$status)
     {
        $hotelList = new PaymentModel();
        $hotelList = $hotelList->where('pm_user_id',Auth::user()->id);
        $hotelList = $hotelList->join('status_payment', 'status_payment.ps_id', '=', 'payments.pm_ps_id');
        $hotelList = $hotelList->join('service_tour', 'service_tour.id', '=', 'payments.pm_page_id');
-       if($type != 'type'){
-         $hotelList = $hotelList->where('service_tour.service_id', $type);
+       if($service != 'service'){
+         $hotelList = $hotelList->where('service_tour.service_id', $service);
        }
 
         if($status != 'status'){

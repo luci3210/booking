@@ -37,7 +37,6 @@ class WishListController extends Controller
         $data['data']['account'] = $account;
         $data['data']['country'] = $country;
         $hotel_ids = [];
-
         $wishListData = $this->getAllMyWishList();
         // return $wishListData;
         return view('tourismo.account.account_wishlist_index',compact("data","wishListData"));
@@ -63,11 +62,10 @@ class WishListController extends Controller
         $data['success'] = false;
         $data['msg'] = [];
         $wishlist_id = $req->data_id;
-        $pagename = $req->wh_page_name;
         $checkList = WishlistHotelsRoom::where('wh_page_id', $wishlist_id);
         $checkList = $checkList->where('wh_user_id', Auth::user()->id);
         $checkList = $checkList->where('wh_temp_status', 1);
-        $checkList = $checkList->where('wh_page_name', $pagename);
+        // $checkList = $checkList->where('wh_page_name', $pagename);
         $checkList = $checkList->first();
         if($checkList != null){
             $data['msg'] = 'removed';
@@ -82,7 +80,6 @@ class WishListController extends Controller
             $addToWishList = new WishlistHotelsRoom();
             $addToWishList->wh_page_id =$wishlist_id;
             $addToWishList->wh_user_id = Auth::user()->id;
-            $addToWishList->wh_page_name = $pagename;
             $addToWishList->save();
         }
     

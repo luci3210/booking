@@ -56,6 +56,9 @@ Route::get('/tour_operators/ph', 'Tourismo\HomeController@page_tour_operator')->
 
 Route::get('/hotels/rooms/{id}', 'Tourismo\RoomsController@index')->name('tourismo_room');
 Route::get('/tour-package/{id}', 'Tourismo\TourPackageController@index')->name('tourimos_tour_package');
+
+Route::get('/service-tour/explore/{id}', 'Tourismo\ServiceTourController@index')->name('service_tour_view');
+
 Route::POST('/wishlist/toggle', 'user\WishListController@toggle_wishlist')->name('toggle_wishlist');
 Route::POST('payment/hotels/xxxx', 'PaymentController@pay_booking')->name('pay2');
 Route::get('/tourismoph/hotel/{id}', 'Tourismo\HomeController@hotel_details')->name('tourismo-hotel-details');
@@ -212,6 +215,7 @@ Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merc
 
 // reviews
 Route::post('/review/hotel/submit', 'user\ReviewsController@sumbitHotelReview')->name('hotel_review');
+Route::post('/service-tour/review/submit', 'user\ReviewsController@submitReviews')->name('service_tour_review');
 // reviews
 
 
@@ -303,7 +307,7 @@ Route::prefix('tourismoph.payment')->group(function () {
 Route::prefix('account')->middleware('auth')->group(function () {
     Route::get('/wishlist/index', 'user\WishListController@index')->name('wishlist_index'); // wishlist
     Route::get('/reviews/index', 'user\ReviewsController@index')->name('reviews_index');
-    Route::get('/booking/{type}/{payment}/{status}/index', 'user\UserBookingController@index')->name('booking_index');
+    Route::get('/booking/{service}/{payment}/{status}/index', 'user\UserBookingController@index')->name('booking_index');
 
     Route::get('/profile', 'Tourismo\AccountController@profile')->name('accnt_profile');
     Route::post('/upload/new/photo', 'Tourismo\AccountController@change_profile_pic')->name('user_profile_upload');
