@@ -33,7 +33,7 @@ class ReviewsController extends Controller
         // /. get countries
         $account = UserModel::where('users.id', Auth::user()->id)->get();
         
-        $reviewList = $this->getAllMyReviews();
+        $reviewList = $this->getAllMyReviews($req->service,$req->status);
         // /.users info
         $data['data']['account'] = $account;
         $data['data']['country'] = $country;
@@ -42,14 +42,20 @@ class ReviewsController extends Controller
 
     }
 
-    protected function getAllMyReviews()
+    protected function getAllMyReviews($service,$status)
     {
 
         $reviewDatas = PageReviewsModel::where('page_reviews.pr_user_id', Auth::user()->id);
         $reviewDatas = $reviewDatas->where('page_reviews.pr_temp_status',1);
-        $reviewDatas = $reviewDatas->where('page_reviews.pr_page_name','hotel');
         $reviewDatas = $reviewDatas->join('service_tour', 'service_tour.id', '=', 'page_reviews.pr_page_id');
         $reviewDatas = $reviewDatas->paginate(9);
+        if($service != 'service'){
+            $reviewDatas = $reviewDatas->where('service_tour.service_id', $service);
+        }
+
+        if($status != 'status'){
+            $reviewDatas = $reviewDatas->where('status_payment.ps_payment_status', $status);
+        }
         return $reviewDatas;
         
     }

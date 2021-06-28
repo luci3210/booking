@@ -30,7 +30,7 @@
   </li>
 
   <li class="uk-list-spc">
-    <a class="uk-list-a" href="{{ route('reviews_index') }}">
+    <a class="uk-list-a" href="{{ route('reviews_index',['service'=> 'service','status'=> 'status' ] ) }}">
       <span uk-icon="commenting"></span><span class="uk-list-a"></span> 
         Reviews
     </a>
