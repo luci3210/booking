@@ -20,7 +20,7 @@ use App\Model\Merchant\HotelModel;
 
 Class PaymentService extends SecurityServices{
 
-    public function SavePayment($id,$pagename,$pmStatus,$bookdate)
+    public function SavePayment($id,$pmStatus,$bookdate)
     {
         try {
             $user = Auth::user();
@@ -29,7 +29,7 @@ Class PaymentService extends SecurityServices{
             // $data['user_number'] = Auth::user()->pnumber;
             // $data['user_fname'] = Auth::user()->fname;
             // $data['user_lname'] = Auth::user()->lname;
-            $data['pm_page_name'] = $this->clean_input($pagename);
+            // $data['pm_page_name'] = $this->clean_input($pagename);
             $data['pm_page_id'] = $this->clean_input((int)$id);
             $data['pm_payment_status'] = $this->clean_input($pmStatus);
             $data['pm_book_date'] = $bookdate;
@@ -144,7 +144,7 @@ Class PaymentService extends SecurityServices{
         $details = [
             'title'=> 'Receipt',
             'body'=>'thank you for purchasing thru Tourismo',
-            'url'=>'https://67cddc33c253.ngrok.io/booking/public/invoice/download?',
+            'url'=>'https://133e9cbc5b16.ngrok.io/booking/public/invoice/download?',
             'extra'=>$extraData,
             'status'=>$statusPayment,
             'profileID'=>$cn,

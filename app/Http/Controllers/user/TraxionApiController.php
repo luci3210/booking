@@ -68,7 +68,8 @@ class TraxionApiController extends Controller
         $bdetails = (array)json_decode($bdetails);
 
 
-        $detailsOfBooking = $this->getPackageDetails($bdetails['uid'], $bdetails['type']);
+        $detailsOfBooking = $this->getPackageDetails($bdetails['uid']);
+        // return $detailsOfBooking;
  
         $pdf = PDF::loadView('invoice.payment_invoice',compact(['extra', 'stausPayment','cdetails','detailsOfBooking']));
         return $pdf->download('invoice.pdf');
@@ -80,33 +81,12 @@ class TraxionApiController extends Controller
         return $profile->get();
     }
 
-    protected function getPackageDetails($id,$type){
+    protected function getPackageDetails($id){
 
-        if($type == 'hotel'){
-            $tourDetails = new TourModel();
-            $tourDetails = $tourDetails->where('id', $id);
-            $tourDetails = $tourDetails->get();
-            $data['name'] = $tourDetails[0]['tour_name'];
-            $data['desc'] = $tourDetails[0]['roomdesc'];
-            $data['expect'] = $tourDetails[0]['tour_expect'];
-            $data['noguest'] = $tourDetails[0]['noguest'];
-            $data['nonights'] = $tourDetails[0]['nonights'];
-            $data['cancel'] = $tourDetails[0]['can_refu_policy'];
-            return $data;
-        }
-
-        if($type == 'tour'){
-            $tourDetails = new TourModel();
-            $tourDetails = $tourDetails->where('id', $id);
-            $tourDetails = $tourDetails->get();
-            $data['name'] = $tourDetails[0]['tour_name'];
-            $data['desc'] = $tourDetails[0]['tour_desc'];
-            $data['expect'] = $tourDetails[0]['tour_expect'];
-            $data['noguest'] = $tourDetails[0]['noguest'];
-            $data['cancel'] = $tourDetails[0]['can_refu_policy'];
-            return $data;
-        }
-        return [];
+        $tourDetails = new TourModel();
+        $tourDetails = $tourDetails->where('id', $id);
+        $tourDetails = $tourDetails->get();
+        return $tourDetails;
 
     }
 }

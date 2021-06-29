@@ -43,11 +43,11 @@
             <h4>From:</h4>
             <address>
                 <strong>{{$cdetails[0]->company}}</strong><br>
-                A: {{$cdetails[0]->address}} <br>
-                T: {{$cdetails[0]->telno}} <br>
-                P: {{$cdetails[0]->phonno}} <br>
-                E: {{$cdetails[0]->email}} <br>
-                W: {{$cdetails[0]->website}}
+                Address: {{$cdetails[0]->address}} <br>
+                Telephone: {{$cdetails[0]->telno}} <br>
+                Phone: {{$cdetails[0]->phonno}} <br>
+                Email: {{$cdetails[0]->email}} <br>
+                Website: {{$cdetails[0]->website}}
             </address>
             </div>
 
@@ -86,7 +86,8 @@
                 <tbody>
                 <tr class="well" style="padding: 5px">
                     <th style="padding: 5px"><div> Payment Thru ({{$stausPayment['payment_method']}}) </div></th>
-                    <td style="padding: 5px"><strong> $499 </strong></td>
+                     @if($detailsOfBooking[0]['price'])<td> <td style="padding: 5px"><strong>₱ {{  $detailsOfBooking[0]['price']  }} </strong></td>@endif
+
                 </tr>
                 </tbody>
             </table>
@@ -108,20 +109,22 @@
                     <strong>{{$stausPayment['description']}}</strong>
                 </td>
                 <td></td>
-                <td class="text-right">$600</td>
+                @if($detailsOfBooking[0]['price'])<td class="text-right small-width">₱ {{  $detailsOfBooking[0]['price']  }} </td>@endif
                 </tr>
 
                 <tr>
                 <td>
                     <strong>Service</strong>
                     <p><strong>Book Date</strong> {{ date("F j, Y, g:i a",$extra['pm_book_date'])}} </p>
-                    <p>Nights no.{{$detailsOfBooking['nonights']}}</p>
-                    <p>Guest no.{{$detailsOfBooking['noguest']}}</p>
-                    <p>{{$detailsOfBooking['desc']}}</p>
-                    <p>{{$detailsOfBooking['expect']}}</p>
+                    @if($detailsOfBooking[0]['nonight'])<p>Nights no.{{$detailsOfBooking[0]['nonight']}}</p>@endif
+                    @if($detailsOfBooking[0]['noguest'])<p>Guest no.{{$detailsOfBooking[0]['noguest']}}</p>@endif
+                    @if($detailsOfBooking[0]['roomdesc'])<p>ROOM: {{$detailsOfBooking[0]['roomdesc']}}</p>@endif
+                    @if($detailsOfBooking[0]['tour_desc'])<p>TOUR: {{$detailsOfBooking[0]['tour_desc']}}</p>@endif
+                    @if($detailsOfBooking[0]['tour_expect'])<p>tour_expect: {{$detailsOfBooking[0]['tour_expect']}}</p>@endif
                 </td>
                 <td></td>
-                <td class="text-right">$600</td>
+                <td class="text-right"></td> 
+                <!-- payment charge -->
                 </tr>
 
                 </tbody>
@@ -132,7 +135,7 @@
             <tbody>
                 <tr>
                 <td class="text-right"><strong>Total:</strong></td>
-                <td class="text-right small-width">$600</td>
+                @if($detailsOfBooking[0]['price'])<td class="text-right small-width">₱ {{  $detailsOfBooking[0]['price']  }} </td>@endif
                 </tr>
             </tbody>
             </table>
@@ -145,7 +148,8 @@
                 Thank you for your business. <br>
                 <br>
                 <h4>Payment Terms and Methods</h4>
-                <p>{{$detailsOfBooking['cancel']}}</p>
+                @if($detailsOfBooking[0]['cancel'])<p>tour_expect: {{$detailsOfBooking[0]['cancel']}}</p>@endif
+
                 </div>
             </div>
             </div>

@@ -127,7 +127,7 @@ class PaymentController extends Controller
         $secure_hash = hash_hmac('sha256', $dataToHash, $secret_key, false);
         $auth_hash = hash_hmac('sha256', $public_key, $secret_key, false);
         $paymentService = new PaymentService();
-        $extraData = $paymentService->SavePayment($req->uid,$req->type,'pending',$req->book_date);
+        $extraData = $paymentService->SavePayment($req->uid,'pending',$req->book_date);
         // $bookDetails['name'] = $req->billing_plan_name;
         // $bookDetails['desc'] = $req->desc;
         // $bookDetails['expect'] = $req->expect;
@@ -139,7 +139,6 @@ class PaymentController extends Controller
         //     'noguest'=>$req->noguest,
         // );
         $bookDetailsss['uid'] = $req->uid;
-        $bookDetailsss['type'] = $req->type;
         $bookDetailsss = base64_encode(json_encode($bookDetailsss));
         $data['bookdetails'] = $bookDetailsss;
         $data['extraData'] = $extraData;
@@ -173,7 +172,7 @@ class PaymentController extends Controller
                 
             // 'status_notification_url' => 'https://booking.tourismo.ph/api/payment/status/callback?extra='.$extraData,
             // 'status_notification_url' => 'https://5cd521835102.ngrok.io/booking/public/api/payment/status/callback?extra='.$extraData.'&details='.$req->proid,
-            'status_notification_url' => 'https://67cddc33c253.ngrok.io/booking/public/api/payment/status/callback?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData,
+            'status_notification_url' => 'https://133e9cbc5b16.ngrok.io/booking/public/api/payment/status/callback?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData,
             'success_page_url' => $req->url_callback.'?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData.'&payment=success&',
             'failure_page_url' => $req->url_callback.'?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData.'&payment=failed&',
             'cancel_page_url' => $req->url_callback.'?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData.'&payment=cancel&',
