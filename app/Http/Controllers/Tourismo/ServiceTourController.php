@@ -22,6 +22,9 @@ class ServiceTourController extends Controller
         $id = $this->clean_input($req->id);
         $tourPhotos = $this->getPhotos($id);
         $tourDetails = $this->getTourDetails($id);
+        if(empty($tourDetails) || count($tourDetails) <= 0){
+            abort(404,'404 Error - the requested page does not exist.');
+        }
 
         $wishList = $this->checkWishlist($id);
         $userCountry = $this->userCountry();
