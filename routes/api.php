@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('search', 'Tourismo\HeaderSearchController@Search')->name('search');
+Route::post('/auth/check-login', 'Auth\UserLoginController@checkLogin')->name('check_auth');
 
 
 Route::post('user/register', 'mobile\UserAuthController@register')->name('regiser_mobile');

@@ -53,7 +53,7 @@
                 <p class="mem-title"><i class="fas fa-map-marked-alt"></i>  {{ $list->tour_name, 0 , 15 }}</p>
 
                 <span>
-                  <i class="fas fa-building"></i> Merchant Name
+                  <i class="fas fa-building"></i>  {{ $list->company}}
                 </span><br>
 
                 <div class="mem-button">

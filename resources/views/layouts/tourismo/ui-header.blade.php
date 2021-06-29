@@ -292,7 +292,7 @@
                 @endif
             @endforeach
     
-    <a class="p-3 link-disabled fade-disabled" href="" onclick="return false;">|</a>
+                <a class="p-3 link-disabled fade-disabled" href="" onclick="return false;">|</a>
     
               @foreach($slmenu_exlusive as $data)
                 @if($data->status == 'active')
@@ -456,7 +456,7 @@
                                     </div>
 
                                     <div class="uk-margin">
-                                        <button type="submit" class="uk-button uk-button-primary uk-button-meduim uk-width-1-1">Login</button>
+                                        <button type="submit"  class="uk-button uk-button-primary uk-button-meduim uk-width-1-1">Login</button>
                                     </div>
                                     <div class="uk-text-small uk-text-center row">
                                         <div class="col-12">
