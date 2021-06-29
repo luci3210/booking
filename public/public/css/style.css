@@ -48,7 +48,7 @@ h1, h2, h3, h4, h5, h6, .font-primary {
   border-radius: 3px;
   right: 15px;
   bottom: 15px;
-  background: #68A4C4;
+  background: #D2B4DE;
   color: #fff;
   transition: display 0.5s ease-in-out;
   z-index: 99999;
@@ -63,7 +63,7 @@ h1, h2, h3, h4, h5, h6, .font-primary {
 
 .back-to-top:hover {
   color: #fff;
-  background: #85b6cf;
+  background: #BB8FCE;
   transition: background 0.2s ease-in-out;
 }
 

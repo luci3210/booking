@@ -77,14 +77,15 @@ class AccountController extends Controller
 
         $this->validate($req,[ 
             'name' => ['required', 'string', ],
-            'fname' => ['required', 'string', ],
+            'fname' => ['required'],
             'lname' => ['required', 'string', ],
             'mname' => ['required', 'string', ],
             'country' => ['required', ],
             'address' => ['required', 'string'],
             'bdate' => ['required',],
-            'pnumber'=> ['required','min:11', 'string'],
+            'pnumber'=> ['required','min:11'],
         ]);
+
 
         $updateUser = UserModel::where('users.id', $req->id);
         $updateUser = $updateUser->update($userData);
