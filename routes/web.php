@@ -282,7 +282,8 @@ Route::get('/1/services/PH-select/{id}', 'Tourismo\ServicesController@store')->n
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/logout', 'Auth\LoginController@userLogout')->name('logout');
+Route::get('/3210/logout', 'Auth\LoginController@userLogout')->name('logout');
+Route::post('/3210/logout', 'Auth\LoginController@userLogout')->name('merchant_logout');
 
 
 //Other route

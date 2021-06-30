@@ -205,6 +205,35 @@
     }
 }
 
+.uk-button-primary {
+    background-color: #392458;
+    border-radius: 4px;
+}
+.uk-button-primary:hover {
+    background-color: #3f276a;
+    color: #ffffff;
+}
+
+a.text-primary {
+    color: #392458 !important;
+    text-decoration: underline !important;
+}
+a.text-primary:hover{
+    color: #3f276a !important;
+}
+.uk-input, .uk-select, .uk-textarea {
+    border-radius: 4px !important;
+    border-color: #362156 !important;
+    background-color: #ffffff !important;
+}
+.uk-modal-full {
+    background-color: #ffffff !important;
+}
+.uk-section-muted {
+    background-color: #ffffff !important;
+}
+
+
 </style>
 
 <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky" class="nav-main" id="header">
@@ -263,7 +292,7 @@
                     <li><a href="#">LogOut</a></li>
                 </ul> -->
                 </li>
-                <li><a href="{{ route('logout') }}"><i class="fas fa-sign-out-alt"></i> Signout</a></li>
+                <li><a href="{{ route('merchant_logout') }}"><i class="fas fa-sign-out-alt"></i> Signout</a></li>
             @else
 
                 @if (Route::has('register'))
@@ -383,9 +412,8 @@
                 <div class="uk-container">
                     <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
                         <div class="uk-width-1-1@m">
-                            <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
-                                <h3 class="uk-card-title uk-text-center">Tourismo</h3>
-                                <p class="login-box-msg uk-text-center">Register a new membership</p>
+                            <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-body">
+                                <div class="uk-text-center"><img src="{{ asset('image/logo/logoab.png') }}"></div><br>
 
                                 <form method="post" action="{{ route('register') }}" id="reg-form">
                                 @csrf
@@ -447,12 +475,19 @@
                                         <span class="err uk-width-1-1"></span>
                                     </div>
 
-                                    <div class="uk-margin">
-                                        <button type="submit" class="uk-button uk-button-primary uk-button-meduim uk-width-1-1">Login</button>
-                                    </div>
-                                    <div class="uk-text-small uk-text-center text-dark">
-                                        <a href="#register" uk-toggle class="text-dark">Not registered? Register</a>
-                                    </div>
+<div class="uk-margin">
+    <button type="submit" class="uk-button uk-button-primary uk-button-meduim uk-width-1-1"><i class="fas fa-user-friends"></i> Register</button>
+</div>
+<div class="uk-text-small row">
+    <div class="col-12">
+        <a href="#login" uk-toggle class="text-primary">Login</a>
+    </div>
+    <div class="col-12">
+        <a href="/password/reset" class="text-primary">Forgot Password?</a>
+    </div>
+
+</div>
+
                                 </form>
                             </div>
                         </div>
@@ -465,6 +500,9 @@
 <!-- /. registration -->
 
 <!-- INMOD -->
+
+
+
 <div id="login" class="uk-modal-full" uk-modal>
     <div class="uk-modal-dialog">
         <button class="uk-modal-close-full uk-close-large uk-position-top" type="button" uk-close></button>
@@ -473,8 +511,8 @@
                 <div class="uk-container">
                     <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
                         <div class="uk-width-1-1@m">
-                            <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
-                                <h3 class="uk-card-title uk-text-center">Booking Tourismo</h3>
+                            <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-body">
+                                <div class="uk-text-center"><img src="{{ asset('image/logo/logoab.png') }}"></div><br>
                                 <form method="POST" action="{{ route('login') }}" id="login-form">
                                 @csrf
                                     <div class="uk-margin err">
@@ -498,14 +536,14 @@
                                     </div>
 
                                     <div class="uk-margin">
-                                        <button type="submit"  class="uk-button uk-button-primary uk-button-meduim uk-width-1-1">Login</button>
+                                        <button type="submit"  class="uk-button uk-button-primary uk-button-meduim uk-width-1-1"><i class="fas fa-unlock-alt"></i> Login</button>
                                     </div>
-                                    <div class="uk-text-small uk-text-center row">
+                                    <div class="uk-text-small row">
                                         <div class="col-12">
-                                            <a href="#register " uk-toggle class="text-dark">Not registered? Register</a>
+                                            <a href="#register " uk-toggle class="text-primary">Register</a>
                                         </div>
                                         <div class="col-12">
-                                            <a href="/password/reset" uk-toggle class="text-dark">Forgot Password?</a>
+                                            <a href="/password/reset" class="text-primary">Forgot Password?</a>
                                         </div>
                                     
                                     </div>
