@@ -109,6 +109,9 @@
     font-size: .7em;
 }
 
+
+
+
 @media only screen and (min-width: 982px) {
     .icon-div{
         padding-left: 0;
@@ -117,7 +120,17 @@
         font-size: 1.4em;
 
     }
+    
 
+}
+
+@media only screen and (max-width: 1000px) {
+    .item-icon {
+        vertical-align: top;
+        display: inline-block;
+        text-align: center;
+        width: 100px;
+    }
 }
 @media only screen and (max-width: 992px) {
     .hidden-m{
@@ -132,9 +145,25 @@
     .uk-navbar-right.nav-menu {
         display: none!important;
     }
+    .item-icon {
+      vertical-align: top;
+      display: inline-block;
+      text-align: center;
+      width: 50px;
+      margin: 0 10px;
+    }
+    
 }
 
 @media only screen and (max-width: 650px) {
+    .item-icon {
+      vertical-align: top;
+      display: inline-block;
+      text-align: center;
+      width: 50px;
+      margin: 0 10px;
+    }
+
     .hidden-m{
         display: none;
     }
@@ -166,6 +195,13 @@
 }
 /* pixel 2 */
 @media only screen and (max-width: 414px) {
+    .item-icon {
+      vertical-align: top;
+      display: inline-block;
+      text-align: center;
+      width: 35px;
+      margin: 0 10px;
+    }
     .hidden-m{
         display: none!important;
     }
@@ -184,6 +220,13 @@
 
 /* pixel 2 */
 @media only screen and (max-width: 375px) {
+    .item-icon {
+      vertical-align: top;
+      display: inline-block;
+      text-align: center;
+      width: 40px;
+      margin: 0 10px;
+    }
     
     .mobile-nav-toggle{
         margin-top: 15px;
@@ -202,6 +245,15 @@
     } */
     .hidden-sm{
         display: none;
+    }
+}
+@media only screen and (max-width: 320px) {
+    .item-icon {
+      vertical-align: top;
+      display: inline-block;
+      text-align: center;
+      width: 30px;
+      margin: 0 10px;
     }
 }
 
