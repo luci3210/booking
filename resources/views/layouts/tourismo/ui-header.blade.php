@@ -4,6 +4,15 @@
     min-height: 10vh;
 } */
 
+.nav-mobile-boxshadow{
+    border: 1px solid #dbd9d9;
+    margin: .5rem .5rem;
+    box-shadow: 1px 7px 8px -5px rgba(0,0,0,0.49);
+    -webkit-box-shadow: 1px 7px 8px -5px rgba(0,0,0,0.49);
+    -moz-box-shadow: 1px 7px 8px -5px rgba(0,0,0,0.49);
+}
+
+
 .nav-main{
     box-shadow: 0px 1px #8e8e8e38 !important;
 }
@@ -280,7 +289,6 @@
 <div class="col-12 bg-white d-xl-block d-lg-block d-none">
     <div class="uk-container">
         <nav class="nav d-flex " >
-
             @foreach($slmenu as $data)
                 @if($data->status == 'active')
                 <a class="p-3 link-secondary " href="{{ route('open_services',$data->description) }}" ><i class="{{$data->icon_id}}"></i> {{$data->name}}</a>
@@ -302,6 +310,9 @@
         </nav>
     </div>
 </div>
+
+
+
 
 <div class="col-lg-12 pd-2 hidden-xl block-sm uk-navbar-container search-mt-1">
     <form class="">
@@ -325,10 +336,44 @@
         </div>
     </form>
 </div>
-
 </div>
-<!-- /.nav -->
 
+<!-- /.nav -->
+<div class="col-12 d-block d-md-none d-lg-none mt-5">
+<div class="uk-card uk-card-body nav-mobile-boxshadow">
+        <nav class="nav d-flex align-items-center text-center justify-content-center" >
+            @foreach($slmenu as $data)
+                @if($data->status == 'active')
+                <a class="p-3 link-secondary " href="{{ route('open_services',$data->description) }}" >
+                    <figure class="figure">
+                    <img src="{{ asset('image/destination/'.$data->img) }}" class="figure-img img-fluid rounded item-icon" alt="A generic square placeholder image with rounded corners in a figure.">
+                    <figcaption class="figure-caption text-center">{{$data->name}}</figcaption>
+                    </figure>
+                </a>
+                @else
+                <a class="p-3 link-disabled fade-disabled" href="#" onclick="return false;"><img class="item-icon" src="{{ asset('image/destination/'.$data->img) }}" > {{$data->name}}</a>
+                @endif
+            @endforeach
+    
+                <!-- <a class="p-3 link-disabled fade-disabled" href="" onclick="return false;">|</a> -->
+    
+              @foreach($slmenu_exlusive as $data)
+                @if($data->status == 'active')
+                <a class="p-3 link-secondary " href="{{ route('open_services',$data->description) }}" >
+                    <figure class="figure">
+                    <img src="{{ asset('image/destination/'.$data->img) }}" class="figure-img img-fluid rounded item-icon" alt="A generic square placeholder image with rounded corners in a figure.">
+                    <figcaption class="figure-caption text-center">{{$data->name}}</figcaption>
+                    </figure>
+                </a>
+                <!-- <a class="p-3 link-secondary " href="{{ route('open_services',$data->description) }}" ><i class="{{$data->icon_id}}"></i> {{$data->name}}</a> -->
+                @else
+                <a class="p-3 link-disabled fade-disabled" href="" onclick="return false;"><i class="{{$data->icon_id}}"></i> {{$data->name}}</a>
+                @endif
+            @endforeach
+            
+        </nav>
+</div>
+</div>
 <!-- registration -->
 <div id="register" class="uk-modal-full" uk-modal>
     <div class="uk-modal-dialog">
@@ -543,6 +588,8 @@
 
 </div>
 </div>
+
+
 
 
 
