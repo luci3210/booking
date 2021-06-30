@@ -73,13 +73,10 @@ Auth::routes();
 Route::get('/checkout/status', 'user\TraxionApiController@payment_status')->name('checkout_callback');
 
 
-
-
 #merchant---
 Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merchant_dashboard/profile'], function() {
 
         #profile---
-
         Route::get('/profile','Merchant\ProfileController@index')
         ->name('profile_index');
 

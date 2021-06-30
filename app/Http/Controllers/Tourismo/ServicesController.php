@@ -23,7 +23,7 @@ class ServicesController extends Controller
 
     public function service($req) {
 
-        $data = ProductModel::join('service_tour','products.id','service_tour.service_id')->join('service_tour_photos','service_tour.id','service_tour_photos.upload_id')->where('products.description',$req)->groupBy('service_tour.id')->paginate(25);
+        $data = ProductModel::join('service_tour','products.id','service_tour.service_id')->join('service_tour_photos','service_tour.id','service_tour_photos.upload_id')->where('service_tour.temp_status',1)->where('products.description',$req)->groupBy('service_tour.id')->paginate(25);
 
         if($data->isEmpty()) {
         
@@ -39,7 +39,7 @@ class ServicesController extends Controller
 
     public function service_get_all($req) {
 
-        $data = ProductModel::join('service_tour','products.id','service_tour.service_id')->join('service_tour_photos','service_tour.id','service_tour_photos.upload_id')->where('products.description',$req)->groupBy('service_tour.id')->get();
+        $data = ProductModel::join('service_tour','products.id','service_tour.service_id')->join('service_tour_photos','service_tour.id','service_tour_photos.upload_id')->where('service_tour.temp_status',1)->where('products.description',$req)->groupBy('service_tour.id')->get();
 
         if($data->isEmpty()) {
         
