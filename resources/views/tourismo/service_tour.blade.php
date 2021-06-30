@@ -731,6 +731,5 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
     $.ajax();
   }
 </script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 @endsection

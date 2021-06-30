@@ -6,7 +6,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
-
+use Illuminate\Support\Facades\Hash;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
@@ -30,5 +30,14 @@ class Controller extends BaseController
 	    $datetime = new \DateTime();
         $datetime->setTimezone($tz_object);
 	    return $datetime->format('Y-m-d');
+    }
+
+    public function check_hash($user_data,$input_password){
+        // left is text right is data that hash to compare
+        if (Hash::check($input_password,  $user_data['password'])) {
+            // The passwords match...
+            return true;
+        }
+        return false;
     }
 }

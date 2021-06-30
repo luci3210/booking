@@ -244,7 +244,9 @@
     var notifications =  await UIkit.notification('Embed Copied', 'success');
   }
 
-  $('#login-form').validate({
+  $('#login-form').submit(function(e) {
+    e.preventDefault();
+  }).validate({
     rules: {
       email:{
         required:true,
@@ -273,6 +275,39 @@
     },
     unhighlight: function (element, errorClass, validClass) {
       $(element).removeClass('text-danger');
+    },
+    submitHandler: function(e) {
+        
+        $.ajax({
+            url: '{{route('check_auth')}}',
+            type: 'post',
+            data: $('#login-form').serialize(),
+            success: function(res) {
+              console.log(res);
+              if(res != true){
+                swal({
+                    title: "ERROR",
+                    text: `${res}`,
+                    icon: "error",
+                });
+                return;
+              }
+              $.ajax({
+                url: '{{route('login')}}',
+                type: 'post',
+                data: $('#login-form').serialize()
+              }).then((e)=>{
+                window.location.reload();
+              })
+            },
+            error:function(e)  {
+              swal({
+                  title: "ERROR",
+                  text: "something went wrong!",
+                  icon: "error",
+              });
+            }          
+        })
     }
   });
 
@@ -473,6 +508,8 @@
 
   @yield('merchantjs')
   @yield('js')
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 
 </body>
 
