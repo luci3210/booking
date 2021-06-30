@@ -27,7 +27,14 @@ class ProfileController extends Controller
 
 	public function profile_check() {
 
-		return Profile::where('user_id',Auth::user()->id)->get(['user_id','id','id1','company'])->first();
+		//return 
+        $profile = Profile::where('user_id',Auth::user()->id)->get(['user_id','id','id1','company'])->first();
+
+        if($profile->isEmpty()) {
+            return '1';
+                    } else {
+            return 'sss';
+        }
 	}
 
     public function contact_check() {

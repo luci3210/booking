@@ -248,12 +248,9 @@
     <div class="uk-navbar-right nav-menu ">
 
         <ul class="">
-             <li class="active"><a href="index.html"><i class="fas fa-mobile-alt"></i> <b>Download App</b></a></li>
-             @if(empty($merchant_plan))
-          <li class="active"><a href="{{ route('other-plan') }}"><i class="far fa-building"></i> <b>Merchant</b></a></li>
-          @else
-          <li class="active"><a href="{{ route('m-user') }}"><i class="far fa-building"></i> <b>Plan</b></a></li>
-          @endif
+            <li class="active"><a href="index.html"><i class="fas fa-mobile-alt"></i> <b>Download App</b></a></li>
+            <li class="active"><a href="{{ route('profile_index') }}"><i class="far fa-building"></i> <b>Merchant</b></a></li>
+          
             @if (Route::has('login'))
 
             @auth
