@@ -80,12 +80,7 @@
     width: 40px;
   } */
 
-  .item-icon{
-      vertical-align: top;
-      display: inline-block;
-      text-align: center;
-      width: 120px;
-  }
+ 
   .icon-img {
       width: 100px;
       height: 100px;
@@ -120,12 +115,7 @@
 }
 
   @media only screen and (max-width: 1000px) {
-    .item-icon {
-        vertical-align: top;
-        display: inline-block;
-        text-align: center;
-        width: 100px;
-    }
+ 
     
   }
 
@@ -137,23 +127,11 @@
       display: block!important;
     }
     
-    .item-icon {
-      vertical-align: top;
-      display: inline-block;
-      text-align: center;
-      width: 50px;
-      margin: 0 10px;
-    }
+    
   }
 
   @media only screen and (max-width: 650px) {
-    .item-icon {
-      vertical-align: top;
-      display: inline-block;
-      text-align: center;
-      width: 50px;
-      margin: 0 10px;
-    }
+    
     .desc-two{
       margin-left: 7px;
     }
