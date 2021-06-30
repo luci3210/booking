@@ -30,7 +30,7 @@ class PlanContoller extends Controller
 			}
 			else {
 
-				 return redirect()->intended('merchant');	
+				 return redirect()->intended('tourismo/merchant');	
 			}
  		}
 	    else {

@@ -74,8 +74,13 @@ Route::get('/checkout/status', 'user\TraxionApiController@payment_status')->name
 
 
 #merchant---
-Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merchant_dashboard/profile'], function() {
 
+Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'tourismo/'], function() {
+        Route::get('/merchant','Merchant\ProfileController@redi')->name('merchant_redi');
+});
+
+Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant/profile'], function() {
+        
         #profile---
         Route::get('/profile','Merchant\ProfileController@index')
         ->name('profile_index');
@@ -129,7 +134,7 @@ Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merc
 });
 
 
-Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merchant_dashboard/service'], function() {
+Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant_dashboard/service'], function() {
 
         #services---
         Route::get('/{destination}/','Merchant\ServiceListingController@index')
@@ -158,7 +163,7 @@ Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merc
 
 
 
-Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merchant_dashboard/manage_booking'], function() {
+Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant_dashboard/manage_booking'], function() {
 
         Route::get('/booking/{service}/{payment}/{status}/{refid}','Merchant\BookingController@index')
         ->name('booking-index');
@@ -184,7 +189,7 @@ Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merc
 
 
 // ---------------------------------address
-Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merchant/profile'], function() {
+Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchantz/profile'], function() {
 
    Route::get('/address','Merchant\AddressController@addressCreateForm')
         ->name('create_address');
@@ -199,7 +204,7 @@ Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merc
 
 // ---------------------------------services
 
-Route::group(['middleware'=>'jobs','jobs'=>['buyer','merchant'], 'prefix'=>'merchant/service'], function() {
+Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant/service'], function() {
 
    Route::get('/','Merchant\ServiceController@home')
         ->name('m-services');
@@ -220,36 +225,36 @@ Route::post('/service-tour/review/submit', 'user\ReviewsController@submitReviews
 
 Route::get('/merchant', 'Merchant\UserController@index')->name('m-user');
 
-Route::post('/merchant/profile', 'Merchant\UserController@profiles')->name('profile-save');
+Route::post('/merchantz/profile', 'Merchant\UserController@profiles')->name('profile-save');
 
-Route::patch('/merchant/profile/{id}', 'Merchant\UserController@profile_update')->name('profile-update');
-Route::get('/merchant/profile/add-contact', 'Merchant\UserController@profile_contacts')->name('profile-contact');
-Route::post('/merchant/profile/add-contact-submit', 'Merchant\UserController@profile_contacts_save')->name('profile-contact-add');
-Route::get('/merchant/profile/edit-contact/{id}', 'Merchant\UserController@profile_contacts_edit')->name('profile-contact-edit');
-Route::patch('/merchant/profile/edit-contact/{id}', 'Merchant\UserController@profile_contacts_update')->name('profile-contact-update');
-Route::get('/merchant/profile/delete-contact/{id}', 'Merchant\UserController@profile_contacts_delete')->name('profile-contact-delete');
+Route::patch('/merchantz/profile/{id}', 'Merchant\UserController@profile_update')->name('profile-update');
+Route::get('/merchantz/profile/add-contact', 'Merchant\UserController@profile_contacts')->name('profile-contact');
+Route::post('/merchantz/profile/add-contact-submit', 'Merchant\UserController@profile_contacts_save')->name('profile-contact-add');
+Route::get('/merchantz/profile/edit-contact/{id}', 'Merchant\UserController@profile_contacts_edit')->name('profile-contact-edit');
+Route::patch('/merchantz/profile/edit-contact/{id}', 'Merchant\UserController@profile_contacts_update')->name('profile-contact-update');
+Route::get('/merchantz/profile/delete-contact/{id}', 'Merchant\UserController@profile_contacts_delete')->name('profile-contact-delete');
 
-Route::get('/merchant/profile/add-address', 'Merchant\UserController@profile_addresses')->name('profile-address');
-Route::post('/merchant/profile/add-address-submit', 'Merchant\UserController@profile_address_save')->name('profile-address-add');
-Route::get('/merchant/profile/edit-address/{id}', 'Merchant\UserController@profile_address_edit')->name('profile-address-edit');
-Route::patch('/merchant/profile/edit-address/{id}', 'Merchant\UserController@profile_address_update')->name('profile-address-update');
-Route::get('/merchant/profile/delete-address/{id}', 'Merchant\UserController@profile_address_delete')->name('profile-address-delete');
+Route::get('/merchantz/profile/add-address', 'Merchant\UserController@profile_addresses')->name('profile-address');
+Route::post('/merchantz/profile/add-address-submit', 'Merchant\UserController@profile_address_save')->name('profile-address-add');
+Route::get('/merchantz/profile/edit-address/{id}', 'Merchant\UserController@profile_address_edit')->name('profile-address-edit');
+Route::patch('/merchantz/profile/edit-address/{id}', 'Merchant\UserController@profile_address_update')->name('profile-address-update');
+Route::get('/merchantz/profile/delete-address/{id}', 'Merchant\UserController@profile_address_delete')->name('profile-address-delete');
 
-Route::post('/merchant/profile/picture', 'Merchant\UploadController@crop')->name('profile-pic-crop');
+Route::post('/merchantz/profile/picture', 'Merchant\UploadController@crop')->name('profile-pic-crop');
 
 //SERVISES
-Route::get('/merchant/services/jayson/', 'Merchant\ServiceController@get_cover_id'); //extra
+Route::get('/merchantz/services/jayson/', 'Merchant\ServiceController@get_cover_id'); //extra
 
 
-Route::post('/merchant/services/', 'Merchant\ServiceController@savehotel')->name('service-submit');
+Route::post('/merchantz/services/', 'Merchant\ServiceController@savehotel')->name('service-submit');
 Route::post('/merchant/service/tour', 'Merchant\ServiceController@savetour')->name('service_tour_submit');
 
-Route::post('/merchant/service/upload_cover', 'Merchant\ServiceController@upload_cover')->name('upload_cover');
-Route::post('/merchant/service/upload_tour_photos', 'Merchant\ServiceController@upload_tour_photos')->name('tour_photos');
+Route::post('/merchantz/service/upload_cover', 'Merchant\ServiceController@upload_cover')->name('upload_cover');
+Route::post('/merchantz/service/upload_tour_photos', 'Merchant\ServiceController@upload_tour_photos')->name('tour_photos');
 
 //BOOKING
 
-Route::get('/merchant/booking/booked', 'Merchant\BookingController@booked')->name('merchant_booked');
+Route::get('/merchantx/booking/booked', 'Merchant\BookingController@booked')->name('merchant_booked');
 
 
 Route::post('dropzone/upload_image', 'Merchant\ServiceControllerr@upload_image')->name('dropzone.upload_image');
@@ -277,13 +282,13 @@ Route::get('/1/services/PH-select/{id}', 'Tourismo\ServicesController@store')->n
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/3210/logout', 'Auth\LoginController@userLogout')->name('logout');
+Route::get('/logout', 'Auth\LoginController@userLogout')->name('logout');
 
 
 //Other route
 Route::prefix('merchant')->group(function () {
 
-    Route::get('/subscription_plan', 'Other\PlanContoller@index')->name('other-plan');
+    Route::get('/plan', 'Other\PlanContoller@index')->name('other-plan');
     Route::get('/subscription_plan/step-1/{id}/plan','Tourismo\SubscribeContollrer@subscribe')->name('subscribe-steps');
     Route::post('/subscription_plan/step-1/submit','Tourismo\SubscribeContollrer@add_subscribe')->name('subscribe-submit');
     

@@ -27,14 +27,7 @@ class ProfileController extends Controller
 
 	public function profile_check() {
 
-		//return 
-        $profile = Profile::where('user_id',Auth::user()->id)->get(['user_id','id','id1','company'])->first();
-
-        if($profile->isEmpty()) {
-            return '1';
-                    } else {
-            return 'sss';
-        }
+        return Profile::where('user_id',Auth::user()->id)->get(['user_id','id','id1','company'])->first();
 	}
 
     public function contact_check() {
@@ -76,6 +69,11 @@ class ProfileController extends Controller
     public function verify_check() {
 
         return Profile::join('merchant_verify','merchant_verify.prof_id','profiles.id')->orderBy('merchant_verify.id','desc')->first();
+    }
+
+    public function redi() {
+
+        return redirect('merchant/profile/profile');
     }
 
     public function index() {
