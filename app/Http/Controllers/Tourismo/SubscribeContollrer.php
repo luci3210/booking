@@ -69,6 +69,6 @@ class SubscribeContollrer extends Controller
     Profile::create(['plan_id'=>$PlanId,'user_id' => Auth::user()->id,'account_id' => uniqid().''.Auth::user()->id.''.substr(sha1(Auth::user()->id),19,-15)]);
 
 
-    return redirect('merchant')->withSuccess('Please update your merchant idintity.');
+    return redirect('merchant/plan')->withSuccess('Please update your merchant idintity.');
     }
 }

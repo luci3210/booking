@@ -240,7 +240,7 @@
 
         <ul class="">
             <li class="active"><a href="index.html"><i class="fas fa-mobile-alt"></i> <b>Download App</b></a></li>
-            <li class="active"><a href="{{ route('profile_index') }}"><i class="far fa-building"></i> <b>Merchant</b></a></li>
+            <li class="active"><a href="{{ route('other-plan') }}"><i class="far fa-building"></i> <b>Merchant</b></a></li>
           
             @if (Route::has('login'))
 
@@ -491,7 +491,7 @@
             <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
                 <div class="uk-width-1-1@m">
                     <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
-                        <h3 class="uk-card-title uk-text-center">Booking Tourismo</h3>
+                        <h3 class="uk-card-title uk-text-center">Booking Tourismoss</h3>
                         
     <form>
         <div class="uk-margin">
