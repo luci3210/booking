@@ -18,6 +18,11 @@ use Illuminate\Support\Facades\Route;
 Route::post('search', 'Tourismo\HeaderSearchController@Search')->name('search');
 Route::post('/auth/check-login', 'Auth\UserLoginController@checkLogin')->name('check_auth');
 
+Route::prefix('service-tour')->group(function () {
+    Route::get('get/tours/{service}/{limit}/{offset}/', 'mobile\ServiceTourController@getTours')->name('get_tours');
+    Route::get('get/tour/{id}', 'mobile\ServiceTourController@getTour')->name('get_tour');
+});
+
 
 Route::post('user/register', 'mobile\UserAuthController@register')->name('regiser_mobile');
 Route::get('user/login', 'mobile\UserAuthController@login')->name('login_mobile');

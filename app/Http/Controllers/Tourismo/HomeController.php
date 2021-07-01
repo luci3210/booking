@@ -78,7 +78,7 @@ class HomeController extends Controller
         $tourModel = $tourModel->where('service_tour_photos.temp_status', 1);
         // $tourModel = $tourModel->random();
         $tourModel = $tourModel->groupBy('service_tour.id');
-        return $tourModel->inRandomOrder()->limit($limit    )->get();
+        return $tourModel->inRandomOrder()->limit($limit)->get();
         
     }
 

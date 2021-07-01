@@ -118,10 +118,7 @@
     }
     .icon-profile{
         font-size: 1.4em;
-
     }
-    
-
 }
 
 @media only screen and (max-width: 1000px) {
