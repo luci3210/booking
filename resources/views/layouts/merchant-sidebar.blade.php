@@ -86,6 +86,53 @@
   </a>
 </li>
 
+
+
+
+
+
+<li class="nav-item has-treeview">
+    <a href="#" class="nav-link">
+      <i class="nav-icon fas fa-box-open" aria-hidden="true"></i>
+      <p>
+        Finance
+        <i class="fas fa-angle-left right"></i>
+      </p>
+    </a>
+<ul class="nav nav-treeview">
+
+  <li class="nav-item">
+    <a href="" class="nav-link">
+      <i class="far fa fa-circle-o nav-icon" aria-hidden="true"></i>
+      <p>My Income</p>
+    </a>
+  </li>
+
+  <li class="nav-item">
+    <a href="" class="nav-link">
+      <i class="far fa fa-circle-o nav-icon" aria-hidden="true"></i>
+      <p>My Balance</p>
+    </a>
+  </li>
+
+  <li class="nav-item">
+    <a href="" class="nav-link">
+      <i class="far fa fa-circle-o nav-icon" aria-hidden="true"></i>
+      <p>Bank Account</p>
+    </a>
+  </li>
+
+</ul>
+
+</li>
+
+
+
+
+
+
+
+
 <li class="nav-item">
   <a href="{{ route('banner_form') }}" class="nav-link">
     <i class="nav-icon fa fa-database" aria-hidden="true"></i>

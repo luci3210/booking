@@ -45,7 +45,7 @@ class SubscribeContollrer extends Controller
                 'price'         => 'required',
                 'package'       => 'required',
                 'validity'      => 'required',
-                // 'end_date'      => 'required',
+                //'end_date'      => 'required',
                 'terms'         => 'required'
             ];
 
