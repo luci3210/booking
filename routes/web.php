@@ -49,8 +49,6 @@ Route::get('/destination/ph', 'Tourismo\HomeController@page_destination')->name(
 Route::get('/destination/region/{id}/ph', 'Tourismo\HomeController@page_region')->name('region');
 Route::get('/destination/region/provice/{id}/ph', 'Tourismo\HomeController@page_provice')->name('provice');
 
-
-
 Route::get('/hotel_and_resort/ph', 'Tourismo\HomeController@page_hotels')->name('hotel_and_resort');
 Route::get('/tour_operators/ph', 'Tourismo\HomeController@page_tour_operator')->name('tour_operator');
 

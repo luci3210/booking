@@ -6,6 +6,7 @@
 
 .nav-mobile-boxshadow{
     border: 1px solid #dbd9d9;
+    border-radius: 4px;
     margin: .5rem .5rem;
     box-shadow: 1px 7px 8px -5px rgba(0,0,0,0.49);
     -webkit-box-shadow: 1px 7px 8px -5px rgba(0,0,0,0.49);
@@ -284,6 +285,12 @@ a.text-primary:hover{
 .uk-section-muted {
     background-color: #ffffff !important;
 }
+.uk-width-xlarge {
+    width: 700px !important;
+}
+.uk-dropdown {
+    border-radius: 4px;
+}
 
 
 </style>
@@ -300,16 +307,21 @@ a.text-primary:hover{
                     <!-- </span> -->
                 </a>
             </div>
-            <div class="col-lg-8 hidden-sm p-0">
+            <div class="col-lg-8 hidden-sm p-1">
                 <form class="">
                     <input class="form-control search-focus-custom"  type="search" placeholder="Search" name="desktop-search" aria-label="Search" style="border-radius: 23px;">
-                    <div uk-dropdown="animation: uk-animation-slide-top-small; duration: 1000;mode: click" class="uk-width-xlarge">
+                    <div uk-dropdown="animation: uk-animation-slide-top-small; duration: 500;mode: click" class="uk-width-xlarge">
                         <div id="load-data">
-                            <h6>Destinations</h6>
                             <div class="d-flex">
-                            <a class="p-2 link-secondary-search " href="{{ route('destination') }}">Tourismo Exclusive</a>
-                            <a class="p-2 link-secondary-search " href="{{ route('destination') }}">Local Destination</a>
-                            <a class="p-2 link-secondary-search " href="{{ route('destination') }}">International Destination</a>
+
+                @foreach($slmenu as $data)
+                @if($data->status == 'active')
+                <a class="p-2 link-secondary-search " href="{{ route('open_services',$data->description) }}" >{{$data->name}}</a>
+                @else
+                <a class="p-2 link-secondary-search link-disabled fade-disabled" href="#" onclick="return false;">{{$data->name}}</a>
+                @endif
+                @endforeach
+
                             </div>
                             <div id="hotels-loader" class="uk-width-1-1 mt-2">
                             </div>
@@ -398,13 +410,16 @@ a.text-primary:hover{
 <div class="col-lg-12 pd-2 hidden-xl block-sm uk-navbar-container search-mt-1">
     <form class="">
         <input class="form-control search-focus-custom" name="mobile-search"  type="search" placeholder="Search" aria-label="Search" style="border-radius: 23px;">
-        <div uk-dropdown="animation: uk-animation-slide-top-small; duration: 1000;mode: click" class="uk-width-xlarge">
+        <div uk-dropdown="animation: uk-animation-slide-top-small; duration: 500;mode: click" class="uk-width-xlarge">
             <div id="load-data">
-                <h6>Destinations</h6>
                 <div class="d-flex">
-                <a class="p-2 link-secondary-search " href="{{ route('destination') }}">Tourismo Exclusive</a>
-                <a class="p-2 link-secondary-search " href="{{ route('destination') }}">Local Destination</a>
-                <a class="p-2 link-secondary-search " href="{{ route('destination') }}">International Destination</a>
+                 @foreach($slmenu as $data)
+                @if($data->status == 'active')
+                <a class="p-2 link-secondary-search " href="{{ route('open_services',$data->description) }}" >{{$data->name}}</a>
+                @else
+                <a class="p-2 link-secondary-search link-disabled fade-disabled" href="#" onclick="return false;">{{$data->name}}</a>
+                @endif
+                @endforeach
                 </div>
                 <div id="hotels-loader2" class="uk-width-1-1 mt-2">
                 </div>
@@ -420,6 +435,7 @@ a.text-primary:hover{
 </div>
 
 <!-- /.nav -->
+<br>
 <div class="col-12 d-block d-md-none d-lg-none mt-5">
 <div class="uk-card uk-card-body nav-mobile-boxshadow">
         <nav class="nav d-flex align-items-center text-center justify-content-center" >
@@ -431,24 +447,16 @@ a.text-primary:hover{
                     <figcaption class="figure-caption text-center">{{$data->name}}</figcaption>
                     </figure>
                 </a>
+
                 @else
-                <a class="p-3 link-disabled fade-disabled" href="#" onclick="return false;"><img class="item-icon" src="{{ asset('image/destination/'.$data->img) }}" > {{$data->name}}</a>
-                @endif
-            @endforeach
-    
-                <!-- <a class="p-3 link-disabled fade-disabled" href="" onclick="return false;">|</a> -->
-    
-              @foreach($slmenu_exlusive as $data)
-                @if($data->status == 'active')
-                <a class="p-3 link-secondary " href="{{ route('open_services',$data->description) }}" >
+
+                <a class="p-3 link-disabled fade-disabled" href="" >
                     <figure class="figure">
-                    <img src="{{ asset('image/destination/'.$data->img) }}" class="figure-img img-fluid rounded item-icon" alt="A generic square placeholder image with rounded corners in a figure.">
+                    <img src="{{ asset('image/destination/'.$data->img) }}" onclick="return false;" class="figure-img img-fluid rounded item-icon" alt="A generic square placeholder image with rounded corners in a figure.">
                     <figcaption class="figure-caption text-center">{{$data->name}}</figcaption>
                     </figure>
                 </a>
-                <!-- <a class="p-3 link-secondary " href="{{ route('open_services',$data->description) }}" ><i class="{{$data->icon_id}}"></i> {{$data->name}}</a> -->
-                @else
-                <a class="p-3 link-disabled fade-disabled" href="" onclick="return false;"><i class="{{$data->icon_id}}"></i> {{$data->name}}</a>
+
                 @endif
             @endforeach
             

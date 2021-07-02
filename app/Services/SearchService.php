@@ -19,9 +19,9 @@ Class SearchService extends SecurityServices{
             return $data;
         }  
 
-        $hotel  = $this->searchLikeKeyword($keyword['search'],'hotels','roomname','hotel_photos');
+        // $hotel  = $this->searchLikeKeyword($keyword['search'],'hotels','roomname','hotel_photos');
         $tour  = $this->searchLikeKeyword($keyword['search'],'service_tour','tour_name','service_tour_photos');
-        $data['data']['hotel'] = $hotel;
+        // $data['data']['hotel'] = $hotel;
         $data['data']['tour'] = $tour;
         return $data;
     }
@@ -46,10 +46,11 @@ Class SearchService extends SecurityServices{
         $data = DB::table($table);
         $data = $data->where($table.'.temp_status',1);
         $data = $data->where($table.'.'.$col, 'like', '%'.$keyword.'%');
-        if($join == "hotel_photos"){
-            $data = $data->join($join, 'hotels.id','hotel_photos.upload_id');
-            $data = $data->groupBy('hotel_photos.upload_id');
-        }
+        
+        // if($join == "hotel_photos"){
+        //     $data = $data->join($join, 'hotels.id','hotel_photos.upload_id');
+        //     $data = $data->groupBy('hotel_photos.upload_id');
+        // }
         if($join == "service_tour_photos"){
             $data = $data->join('service_tour_photos','service_tour_photos.upload_id', 'service_tour.id');
             $data = $data->groupBy('service_tour_photos.upload_id');
