@@ -39,7 +39,7 @@
 
 
 @section('banner')
-<div class="uk-position-relative uk-visible-toggle uk-light mt-sm-slider" tabindex="-1" uk-slideshow="ratio: 10:3; animation: push">
+<div class="uk-position-relative uk-visible-toggle uk-light mt-sm-slider d-none d-sm-none d-lg-block d-md-block d-xl-block " tabindex="-1" uk-slideshow="ratio: 10:3; animation: push">
     <ul class="uk-slideshow-items min-vh-30">
       @foreach($banner as $list)
         <li>

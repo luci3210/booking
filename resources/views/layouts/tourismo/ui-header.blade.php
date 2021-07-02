@@ -548,7 +548,7 @@ a.text-primary:hover{
                 <a class="p-3 link-secondary " href="{{ route('open_services',$data->description) }}" >
                     <figure class="figure">
                     @if( $data->name == 'Tourist Stop')
-                    <img src="{{ asset('image/destination/'.$data->img) }}" class="figure-img img-fluid rounded item-icon" style="margin-top: .5rem;" alt="A generic square placeholder image with rounded corners in a figure.">
+                    <img src="{{ asset('image/destination/'.$data->img) }}" class="figure-img img-fluid rounded item-icon " style="margin-top: .5rem;" alt="A generic square placeholder image with rounded corners in a figure.">
                     @else
                     <img src="{{ asset('image/destination/'.$data->img) }}" class="figure-img img-fluid rounded item-icon" alt="A generic square placeholder image with rounded corners in a figure.">
 
