@@ -92,7 +92,7 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant/pro
         Route::post('/profile_update','Merchant\ProfileController@profile_form_update')
         ->name('profile_update');
 
-        Route::post('/profile_','Merchant\ProfileController@merchant_permit')
+        Route::post('/profile_update_permit','Merchant\ProfileController@merchant_permit')
         ->name('merchant_permit_submit');
 
         #contact---

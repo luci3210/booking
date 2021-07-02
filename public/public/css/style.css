@@ -743,6 +743,7 @@ section {
   /*text-align: center;*/
   border: 1px solid #dbd9d9;
   border-radius: 4px;
+  width: 200px;
 }
 
 .services .icon {

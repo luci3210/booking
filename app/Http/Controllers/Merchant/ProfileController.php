@@ -152,7 +152,7 @@ class ProfileController extends Controller
             'telno'         => $request->telno,
             'website'       => $request->website]);   
 
-        return redirect('merchant_dashboard/profile/profile')->withSuccess('Successfully updated!');
+        return redirect('merchant/profile/profile')->withSuccess('Successfully updated!');
 
     } else {
 
@@ -165,7 +165,7 @@ class ProfileController extends Controller
             'request_at' => date('Y/m/d'),
             'id1'       => 1]);  
 
-        return redirect('merchant_dashboard/profile/profile')->withSuccess('Successfully updated!');
+        return redirect('merchant/profile/profile')->withSuccess('Successfully updated!');
     }
 
     }

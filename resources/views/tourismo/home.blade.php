@@ -100,16 +100,17 @@
                   <div class="currency-symbol">₱</div> {{ $list->price }}
                 </span><br>
 
-                <div class="mem-button">
-                  <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('provice', $list->upload_id) }}">
-                    Explore
-                  </a>
+<div class="mem-button">
+  <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('service_tour_view', $list->upload_id) }}">
 
-                  <a class="uk-button uk-button-small mb-sm-1" href="javascript:void(0)"uk-toggle="target: #prov-{{$list->upload_id}}">
+    Explore
+  </a>
 
-                   Share
-                  </a>
-                </div>
+  <a class="uk-button uk-button-small mb-sm-1" href="javascript:void(0)"uk-toggle="target: #prov-{{$list->upload_id}}">
+
+   Share
+  </a>
+</div>
 
               </div>
 
