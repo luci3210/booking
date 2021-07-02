@@ -197,9 +197,26 @@
       vertical-align: top;
       display: inline-block;
       text-align: center;
-      width: 35px;
+      width: 2.5rem;
       margin: 0 10px;
     }
+    .link-secondary {
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Droid Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+        cursor: pointer;
+        font-size: .8rem;
+        color: #212121!important;
+        font-weight: 600;
+        padding: .2rem!important;
+    }
+    .link-disabled {
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Droid Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+        font-size: .8rem;
+        color: #212121!important;
+        font-weight: 600;
+        cursor: context-menu;
+        padding: .2rem!important;
+    }
+    
     .hidden-m{
         display: none!important;
     }
@@ -213,6 +230,7 @@
     .hidden-sm{
         display: none!important;
     }
+
     
 }
 
@@ -222,12 +240,29 @@
       vertical-align: top;
       display: inline-block;
       text-align: center;
-      width: 40px;
+      width: 2.5rem;
       margin: 0 10px;
     }
     
     .mobile-nav-toggle{
         margin-top: 15px;
+    }
+
+    .link-secondary {
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Droid Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+        cursor: pointer;
+        font-size: .8rem;
+        color: #212121!important;
+        font-weight: 600;
+        padding: .2rem!important;
+    }
+    .link-disabled {
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Droid Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+        font-size: .8rem;
+        color: #212121!important;
+        font-weight: 600;
+        cursor: context-menu;
+        padding: .2rem!important;
     }
 }
 
