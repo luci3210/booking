@@ -20,7 +20,49 @@ use App\Model\Merchant\ProfileModel;
 Class ServiceTour extends SecurityServices{
 
 
-
+    public function getTours($service, $limit, $offset)
+    {
+        $data['success'] = false;
+        $data['message'] = [];
+        $data['data'] = [];
+        $tourDetails = new TourModel();
+        $tourDetails = $tourDetails->join('profiles','profiles.id', 'service_tour.profid');
+        $tourDetails = $tourDetails->join('service_tour_photos','service_tour_photos.upload_id', 'service_tour.id');
+        $tourDetails = $tourDetails->groupBy('service_tour.id');
+        if($service != 'service'){
+            $tourDetails = $tourDetails->where('service_tour.service_id',$service);
+        }
+        if($offset != 'offset' && $limit == 'limit'){
+            $data['message']['error'] = 'add limit when using offset';
+            return $data;
+        }
+        if($offset != 'offset'){
+            $tourDetails = $tourDetails->skip($offset);
+        }
+        if($limit != 'limit'){
+            $tourDetails = $tourDetails->take($limit);
+        }
+        $tourDetails = $tourDetails->get();
+        $tourDetails = $tourDetails->makeHidden(
+        [ 
+        'plan_id', 
+        'user_id', 
+        'id',
+        'account_id',
+        'merchant_id',
+        'upload_id'
+        ]);
+        
+        $countData = count($tourDetails);
+        if($countData <= 0){
+            $data['message']['error'] = 'no data found';
+            return $data;
+        }
+        $data['data']['tour'] = $tourDetails;
+        $data['message']['success'] = $countData.' service tour found';
+        $data['success'] = true;
+        return $data;
+    }// get multiple service tour with filter
     public function findTour($id)
     {
 
@@ -31,9 +73,11 @@ Class ServiceTour extends SecurityServices{
         $tourDetails = new TourModel();
         $tourDetails = $tourDetails->where('service_tour.id', $id);
         $tourDetails = $tourDetails->join('profiles','profiles.id', 'service_tour.profid');
-        $tourDetails = $tourDetails->join('service_tour_photos','service_tour_photos.upload_id', 'service_tour.id');
-        $tourDetails = $tourDetails->groupBy('service_tour.id');
+        // $tourDetails = $tourDetails->join('service_tour_photos','service_tour_photos.upload_id', 'service_tour.id');
+        // $tourDetails = $tourDetails->groupBy('service_tour.id');
         $tourDetails = $tourDetails->first();
+        $tourDetails = $tourDetails->makeHidden(
+        ['plan_id', 'user_id', 'id']);
         if(empty($tourDetails)){
             $data['message'] = ['error'=>'no tour found'];
             return $data;
@@ -43,8 +87,19 @@ Class ServiceTour extends SecurityServices{
         $data['success'] = true;
         $data['data']['tour'] = $tourDetails;
         $data['data']['reviews'] = $this->getReviews($id);
+        $data['data']['photos'] = $this->getPhotos($id);
         return $data;
         
+    }// get one service tour
+
+    protected function getPhotos($id){
+        $tourPhotos = new TourPhoModel();
+        $tourPhotos = $tourPhotos->where('service_tour_photos.upload_id',$id);
+        $tourPhotos = $tourPhotos->where('service_tour_photos.temp_status',1);
+        $tourPhotos = $tourPhotos->get();
+        $tourPhotos = $tourPhotos->makeHidden(
+        ['merchant_id','id','upload_id','temp_status']);
+        return $tourPhotos;
     }
 
     protected function getReviews($id){
@@ -66,9 +121,12 @@ Class ServiceTour extends SecurityServices{
         'remember_token',
         'email_verified_at',
         'job',
+        'pr_user_id',
+        'pr_page_id',
+        'pr_id'
         ]));
         return $reviewsData;
-    }
+    }//  get reviews of selected service tour
 
 
 

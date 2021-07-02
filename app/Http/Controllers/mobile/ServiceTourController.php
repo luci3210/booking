@@ -18,6 +18,10 @@ class ServiceTourController extends Controller
         $service =  $this->clean_input($req->service);
         $limit =  $this->clean_input($req->limit);
         $offset =  $this->clean_input($req->offset);
+        $serviceTour = new ServiceTour();
+        $result =  $serviceTour->getTours($service,$limit,$offset);
+        return $result;
+        
        
     }
 
