@@ -158,8 +158,24 @@
       vertical-align: top;
       display: inline-block;
       text-align: center;
-      width: 50px;
+      width: 3rem;
       margin: 0 10px;
+    }
+    .link-secondary {
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Droid Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+        cursor: pointer;
+        font-size: .9rem;
+        color: #212121!important;
+        font-weight: 600;
+        padding: .2rem!important;
+    }
+    .link-disabled {
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Droid Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+        font-size: .9rem;
+        color: #212121!important;
+        font-weight: 600;
+        cursor: context-menu;
+        padding: .2rem!important;
     }
 
     .hidden-m{
