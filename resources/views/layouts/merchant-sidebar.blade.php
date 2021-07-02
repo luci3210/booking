@@ -102,7 +102,7 @@
 <ul class="nav nav-treeview">
 
   <li class="nav-item">
-    <a href="" class="nav-link">
+    <a href="{{route('income_index')}}" class="nav-link">
       <i class="far fa fa-circle-o nav-icon" aria-hidden="true"></i>
       <p>My Income</p>
     </a>
