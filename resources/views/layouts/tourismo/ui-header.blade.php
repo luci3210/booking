@@ -158,7 +158,63 @@
       vertical-align: top;
       display: inline-block;
       text-align: center;
-      width: 3rem;
+      width: 4rem;
+      margin: 0 10px;
+    }
+    .link-secondary {
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Droid Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+        cursor: pointer;
+        font-size: .9rem;
+        color: #212121!important;
+        font-weight: 600;
+        padding: .2rem!important;
+    }
+    .link-disabled {
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Droid Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+        font-size: .9rem;
+        color: #212121!important;
+        font-weight: 600;
+        cursor: context-menu;
+        padding: .2rem!important;
+    }
+
+    .hidden-m{
+        display: none;
+    }
+    .mobile-nav-toggle{
+        margin-top: 20px;
+    }
+    /* .col-sm-12{
+        width: 100%;
+    } */
+    .hidden-sm{
+        display: none!important;
+    }
+    .block-sm{
+        display: block;
+    }
+    .search-mt-1{
+        margin-top: -1px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    
+    .min-vh-30{
+        height: 30vh!important;
+    }
+    .sm-m-view{
+        margin: 0px 0 20px 10px;
+    }
+    
+}
+
+
+@media only screen and (max-width: 500px) {
+    .item-icon {
+      vertical-align: top;
+      display: inline-block;
+      text-align: center;
+      width: 4rem;
       margin: 0 10px;
     }
     .link-secondary {
@@ -213,7 +269,7 @@
       vertical-align: top;
       display: inline-block;
       text-align: center;
-      width: 2.5rem;
+      width: 3.5rem;
       margin: 0 10px;
     }
     .link-secondary {
@@ -491,8 +547,13 @@ a.text-primary:hover{
                 @if($data->status == 'active')
                 <a class="p-3 link-secondary " href="{{ route('open_services',$data->description) }}" >
                     <figure class="figure">
+                    @if( $data->name == 'Tourist Stop')
+                    <img src="{{ asset('image/destination/'.$data->img) }}" class="figure-img img-fluid rounded item-icon" style="margin-top: .5rem;" alt="A generic square placeholder image with rounded corners in a figure.">
+                    @else
                     <img src="{{ asset('image/destination/'.$data->img) }}" class="figure-img img-fluid rounded item-icon" alt="A generic square placeholder image with rounded corners in a figure.">
-                    <figcaption class="figure-caption text-center">{{$data->name}}</figcaption>
+
+                    @endif
+                    <figcaption class="figure-caption text-center mx-auto" style="width: 2rem; ">{{$data->name}}</figcaption>
                     </figure>
                 </a>
 
