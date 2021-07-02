@@ -58,13 +58,13 @@ class ProfileAddressController extends Controller
 
         if(empty($this->contact_check()->prof_id) || empty($this->permit_check()->prof_id) || empty($this->profile->profile_check()->company)) {
 
-            return redirect('merchant_dashboard/profile/profile')->withSuccess('Successfully added!');
+            return redirect('merchant/profile/profile')->withSuccess('Successfully added!');
         
         } else {
 
             Profile::where('user_id',Auth::user()->id)->update(['request_at' => date('Ymd'), 'id1'=> 1]);  
 
-            return redirect('merchant_dashboard/profile/profile')->withSuccess('Successfully added!');
+            return redirect('merchant/profile/profile')->withSuccess('Successfully added!');
         
         }
     }
@@ -80,7 +80,7 @@ class ProfileAddressController extends Controller
     public function address_update(MerchantUpdateAddress $request, $id) {
 
         MerchantAddress::where('id',$id)->where('prof_id',$this->profile->profile_check()->id)->update(['address' => $request->address]);
-        return redirect('merchant_dashboard/profile/profile')->withSuccess('Successfully Updated!');
+        return redirect('merchant/profile/profile')->withSuccess('Successfully Updated!');
     }
 
     public function address_delete($id) {

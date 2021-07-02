@@ -59,6 +59,9 @@
 <main id="main"><!-- 
 <div class="marg-header"></div> -->
 @yield('content')
+
+
+
 </main>
 
   <!-- ======= Footer ======= -->
