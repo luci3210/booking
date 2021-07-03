@@ -28,9 +28,9 @@ class ProviderSLMenu extends ServiceProvider
     {
 
         View::composer('*', function ($view) {
-            $view->with('slmenu', ProductModel::join('temp_status','temp_status.id', 'products.temp_status')
+            $view->with('slmenu', ProductModel::join('temp_status','temp_status.id', 'products.temp_status','products.asc')
                     ->whereIn('temp_status.status', ['active','disabled'])
-                    ->where('products.id','!=',100113)->orderBy('temp_status.id','asc')->get());
+                    ->where('products.id','!=',100113)->orderBy('products.asc','asc')->get());
         });
 
         View::composer('*', function ($view) {

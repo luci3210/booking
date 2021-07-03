@@ -25,7 +25,7 @@
   }
   .uk-panel img {
     height: 200px;
-    width: 200;
+    width: 100%;
   }
   .pointer img {
     height: 50px;
