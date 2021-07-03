@@ -579,7 +579,7 @@ a.text-primary:hover{
                     <a class="p-3 link-disabled fade-disabled" href="" >
                         <figure class="figure">
                         <img src="{{ asset('image/destination/new/'.$data->img) }}" onclick="return false;" class="figure-img img-fluid rounded item-icon" alt="A generic square placeholder image with rounded corners in a figure.">
-                        <figcaption class="figure-caption text-center">{{$data->name}}</figcaption>
+                        <figcaption class="figure-caption text-center mx-auto">{{$data->name}}</figcaption>
                         </figure>
                     </a>
                 </li>
