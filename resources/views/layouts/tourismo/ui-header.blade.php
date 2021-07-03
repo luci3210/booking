@@ -110,7 +110,25 @@
     font-size: .7em;
 }
 
+.no-style-list{
+    position: relative;
+    width: 100%;
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+}
+.li-icons{
+    display: inline-block;
+    position: relative;
+    margin-bottom: 0;
+}
+.figure-caption{
+    width: min-content;
+}
 
+.card-padding{
+    padding: 1rem .5rem;
+}
 
 
 @media only screen and (min-width: 982px) {
@@ -540,38 +558,47 @@ a.text-primary:hover{
 
 <!-- /.nav -->
 <br>
+<div class="row" style="width: 100%; margin:0">
 <div class="col-12 d-block d-md-none d-lg-none mt-5">
-<div class="uk-card uk-card-body nav-mobile-boxshadow">
-        <nav class="nav d-flex align-items-center text-center justify-content-center" >
+<div class="uk-card card-padding nav-mobile-boxshadow">
+        <nav class="nav">
+            <ul class="no-border no-style-list ">
             @foreach($slmenu as $data)
-                @if($data->status == 'active')
-                <a class="p-3 link-secondary " href="{{ route('open_services',$data->description) }}" >
-                    <figure class="figure">
-                    @if( $data->name == 'Tourist Stop')
-                    <img src="{{ asset('image/destination/'.$data->img) }}" class="figure-img img-fluid rounded item-icon " style="margin-top: .5rem;" alt="A generic square placeholder image with rounded corners in a figure.">
-                    @else
-                    <img src="{{ asset('image/destination/'.$data->img) }}" class="figure-img img-fluid rounded item-icon" alt="A generic square placeholder image with rounded corners in a figure.">
-
-                    @endif
-                    <figcaption class="figure-caption text-center mx-auto" style="width: 2rem; ">{{$data->name}}</figcaption>
-                    </figure>
-                </a>
+             @if($data->status == 'active')
+                <li class="li-icons" style="width: 23.5%;">
+                    <a class="p-3 link-secondary " href="{{ route('open_services',$data->description) }}" >
+                        <figure class="figure">
+                        <img src="{{ asset('image/destination/new/'.$data->img) }}" class="figure-img img-fluid rounded item-icon" alt="A generic square placeholder image with rounded corners in a figure.">
+                        <figcaption class="figure-caption text-center mx-auto" >{{$data->name}}</figcaption>
+                        </figure>
+                    </a>
+                </li>
 
                 @else
+                <li class="li-icons">
+                    <a class="p-3 link-disabled fade-disabled" href="" >
+                        <figure class="figure">
+                        <img src="{{ asset('image/destination/new/'.$data->img) }}" onclick="return false;" class="figure-img img-fluid rounded item-icon" alt="A generic square placeholder image with rounded corners in a figure.">
+                        <figcaption class="figure-caption text-center">{{$data->name}}</figcaption>
+                        </figure>
+                    </a>
+                </li>
+                
 
-                <a class="p-3 link-disabled fade-disabled" href="" >
-                    <figure class="figure">
-                    <img src="{{ asset('image/destination/'.$data->img) }}" onclick="return false;" class="figure-img img-fluid rounded item-icon" alt="A generic square placeholder image with rounded corners in a figure.">
-                    <figcaption class="figure-caption text-center">{{$data->name}}</figcaption>
-                    </figure>
-                </a>
+               
 
                 @endif
             @endforeach
+            </ul>
+
             
         </nav>
 </div>
 </div>
+</div>
+
+
+
 <!-- registration -->
 <div id="register" class="uk-modal-full" uk-modal>
     <div class="uk-modal-dialog">
