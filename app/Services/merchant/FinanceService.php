@@ -25,11 +25,12 @@ Class FinanceService extends SecurityServices{
         $getWeekly = $tourModel->where('service_tour.profid', $id);
         $getWeekly = $getWeekly->join('payments', 'payments.pm_page_id' , 'service_tour.id');
         $getWeekly = $getWeekly->join('status_payment', 'status_payment.ps_id', '=', 'payments.pm_ps_id');
-        $getWeekly =  $getWeekly->whereBetween('status_payment.ps_created_at', [Carbon::now()->setTime(0,0)->subWeek()->format("Y-m-d H:i:s"), Carbon::now()]);
-        $getWeekly = $getWeekly->get();
-        $ph = CarbonImmutable::now()->locale('en_PH')->startOfWeek()->format('Y-m-d H:i:s');
-        return $ph;
-        // return $getWeekly;
+        $getWeekly =  $getWeekly->whereBetween('status_payment.ps_created_at', [Carbon::now()->locale('en_PH')->subWeek()->format("Y-m-d H:i:s"), Carbon::now()]);
+        $getWeekly = $getWeekly->sum('payments.pm_id');
+        // $getWeekly = $getWeekly->get();
+        // $ph = CarbonImmutable::now()->locale('en_PH')->startOfWeek()->format('Y-m-d H:i:s');
+        // return $ph;
+        return $getWeekly;
     }
 
     public function getMonthlyIncome()
