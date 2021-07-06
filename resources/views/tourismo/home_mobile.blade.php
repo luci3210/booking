@@ -172,7 +172,7 @@
                 <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1">
                         <ul class="uk-slider-items uk-child-width-1-2 ">
                             @foreach($exclusive_packages as $list)
-                            <li>
+                            <li onclick="goToNextPage('{{ route('service_tour_view', $list->upload_id) }}')">
                                 <div class=" shadow">
                                     <div class="uk-card-media-top">
                                         <div style="width: 100%; 
@@ -200,6 +200,8 @@
         </div>
     </div>
 </section>
+<!-- /.exclusive -->
+
 
 
 <section id="local" class="">
@@ -240,6 +242,8 @@
         </div>
     </div>
 </section>
+<!-- /.local -->
+
 
 
 
@@ -282,10 +286,100 @@
         </div>
     </div>
 </section>
+<!-- /.international -->
+
+
+<section id="rooms" class="">
+    <div class="row g-0 px-3">
+        <div class="col-12">
+            <h6 class="title-sections px-2">Rooms</h6>
+            <div class="uk-slider-container-offset" uk-slider>
+                <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1">
+                        <ul class="uk-slider-items uk-child-width-1-2 ">
+                            @foreach($hotel_packages as $list)
+                            <li onclick="goToNextPage('{{ route('service_tour_view', $list->upload_id) }}')">
+                                <div class=" shadow">
+                                    <div class="uk-card-media-top">
+                                        <div style="width: 100%; 
+                                        background-size: cover;
+                                        background-position: center;
+                                        background-repeat: no-repeat;
+                                        height: 15rem;
+                                        background-image: url('{{ asset('image/tour/2021')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}');
+                                        border-top-left-radius: 10px!important;
+                                        border-top-right-radius: 10px!important;
+                                        border-bottom-left-radius: 10px!important;
+                                        border-bottom-right-radius: 10px!important;
+                                        ">
+                                        <div class="position-relative elips">
+                                            <span class="badge badge-pill badge-light bg-light text-dark badge-floats elips">{{ $list->tour_name }}</span>
+                                        </div>    
+                                    </div>
+                                    </div>
+                                </div>
+                            </li>
+                             @endforeach
+                        </ul>
+                        <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+                        <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
+                    </div>
+                </div>
+        </div>
+    </div>
+</section>
+<!-- /.rooms -->
+
+
+<section id="tours" class="">
+    <div class="row g-0 px-3">
+        <div class="col-12">
+            <h6 class="title-sections px-2">Tours and Packages</h6>
+            <div class="uk-slider-container-offset" uk-slider>
+                <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1">
+                        <ul class="uk-slider-items uk-child-width-1-2 ">
+                            @foreach($tour_packages as $list)
+                            <li onclick="goToNextPage('{{ route('service_tour_view', $list->upload_id) }}')">
+                                <div class=" shadow">
+                                    <div class="uk-card-media-top">
+                                        <div style="width: 100%; 
+                                        background-size: cover;
+                                        background-position: center;
+                                        background-repeat: no-repeat;
+                                        height: 15rem;
+                                        background-image: url('{{ asset('image/tour/2021')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}');
+                                        border-top-left-radius: 10px!important;
+                                        border-top-right-radius: 10px!important;
+                                        border-bottom-left-radius: 10px!important;
+                                        border-bottom-right-radius: 10px!important;
+                                        ">
+                                        <div class="position-relative elips">
+                                            <span class="badge badge-pill badge-light bg-light text-dark badge-floats elips">{{ $list->tour_name }}</span>
+                                        </div>    
+                                    </div>
+                                    </div>
+                                </div>
+                            </li>
+                             @endforeach
+                        </ul>
+                        <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+                        <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
+                    </div>
+                </div>
+        </div>
+    </div>
+</section>
+<!-- /.tours -->
+
 
 @endsection
 
 @section('js')
 @endsection
 
+
+<script>
+function goToNextPage(url){
+    window.location.href=url;
+}
+</script>
 

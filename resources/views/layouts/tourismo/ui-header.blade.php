@@ -44,6 +44,8 @@
 .link-secondary{
     font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Droid Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
     cursor: pointer;
+    color: #443a3a!important;
+
 }
 
 .link-secondary:hover{
