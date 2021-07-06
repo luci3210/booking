@@ -30,7 +30,7 @@
         margin-top: 20px!important;
         line-height: 14px;
         font-weight: 400;
-        font-size: .9rem;
+        font-size: .7rem;
         margin-top: 8px;
         color: black;
         display: inline-flex;
@@ -90,7 +90,7 @@
         margin-top: 20px!important;
         line-height: 14px;
         font-weight: 400;
-        font-size: .9rem;
+        font-size: .7rem;
         margin-top: 8px;
         color: black;
         display: inline-flex;
@@ -151,7 +151,7 @@
         margin-top: 20px!important;
         line-height: 14px;
         font-weight: 400;
-        font-size: .9rem;
+        font-size: .7rem;
         margin-top: 8px;
         color: black;
         display: inline-flex;
