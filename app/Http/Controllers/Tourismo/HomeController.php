@@ -19,6 +19,8 @@ use App\user\PageReviewsModel;
 
 use App\Model\Admin\LocationCountyModel;
 
+use Jenssegers\Agent\Agent;
+
 
 class HomeController extends Controller
 {
@@ -96,10 +98,16 @@ class HomeController extends Controller
     	$hotel_packages 	= $this->getServiceTourData('10016',10); // new from service_tour tbl
     	$exclusive_packages 	= $this->getServiceTourData('100113',10); // new from service_tour tbl
         $banner            = $this->banner();
-        // return $hotel_packages;
+        $Agent = new Agent();
+        if ($Agent->isMobile()) {
+            return view('tourismo.home_mobile', compact(['banner','tourismo_exlusive','international','home_hotel','destination','hotels','tour_package','tour_packages', 'hotel_packages', 'exclusive_packages']));
+
+        } else {
+            return view('tourismo.home', compact(['banner','tourismo_exlusive','international','home_hotel','destination','hotels','tour_package','tour_packages', 'hotel_packages', 'exclusive_packages']));
+
+        }
         
 
-        return view('tourismo.home', compact(['banner','tourismo_exlusive','international','home_hotel','destination','hotels','tour_package','tour_packages', 'hotel_packages', 'exclusive_packages']));
     }
     
     
