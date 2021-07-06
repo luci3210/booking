@@ -36,8 +36,6 @@
   }
 </style>
 
-
-
 @section('banner')
 <div class="uk-position-relative uk-visible-toggle uk-light mt-sm-slider d-none d-sm-none d-lg-block d-md-block d-xl-block " tabindex="-1" uk-slideshow="ratio: 10:3; animation: push">
     <ul class="uk-slideshow-items min-vh-30">
@@ -139,7 +137,7 @@
       <h2><b>Local Destination </b> 
         <span style="font-size: 15px;padding-left: 25px;">
           <a href="{{ route('destination') }}" class="uk-link">
-            <i class="fas fa-chevron-right"></i> Explore {{ $number_of_distination->count() }} Destination
+            <i class="fas fa-chevron-right"></i> Explore {{ $number_of_distination->count() }} {{ $icountry->country }}Destination
           </a></span>
       </h2>
     </div>

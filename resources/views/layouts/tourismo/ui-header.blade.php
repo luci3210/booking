@@ -44,9 +44,6 @@
 .link-secondary{
     font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Droid Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
     cursor: pointer;
-    font-size: 14px;
-    color: #212121!important;
-    font-weight: 600;
 }
 
 .link-secondary:hover{
@@ -127,7 +124,8 @@
 }
 
 .card-padding{
-    padding: 1rem .5rem;
+    /*padding: 1rem .5rem;*/
+    padding: none;
 }
 
 
@@ -414,6 +412,15 @@ a.text-primary:hover{
     border-radius: 4px;
 }
 
+.mobile-nav-icon {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    padding: 0 10px 0;
+    position: relative;
+ } 
+
+
 
 </style>
 
@@ -425,7 +432,7 @@ a.text-primary:hover{
             <div class="col-lg-4 col-sm-12 icon-div">
                 <a href="{{ route('myhome') }}">
                     <!-- <span> -->
-                        <img src="{{ asset('image/logo/logov2.jpg') }}"  style=" padding-right: 15px;">
+                        <img src="{{ asset('image/logo/logo.png') }}"  style=" padding-right: 15px;">
                     <!-- </span> -->
                 </a>
             </div>
@@ -438,7 +445,7 @@ a.text-primary:hover{
 
                 @foreach($slmenu as $data)
                 @if($data->status == 'active')
-                <a class="p-2 link-secondary-search " href="{{ route('open_services',$data->description) }}" >{{$data->name}}</a>
+                <a class="p-2 link-secondary-search " href="{{ route('open_services',$data->description) }}">{{$data->name}}</a>
                 @else
                 <a class="p-2 link-secondary-search link-disabled fade-disabled" href="#" onclick="return false;">{{$data->name}}</a>
                 @endif
@@ -557,44 +564,48 @@ a.text-primary:hover{
 </div>
 
 <!-- /.nav -->
-<br>
-<div class="row" style="width: 100%; margin:0">
-<div class="col-12 d-block d-md-none d-lg-none mt-5">
-<div class="uk-card card-padding nav-mobile-boxshadow">
-        <nav class="nav">
-            <ul class="no-border no-style-list ">
-            @foreach($slmenu as $data)
-             @if($data->status == 'active')
-                <li class="li-icons" style="width: 23.5%;">
-                    <a class="p-3 link-secondary " href="{{ route('open_services',$data->description) }}" >
-                        <figure class="figure">
-                        <img src="{{ asset('image/destination/new/'.$data->img) }}" class="figure-img img-fluid rounded item-icon" alt="A generic square placeholder image with rounded corners in a figure.">
-                        <figcaption class="figure-caption text-center mx-auto" >{{$data->name}}</figcaption>
-                        </figure>
+
+<div class="row" style="padding: 10px 3px 0;">
+    <div class="col-12 d-block d-md-none d-lg-none mt-5">
+        <div class="uk-card card-padding nav-mobile-boxshadow">
+            <div class="mobile-nav-icon">
+
+                <ul>
+                @foreach($slmenu as $data)
+                @if($data->status == 'active')
+
+                <li class="li-icons" style="width: 24%; margin-top: 5px;">
+                    <a class="link-secondary" href="{{ route('open_services',$data->description) }}">
+                        <div>
+                            <img src="{{ asset('image/destination/new/'.$data->img) }}" style="width:35px;">
+                        </div>
+                            <div style="display: inline-flex;">
+                                <p style="width: min-content; margin: auto auto 0; line-height: 13px; font-weight: 400; margin-top: 8px; color: black;">{{$data->name}}</p>
+                            </div>
                     </a>
                 </li>
 
                 @else
-                <li class="li-icons">
-                    <a class="p-3 link-disabled fade-disabled" href="" >
-                        <figure class="figure">
-                        <img src="{{ asset('image/destination/new/'.$data->img) }}" onclick="return false;" class="figure-img img-fluid rounded item-icon" alt="A generic square placeholder image with rounded corners in a figure.">
-                        <figcaption class="figure-caption text-center mx-auto">{{$data->name}}</figcaption>
-                        </figure>
+                
+                <li class="li-icons" style="width: 24%; margin-top: 5px;">
+                    <a class="link-secondary" href="{{ route('open_services',$data->description) }}">
+                        <div>
+                            <img src="{{ asset('image/destination/new/'.$data->img) }}" style="width:35px;">
+                        </div>
+                            <div style="display: inline-flex;">
+                                <p style="width: min-content; margin: auto auto 0;line-height: 14px; font-weight: 400; margin-top: 8px; color: black;">{{$data->name}}</p>
+                            </div>
                     </a>
                 </li>
                 
-
-               
-
                 @endif
-            @endforeach
-            </ul>
+                @endforeach
+                </ul>
 
-            
-        </nav>
-</div>
-</div>
+            </div>
+
+        </div>
+    </div>
 </div>
 
 

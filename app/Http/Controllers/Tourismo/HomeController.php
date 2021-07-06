@@ -98,14 +98,23 @@ class HomeController extends Controller
     	$hotel_packages 	= $this->getServiceTourData('10016',10); // new from service_tour tbl
     	$exclusive_packages 	= $this->getServiceTourData('100113',10); // new from service_tour tbl
         $banner            = $this->banner();
+        $icountry = $this->get_country($country = "Philippines");
+
+
+        // return $hotel_packages;
+
         $Agent = new Agent();
         if ($Agent->isMobile()) {
-            return view('tourismo.home_mobile', compact(['banner','tourismo_exlusive','international','home_hotel','destination','hotels','tour_package','tour_packages', 'hotel_packages', 'exclusive_packages']));
+            return view('tourismo.home_mobile', compact(['icountry', 'banner','tourismo_exlusive','international','home_hotel','destination','hotels','tour_package','tour_packages', 'hotel_packages', 'exclusive_packages']));
 
         } else {
-            return view('tourismo.home', compact(['banner','tourismo_exlusive','international','home_hotel','destination','hotels','tour_package','tour_packages', 'hotel_packages', 'exclusive_packages']));
+            return view('tourismo.home', compact(['icountry','banner','tourismo_exlusive','international','home_hotel','destination','hotels','tour_package','tour_packages', 'hotel_packages', 'exclusive_packages']));
 
         }
+        
+
+
+
         
 
     }
@@ -264,13 +273,18 @@ function generateToken()
 
 // ------------------- DESTINATION ----------------------------------
 
+public function get_country($country) {
+
+    return LocationCountyModel::where('country',$country)->get()->first();
+}
+
 public function page_destination() {
 
     $destination    = $this->destination();
     $region_one     = $this->destination_reg_one();
     $region_ten     = $this->destination_reg_ten();
 
-    return view('tourismo.destination', compact('destination','region_one','region_ten'));
+    return view('tourismo.destination', compact('icountry','destination','region_one','region_ten'));
 }
 
 public function page_region($id) {
@@ -312,12 +326,6 @@ public function page_provice($id) {
 }
 
 public function destination() {
-    // $destination = new DestinationModel();
-    // $destination = $destination->join('locations_district', 'destinations.destination_id', 'locations_district.id');
-    // $destination = $destination->where('destinations.temp_status',1);
-    // $destination = $destination->where('destinations.country_id',1);
-    // $destination = $destination->get(['locations_district.id as province_id', 'destination.*']);
-    // return $destination;
     
     return DestinationModel::join('locations_district','locations_district.id','destinations.destination_id')
             ->where([ ['destinations.temp_status','=',1],
