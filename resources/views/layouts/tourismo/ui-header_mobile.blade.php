@@ -320,7 +320,36 @@
         <div class="position-relative">
             <div class="nav-mobile-boxshadow">
                 <div id="card-point">
+                    <div class="row g-0">
+                    <div class="col-6 text-start ps-2 pt-1">
+                        <img class="" src="{{ asset('image/logo/favicon.png') }}">
+                        <span class="text-muted">PHP</span>
+                        <span class="number-points">0.00</span>
+                    </div>
+                    <div class="col-6 text-end pe-2 pt-1"><span class="number-points">0</span><span class="text-muted">Points</span></div>
+                    <div class="w-100 col-12 px-2">
+                        <hr  class="uk-nav-divider" />
+                    </div>
+                    <!-- /.divider -->
+                    <div class="col-12">
+                        <div class="mobile-nav-icon">
+                            <ul class="ul-no-style">
+                                <!-- <li class="li-icons img-icon">
+                                    <a class="link-secondary" href="{{ route('open_services',$data->description) }}">
+                                        <div class="text-center">
+                                            <img class="mx-auto" src="{{ asset('image/destination/new/'.$data->img) }}" style="width:35px;">
+                                        </div>
+                                            <div class="text-center">
+                                                <p class="text-context">{{$data->name}}</p>
+                                            </div>
+                                    </a>
+                                </li> -->
 
+                            </ul>
+
+                        </div>
+                    </div>
+                    </div>
                 </div>
             </div>
         </div>
