@@ -334,16 +334,7 @@
                     <div class="col-12">
                         <div class="mobile-nav-icon">
                             <ul class="ul-no-style">
-                                <!-- <li class="li-icons img-icon">
-                                    <a class="link-secondary" href="{{ route('open_services',$data->description) }}">
-                                        <div class="text-center">
-                                            <img class="mx-auto" src="{{ asset('image/destination/new/'.$data->img) }}" style="width:35px;">
-                                        </div>
-                                            <div class="text-center">
-                                                <p class="text-context">{{$data->name}}</p>
-                                            </div>
-                                    </a>
-                                </li> -->
+                             
 
                             </ul>
 
