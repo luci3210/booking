@@ -44,6 +44,8 @@
 .link-secondary{
     font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Droid Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
     cursor: pointer;
+    color: #443a3a!important;
+
 }
 
 .link-secondary:hover{
@@ -568,7 +570,6 @@ a.text-primary:hover{
 <div class="row" style="padding: 10px 3px 0;">
     <div class="col-12 d-block d-md-none d-lg-none mt-5">
         <div class="uk-card card-padding nav-mobile-boxshadow">
-
             <div class="mobile-nav-icon">
 
                 <ul>
