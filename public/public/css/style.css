@@ -2693,3 +2693,10 @@ padding-bottom: 10px;
   background: #36235a;
 }
 
+
+@media (min-width: 992px) {  
+  #main{
+    margin-top: 0px;
+  }
+    
+}
