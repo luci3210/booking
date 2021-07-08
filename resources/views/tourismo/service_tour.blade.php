@@ -122,6 +122,9 @@ a.page-link {
 .avatar-border-round{
   border-radius: 50%;
 }
+/* // Large devices (desktops/laptops, 992px and up) 175% */
+
+
 </style>
 
 <section class="features">

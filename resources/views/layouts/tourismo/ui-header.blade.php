@@ -773,7 +773,7 @@ a.text-primary:hover{
 
 
 <!-- REGMOD -->
-<div id="register" class="uk-modal-full" uk-modal>
+<div id="registers" class="uk-modal-full" uk-modal>
 <div class="uk-modal-dialog">
 <button class="uk-modal-close-full uk-close-large uk-position-top" type="button" uk-close></button>
 
