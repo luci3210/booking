@@ -9,14 +9,11 @@ use App\user\PaymentModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-
-
 use App\Mail\TestMail;
 use Illuminate\Support\Facades\Mail;
 
 use App\Model\Merchant\TourModel;
 use App\Model\Merchant\HotelModel;
-
 
 Class PaymentService extends SecurityServices{
 
@@ -44,6 +41,7 @@ Class PaymentService extends SecurityServices{
             // $bookdate = '2025-09-23 14:44:00';
             // date("Y-m-d H:i:s", 1624084625);
             // return strtotime($d);
+
             $data = base64_encode(json_encode($data));
             return $data;
         } catch (\Exception $e) {
@@ -144,8 +142,8 @@ Class PaymentService extends SecurityServices{
         $details = [
             'title'=> 'Receipt',
             'body'=>'thank you for purchasing thru Tourismo',
-            // 'url'=>'https://133e9cbc5b16.ngrok.io/booking/public/invoice/download?',
-            'url'=>'https://booking.tourismo.ph.ngrok.io/booking/public/invoice/download?',
+            'url'=>'https://133e9cbc5b16.ngrok.io/booking/public/invoice/download?',
+            //'url'=>'https://ngrok.io/booking/public/invoice/download?',
             'extra'=>$extraData,
             'status'=>$statusPayment,
             'profileID'=>$cn,
