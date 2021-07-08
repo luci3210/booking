@@ -64,6 +64,11 @@
     .spacer-1{
         height: 18vh;
     }
+    .profile-icon{
+        font-size: 2rem;
+        margin: 10px 5px 10px 5px;
+        position: absolute;
+    } 
 
 }
 /* // xs devices (320px and up) */
@@ -104,6 +109,7 @@
     .profile-icon{
         font-size: 2rem;
         margin: 10px 5px 10px 5px;
+        position: absolute;
     } 
     #card-point{
         height: 100px;
@@ -260,10 +266,57 @@
 
 <div class="row  g-0">
     <div class="col-12" id="bg-header">
-        <div class="d-flex">
-        <a href="{{ route('accnt_profile') }}" class="profile-icon" ><i class="fas fa-user-circle icon-profile"></i></a>
-            <img class="ms-5 py-3" src="{{ asset('image/logo/logoabv2.png') }}">
+        @if (Route::has('login'))
+
+        @auth
+        <div class="d-flex w100">
+        <div class="position-relative">
+        <a type="button" class="profile-icon" ><i class="fas fa-user-circle icon-profile"></i></a>
+        <div uk-dropdown="mode: click">
+            <ul class="uk-nav uk-dropdown-nav">
+                <li class=""><a href="{{ route('myhome') }}" class="text-dark">Home</a></li>
+                <li><a href="#" class="text-dark"><i class="fas fa-mobile-alt"></i> <b>Download App</b></a></li>
+                <li><a href="{{ route('other-plan') }}" class="text-dark"><i class="far fa-building"></i> <b>Merchant</b></a></li>
+                <li class="uk-nav-divider"></li>
+                <li><a href="{{ route('merchant_logout') }}" class="text-dark"><i class="fas fa-sign-out-alt"></i> Signout</a></li>
+            </ul>
         </div>
+        </div>
+        <a href="{{ route('accnt_profile') }}" class="profile-icon" ><i class="fas fa-user-circle icon-profile"></i></a>
+        </div>
+            <img class="mx-auto py-3" src="{{ asset('image/logo/logoabv2.png') }}">
+        </div>
+        @endauth
+
+        <div class="d-flex w100">
+        <div class="position-relative">
+        <a type="button" class="profile-icon" ><i class="fas fa-user-circle icon-profile"></i></a>
+        <div uk-dropdown="mode: click">
+            <ul class="uk-nav uk-dropdown-nav">
+                <li class=""><a href="{{ route('myhome') }}" class="text-dark">Home</a></li>
+                <li><a href="#" class="text-dark"><i class="fas fa-mobile-alt"></i> <b>Download App</b></a></li>
+                <li><a href="{{ route('other-plan') }}" class="text-dark"><i class="far fa-building"></i> <b>Merchant</b></a></li>
+                <li class="uk-nav-divider"></li>
+                <li><a href="#register" uk-toggle class="text-dark">Register</a></li>
+                <li><a href="#login" uk-toggle class="text-dark">Login</a></li>
+            </ul>
+        </div>
+        </div>
+            <img class="mx-auto py-3" src="{{ asset('image/logo/logoabv2.png') }}">
+        </div>
+
+        
+
+        @else
+
+        <div class="d-flex w100">
+        <div class="position-relative">
+        <a href="{{ route('accnt_profile') }}" class="profile-icon" ><i class="fas fa-user-circle icon-profile"></i></a>
+        </div>
+            <img class="mx-auto py-3" src="{{ asset('image/logo/logoabv2.png') }}">
+        </div>
+
+        @endif
         <div class="position-relative">
             <div class="nav-mobile-boxshadow">
                 <div id="card-point">
@@ -313,4 +366,158 @@
 
             </div>
     </div>
-</div>`
+</div>
+
+
+
+<!-- registration -->
+<div id="register" class="uk-modal-full" uk-modal>
+    <div class="uk-modal-dialog">
+        <button class="uk-modal-close-full uk-close-large uk-position-top" type="button" uk-close></button>
+        <div class="uk-section uk-section-muted uk-flex uk-flex-middle uk-animation-fade" uk-height-viewport>
+            <div class="uk-width-1-1">
+                <div class="uk-container">
+                    <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
+                        <div class="uk-width-1-1@m">
+                            <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-body">
+                                <div class="uk-text-center"><img src="{{ asset('image/logo/logoab.png') }}"></div><br>
+
+                                <form method="post" action="{{ route('register') }}" id="reg-form">
+                                @csrf
+                                    <div class="uk-margin err">
+                                        <div class="uk-inline uk-width-1-1">
+                                            <span class="uk-form-icon" uk-icon="icon: user"></span>
+                                            <input class="uk-input uk-form-meduim" placeholder="Full name" name="name" value="{{ old('name') }}" required autocomplete="email" autofocus>
+                                        </div> 
+                                        <span class="err uk-width-1-1"></span>
+                                        @error('name')
+                                        <span class="invalid-feedback " role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="uk-margin err">
+                                        <div class="uk-inline uk-width-1-1">
+                                            <span class="uk-form-icon" uk-icon="icon: mail"></span>
+                                            <input class="uk-input uk-form-meduim" placeholder="Email"  type="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                        </div>
+                                        <span class="err uk-width-1-1"></span>
+                                        @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="uk-margin err">
+                                        <div class="uk-inline uk-width-1-1">
+                                            <span class="uk-form-icon" uk-icon="icon: lock"></span>
+                                            <input class="uk-input uk-form-meduim" type="password" id="reg-pass" name="password" placeholder="Password" required autocomplete="current-password">  
+                                        </div>
+                                        <span class="err uk-width-1-1"></span>
+                                        @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="uk-margin err">
+                                        <div class="uk-inline uk-width-1-1">
+                                            <span class="uk-form-icon" uk-icon="icon: lock"></span>
+                                            <input class="uk-input uk-form-meduim" type="password" name="password_confirmation" placeholder="Confirm Password" required autocomplete="current-password">  
+                                        </div>
+                                        <span class="err uk-width-1-1"></span>
+                                        @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+
+
+                                    <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid err">
+                                        <label><input class="uk-checkbox" name="terms" type="checkbox"> I aggree in terms</label>
+                                        <span class="err uk-width-1-1"></span>
+                                    </div>
+
+<div class="uk-margin">
+    <button type="submit" class="uk-button uk-button-primary uk-button-meduim uk-width-1-1"><i class="fas fa-user-friends"></i> Register</button>
+</div>
+<div class="uk-text-small row">
+    <div class="col-12">
+        <a href="#login" uk-toggle class="text-primary">Login</a>
+    </div>
+    <div class="col-12">
+        <a href="/password/reset" class="text-primary">Forgot Password?</a>
+    </div>
+
+</div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /. registration -->
+
+
+<div id="login" class="uk-modal-full" uk-modal>
+    <div class="uk-modal-dialog">
+        <button class="uk-modal-close-full uk-close-large uk-position-top" type="button" uk-close></button>
+        <div class="uk-section uk-section-muted uk-flex uk-flex-middle uk-animation-fade" uk-height-viewport>
+            <div class="uk-width-1-1">
+                <div class="uk-container">
+                    <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
+                        <div class="uk-width-1-1@m">
+                            <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-body">
+                                <div class="uk-text-center"><img src="{{ asset('image/logo/logoab.png') }}"></div><br>
+                                <form method="POST" action="{{ route('login') }}" id="login-form">
+                                @csrf
+                                    <div class="uk-margin err">
+                                        <div class="uk-inline uk-width-1-1">
+                                            <span class="uk-form-icon" uk-icon="icon: mail"></span>
+                                            <input class="uk-input uk-form-meduim" placeholder="Email" type="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                        </div>
+                                        <span class="err uk-width-1-1"></span>
+                                    </div>
+
+                                    <div class="uk-margin err">
+                                        <div class="uk-inline uk-width-1-1">
+                                            <span class="uk-form-icon" uk-icon="icon: lock"></span>
+                                            <input class="uk-input uk-form-meduim" placeholder="Password" type="password" name="password" required autocomplete="current-password">  
+                                        </div>
+                                        <span class="err uk-width-1-1"></span>
+                                    </div>
+
+                                    <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+                                        <label><input class="uk-checkbox" type="checkbox"> Remember Me</label>
+                                    </div>
+
+                                    <div class="uk-margin">
+                                        <button type="submit"  class="uk-button uk-button-primary uk-button-meduim uk-width-1-1"><i class="fas fa-unlock-alt"></i> Login</button>
+                                    </div>
+                                    <div class="uk-text-small row">
+                                        <div class="col-12">
+                                            <a href="#register " uk-toggle class="text-primary">Register</a>
+                                        </div>
+                                        <div class="col-12">
+                                            <a href="/password/reset" class="text-primary">Forgot Password?</a>
+                                        </div>
+                                    
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.login -->
