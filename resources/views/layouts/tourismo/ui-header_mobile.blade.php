@@ -334,7 +334,16 @@
                     <div class="col-12">
                         <div class="mobile-nav-icon">
                             <ul class="ul-no-style">
-                             
+                                <li class="li-icons img-icon">
+                                    <a class="link-secondary" href="#">
+                                        <div class="text-center">
+                                            <img class="mx-auto" src="{{ asset('image/destination/new/') }}" style="width:35px;">
+                                        </div>
+                                            <div class="text-center">
+                                                <p class="text-context">test</p>
+                                            </div>
+                                    </a>
+                                </li>
 
                             </ul>
 

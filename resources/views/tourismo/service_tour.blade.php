@@ -151,36 +151,38 @@ a.page-link {
         <!-- /.mb 20px -->
         <div class="uk-child-width-expand@s" uk-grid>
             <div>
-                <div class="section-title">
+                <div class="section-title mb-2">
                     <h2 id='plan_name_checkout'>{{ $tourDetails[0]->tour_name }}</h2>
-                    <p style="margin-top: -5px;"><span style="font-size:12px; font-weight: 100px;"><i class="fas fa-building"></i> {{$profileData[0]->company}}</span></p>
-                    <span style="font-size:12px; font-weight: 100px;"><i class="fas fa-map-marker-alt"></i> {{ $tourDetails[0]->serviceid }}</span>
+                    <p class="mb-1 mt-1"><span style="font-size:12px; font-weight: 100px;"><i class="fas fa-building"></i> {{$profileData[0]->company}}</span></p>
+                    <span style="font-size:12px; font-weight: 100px;" class="mt-0" ><i class="fas fa-map-marker-alt"></i> {{ $tourDetails[0]->serviceid }}</span>
                 </div>
                 <!-- /.section title -->
-                <h3 class="uikit-title">Booking Details</h3>
+                <h3 class="uikit-title mb-1">Booking Details</h3>
                 <!-- /.booking details -->
-                <ul>
+                <ul class="mt-1 mb-2">
                     <li><i class="icofont-check"></i>Room size: <b>{{ $tourDetails[0]->roomsize }} m²</b></li>
                     <li><i class="icofont-check"></i>View : <b>City View</b></li>
                     <li><i class="icofont-check"></i>Max guest: <b>{{ $tourDetails[0]->noguest }}</b></li>
                     <li><i class="icofont-check"></i>No. of Bed: <b>{{ $tourDetails[0]->nobed }}</b></li>
                 </ul>
                 <!-- /.tour details -->
-                <h3 class="uikit-title">Package</h3>
+                <h3 class="uikit-title mb-1">Package</h3>
                 <!-- title -->
-                <ul>
+                <ul class="my-2">
                     <li><i class="icofont-check"></i>{{ $tourDetails[0]->booking_package }}</li>
                 </ul>
                 <!-- /.package list -->
-                <h3  class="uikit-title">Room Facilities</h3>
+                @if($tourDetails[0]->room_facilities)
+                <h3  class="uikit-title mb-1">Room Facilities</h3>
                 <!-- /. title -->
-                <ul>
+                <ul class="my-2">
                     <li><i class="icofont-check"></i>{{ $tourDetails[0]->room_facilities }}</li>
                 </ul>
+                @endif
                 <!-- /. room facility list -->
-                <h3 class="uikit-title">Building Facilities</h3>
+                <h3 class="uikit-title mb-1">Building Facilities</h3>
                 <!-- /.title -->
-                <ul>
+                <ul class="my-2">
                     <li><i class="icofont-check"></i>{{ $tourDetails[0]->building_facilities }}</li>
                 </ul>
                 <!-- /.building facility list -->
@@ -413,6 +415,7 @@ a.page-link {
         <h2>Reviews</h2>
       </div>
       <!-- /.section title -->
+      @if(Auth::check())
       <form method="post" action="{{route('service_tour_review')}}" role="form">
       @csrf
         <fieldset class="uk-fieldset">
@@ -432,12 +435,10 @@ a.page-link {
           <p class='text-danger error-ratings'>ratings is required</p>
           </div>
           <button class="comment-btn uk-button uk-button-small">Cancel</button>
-          @if(Auth::check())
             @auth
             <button type="button" onclick="submitReview()" class="comment-btn uk-button uk-button-small">Submit</button>
             <button type="submit" id="btn-review" class="comment-btn uk-button uk-button-small" hidden>Submit</button>
             @endauth
-          @else 
           <a href="javascript:void(0)" uk-toggle="target: #checklogin" class="comment-btn uk-button uk-button-small">Submit</a>
 
           @endif

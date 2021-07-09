@@ -61,7 +61,7 @@
     .badge-floats{
         position: absolute;
         left: 5px;
-        top: 32vh;
+        top: 28vh;
         width: 5rem;
     }
 
@@ -89,7 +89,7 @@
     .badge-floats{
         position: absolute;
         left: 5px;
-        top: 35vh;
+        top: 29vh;
         width: 5rem;
     }
     
@@ -117,7 +117,7 @@
     .badge-floats{
         position: absolute;
         left: 5px;
-        top: 32vh;
+        top: 28vh;
         width: 5rem;
     }
     
@@ -146,7 +146,7 @@
     .badge-floats{
         position: absolute;
         left: 5px;
-        top: 25vh;
+        top: 19vh;
         width: 5rem;
     }
     
