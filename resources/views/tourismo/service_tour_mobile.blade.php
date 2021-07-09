@@ -1,13 +1,12 @@
-@extends('layouts.tourismo.ui', 
+@extends('layouts.tourismo.ui_mobile', 
 ['keywords'=> $tourDetails[0]->tour_name,
 'img' => asset( 'image/tour/2021/'.$tourPhotos[0]->photo),
 'description' => $profileData[0]->address
 ])
-@section('content')
-
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <!-- /. meta tags -->
+@section('content')
 
 
 <style>
@@ -122,16 +121,65 @@ a.page-link {
 .avatar-border-round{
   border-radius: 50%;
 }
+.card-shadow{
+    box-shadow: 1px 7px 8px -5px rgba(0,0,0,0.49);
+    -webkit-box-shadow: 1px 7px 8px -5px rgba(0,0,0,0.49);
+    -moz-box-shadow: 1px 7px 8px -5px rgba(0,0,0,0.49);
+    border-radius: 4px;
+    border: solid 2px #6c6c6c2b;
+    padding: .5rem;
+}
 /* // Large devices (desktops/laptops, 992px and up) 175% */
 
+/* // fold devices (200px and up) */
+@media (min-width: 200px) { 
+
+    #section-service{
+        margin-top: -60px;
+    }
+}
+/* // xs devices (320px and up) */
+@media (min-width: 320px) { 
+    #section-service{
+        margin-top: -60px;
+    }
+}
+/* // sm devices (360px and up) */
+@media (min-width: 360px) { 
+
+    #section-service{
+        margin-top: -60px;
+    }
+    #plan_name_checkout{
+        font-size: 1.5rem;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+    
+}
+
+/* // Medium devices (411px and up) */
+@media (min-width: 411px) { 
+    
+}
+
+/* // lg devices (tablets, 480px and up) */
+@media (min-width: 480px) { 
+
+}
+
+/* // sm web devices (tablets, 576px and up) */
+@media (min-width: 576px) { 
+
+}
 
 </style>
 
-<section class="features">
+
+
+<section class="features" id="section-service">
     <div class="container">
-        <div style="margin-top: 45px;"></div>
-        <!-- /.mt 45px -->
-        <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="ratio: 8:3; animation: push">
+        <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="ratio: 4:3; animation: push">
             <ul class="uk-slideshow-items">
             @foreach($tourPhotos as $details)
                 <li>
@@ -147,204 +195,158 @@ a.page-link {
             <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
         </div>
         <!-- /.slidehow div -->
-        <div style="margin-bottom: 20px;"></div>
-        <!-- /.mb 20px -->
-        <div class="uk-child-width-expand@s" uk-grid>
-            <div>
-                <div class="section-title mb-2">
-                    <h2 id='plan_name_checkout'>{{ $tourDetails[0]->tour_name }}</h2>
-                    <p class="mb-1 mt-1"><span style="font-size:12px; font-weight: 100px;"><i class="fas fa-building"></i> {{$profileData[0]->company}}</span></p>
-                    <span style="font-size:12px; font-weight: 100px;" class="mt-0" ><i class="fas fa-map-marker-alt"></i> {{ $tourDetails[0]->serviceid }}</span>
-                </div>
-                <!-- /.section title -->
-                <h3 class="uikit-title mb-1">Booking Details</h3>
-                <!-- /.booking details -->
-                <ul class="mt-1 mb-2">
-                    <li><i class="icofont-check"></i>Room size: <b>{{ $tourDetails[0]->roomsize }} m²</b></li>
-                    <li><i class="icofont-check"></i>View : <b>City View</b></li>
-                    <li><i class="icofont-check"></i>Max guest: <b>{{ $tourDetails[0]->noguest }}</b></li>
-                    <li><i class="icofont-check"></i>No. of Bed: <b>{{ $tourDetails[0]->nobed }}</b></li>
-                </ul>
-                <!-- /.tour details -->
-                <h3 class="uikit-title mb-1">Package</h3>
-                <!-- title -->
-                <ul class="my-2">
+
+        <div class="row g-0">
+            <div class="col-12">
+                <h2 id='plan_name_checkout' class="mb-1">{{ $tourDetails[0]->tour_name }}</h2>
+                <p class="my-1"><i class="fas fa-building"></i> {{$profileData[0]->company}}</p>
+                <p class="my-1"><i class="fas fa-map-marker-alt"></i> {{ $tourDetails[0]->serviceid }}</p>
+            </div>
+            <div class="col-6">
+                <h3 class="uikit-title my-1">Booking Details</h3>
+                <ul class="my-1">
+                        <li><i class="icofont-check"></i>Room size: <b>{{ $tourDetails[0]->roomsize }} m²</b></li>
+                        <li><i class="icofont-check"></i>View : <b>City View</b></li>
+                        <li><i class="icofont-check"></i>Max guest: <b>{{ $tourDetails[0]->noguest }}</b></li>
+                        <li><i class="icofont-check"></i>No. of Bed: <b>{{ $tourDetails[0]->nobed }}</b></li>
+                    </ul>
+                    <!-- /.tour details -->
+            </div>
+            <div class="col-6">
+                <h3 class="uikit-title my-1">Package Details</h3>
+                <ul class="my-1">
                     <li><i class="icofont-check"></i>{{ $tourDetails[0]->booking_package }}</li>
                 </ul>
-                <!-- /.package list -->
-                @if($tourDetails[0]->room_facilities)
-                <h3  class="uikit-title mb-1">Room Facilities</h3>
-                <!-- /. title -->
-                <ul class="my-2">
+                <!-- /.tour details -->
+                <h3 class="uikit-title my-1">Room Details</h3>
+                <ul class="my-1">
                     <li><i class="icofont-check"></i>{{ $tourDetails[0]->room_facilities }}</li>
                 </ul>
-                @endif
-                <!-- /. room facility list -->
-                <h3 class="uikit-title mb-1">Building Facilities</h3>
-                <!-- /.title -->
-                <ul class="my-2">
+            </div>
+            <div class="col-12 text-center">
+                <h3 class="uikit-title my-1">Building Facilities</h3>
+                <ul class="my-1">
                     <li><i class="icofont-check"></i>{{ $tourDetails[0]->building_facilities }}</li>
                 </ul>
-                <!-- /.building facility list -->
             </div>
-            <!-- /.col-divider -->
-            <div>
-                <div class="uk-card uk-card-default uk-card-body">
-                    <h3 class="uikit-title">
-                        <b>
-                        <span style="font-weight: 500px;color:#ff2f00;"> ₱ </span>
-                        <span style="font-size:18px; font-weight:200px;color:#ff2f00;">
-                            <span id=''>{{ $tourDetails[0]->price }}</span> / For {{ $tourDetails[0]->nonight }} Night
-                            <input id="plan_price_checkout" value="{{ floatval(str_replace(',', '', $tourDetails[0]->price)) }}" type="number" hidden>
-                        </span>
-                        </b>
-                    </h3>
-                    <!-- /.h3 title -->
-                   
-                    <div class="uikit-btn-book">
-                    @if(Auth::check())
-                        @auth
-                        <ul uk-accordion>
-                            <li>
-                                <a class="uk-button uk-button-small uk-accordion-title " href="javascript:void(0)">Book Now <span uk-icon="chevron-down"></span></a>
-                                <!-- /.bookbtn -->
-                                <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)"uk-toggle="target: #rooms-selected-{{$tourDetails[0]->id}}" >
-                                    <i class="fas fa-share" style="font-size: 13px;padding-right: 4px;color: #ffffff;"></i> Share
-                                </a>
-                                <!-- /.sharebtn -->
-                               
-                                <a class="heart-icon btn" href="javascript:void(0)" onclick="wishListToggle('{{ $tourDetails[0]->id }}')"> 
-                                    @if($wishList)
-                                    <i class="fas fa-heart toggle-heart" >
-                                    </i> 
-                                    @else
-                                    <i class="far fa-heart toggle-heart"></i> 
-                                    @endif
-                                </a>
-                                <br>  
-                                <div style="margin-top: 12px;">      
-                                <span style="font-size:12px; font-weight: 100px;"><span uk-icon="chevron-down"></span> 200 + Booked</span>
-                                <span style="font-size:12px; font-weight: 100px;"><span uk-icon="chevron-down"></span> No cancellation available</span>
-                                </div>
-                                <!-- mt-12 -->
-                                <div class="uk-accordion-content">    
-                                    <form class="uk-form-stacked" method="POST" action="{{ route('xxxx') }}">
-                                    @csrf
-                                    <div class="row row-margin">
-                                        <div class="col-md-5 form-group mt-3">
-                                            <label class="labelcoz">First Name</label>
-                                            <input type="text" class="uk-input" name="billing_first_name" id="fname" value="{{ Auth::user()->fname }}" readonly="readonly">
-                                            <div class="validate"></div>
-                                        </div>
-                                        <div class="col-md-5 form-group mt-3">
-                                            <label class="labelcoz">First Name</label>
-                                            <input type="text" class="uk-input" name="billing_last_name" id="lname" value="{{ Auth::user()->lname }}" readonly="readonly">
-                                            <div class="validate"></div>
-                                        </div>
+            <div class="col-12">
+                <div class="card-shadow mx-2">
+                    <div class="row g-0">
+                        <div class="col-12 text-center">
+                            <h3 class="mb-1">
+                                <b>
+                                <span style="font-weight: 500px;color:#ff2f00;"> ₱ </span>
+                                <span style="font-size:18px; font-weight:200px;color:#ff2f00;">
+                                    <span id=''>{{ $tourDetails[0]->price }}</span> / For {{ $tourDetails[0]->nonight }} Night
+                                    <input id="plan_price_checkout" value="{{ floatval(str_replace(',', '', $tourDetails[0]->price)) }}" type="number" hidden>
+                                </span>
+                                </b>
+                            </h3>
+                        </div>
+                        <div class="col-12 text-center">
+                            <ul uk-accordion>
+                                <li>
+                                    @if(Auth::check())
+                                     @auth
+                                    <a class="uk-button uk-button-small uk-accordion-title " href="javascript:void(0)">Book Now <span uk-icon="chevron-down"></span></a>
+                                    <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)"uk-toggle="target: #rooms-selected-{{$tourDetails[0]->id}}" >
+                                        <i class="fas fa-share" style="font-size: 13px;padding-right: 4px;color: #ffffff;"></i> Share
+                                    </a>
+                                    <a class="heart-icon btn" href="javascript:void(0)" onclick="wishListToggle('{{ $tourDetails[0]->id }}')"> 
+                                        @if($wishList)
+                                        <i class="fas fa-heart toggle-heart" >
+                                        </i> 
+                                        @else
+                                        <i class="far fa-heart toggle-heart"></i> 
+                                        @endif
+                                    </a>
+                                    <div class="uk-accordion-content">
+                                        <form class="uk-form-stacked" method="POST" action="{{ route('xxxx') }}">
+                                            @csrf
+                                            <div class="row row-margin">
+                                                <div class="col-md-5 form-group mt-3">
+                                                    <label class="labelcoz">First Name</label>
+                                                    <input type="text" class="uk-input" name="billing_first_name" id="fname" value="{{ Auth::user()->fname }}" readonly="readonly">
+                                                    <div class="validate"></div>
+                                                </div>
+                                                <div class="col-md-5 form-group mt-3">
+                                                    <label class="labelcoz">First Name</label>
+                                                    <input type="text" class="uk-input" name="billing_last_name" id="lname" value="{{ Auth::user()->lname }}" readonly="readonly">
+                                                    <div class="validate"></div>
+                                                </div>
 
-                                        <div class="col-md-2 form-group mt-3">
-                                            <label class="labelcoz">M.N</label>
-                                            <input type="text" class="uk-input" name="mname" id="mname" value="{{ Auth::user()->mname }}" readonly="readonly">
-                                            <div class="validate"></div>
-                                        </div>
+                                                <div class="col-md-2 form-group mt-3">
+                                                    <label class="labelcoz">M.N</label>
+                                                    <input type="text" class="uk-input" name="mname" id="mname" value="{{ Auth::user()->mname }}" readonly="readonly">
+                                                    <div class="validate"></div>
+                                                </div>
 
-                                        <div class="col-md-6 form-group mt-3">
-                                            <label class="labelcoz">Phone No.</label>
-                                            <input type="text" class="uk-input" name="billing_phone" id="pnumber" value="{{ Auth::user()->pnumber }}" readonly="readonly">
-                                            <div class="validate"></div>
-                                        </div>
+                                                <div class="col-md-6 form-group mt-3">
+                                                    <label class="labelcoz">Phone No.</label>
+                                                    <input type="text" class="uk-input" name="billing_phone" id="pnumber" value="{{ Auth::user()->pnumber }}" readonly="readonly">
+                                                    <div class="validate"></div>
+                                                </div>
 
-                                        <div class="col-md-6 form-group mt-3">
-                                            <label class="labelcoz">Email</label>
-                                            <input type="text" class="uk-input" name="billing_email" id="email" value="{{ Auth::user()->email }}" readonly="readonly">
-                                            <div class="validate"></div>
-                                        </div>
-                                        <div class="col-md-6 form-group mt-3">
-                                            <label class="labelcoz">Country</label>
-                                            @if(count($userCountry) >= 1)
-                                            <input type="text" class="uk-input" name="billing_country" id="billing_country" value="{{ $userCountry[0]->country }}" readonly="readonly">
-                                            @endif
-                                            <div class="validate"></div>
-                                        </div>
-                                        <div class="col-md-6 form-group mt-3">
-                                            <label class="labelcoz">Book Date</label>
-                                            <input type="datetime-local" class="uk-input" name="book_date" id="book_date" min="{{$curDate}}"  >
-                                            <div class="validate"></div>
-                                        </div>
-                                        <div class="col-md-12 form-group mt-3">
-                                            <label class="labelcoz">Address</label>
-                                            <input type="text" class="uk-input" name="billing_address_1" id="address" value="{{ Auth::user()->address }}" readonly="readonly">
-                                            <div class="validate"></div>
-                                        </div>
-                                        <div class="col-md-12 form-group mt-3">
-                                            <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
-                                                <label><input class="uk-radio" type="radio" name="payment-method" value="paypal" checked> Pay with PayPal</label>
-                                                <label><input class="uk-radio" type="radio" name="payment-method" value="traxion" checked> Pay with TraxionPay</label>
+                                                <div class="col-md-6 form-group mt-3">
+                                                    <label class="labelcoz">Email</label>
+                                                    <input type="text" class="uk-input" name="billing_email" id="email" value="{{ Auth::user()->email }}" readonly="readonly">
+                                                    <div class="validate"></div>
+                                                </div>
+                                                <div class="col-md-6 form-group mt-3">
+                                                    <label class="labelcoz">Country</label>
+                                                    @if(count($userCountry) >= 1)
+                                                    <input type="text" class="uk-input" name="billing_country" id="billing_country" value="{{ $userCountry[0]->country }}" readonly="readonly">
+                                                    @endif
+                                                    <div class="validate"></div>
+                                                </div>
+                                                <div class="col-md-6 form-group mt-3">
+                                                    <label class="labelcoz">Book Date</label>
+                                                    <input type="datetime-local" class="uk-input" name="book_date" id="book_date" min="{{$curDate}}"  >
+                                                    <div class="validate"></div>
+                                                </div>
+                                                <div class="col-md-12 form-group mt-3">
+                                                    <label class="labelcoz">Address</label>
+                                                    <input type="text" class="uk-input" name="billing_address_1" id="address" value="{{ Auth::user()->address }}" readonly="readonly">
+                                                    <div class="validate"></div>
+                                                </div>
+                                                <div class="col-md-12 form-group mt-3">
+                                                    <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+                                                        <label><input class="uk-radio" type="radio" name="payment-method" value="paypal" checked> Pay with PayPal</label>
+                                                        <label><input class="uk-radio" type="radio" name="payment-method" value="traxion" checked> Pay with TraxionPay</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 form-group mt-3">
+                                                    <button type="button" class="uk-button uk-button-primary" onClick="checkPaymentMethod()">Continue</button>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-12 form-group mt-3">
-                                            <button type="button" class="uk-button uk-button-primary" onClick="checkPaymentMethod()">Continue</button>
-                                        </div>
+                                        </form>
+                                            <!-- /.book form -->
                                     </div>
-                                    </form>
-                                    <!-- /.book form -->
-                                </div>
-                                <!-- /.accordion content -->
-                            </li>
-                        </ul>
-                        <!-- /. uk accordion -->
+                                     @endauth
+                                    @else 
+                                    <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)" uk-toggle="target: #login">
+                                        Book Now
+                                    </a>
+                                    <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)"uk-toggle="target: #rooms-selected-{{$tourDetails[0]->id}}" >
+                                        <i class="fas fa-share" style="font-size: 13px;padding-right: 4px;color: #ffffff;"></i> Share
+                                    </a>
+                                    <a class="heart-icon btn" href="javascript:void(0)"  uk-toggle="target: #checklogin"> 
+                                        <i class="far fa-heart toggle-heart"></i> 
+                                    </a>
+                                    @endif
+                               
+                                </li>
+                            </ul>
 
-                        @endauth
-                    @else 
-                    <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)" uk-toggle="target: #login">
-                        Book Now
-                    </a>
-                    <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)"uk-toggle="target: #rooms-selected-{{$tourDetails[0]->id}}" >
-                        <i class="fas fa-share"></i> Share
-                    </a>
-                    <a class="heart-icon btn" href="javascript:void(0)"  uk-toggle="target: #checklogin"> 
-                        <i class="far fa-heart toggle-heart"></i> 
-                    </a>
-                    @endif
+
+                        </div>
                     </div>
-                    <!-- /.btn book -->
                 </div>
-                <!-- /. card -->
-                @if($tourDetails[0]->roomdesc)
-                <h3>Hotel Information</h3>
-                <p>
-                    {{$tourDetails[0]->roomdesc }}
-                </p>
-                @endif
-
-                @if($tourDetails[0]->tour_expect)
-                <h3>Tour Information</h3>
-                <p>
-                    {{$tourDetails[0]->tour_expect }}
-                </p>
-                @endif
-
-                @if($tourDetails[0]->can_refu_policy)
-                <h3>Terms & Conditions</h3>
-                <p>
-                    {{$tourDetails[0]->can_refu_policy }}
-                </p>
-                @endif
             </div>
-            <!-- /.col-divider -->
         </div>
-        <!-- /. ukgrid -->
     </div>
-    <!-- /.container -->
 </section>
-<!-- /.section features -->
 
-@if($errors->any())
-<div class="alert alert-danger alert-dismissible fade show error-msg m-0" role="alert">
- <p class="m-0"> <strong>Ratings!</strong> is required</p>
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-@endif
 
 <section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500" id="reviews">
   <div class="container">
@@ -380,7 +382,7 @@ a.page-link {
           <a href="javascript:void(0)" uk-toggle="target: #checklogin" class="comment-btn uk-button uk-button-small">Submit</a>
 
           @endif
-          <legend class="uk-legend">Comments</legend>
+          <legend class="uk-legend px-2">Comments</legend>
         </fieldset>
         <!-- /.fieldset -->
       </form>
@@ -447,36 +449,6 @@ a.page-link {
 </section>
 <!-- /.section -->
 
-<div style="margin-top: 45px;"></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div id="rooms-selected-{{$tourDetails[0]->id}}" uk-modal class="uk-flex-top">
     <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
         <h2 class="uk-modal-title"></h2>
@@ -531,9 +503,12 @@ a.page-link {
     </div>
 </div>
 <!-- /. share modal -->
+
 @endsection
 
+
 @section('js')
+
 <script>
 const ratingStars=[...document.getElementsByClassName("rating__star-comment")];let ratingReview=0;function executeRating(t){const e=t.length;let a;t.map(n=>{n.onclick=(()=>{if(a=t.indexOf(n),"rating__star-comment far fa-star "===n.className)for(;a>=0;--a)t[a].className="rating__star-comment fas fa-star count-star";else for(;a<e;++a)t[a].className="rating__star-comment far fa-star ";ratingReview=$(".count-star").length;var r=$("#comment-textarea").val();$("#reviews-rating").val(parseInt(ratingReview)),ratingReview>=1||r.length>=1?$(".comment-btn").show(500):$(".comment-btn").hide(500)})})}function submitReview(){ratingReview>=1?$("#btn-review").click():$(".error-ratings").show()}executeRating(ratingStars),window.localStorage.removeItem("bookData");
 </script>
@@ -673,5 +648,11 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
     $.ajax();
   }
 </script>
-
 @endsection
+
+
+<script>
+function goToNextPage(url){
+    window.location.href=url;
+}
+</script>

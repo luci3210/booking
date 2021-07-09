@@ -13,6 +13,8 @@ use App\user\WishlistHotelsRoom;
 use App\Model\Admin\LocationCountyModel;
 use App\user\PageReviewsModel;
 use App\Model\Merchant\ProfileModel;
+use Jenssegers\Agent\Agent;
+
 class ServiceTourController extends Controller
 {
     //
@@ -34,6 +36,10 @@ class ServiceTourController extends Controller
         $profileData = $this->getProfileCompany($profileID);
 
         // return $tourDetails;
+        $Agent = new Agent();
+        if ($Agent->isMobile()) {
+        return view('tourismo.service_tour_mobile', compact(['tourPhotos', 'tourDetails','wishList','userCountry', 'reviewsData', 'profileData', 'curDate']));
+        }
         return view('tourismo.service_tour', compact(['tourPhotos', 'tourDetails','wishList','userCountry', 'reviewsData', 'profileData', 'curDate']));
     }
 
