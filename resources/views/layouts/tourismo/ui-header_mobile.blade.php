@@ -329,7 +329,7 @@
                                             <img class="mx-auto" src="{{ asset('image/destination/new/') }}" style="width:35px;">
                                         </div>
                                             <div class="text-center">
-                                                <p class="text-context">test</p>
+                                                <!-- <p class="text-context">test</p> -->
                                             </div>
                                     </a>
                                 </li>
