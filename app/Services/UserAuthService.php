@@ -36,6 +36,17 @@ Class UserAuthService extends SecurityServices{
 
     }
 
+    public function checkEmail(){
+
+        $userID = Auth::user()->id;
+        $userData = User::find($userID);
+        if(!$userData->email_verified_at){
+            return  false;
+        }
+        return true;
+
+    }
+
     public function registration($userData){
         $data['success'] = false;
         $data['message'] = [];

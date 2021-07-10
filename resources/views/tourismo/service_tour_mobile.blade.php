@@ -132,6 +132,20 @@ a.page-link {
 /* // Large devices (desktops/laptops, 992px and up) 175% */
 
 /* // fold devices (200px and up) */
+
+#sticky-bottom{
+  background: white;
+  
+  margin-bottom: 20px;
+}
+.stick-me{
+  z-index: 99;
+  position: fixed;
+  bottom: 10px;
+}
+.h-300{
+  height: 300px;
+}
 @media (min-width: 200px) { 
 
     #section-service{
@@ -235,120 +249,7 @@ a.page-link {
                     <li><i class="icofont-check"></i>{{ $tourDetails[0]->building_facilities }}</li>
                 </ul>
             </div>
-            <div class="col-12">
-                <div class="card-shadow mx-2">
-                    <div class="row g-0">
-                        <div class="col-12 text-center">
-                            <h3 class="mb-1">
-                                <b>
-                                <span style="font-weight: 500px;color:#ff2f00;"> ₱ </span>
-                                <span style="font-size:18px; font-weight:200px;color:#ff2f00;">
-                                    <span id=''>{{ $tourDetails[0]->price }}</span> / For {{ $tourDetails[0]->nonight }} Night
-                                    <input id="plan_price_checkout" value="{{ floatval(str_replace(',', '', $tourDetails[0]->price)) }}" type="number" hidden>
-                                </span>
-                                </b>
-                            </h3>
-                        </div>
-                        <div class="col-12 text-center">
-                            <ul uk-accordion>
-                                <li>
-                                    @if(Auth::check())
-                                     @auth
-                                    <a class="uk-button uk-button-small uk-accordion-title " href="javascript:void(0)">Book Now <span uk-icon="chevron-down"></span></a>
-                                    <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)"uk-toggle="target: #rooms-selected-{{$tourDetails[0]->id}}" >
-                                        <i class="fas fa-share" style="font-size: 13px;padding-right: 4px;color: #ffffff;"></i> Share
-                                    </a>
-                                    <a class="heart-icon btn" href="javascript:void(0)" onclick="wishListToggle('{{ $tourDetails[0]->id }}')"> 
-                                        @if($wishList)
-                                        <i class="fas fa-heart toggle-heart" >
-                                        </i> 
-                                        @else
-                                        <i class="far fa-heart toggle-heart"></i> 
-                                        @endif
-                                    </a>
-                                    <div class="uk-accordion-content">
-                                        <form class="uk-form-stacked" method="POST" action="{{ route('xxxx') }}">
-                                            @csrf
-                                            <div class="row row-margin">
-                                                <div class="col-md-5 form-group mt-3">
-                                                    <label class="labelcoz">First Name</label>
-                                                    <input type="text" class="uk-input" name="billing_first_name" id="fname" value="{{ Auth::user()->fname }}" readonly="readonly">
-                                                    <div class="validate"></div>
-                                                </div>
-                                                <div class="col-md-5 form-group mt-3">
-                                                    <label class="labelcoz">First Name</label>
-                                                    <input type="text" class="uk-input" name="billing_last_name" id="lname" value="{{ Auth::user()->lname }}" readonly="readonly">
-                                                    <div class="validate"></div>
-                                                </div>
-
-                                                <div class="col-md-2 form-group mt-3">
-                                                    <label class="labelcoz">M.N</label>
-                                                    <input type="text" class="uk-input" name="mname" id="mname" value="{{ Auth::user()->mname }}" readonly="readonly">
-                                                    <div class="validate"></div>
-                                                </div>
-
-                                                <div class="col-md-6 form-group mt-3">
-                                                    <label class="labelcoz">Phone No.</label>
-                                                    <input type="text" class="uk-input" name="billing_phone" id="pnumber" value="{{ Auth::user()->pnumber }}" readonly="readonly">
-                                                    <div class="validate"></div>
-                                                </div>
-
-                                                <div class="col-md-6 form-group mt-3">
-                                                    <label class="labelcoz">Email</label>
-                                                    <input type="text" class="uk-input" name="billing_email" id="email" value="{{ Auth::user()->email }}" readonly="readonly">
-                                                    <div class="validate"></div>
-                                                </div>
-                                                <div class="col-md-6 form-group mt-3">
-                                                    <label class="labelcoz">Country</label>
-                                                    @if(count($userCountry) >= 1)
-                                                    <input type="text" class="uk-input" name="billing_country" id="billing_country" value="{{ $userCountry[0]->country }}" readonly="readonly">
-                                                    @endif
-                                                    <div class="validate"></div>
-                                                </div>
-                                                <div class="col-md-6 form-group mt-3">
-                                                    <label class="labelcoz">Book Date</label>
-                                                    <input type="datetime-local" class="uk-input" name="book_date" id="book_date" min="{{$curDate}}"  >
-                                                    <div class="validate"></div>
-                                                </div>
-                                                <div class="col-md-12 form-group mt-3">
-                                                    <label class="labelcoz">Address</label>
-                                                    <input type="text" class="uk-input" name="billing_address_1" id="address" value="{{ Auth::user()->address }}" readonly="readonly">
-                                                    <div class="validate"></div>
-                                                </div>
-                                                <div class="col-md-12 form-group mt-3">
-                                                    <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
-                                                        <label><input class="uk-radio" type="radio" name="payment-method" value="paypal" checked> Pay with PayPal</label>
-                                                        <label><input class="uk-radio" type="radio" name="payment-method" value="traxion" checked> Pay with TraxionPay</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12 form-group mt-3">
-                                                    <button type="button" class="uk-button uk-button-primary" onClick="checkPaymentMethod()">Continue</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                            <!-- /.book form -->
-                                    </div>
-                                     @endauth
-                                    @else 
-                                    <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)" uk-toggle="target: #login">
-                                        Book Now
-                                    </a>
-                                    <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)"uk-toggle="target: #rooms-selected-{{$tourDetails[0]->id}}" >
-                                        <i class="fas fa-share" style="font-size: 13px;padding-right: 4px;color: #ffffff;"></i> Share
-                                    </a>
-                                    <a class="heart-icon btn" href="javascript:void(0)"  uk-toggle="target: #checklogin"> 
-                                        <i class="far fa-heart toggle-heart"></i> 
-                                    </a>
-                                    @endif
-                               
-                                </li>
-                            </ul>
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </div>
 </section>
@@ -454,6 +355,126 @@ a.page-link {
   <!-- /. container -->
 </section>
 <!-- /.section -->
+
+<section class="position-relative p-0" id="section-sticky">
+
+<div class="col-12 stick-me" id="sticky-bottom">
+      <div class="card-shadow mx-2">
+          <div class="row g-0">
+              <div class="col-12 text-center">
+                  <h3 class="mb-1">
+                      <b>
+                      <span style="font-weight: 500px;color:#ff2f00;"> ₱ </span>
+                      <span style="font-size:18px; font-weight:200px;color:#ff2f00;">
+                          <span id=''>{{ $tourDetails[0]->price }}</span> / For {{ $tourDetails[0]->nonight }} Night
+                          <input id="plan_price_checkout" value="{{ floatval(str_replace(',', '', $tourDetails[0]->price)) }}" type="number" hidden>
+                      </span>
+                      </b>
+                  </h3>
+              </div>
+              <div class="col-12 text-center">
+                  <ul uk-accordion>
+                      <li>
+                          @if(Auth::check())
+                            @auth
+                          <a class="uk-button uk-button-small uk-accordion-title " href="javascript:void(0)">Book Now <span uk-icon="chevron-down"></span></a>
+                          <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)"uk-toggle="target: #rooms-selected-{{$tourDetails[0]->id}}" >
+                              <i class="fas fa-share" style="font-size: 13px;padding-right: 4px;color: #ffffff;"></i> Share
+                          </a>
+                          <a class="heart-icon btn" href="javascript:void(0)" onclick="wishListToggle('{{ $tourDetails[0]->id }}')"> 
+                              @if($wishList)
+                              <i class="fas fa-heart toggle-heart" >
+                              </i> 
+                              @else
+                              <i class="far fa-heart toggle-heart"></i> 
+                              @endif
+                          </a>
+                          <div class="uk-accordion-content">
+                              <form class="uk-form-stacked" method="POST" action="{{ route('xxxx') }}">
+                                  @csrf
+                                  <div class="row ">
+                                    
+                                      <div class="form-group mt-3 col-5 text-start">
+                                          <label class="labelcoz ">First Name</label>
+                                          <input type="text" class="uk-input" name="billing_first_name" id="fname" value="{{ Auth::user()->fname }}" readonly="readonly">
+                                          <div class="validate"></div>
+                                      </div>
+                                      <div class="col-5 form-group mt-3 text-start">
+                                          <label class="labelcoz ">First Name</label>
+                                          <input type="text" class="uk-input" name="billing_last_name" id="lname" value="{{ Auth::user()->lname }}" readonly="readonly">
+                                          <div class="validate"></div>
+                                      </div>
+
+                                      <div class="col-2 form-group mt-3 text-start">
+                                          <label class="labelcoz">M.N</label>
+                                          <input type="text" class="uk-input" name="mname" id="mname" value="{{ Auth::user()->mname }}" readonly="readonly">
+                                          <div class="validate"></div>
+                                      </div>
+
+                                      <div class="col-6 form-group mt-3 text-start">
+                                          <label class="labelcoz">Phone No.</label>
+                                          <input type="text" class="uk-input" name="billing_phone" id="pnumber" value="{{ Auth::user()->pnumber }}" readonly="readonly">
+                                          <div class="validate"></div>
+                                      </div>
+
+                                      <div class="col-6 form-group mt-3 text-start">
+                                          <label class="labelcoz">Email</label>
+                                          <input type="text" class="uk-input" name="billing_email" id="email" value="{{ Auth::user()->email }}" readonly="readonly">
+                                          <div class="validate"></div>
+                                      </div>
+                                      <div class="col-6 form-group mt-3 text-start">
+                                          <label class="labelcoz">Country</label>
+                                          @if(count($userCountry) >= 1)
+                                          <input type="text" class="uk-input" name="billing_country" id="billing_country" value="{{ $userCountry[0]->country }}" readonly="readonly">
+                                          @endif
+                                          <div class="validate"></div>
+                                      </div>
+                                      <div class="col-6 form-group mt-3 text-start">
+                                          <label class="labelcoz">Book Date</label>
+                                          <input type="datetime-local" class="uk-input" name="book_date" id="book_date" min="{{$curDate}}"  >
+                                          <div class="validate"></div>
+                                      </div>
+                                      <div class="col-12 form-group mt-3 text-start">
+                                          <label class="labelcoz">Address</label>
+                                          <input type="text" class="uk-input" name="billing_address_1" id="address" value="{{ Auth::user()->address }}" readonly="readonly">
+                                          <div class="validate"></div>
+                                      </div>
+                                      <div class="col-12 form-group mt-3 text-start">
+                                          <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+                                              <label><input class="uk-radio" type="radio" name="payment-method" value="paypal" checked> Pay with PayPal</label>
+                                              <label><input class="uk-radio" type="radio" name="payment-method" value="traxion" checked> Pay with TraxionPay</label>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-12 form-group mt-3">
+                                          <button type="button" class="uk-button uk-button-primary" onClick="checkPaymentMethod()">Continue</button>
+                                      </div>
+                                  </div>
+                              </form>
+                                  <!-- /.book form -->
+                          </div>
+                            @endauth
+                          @else 
+                          <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)" uk-toggle="target: #login">
+                              Book Now
+                          </a>
+                          <a class="uk-button uk-button-small btn-room-details-m" href="javascript:void(0)"uk-toggle="target: #rooms-selected-{{$tourDetails[0]->id}}" >
+                              <i class="fas fa-share" style="font-size: 13px;padding-right: 4px;color: #ffffff;"></i> Share
+                          </a>
+                          <a class="heart-icon btn" href="javascript:void(0)"  uk-toggle="target: #checklogin"> 
+                              <i class="far fa-heart toggle-heart"></i> 
+                          </a>
+                          @endif
+                      
+                      </li>
+                  </ul>
+
+
+              </div>
+          </div>
+      </div>
+  </div>
+
+</section>
 
 <div id="rooms-selected-{{$tourDetails[0]->id}}" uk-modal class="uk-flex-top">
     <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
@@ -649,10 +670,33 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
       },
       fail:function(jqXHR, textStatus) {
         console.log( "Request failed: xxxx" + textStatus );
+      },
+      error:function(data){
+        swal({
+          text: `${data.responseText}`,
+          icon:"error"
+        });
       }
+      
     });
     $.ajax();
   }
+</script>
+
+<script>
+  $(window).on('scroll', function() {
+      if($(window).scrollTop() >= $('#main').offset().top + $('#main').outerHeight() - window.innerHeight) {
+        $('#sticky-bottom').removeClass('stick-me');
+        $('#section-sticky').removeClass('h-300');
+        
+        
+      }else{
+        $('#sticky-bottom').addClass('stick-me');
+        $('#section-sticky').addClass('h-300');
+
+
+      }
+    });
 </script>
 @endsection
 

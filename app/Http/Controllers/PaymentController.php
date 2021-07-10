@@ -115,125 +115,130 @@ class PaymentController extends Controller
     }
 
 	function pay_booking(Request $req) {
-        // $data['errors'] = null;
-        // $data['success'] = null;
-        // $data['info'] = null;
+        try {
+            // $data['errors'] = null;
+            // $data['success'] = null;
+            // $data['info'] = null;
+            
+            $paymentInfo = $req->post();
+            $data['post'] =  $paymentInfo;
+            $credentials = $this->creds();
+
+            $secret_key = $credentials->private_key;
+            $public_key = $credentials->public_key;
+
+            // $secret_key = $this->generateToken();
+            // $public_key = '@ik2-#n)3yyxqa_g5t-sy)qbsl0)eu(_6-weu=v^aa)%$x!ll5';
+            $merchant_id = "8529";
+            
         
-        $paymentInfo = $req->post();
-        $data['post'] =  $paymentInfo;
-        $credentials = $this->creds();
+            $dataToHash = "5a8c12eb19016500.00PHPMy Product";
+            $secure_hash = hash_hmac('sha256', $dataToHash, $secret_key, false);
+            $auth_hash = hash_hmac('sha256', $public_key, $secret_key, false);
+            $paymentService = new PaymentService();
+            $extraData = $paymentService->SavePayment($req->uid,'pending',$req->book_date);
+            // $bookDetails['name'] = $req->billing_plan_name;
+            // $bookDetails['desc'] = $req->desc;
+            // $bookDetails['expect'] = $req->expect;
+            // $bookDetails['noguest'] = $req->noguest;
+            // $bookDetailsss = array(
+            //     'name'=> $req->billing_plan_name,
+            //     'desc'=>$req->desc,
+            //     'expect'=>$req->expect,
+            //     'noguest'=>$req->noguest,
+            // );
+            $bookDetailsss['uid'] = $req->uid;
+            $bookDetailsss = base64_encode(json_encode($bookDetailsss));
+            $data['bookdetails'] = $bookDetailsss;
+            $data['extraData'] = $extraData;
 
-        $secret_key = $credentials->private_key;
-        $public_key = $credentials->public_key;
+            // return $extraData;
 
-        // $secret_key = $this->generateToken();
-        // $public_key = '@ik2-#n)3yyxqa_g5t-sy)qbsl0)eu(_6-weu=v^aa)%$x!ll5';
-        $merchant_id = "8529";
-        
-    
-        $dataToHash = "5a8c12eb19016500.00PHPMy Product";
-        $secure_hash = hash_hmac('sha256', $dataToHash, $secret_key, false);
-        $auth_hash = hash_hmac('sha256', $public_key, $secret_key, false);
-        $paymentService = new PaymentService();
-        $extraData = $paymentService->SavePayment($req->uid,'pending',$req->book_date);
-        // $bookDetails['name'] = $req->billing_plan_name;
-        // $bookDetails['desc'] = $req->desc;
-        // $bookDetails['expect'] = $req->expect;
-        // $bookDetails['noguest'] = $req->noguest;
-        // $bookDetailsss = array(
-        //     'name'=> $req->billing_plan_name,
-        //     'desc'=>$req->desc,
-        //     'expect'=>$req->expect,
-        //     'noguest'=>$req->noguest,
-        // );
-        $bookDetailsss['uid'] = $req->uid;
-        $bookDetailsss = base64_encode(json_encode($bookDetailsss));
-        $data['bookdetails'] = $bookDetailsss;
-        $data['extraData'] = $extraData;
+            
+            $customer_array = array (
+                'merchant_id' => $merchant_id,
+                'merchant_ref_no' => '5a8c12eb19016',
+                'merchant_additional_data' => 'Additional Data',
+                'amount' => $req->billing_price,
+                'currency' => 'PHP',
+                'description' => $req->billing_plan_name,
+                'billing_email' => $req->billing_email,
+                'billing_first_name' => $req->billing_first_name,
+                'billing_last_name' => $req->billing_last_name,
+                'billing_middle_name' => "N/A",
+                'billing_phone' => $req->billing_phone,
+                'billing_mobile' => $req->billing_phone,
+                'billing_address' => $req->billing_address_1,
+                'billing_address2' => "None",
+                "billing_address2" => "N/A",
+                "billing_city" => "N/A",
+                "billing_state" => "N/A",
+                "billing_zip" => "N/A",
+                "billing_country" => $req->billing_country,
+                "billing_remark" => "N/A",
+                "payment_method" => "",
+                // 'status_notification_url' => 'https://6342a334.ngrok.io/callback',
+                    
+                // 'status_notification_url' => 'https://booking.tourismo.ph/api/payment/status/callback?extra='.$extraData,
+                // 'status_notification_url' => 'https://5cd521835102.ngrok.io/booking/public/api/payment/status/callback?extra='.$extraData.'&details='.$req->proid,
+                'status_notification_url' => 'https://87339769cc6b.ngrok.io/booking/public/api/payment/status/callback?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData,
+                'success_page_url' => $req->url_callback.'?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData.'&payment=success&',
+                'failure_page_url' => $req->url_callback.'?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData.'&payment=failed&',
+                'cancel_page_url' => $req->url_callback.'?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData.'&payment=cancel&',
+                'pending_page_url' => $req->url_callback.'?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData.'&payment=pending&',
 
-        // return $extraData;
+                // 'success_page_url' => 'https://booking.etourismo.com/listing-checkout/?payment=success&',
+                // 'failure_page_url' => 'https://booking.etourismo.com/payment-failed/',
+                // 'cancel_page_url' => 'https://booking.etourismo.com/listing-checkout/?payment=cancel&',
+                // 'pending_page_url' => 'https://booking.etourismo.com/listing-checkout/?payment=pending&',
+                'secure_hash' => $secure_hash,
+                'auth_hash' => $auth_hash,
+                'alg' => 'HS256',
+            );
+            // $payform_data = json_encode($raw_payform, JSON_UNESCAPED_SLASHES);
+            // $decoded = utf8_decode(base64_encode(utf8_encode($payform_data)));
 
-        
-        $customer_array = array (
-            'merchant_id' => $merchant_id,
-            'merchant_ref_no' => '5a8c12eb19016',
-            'merchant_additional_data' => 'Additional Data',
-            'amount' => $req->billing_price,
-            'currency' => 'PHP',
-            'description' => $req->billing_plan_name,
-            'billing_email' => $req->billing_email,
-            'billing_first_name' => $req->billing_first_name,
-            'billing_last_name' => $req->billing_last_name,
-            'billing_middle_name' => "N/A",
-            'billing_phone' => $req->billing_phone,
-            'billing_mobile' => $req->billing_phone,
-            'billing_address' => $req->billing_address_1,
-            'billing_address2' => "None",
-            "billing_address2" => "N/A",
-            "billing_city" => "N/A",
-            "billing_state" => "N/A",
-            "billing_zip" => "N/A",
-            "billing_country" => $req->billing_country,
-            "billing_remark" => "N/A",
-            "payment_method" => "",
-            // 'status_notification_url' => 'https://6342a334.ngrok.io/callback',
-                
-            // 'status_notification_url' => 'https://booking.tourismo.ph/api/payment/status/callback?extra='.$extraData,
-            // 'status_notification_url' => 'https://5cd521835102.ngrok.io/booking/public/api/payment/status/callback?extra='.$extraData.'&details='.$req->proid,
-            'status_notification_url' => 'https://87339769cc6b.ngrok.io/booking/public/api/payment/status/callback?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData,
-            'success_page_url' => $req->url_callback.'?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData.'&payment=success&',
-            'failure_page_url' => $req->url_callback.'?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData.'&payment=failed&',
-            'cancel_page_url' => $req->url_callback.'?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData.'&payment=cancel&',
-            'pending_page_url' => $req->url_callback.'?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData.'&payment=pending&',
+            $billing_json = json_encode($customer_array, JSON_UNESCAPED_SLASHES);
+            // $data['form_data'] = base64_encode($billing_json);
+            $paymentInfo['form_data'] = utf8_decode(base64_encode(utf8_encode($billing_json)));
+            $data['decodedform'] = $paymentInfo;
+            // $paymentInfo['form_data'] = base64_encode($billing_json);
 
-            // 'success_page_url' => 'https://booking.etourismo.com/listing-checkout/?payment=success&',
-            // 'failure_page_url' => 'https://booking.etourismo.com/payment-failed/',
-            // 'cancel_page_url' => 'https://booking.etourismo.com/listing-checkout/?payment=cancel&',
-            // 'pending_page_url' => 'https://booking.etourismo.com/listing-checkout/?payment=pending&',
-            'secure_hash' => $secure_hash,
-            'auth_hash' => $auth_hash,
-            'alg' => 'HS256',
-        );
-        // $payform_data = json_encode($raw_payform, JSON_UNESCAPED_SLASHES);
-        // $decoded = utf8_decode(base64_encode(utf8_encode($payform_data)));
-
-        $billing_json = json_encode($customer_array, JSON_UNESCAPED_SLASHES);
-        // $data['form_data'] = base64_encode($billing_json);
-        $paymentInfo['form_data'] = utf8_decode(base64_encode(utf8_encode($billing_json)));
-        $data['decodedform'] = $paymentInfo;
-        // $paymentInfo['form_data'] = base64_encode($billing_json);
-
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-        CURLOPT_URL => "https://api.traxionpay.com/payform-link?format=json",
-            // CURLOPT_URL => "https://devapi.traxionpay.com/payform",
-        CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => $paymentInfo,
-            CURLOPT_HTTPHEADER => array(
-                "cache-control: no-cache",
-                "content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW"
-            ),
-        ));
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api.traxionpay.com/payform-link?format=json",
+                // CURLOPT_URL => "https://devapi.traxionpay.com/payform",
+            CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS => $paymentInfo,
+                CURLOPT_HTTPHEADER => array(
+                    "cache-control: no-cache",
+                    "content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW"
+                ),
+            ));
 
 
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
 
-        curl_close($curl);
-        
-        $dataresp;
-        if ($err) {
-            echo "cURL Error #:" . $err;
-        } else {
-            $dataresp = json_decode($response);
+            curl_close($curl);
+            
+            $dataresp;
+            if ($err) {
+                echo "cURL Error #:" . $err;
+            } else {
+                $dataresp = json_decode($response);
+            }
+            $data['dataresp'] = $dataresp;
+            return $data;
+        } catch (\Exception $exception) {
+            return $exception->getMessage();
         }
-        $data['dataresp'] = $dataresp;
-        return $data;
+        return 'no';
     }
 
     

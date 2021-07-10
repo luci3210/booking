@@ -3,11 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
-
-
 use App\Services\UserAuthService;
 
-class CheckUserData
+class CheckEmailVerified
 {
     /**
      * Handle an incoming request.
@@ -18,14 +16,12 @@ class CheckUserData
      */
     public function handle($request, Closure $next)
     {
+
         $userService = new UserAuthService();
-        $data = $userService->checkUserFields();
+        $data = $userService->checkEmail();
         if($data){
             return $next($request);
         }
-        return response("Fill up your profile data", 403);
-        // abort(403, 'Access denied');
-        // abort( response()->json('Unauthorized ', 403) );
-
+        return response("Please Verify Your Email", 403);
     }
 }

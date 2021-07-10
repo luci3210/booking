@@ -659,15 +659,21 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
       },
       method:"post",
       data:datam,
-      success: async function(data)
+      success: function(data)
       {
         let paymenyLink = data['dataresp']['form_link']
         window.open(paymenyLink);
         console.log(paymenyLink);
-        console.log(data);
+        // console.log(data);
       },
-      fail:function(jqXHR, textStatus) {
-        console.log( "Request failed: xxxx" + textStatus );
+      fail:function(jqXHR) {
+        console.log( "Request failed: xxxx" + jqXHR );
+      },
+      error:function(data){
+        swal({
+        text: `${data.responseText}`,
+        icon:"error"
+      });
       }
     });
     $.ajax();
