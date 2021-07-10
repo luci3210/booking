@@ -266,8 +266,7 @@
 
 <div class="row  g-0">
     <div class="col-12" id="bg-header">
-        @if (Route::has('login'))
-
+        @if (Auth::check())
         @auth
         <div class="d-flex w100">
         <div class="position-relative">
@@ -277,17 +276,18 @@
                 <li class=""><a href="{{ route('myhome') }}" class="text-dark">Home</a></li>
                 <li><a href="#" class="text-dark"><i class="fas fa-mobile-alt"></i> <b>Download App</b></a></li>
                 <li><a href="{{ route('other-plan') }}" class="text-dark"><i class="far fa-building"></i> <b>Merchant</b></a></li>
+                <li><a href="{{ route('accnt_profile') }}" class="text-dark"><i class="far fa-building"></i> <b>profile</b></a></li>
                 <li class="uk-nav-divider"></li>
                 <li><a href="{{ route('merchant_logout') }}" class="text-dark"><i class="fas fa-sign-out-alt"></i> Signout</a></li>
             </ul>
         </div>
         </div>
-        <a href="{{ route('accnt_profile') }}" class="profile-icon" ><i class="fas fa-user-circle icon-profile"></i></a>
-        </div>
             <img class="mx-auto py-3" src="{{ asset('image/logo/logoabv2.png') }}">
         </div>
+
         @endauth
 
+        @else
         <div class="d-flex w100">
         <div class="position-relative">
         <a type="button" class="profile-icon" ><i class="fas fa-user-circle icon-profile"></i></a>
@@ -295,7 +295,6 @@
             <ul class="uk-nav uk-dropdown-nav">
                 <li class=""><a href="{{ route('myhome') }}" class="text-dark">Home</a></li>
                 <li><a href="#" class="text-dark"><i class="fas fa-mobile-alt"></i> <b>Download App</b></a></li>
-                <li><a href="{{ route('other-plan') }}" class="text-dark"><i class="far fa-building"></i> <b>Merchant</b></a></li>
                 <li class="uk-nav-divider"></li>
                 <li><a href="#register" uk-toggle class="text-dark">Register</a></li>
                 <li><a href="#login" uk-toggle class="text-dark">Login</a></li>
@@ -305,16 +304,6 @@
             <img class="mx-auto py-3" src="{{ asset('image/logo/logoabv2.png') }}">
         </div>
 
-        
-
-        @else
-
-        <div class="d-flex w100">
-        <div class="position-relative">
-        <a href="{{ route('accnt_profile') }}" class="profile-icon" ><i class="fas fa-user-circle icon-profile"></i></a>
-        </div>
-            <img class="mx-auto py-3" src="{{ asset('image/logo/logoabv2.png') }}">
-        </div>
 
         @endif
         <div class="position-relative">
@@ -334,7 +323,16 @@
                     <div class="col-12">
                         <div class="mobile-nav-icon">
                             <ul class="ul-no-style">
-                             
+                                <li class="li-icons img-icon">
+                                    <a class="link-secondary" href="#">
+                                        <div class="text-center">
+                                            <img class="mx-auto" src="{{ asset('image/destination/new/') }}" style="width:35px;">
+                                        </div>
+                                            <div class="text-center">
+                                                <!-- <p class="text-context">test</p> -->
+                                            </div>
+                                    </a>
+                                </li>
 
                             </ul>
 
