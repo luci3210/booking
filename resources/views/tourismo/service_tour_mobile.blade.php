@@ -137,6 +137,12 @@ a.page-link {
     #section-service{
         margin-top: -60px;
     }
+    #plan_name_checkout{
+        font-size: 1.5rem;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+    
 }
 /* // xs devices (320px and up) */
 @media (min-width: 320px) { 
