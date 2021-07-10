@@ -14,10 +14,21 @@ use App\user\WishlistHotelsRoom;
 use App\Model\Admin\LocationCountyModel;
 use App\user\PageReviewsModel;
 use App\Model\Merchant\ProfileModel;
+use App\User;
 
 
 
 Class ServiceTour extends SecurityServices{
+
+
+    public function checkUserFields(){
+
+        $userID = Auth::user()->id;
+
+        $userData = User::find($userID);
+        return $userData;
+
+    }
 
 
     public function getTours($service, $limit, $offset)

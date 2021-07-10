@@ -17,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 
+// testing
+Route::get('/check/me/', 'PaymentController@getUser')->middleware('checkUserData');
+
+
 // email verfication
 Auth::routes(['verify'=>true]);
 
@@ -63,7 +67,7 @@ Route::get('/tour-package/{id}', 'Tourismo\TourPackageController@index')->name('
 Route::get('/service-tour/explore/{id}', 'Tourismo\ServiceTourController@index')->name('service_tour_view');
 
 Route::POST('/wishlist/toggle', 'user\WishListController@toggle_wishlist')->name('toggle_wishlist');
-Route::POST('payment/hotels/xxxx', 'PaymentController@pay_booking')->name('pay2');
+Route::POST('payment/hotels/xxxx', 'PaymentController@pay_booking')->name('pay2')->middleware('checkUserData');
 Route::get('/tourismoph/hotel/{id}', 'Tourismo\HomeController@hotel_details')->name('tourismo-hotel-details');
 
 Route::get('/invoice/download','user\TraxionApiController@invoice_copy')->name('invoice_payment');

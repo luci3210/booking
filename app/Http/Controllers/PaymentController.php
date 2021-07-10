@@ -10,9 +10,17 @@ use Illuminate\Http\Request;
 use App\user\StatusPaymentModel;
 use App\user\PaymentModel;
 use App\Services\PaymentService;
+use App\Services\UserAuthService;
+
 
 class PaymentController extends Controller
 {
+
+    public function getUser(Request $req)
+    {
+
+        return 'helloo';
+    }
     public function __construct() {
         $this->middleware('auth:web');
 	}

@@ -9,8 +9,32 @@ use App\Model\Merchant\UserModel;
 use App\Http\Requests\user\CreateUserRequest;
 use App\Services\SecurityServices;
 
+use Illuminate\Support\Facades\Auth;
+use App\User;
+
+
 
 Class UserAuthService extends SecurityServices{
+
+    public function checkUserFields(){
+
+        $userID = Auth::user()->id;
+        $userData = User::find($userID);
+        if(!$userData->fname 
+        || !$userData->lname
+        || !$userData->mname
+        || !$userData->gender
+        || !$userData->country
+        || !$userData->pnumber
+        || !$userData->address
+        || !$userData->bdate
+        ){
+            return  false;
+
+        }
+        return true;
+
+    }
 
     public function registration($userData){
         $data['success'] = false;
