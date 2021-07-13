@@ -110,10 +110,10 @@
       </a>
     </div>
 
-      <div class="col-md-3 form-group mt-3">
-    <label class="labelcoz"><span class="uk-text-danger">*</span> Birthdate</label>
-    <input type="date" class="uk-input" name="bdate" id="bdate" value="{{ $data['data']['account'][0]->bdate }}" placeholder="Birthdate">
-          <div class="validate uk-text-danger uk-text-small">{{ $errors->has('bdate') ?  $errors->first('bdate') : '' }}</div>
+    <div class="col-md-3 form-group mt-3">
+      <label class="labelcoz"><span class="uk-text-danger">*</span> Birthdate</label>
+      <input type="date" class="uk-input" name="bdate" id="bdate" value="{{ $data['data']['account'][0]->bdate }}" placeholder="Birthdate">
+      <div class="validate uk-text-danger uk-text-small">{{ $errors->has('bdate') ?  $errors->first('bdate') : '' }}</div>
     </div>
   
 

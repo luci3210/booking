@@ -21,6 +21,7 @@ use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Validator;
 
+use Jenssegers\Agent\Agent;
 
 class AccountController extends Controller
 {
@@ -47,7 +48,13 @@ class AccountController extends Controller
 
     $data['data']['account'] = $account;
     $data['data']['country'] = $country;
-    return view('tourismo.account.user',compact("data"));
+    $Agent = new Agent();
+        if ($Agent->isMobile()) {
+            return view('tourismo.account.mobile.user_mobile',compact("data"));
+        }else{
+            return view('tourismo.account.user',compact("data"));
+        }
+    return 'something went wrong';
  }
 
  public function change_profile_pic(Request $req){

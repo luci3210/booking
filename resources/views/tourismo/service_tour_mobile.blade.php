@@ -141,7 +141,7 @@ a.page-link {
 .stick-me{
   z-index: 99;
   position: fixed;
-  bottom: 10px;
+  bottom: -15px;
 }
 .h-300{
   height: 300px;

@@ -23,7 +23,7 @@ Class UserAuthService extends SecurityServices{
         if(!$userData->fname 
         || !$userData->lname
         || !$userData->mname
-        || !$userData->gender
+        // || !$userData->gender
         || !$userData->country
         || !$userData->pnumber
         || !$userData->address
