@@ -136,7 +136,7 @@ class PaymentController extends Controller
             $secure_hash = hash_hmac('sha256', $dataToHash, $secret_key, false);
             $auth_hash = hash_hmac('sha256', $public_key, $secret_key, false);
             $paymentService = new PaymentService();
-            $extraData = $paymentService->SavePayment($req->uid,'pending',$req->book_date);
+            $extraData = $paymentService->SavePayment($req->uid,'pending',$req->book_date, $req->book_date_to, $req->billing_price);
             // $bookDetails['name'] = $req->billing_plan_name;
             // $bookDetails['desc'] = $req->desc;
             // $bookDetails['expect'] = $req->expect;

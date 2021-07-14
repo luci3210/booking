@@ -108,7 +108,7 @@
             </div>
         </div>
         <!-- bdate -->
-        <div class="d-grid gap-2 col-6 mx-auto mt-3">
+        <div class="d-grid gap-2 col-8 mx-auto mt-3">
         <button class="btn btn-primary btn-color" type="submit">Update</button>
         </div>
      </form>

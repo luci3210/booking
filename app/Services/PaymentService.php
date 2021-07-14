@@ -17,26 +17,25 @@ use App\Model\Merchant\HotelModel;
 
 Class PaymentService extends SecurityServices{
 
-    public function SavePayment($id,$pmStatus,$bookdate)
+    public function SavePayment($id,$pmStatus,$from,$to,$amount)
     {
         try {
             $user = Auth::user();
             $data['pm_user_id'] = $user->id;
-            // $data['email'] = Auth::user()->email;
-            // $data['user_number'] = Auth::user()->pnumber;
-            // $data['user_fname'] = Auth::user()->fname;
-            // $data['user_lname'] = Auth::user()->lname;
-            // $data['pm_page_name'] = $this->clean_input($pagename);
             $data['pm_page_id'] = $this->clean_input((int)$id);
             $data['pm_payment_status'] = $this->clean_input($pmStatus);
-            $data['pm_book_date'] = $bookdate;
+            $data['pm_book_date'] = $from;
+            $data['pm_book_date_to'] = $to;
+            $data['pm_book_amount'] = $amount;
             $data['pm_created_at'] = $this->getDatetimeNow();
             $data['pm_id'] = PaymentModel::insertGetId($data); // save
             $data['user_email'] = $user->email;
             $data['user_number'] = $user->pnumber;
             $data['user_fname'] = $user->fname;
             $data['user_lname'] = $user->lname;
-            $data['pm_book_date'] = strtotime($bookdate);
+            $data['pm_created_at'] = null;
+            $data['pm_book_date'] = strtotime($from);
+            $data['pm_book_date_to'] = strtotime($to);
 
             // $bookdate = '2025-09-23 14:44:00';
             // date("Y-m-d H:i:s", 1624084625);
