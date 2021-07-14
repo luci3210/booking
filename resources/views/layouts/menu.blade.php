@@ -143,6 +143,15 @@
 </li>
 
 
+<li class="nav-item">
+  <a href="{{ route('manage_bank',$url) }}" class="nav-link">
+    <i class="nav-icon fas fa-university" aria-hidden=true></i>
+      <p>
+        Manage Bank  
+      </p>
+  </a>
+</li>
+
 
 
 <li class="nav-item">

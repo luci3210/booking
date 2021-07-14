@@ -465,7 +465,15 @@ Route::post(
     #posting-request
     Route::get('/get_request/{url}/','Admin\PostRequestController@index')->name('get_posting_request');  
     Route::get('/{id}/view_request/{url}/','Admin\PostRequestController@posting_check')->name('view_posting');  
-    Route::post('/{id}/update_request/{url}/','Admin\PostRequestController@update_posting_status')->name('update_posting');  
+    Route::post('/{id}/update_request/{url}/','Admin\PostRequestController@update_posting_status')->name('update_posting'); 
+
+    #manage bank
+    Route::get('/manage_bank/{url}/','Admin\ManageBankController@index')->name('manage_bank'); 
+    Route::post('/manage_bank/create/{url}/','Admin\ManageBankController@create')->name('bank_create'); 
+    Route::get('/manage_bank/edit/{id}/{url}/','Admin\ManageBankController@edit')->name('bank_edit'); 
+    Route::post('/manage_bank/update/{id}/{url}/','Admin\ManageBankController@update')->name('bank_update'); 
+    Route::get('/manage_bank/delete/{id}/','Admin\ManageBankController@deleted')->name('bank_deleted'); 
+
 
 
 });
