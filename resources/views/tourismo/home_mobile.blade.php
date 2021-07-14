@@ -13,14 +13,13 @@
     padding-bottom: 10px;
     position: relative;
 }
-.shadow{
-    border: 1px solid #dbd9d9;
+.shadow-cards{
     border-radius: 4px;
     margin: .5rem .5rem;
-    box-shadow: 1px 7px 8px -5px rgba(0,0,0,0.49)!important;
-    -webkit-box-shadow: 1px 7px 8px -5px rgba(0,0,0,0.49)!important;
-    -moz-box-shadow: 1px 7px 8px -5px rgba(0,0,0,0.49)!important;
-    border-radius: 10px!important;
+    border-radius: 10px;
+    box-shadow: 0px 5px 5px 0px rgba(90,90,90,0.5);
+    -webkit-box-shadow: 0px 5px 5px 0px rgba(90,90,90,0.5);
+    -moz-box-shadow: 0px 5px 5px 0px rgba(90,90,90,0.5);
 }
 .elips{
     white-space: nowrap;
@@ -61,7 +60,7 @@
     .badge-floats{
         position: absolute;
         left: 5px;
-        top: 28vh;
+        top: 12.5rem;
         width: 5rem;
     }
 
@@ -89,7 +88,7 @@
     .badge-floats{
         position: absolute;
         left: 5px;
-        top: 29vh;
+        top: 12.5rem;
         width: 5rem;
     }
     
@@ -117,7 +116,7 @@
     .badge-floats{
         position: absolute;
         left: 5px;
-        top: 28vh;
+        top: 12.5rem;
         width: 5rem;
     }
     
@@ -146,7 +145,7 @@
     .badge-floats{
         position: absolute;
         left: 5px;
-        top: 19vh;
+        top: 12.5rem;
         width: 5rem;
     }
     
@@ -173,7 +172,7 @@
                         <ul class="uk-slider-items uk-child-width-1-2 ">
                             @foreach($exclusive_packages as $list)
                             <li onclick="goToNextPage('{{ route('service_tour_view', $list->upload_id) }}')">
-                                <div class=" shadow">
+                                <div class=" shadow-cards">
                                     <div class="uk-card-media-top">
                                         <div style="width: 100%; 
                                         background-size: cover;
@@ -213,7 +212,7 @@
                         <ul class="uk-slider-items uk-child-width-1-2 ">
                             @foreach($destination as $list)
                             <li>
-                                <div class=" shadow">
+                                <div class=" shadow-cards">
                                     <div class="uk-card-media-top">
                                         <div style="width: 100%; 
                                         background-size: cover;
@@ -257,7 +256,7 @@
                         <ul class="uk-slider-items uk-child-width-1-2 ">
                             @foreach($international as $list)
                             <li>
-                                <div class=" shadow">
+                                <div class=" shadow-cards">
                                     <div class="uk-card-media-top">
                                         <div style="width: 100%; 
                                         background-size: cover;
@@ -298,7 +297,7 @@
                         <ul class="uk-slider-items uk-child-width-1-2 ">
                             @foreach($hotel_packages as $list)
                             <li onclick="goToNextPage('{{ route('service_tour_view', $list->upload_id) }}')">
-                                <div class=" shadow">
+                                <div class=" shadow-cards">
                                     <div class="uk-card-media-top">
                                         <div style="width: 100%; 
                                         background-size: cover;
@@ -339,7 +338,7 @@
                         <ul class="uk-slider-items uk-child-width-1-2 ">
                             @foreach($tour_packages as $list)
                             <li onclick="goToNextPage('{{ route('service_tour_view', $list->upload_id) }}')">
-                                <div class=" shadow">
+                                <div class=" shadow-cards">
                                     <div class="uk-card-media-top">
                                         <div style="width: 100%; 
                                         background-size: cover;
