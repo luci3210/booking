@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Jenssegers\Agent\Agent;
 
 //use Illuminate\Support\Facades\Auth;
 
@@ -30,8 +31,13 @@ class ServicesController extends Controller
             abort(404,'404 Error - the requested page does not exist.');
         
         } else {
+            $Agent = new Agent();
+            if ($Agent->isMobile()) {
+                return view('tourismo.services.index_mobile',compact('data'));
+            }else{
+                return view('tourismo.services.index',compact('data'));
+            }
 
-            return view('tourismo.services.index',compact('data'));
         
         }
         

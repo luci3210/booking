@@ -306,7 +306,7 @@
 
 
         @endif
-        <div class="position-relative">
+       <!-- <div class="position-relative">
             <div class="nav-mobile-boxshadow">
                 <div id="card-point">
                     <div class="row g-0">
@@ -319,8 +319,8 @@
                     <div class="w-100 col-12 px-2">
                         <hr  class="uk-nav-divider" />
                     </div>
-                    <!-- /.divider -->
-                    <div class="col-12">
+                     /.divider -->
+                   <!-- <div class="col-12">
                         <div class="mobile-nav-icon">
                             <ul class="ul-no-style">
                                 <li class="li-icons img-icon">
@@ -329,7 +329,7 @@
                                             <img class="mx-auto" src="{{ asset('image/destination/new/') }}" style="width:35px;">
                                         </div>
                                             <div class="text-center">
-                                                <!-- <p class="text-context">test</p> -->
+                                                 <p class="text-context">test</p>
                                             </div>
                                     </a>
                                 </li>
@@ -342,15 +342,16 @@
                 </div>
             </div>
         </div>
+         -->
     </div>
-    <div class="spacer-1"></div>
+    <!-- <div class="spacer-1"></div> -->
 
 </div>
 
 <div class="row g-0">
     <div class="col-12">
             <div class="mobile-nav-icon">
-                <ul class="ul-no-style">
+                <ul class="ul-no-style mt-3">
                 @foreach($slmenu as $data)
                 @if($data->status == 'active')
                 <li class="li-icons img-icon">
@@ -363,9 +364,7 @@
                             </div>
                     </a>
                 </li>
-
                 @else
-                
                 <li class="li-icons" style="width: 24%; margin-top: 5px;">
                     <a class="link-secondary" href="{{ route('open_services',$data->description) }}">
                         <div class="text-center">

@@ -91,25 +91,17 @@
               <th colspan="2"  class="text-center">Action</th>
             </tr>
             @if($incomeData)
-            @foreach($incomeData as $post)
             <tr>
-              <td>#{{ $post->ps_ref_no }}</td>
-              <td></td>
-              <td></td>
+              <td>{{ number_format($incomeData['weeklyData'],2) }}</td>
+              <td>{{ number_format($incomeData['monthlyData'],2) }}</td>
+              <td>{{ number_format($incomeData['totalData'],2) }}</td>
               <td class="text-center">
                 <div class="btn-group btn-group-sm">
-                  <a href="" class="btn btn-info"><i class="fas fa-eye"></i> Edit</a>
-                  <!-- <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</a> -->
-                </div>
-              </td>
-              <td class="text-center">
-                <div class="btn-group btn-group-sm">
-                  <!-- <a href="" class="btn btn-info"><i class="fas fa-eye"></i> Edit</a> -->
+                  <a href="" class="btn btn-info"><i class="fas fa-eye"></i> view</a>
                   <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</a>
                 </div>
               </td>
             </tr>
-            @endforeach
             @endif
         </thead>
         

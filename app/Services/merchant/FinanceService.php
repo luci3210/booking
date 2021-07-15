@@ -29,7 +29,7 @@ Class FinanceService extends SecurityServices{
         $getWeekly = $getWeekly->join('payments', 'payments.pm_page_id' , 'service_tour.id');
         $getWeekly = $getWeekly->join('status_payment', 'status_payment.ps_id', '=', 'payments.pm_ps_id');
         $getWeekly =  $getWeekly->whereBetween('status_payment.ps_created_at', [$startWeek,$endWeek]);
-        $getWeekly = $getWeekly->sum('payments.pm_id');
+        $getWeekly = $getWeekly->sum('payments.pm_book_amount');
         // $getWeekly = $getWeekly->get();
         // $ph = CarbonImmutable::now()->locale('en_PH')->startOfWeek()->format('Y-m-d H:i:s');
         // return $ph;
@@ -50,16 +50,26 @@ Class FinanceService extends SecurityServices{
         $getMonthly = $getMonthly->join('payments', 'payments.pm_page_id' , 'service_tour.id');
         $getMonthly = $getMonthly->join('status_payment', 'status_payment.ps_id', '=', 'payments.pm_ps_id');
         $getMonthly =  $getMonthly->whereBetween('status_payment.ps_created_at', [$dateStart,$endDate]);
-        // $getMonthly = $getMonthly->sum('payments.pm_id');
-        $getMonthly = $getMonthly->get();
+        $getMonthly = $getMonthly->sum('payments.pm_book_amount');
+        // $getMonthly = $getMonthly->get();
         // $ph = CarbonImmutable::now()->locale('en_PH')->startOfWeek()->format('Y-m-d H:i:s');
         // return $ph;
         return $getMonthly;
 
 
     }
-    public function getTotalIncome()
+    public function getTotalIncome($id)
     {
+
+        $tourModel = new TourModel();
+        $getMonthly = $tourModel->where('service_tour.profid', $id);
+        $getMonthly = $getMonthly->join('payments', 'payments.pm_page_id' , 'service_tour.id');
+        $getMonthly = $getMonthly->join('status_payment', 'status_payment.ps_id', '=', 'payments.pm_ps_id');
+        $getMonthly = $getMonthly->sum('payments.pm_book_amount');
+        // $getMonthly = $getMonthly->get();
+        // $ph = CarbonImmutable::now()->locale('en_PH')->startOfWeek()->format('Y-m-d H:i:s');
+        // return $ph;
+        return $getMonthly;
 
     }
 

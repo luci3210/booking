@@ -19,10 +19,14 @@ class FinanceController extends Controller
         $profileID = $merchantProfile->id;
         $weeklyData = $financeService->getWeeklyIncome($profileID);
         $monthlyData = $financeService->getMonthlyIncome($profileID);
+        $totalData = $financeService->getTotalIncome($profileID);
         $incomeData = [];
+        $incomeData['weeklyData'] = $weeklyData;
+        $incomeData['monthlyData'] = $monthlyData;
+        $incomeData['totalData'] = $totalData;
 
         // return $merchantProfile->id;
-        return $monthlyData;
-        return view('merchant_dashboard.finance.finance_income_index', compact('incomeData'));
+        // return $totalData;
+        return view('merchant_dashboard.finance.finance_income_index', compact('incomeData',));
     }
 }
