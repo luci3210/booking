@@ -61,7 +61,7 @@ class ManageBankController extends Controller
     }
     public function deleted(Request $request, $id) {
     
-        $update = BankModel::where('id',$id);
+        $update = BankModel::find($id);
         $update->update(['status' => 4]);
 
         AdminLogModel::create(['user_id'=>Auth::user()->id,'page_id'=>$id,'action'=>"deleted",'page_name'=>"manage_bank"]);
@@ -79,7 +79,7 @@ class ManageBankController extends Controller
     public function create(Request $request, $url=null) {
 
         $validate = [
-                'bank'   => 'required|max:200',
+                'bank'   => 'required|unique:bank_names|max:200',
                 'status'   => 'required',
         ];
 
@@ -90,6 +90,8 @@ class ManageBankController extends Controller
             'bank'    => $request->bank,
             'status'    => $request->status,
         ]);
+
         return back()->withSuccess('Successfully added!');
+    
     }
 }

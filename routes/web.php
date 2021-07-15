@@ -472,7 +472,7 @@ Route::post(
     Route::post('/manage_bank/create/{url}/','Admin\ManageBankController@create')->name('bank_create'); 
     Route::get('/manage_bank/edit/{id}/{url}/','Admin\ManageBankController@edit')->name('bank_edit'); 
     Route::post('/manage_bank/update/{id}/{url}/','Admin\ManageBankController@update')->name('bank_update'); 
-    Route::get('/manage_bank/delete/{id}/','Admin\ManageBankController@deleted')->name('bank_deleted'); 
+    Route::post('/manage_bank/delete/{id}/','Admin\ManageBankController@deleted')->name('bank_deleted'); 
 
 
 

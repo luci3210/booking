@@ -87,14 +87,17 @@
 <div class="row">
 <div class="col-sm-8">
 <div class="form-group">
-<label>Bank Name</label>
-<input type="text" class="form-control" name="bank" placeholder="Bank Name">
+<label>
+  Bank Name
+  <small class="text-danger has-error">{{ $errors->has('bank') ?  $errors->first('bank') : '' }}</small>
+</label>
+<input type="text" class="form-control" name="bank" value="{{ old('bank') }}" placeholder="Bank Name">
 </div>
 </div>
     
 <div class="col-sm-4">
 <div class="form-group">
-<label>Status</label>
+<label>Status<small class="text-danger has-error">{{ $errors->has('status') ?  $errors->first('status') : '' }}</small></label>
 <select class="form-control" name="status">
   <option value="1">Active</option>
   <option value="2">Inactive</option>
@@ -127,8 +130,8 @@
               <td>{{ $list->tstatus }}</td>
               <td class="text-center">
                 <a href="{{ route('bank_edit',[$list->bid,$url]) }}" class="btn btn-sm btn-primary py-0">Edit »</a>
-                <a href="" onclick="if(confirm('Do you want to delete this product?'))event.preventDefault(); document.getElementById('delete-{{$list->bid}}').submit();" class="btn btn-sm btn-danger py-0">» Delete</a>
-                  <form id="delete-14" method="get" action="{{ route('bank_deleted',$list->bid) }}" style="display: none;">
+                <a href="" onclick="if(confirm('Do you want to delete this Bank Name?'))event.preventDefault(); document.getElementById('delete-{{$list->bid}}').submit();" class="btn btn-sm btn-danger py-0">» Delete</a>
+                  <form id="delete-{{$list->bid}}" method="post" action="{{ route('bank_deleted',$list->bid) }}" style="display: none;">
                   @csrf             
                   </form>
               </td>
