@@ -116,7 +116,7 @@
   </li>
 
   <li class="nav-item">
-    <a href="" class="nav-link">
+    <a href="{{ route('bank') }}" class="nav-link">
       <i class="far fa fa-circle-o nav-icon" aria-hidden="true"></i>
       <p>Bank Account</p>
     </a>

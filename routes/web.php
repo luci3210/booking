@@ -167,8 +167,11 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant_das
         ->name('exlusive_save_post');
 
 
+
         Route::get('finance/income','Merchant\FinanceController@incomeIndex')
         ->name('income_index');
+
+        Route::get('finance/bank','Merchant\FinanceController@bank')->name('bank');
 
 });
 
