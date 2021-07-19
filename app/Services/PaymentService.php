@@ -17,7 +17,7 @@ use App\Model\Merchant\HotelModel;
 
 Class PaymentService extends SecurityServices{
 
-    public function SavePayment($id,$pmStatus,$from,$to,$amount)
+    public function SavePayment($id,$pmStatus,$from,$to,$amount,$childrenCount)
     {
         try {
             $user = Auth::user();
@@ -27,6 +27,7 @@ Class PaymentService extends SecurityServices{
             $data['pm_book_date'] = $from;
             $data['pm_book_date_to'] = $to;
             $data['pm_book_amount'] = $amount;
+            // $data['pm_child_count'] = $childrenCount;
             $data['pm_created_at'] = $this->getDatetimeNow();
             $data['pm_id'] = PaymentModel::insertGetId($data); // save
             $data['user_email'] = $user->email;

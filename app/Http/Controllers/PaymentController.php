@@ -136,7 +136,7 @@ class PaymentController extends Controller
             $secure_hash = hash_hmac('sha256', $dataToHash, $secret_key, false);
             $auth_hash = hash_hmac('sha256', $public_key, $secret_key, false);
             $paymentService = new PaymentService();
-            $extraData = $paymentService->SavePayment($req->uid,'pending',$req->book_date, $req->book_date_to, $req->billing_price);
+            $extraData = $paymentService->SavePayment($req->uid,'pending',$req->book_date, $req->book_date_to, $req->billing_price, $req->children_count);
             // $bookDetails['name'] = $req->billing_plan_name;
             // $bookDetails['desc'] = $req->desc;
             // $bookDetails['expect'] = $req->expect;
@@ -151,7 +151,6 @@ class PaymentController extends Controller
             $bookDetailsss = base64_encode(json_encode($bookDetailsss));
             $data['bookdetails'] = $bookDetailsss;
             $data['extraData'] = $extraData;
-
             // return $extraData;
 
             
@@ -226,8 +225,8 @@ class PaymentController extends Controller
             $err = curl_error($curl);
 
             curl_close($curl);
-            
-            $dataresp;
+            sleep(2);
+            $dataresp = '';
             if ($err) {
                 echo "cURL Error #:" . $err;
             } else {

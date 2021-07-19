@@ -32,6 +32,13 @@ class Controller extends BaseController
 	    return $datetime->format('Y-m-d');
     }
 
+    public function getDateNowv2() {
+	    $tz_object = new \DateTimeZone('Asia/Manila');
+	    $datetime = new \DateTime();
+        $datetime->setTimezone($tz_object);
+	    return $datetime->format('m-d-Y');
+    }
+
     public function check_hash($user_data,$input_password){
         // left is text right is data that hash to compare
         if (Hash::check($input_password,  $user_data['password'])) {

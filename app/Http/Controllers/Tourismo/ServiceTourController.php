@@ -33,14 +33,15 @@ class ServiceTourController extends Controller
         $reviewsData = $this->getReviews($id);
         $profileID = $tourDetails[0]['profid'];
         $curDate = $this->getDateNow().'T00:00:00';
+        $curDate2 = $this->getDateNowv2();
         $profileData = $this->getProfileCompany($profileID);
-
+        
         // return $tourDetails;
         $Agent = new Agent();
         if ($Agent->isMobile()) {
-        return view('tourismo.service_tour_mobile', compact(['tourPhotos', 'tourDetails','wishList','userCountry', 'reviewsData', 'profileData', 'curDate']));
+        return view('tourismo.service_tour_mobile', compact(['tourPhotos', 'tourDetails','wishList','userCountry', 'reviewsData', 'profileData', 'curDate', 'curDate2']));
         }
-        return view('tourismo.service_tour', compact(['tourPhotos', 'tourDetails','wishList','userCountry', 'reviewsData', 'profileData', 'curDate']));
+        return view('tourismo.service_tour', compact(['tourPhotos', 'tourDetails','wishList','userCountry', 'reviewsData', 'profileData', 'curDate', 'curDate2']));
     }
 
     protected function getProfileCompany($id){

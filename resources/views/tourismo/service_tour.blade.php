@@ -5,12 +5,16 @@
 ])
 @section('content')
 
-
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <!-- /. meta tags -->
 
 
 <style>
+.datepicker{
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+}
 .heart-icon{
   color: #009d8a!important;
 }
@@ -249,24 +253,36 @@ a.page-link {
                                         </div>
 
                                         <div class="col-md-6 form-group mt-3">
-                                            <label class="labelcoz">Phone No.</label>
+                                            <label class="pnumber">Phone No.</label>
                                             <input type="text" class="uk-input" name="billing_phone" id="pnumber" value="{{ Auth::user()->pnumber }}" readonly="readonly">
                                             <div class="validate"></div>
                                         </div>
 
                                         <div class="col-md-6 form-group mt-3">
-                                            <label class="labelcoz">Email</label>
+                                            <label class="email">Email</label>
                                             <input type="text" class="uk-input" name="billing_email" id="email" value="{{ Auth::user()->email }}" readonly="readonly">
                                             <div class="validate"></div>
                                         </div>
                                         @if(count($userCountry) >= 1)
-                                        <div class="col-md-12 form-group mt-3">
+                                        <div class="col-md-6 form-group mt-3">
                                             <label class="labelcoz">Country</label>
                                             <input type="text" class="uk-input" name="billing_country" id="billing_country" value="{{ $userCountry[0]->country }}" readonly="readonly">
                                             <div class="validate"></div>
                                         </div>
                                         @endif
                                         <div class="col-md-6 form-group mt-3">
+                                            <label class="children">Children</label>
+                                            <input type="number" class="uk-input" name="children" id="children" value="{{ Auth::user()->email }}" >
+                                            <div class="validate"></div>
+                                        </div>
+                                        <div class="col-12 mt-3">
+                                          <label class="labelcoz">Book Date From and To</label>
+                                        </div>
+                                        <div class="col-12 form-group ">
+                                          <input type="text" name="datetimes" class="datepicker" />
+                                          <div class="validate"></div>
+                                        </div>
+                                        <!-- <div class="col-md-6 form-group mt-3">
                                             <label class="labelcoz">Book Date From</label>
                                             <input type="datetime-local" class="uk-input" name="book_date" id="book_date" min="{{$curDate}}"  >
                                             <div class="validate"></div>
@@ -275,7 +291,7 @@ a.page-link {
                                             <label class="labelcoz">Book Date to</label>
                                             <input type="datetime-local" class="uk-input" name="book_date_to" id="book_date_to" min="{{$curDate}}"  >
                                             <div class="validate"></div>
-                                        </div>
+                                        </div> -->
                                         <div class="col-md-12 form-group mt-3">
                                             <label class="labelcoz">Address</label>
                                             <input type="text" class="uk-input" name="billing_address_1" id="address" value="{{ Auth::user()->address }}" readonly="readonly">
@@ -549,6 +565,8 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
 </script>
 
 <script>
+  var fromDate = '';
+  var toDate = '';
   function wishListToggle(id){
     var crfToken = $('meta[name="csrf-token"]').attr('content');
     // console.log(crfToken);
@@ -605,11 +623,14 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
     }
   }
   function paybyTraxion(){
-    var bookdate = $('input[name="book_date"]').val();
-    var bookdateto = $('input[name="book_date_to"]').val();
+    // var bookdate = $('input[name="book_date"]').val();
+    // var bookdateto = $('input[name="book_date_to"]').val();
+    var bookdate = fromDate;
+    var bookdateto = toDate;
     var fname = $('input[name="billing_first_name"]').val();
     var lname = $('input[name="billing_last_name"]').val();
     var company = $('input[name="billing_company"]').val();
+    var children = $('input[name="children"]').val();
     var city = $('input[name="billing_city"]').val();
     var country = $('input[name="billing_country"]').val();
     var address_1 = $('input[name="billing_address_1"]').val();
@@ -642,6 +663,7 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
         billing_plan_name: plan_name,
         book_date:bookdate,
         book_date_to:bookdateto,
+        children_count:children,
         desc:'{{$tourDetails[0]->tour_desc}}',
         expect:'{{$tourDetails[0]->tour_expect}}',
         noguest:'{{$tourDetails[0]->noguest}}',
@@ -684,6 +706,25 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
     });
     $.ajax();
   }
+
+  $('input[name="datetimes"]').daterangepicker({
+    timePicker: true,
+    minDate: "{{$curDate2}}",
+    startDate: moment().startOf('hour'),
+    endDate: moment().startOf('hour').add(32, 'hour'),
+    locale: {
+      format: 'M/DD hh:mm A'
+    }
+  });
+
+  $('input[name="datetimes"]').on('apply.daterangepicker', function(ev, picker) {
+    fromDate = picker.startDate.format('YYYY-MM-DD hh:mm:ss')
+    toDate = picker.endDate.format('YYYY-MM-DD hh:mm:ss')
+    console.log(picker.startDate.format('YYYY-MM-DD hh:mm:ss'));
+    console.log(picker.endDate.format('YYYY-MM-DD hh:mm:ss'));
+  });
+
+
 </script>
 
 @endsection
