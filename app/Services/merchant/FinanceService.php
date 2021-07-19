@@ -36,11 +36,12 @@ Class FinanceService extends SecurityServices{
 
     public function getMonthlyIncome($id)
     {
-
         //one day (today)
+    
         $dateStart = Carbon::now()->startOfMonth()->format("Y-m-d H:i:s");
 
         //one month / 30 days
+    
         $endDate = Carbon::now()->endOfMonth()->format("Y-m-d H:i:s");
 
         $tourModel = new TourModel();
@@ -49,9 +50,11 @@ Class FinanceService extends SecurityServices{
         $getMonthly = $getMonthly->join('status_payment', 'status_payment.ps_id', '=', 'payments.pm_ps_id');
         $getMonthly =  $getMonthly->whereBetween('status_payment.ps_created_at', [$dateStart,$endDate]);
         $getMonthly = $getMonthly->sum('payments.pm_book_amount');
+        
         // $getMonthly = $getMonthly->get();
         // $ph = CarbonImmutable::now()->locale('en_PH')->startOfWeek()->format('Y-m-d H:i:s');
         // return $ph;
+
         return $getMonthly;
 
 

@@ -46,6 +46,14 @@ class FinanceController extends Controller
         return view('merchant_dashboard.finance.finance_income_index', compact('incomeData'));
     }
 
+    public function mybalance() {
+
+        $bank_list = $this->bank_list();
+        $account_list = $this->account_list();
+        return view('merchant_dashboard.finance.mybalance_form',compact('bank_list','account_list'));
+
+    }
+
     public function bank_list() {
 
         return BankModel::join('temp_status','temp_status.id','bank_names.status')->whereIn('bank_names.status',[1,2])->orderBy('bank','asc')->get(['bank_names.id as bid','bank_names.bank','bank_names.status','temp_status.id as tid','temp_status.status as tstatus']);  

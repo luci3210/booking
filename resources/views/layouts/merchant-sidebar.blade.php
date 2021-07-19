@@ -93,7 +93,7 @@
 
 <li class="nav-item has-treeview">
     <a href="#" class="nav-link">
-      <i class="nav-icon fas fa-box-open" aria-hidden="true"></i>
+      <i class="nav-icon fas fa-wallet" aria-hidden="true"></i>
       <p>
         Finance
         <i class="fas fa-angle-left right"></i>
@@ -109,7 +109,7 @@
   </li>
 
   <li class="nav-item">
-    <a href="" class="nav-link">
+    <a href="{{ route('mybalance') }}" class="nav-link">
       <i class="far fa fa-circle-o nav-icon" aria-hidden="true"></i>
       <p>My Balance</p>
     </a>
