@@ -177,6 +177,7 @@
 @if($service_name->name == 'Hotel')
 
 <div class="row">
+  
   <div class="form-group col-4">
     <label>
       <span class="text-danger">*</span> Room Size

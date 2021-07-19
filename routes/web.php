@@ -171,9 +171,16 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant_das
         Route::get('finance/income','Merchant\FinanceController@incomeIndex')
         ->name('income_index');
 
-        Route::get('finance/bank','Merchant\FinanceController@bank')->name('bank');
+});
+
+Route::group(['middleware'=>'password.confirm','jobs','jobs'=>['merchant'], 'prefix'=>'merchant_dashboard/finance'], function() {
+        
+        Route::get('/bank','Merchant\FinanceController@bank')->name('bank');
+
+        Route::post('/bank/create','Merchant\FinanceController@merchant_bank_create')->name('merchant_bank_create');
 
 });
+
 
 
 
