@@ -264,15 +264,20 @@ a.page-link {
                                             <div class="validate"></div>
                                         </div>
                                         @if(count($userCountry) >= 1)
-                                        <div class="col-md-6 form-group mt-3">
+                                        <div class="col-md-12 form-group mt-3">
                                             <label class="labelcoz">Country</label>
                                             <input type="text" class="uk-input" name="billing_country" id="billing_country" value="{{ $userCountry[0]->country }}" readonly="readonly">
                                             <div class="validate"></div>
                                         </div>
                                         @endif
                                         <div class="col-md-6 form-group mt-3">
+                                            <label class="adult">Adult</label>
+                                            <input type="number" class="uk-input" name="adult" id="adult"  onchange="getAdult(event)">
+                                            <div class="validate"></div>
+                                        </div>
+                                        <div class="col-md-6 form-group mt-3">
                                             <label class="children">Children</label>
-                                            <input type="number" class="uk-input" name="children" id="children" value="{{ Auth::user()->email }}" >
+                                            <input type="number" class="uk-input" name="children" id="children" onchange="getChildren(event)" >
                                             <div class="validate"></div>
                                         </div>
                                         <div class="col-12 mt-3">
@@ -304,7 +309,13 @@ a.page-link {
                                             </div>
                                         </div>
                                         <div class="col-md-12 form-group mt-3">
-                                            <button type="button" class="uk-button uk-button-primary" onClick="checkPaymentMethod()">Continue</button>
+                                            <label class="total">Total Fee</label>
+                                            <input type="text" class="uk-input" name="total" id="total"  readonly>
+                                            <div class="validate"></div>
+                                        </div>
+                                        <div class="col-md-12 form-group mt-3">
+                                            <button id="conti-check" type="button" class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom" onclick="checkBook()">check availability</button>
+                                            <button id="conti-book" type="button" class="uk-button uk-button-primary" onClick="checkPaymentMethod()" style="display: none;">Continue</button>
                                         </div>
                                     </div>
                                     </form>
@@ -567,6 +578,94 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
 <script>
   var fromDate = '';
   var toDate = '';
+  var totalAdultCount = 0;
+  var totalAdultFee = 0;
+  var totalAdultValue = 0;
+  var totalChildrenCount = 0;
+  var totalChildrenFee = 0;
+  var totalChildrenValue = 0;
+  var totalFee = 0;
+  var totalOfDays = 0;
+  var totalOfDaysFee = 0;
+  var checkAvailblity = false;
+  function checkAvBtn(){
+    $("#conti-check").show()
+    $("#conti-book").hide()
+  }
+  function checkBook(){
+    var children = $('input[name="children"]').val();
+    var adult = $('input[name="adult"]').val();
+    var bookdate = fromDate;
+    var bookdateto = toDate;
+    if(bookdate == null || bookdate.length <= 0 || bookdate == undefined){
+      swal({
+        text: "Select a book date",
+        icon:"error"
+      });
+      return;
+    }
+    if(children ==  null || children <=0 || adult == null || adult <=0){
+      swal({
+        text: "Add your adult and children count",
+        icon:"error"
+      });
+      return;
+    }
+
+    checkAvailblity =true
+    totalFee  = totalChildrenFee +totalOfDaysFee + totalAdultFee
+    $('#total').val(totalFee)
+    
+    if(!checkAvailblity){
+      $("#conti-check").show()
+      $("#conti-book").hide()
+
+    }else{
+      $("#conti-check").hide()
+      $("#conti-book").show()
+    }
+
+  }
+  function getChildren(event){
+    var value = event.target.value
+    var limit = '{{$tourDetails[0]->max_children_count}}';
+    var price = '{{$tourDetails[0]->max_children_price}}';
+    var total  =  value <= limit ? 1 : value  / limit;
+    totalChildrenValue =value
+    if(Number.isInteger(total)){
+      console.log('whole')
+      totalChildrenCount = total
+      totalChildrenFee = total * price;
+    }else{
+      console.log('not')
+      totalChildrenCount = parseInt(total + 1)
+      totalChildrenFee = totalChildrenCount * price;
+    }
+    checkAvailblity = false
+    checkAvBtn()
+    console.log(totalChildrenFee,totalChildrenCount, totalChildrenValue,'children')
+  }
+  function getAdult(event){
+    var value = event.target.value
+    var limit = '{{$tourDetails[0]->max_adult_count}}';
+    var price = '{{$tourDetails[0]->max_adult_price}}';
+    var total  =  value <= limit ? 1 : value  / limit;
+    totalAdultValue = value;
+    if(Number.isInteger(total)){
+      console.log('whole')
+      totalAdultCount = total
+      totalAdultFee = total * price;
+    }else{
+      console.log('not')
+      totalAdultCount = parseInt(total + 1)
+      totalAdultFee = totalAdultCount * price;
+    }
+    console.log(totalAdultCount,totalAdultFee,totalAdultValue,'adult')
+    checkAvailblity = false
+    checkAvBtn()
+
+  }
+  
   function wishListToggle(id){
     var crfToken = $('meta[name="csrf-token"]').attr('content');
     // console.log(crfToken);
@@ -608,7 +707,8 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
   }
 
   function checkPaymentMethod(){
-     let paymentType= $('input[name="payment-method"]:checked').val();
+    let paymentType= $('input[name="payment-method"]:checked').val();
+    checkBook()
 
     if(paymentType == 'traxion'){
         paybyTraxion();
@@ -631,6 +731,7 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
     var lname = $('input[name="billing_last_name"]').val();
     var company = $('input[name="billing_company"]').val();
     var children = $('input[name="children"]').val();
+    var adult = $('input[name="adult"]').val();
     var city = $('input[name="billing_city"]').val();
     var country = $('input[name="billing_country"]').val();
     var address_1 = $('input[name="billing_address_1"]').val();
@@ -647,6 +748,13 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
       });
       return;
     }
+    if(children ==  null || children <=0 || adult == null || adult <=0){
+      swal({
+        text: "Add your adult and children count",
+        icon:"error"
+      });
+      return;
+    }
 
     var datam = {
         billing_first_name: fname,
@@ -659,11 +767,13 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
         billing_postcode: postcode,
         billing_phone: phone,
         billing_email: email,
-        billing_price: plan_price,
+        // billing_price: plan_price,
+        billing_price: totalFee,
         billing_plan_name: plan_name,
         book_date:bookdate,
         book_date_to:bookdateto,
         children_count:children,
+        adult_count:adult,
         desc:'{{$tourDetails[0]->tour_desc}}',
         expect:'{{$tourDetails[0]->tour_expect}}',
         noguest:'{{$tourDetails[0]->noguest}}',
@@ -689,10 +799,14 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
       data:datam,
       success: function(data)
       {
-        let paymenyLink = data['dataresp']['form_link']
-        window.open(paymenyLink);
-        console.log(paymenyLink);
-        console.log(data);
+        // let paymenyLink = data['dataresp']['form_link']
+        // window.open(paymenyLink);
+        // console.log(paymenyLink);
+        // console.log(data);
+        swal({
+          text: "Booked success",
+          icon:"success"
+        });
       },
       fail:function(jqXHR) {
         console.log( "Request failed: xxxx" + jqXHR );
@@ -720,6 +834,20 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
   $('input[name="datetimes"]').on('apply.daterangepicker', function(ev, picker) {
     fromDate = picker.startDate.format('YYYY-MM-DD hh:mm:ss')
     toDate = picker.endDate.format('YYYY-MM-DD hh:mm:ss')
+    var a = new Date (picker.startDate.format('MM-DD-YYYY'))
+    var b = new Date (picker.endDate.format('MM-DD-YYYY'))
+    var timeDiff = 0
+    if (b) {
+        const diffTime = Math.abs(b - a);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+        totalOfDays = diffDays
+        var price = '{{$tourDetails[0]->price}}';
+        totalOfDaysFee = diffDays * price
+        console.log(diffDays,totalOfDaysFee);
+    }
+    checkAvailblity = false
+    checkAvBtn()
+
     console.log(picker.startDate.format('YYYY-MM-DD hh:mm:ss'));
     console.log(picker.endDate.format('YYYY-MM-DD hh:mm:ss'));
   });
