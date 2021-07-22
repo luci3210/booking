@@ -39,7 +39,7 @@ class ServiceTourController extends Controller
         // return $tourDetails;
         $Agent = new Agent();
         if ($Agent->isMobile()) {
-        return view('tourismo.service_tour_mobile', compact(['tourPhotos', 'tourDetails','wishList','userCountry', 'reviewsData', 'profileData', 'curDate', 'curDate2']));
+        return view('tourismo.mobile.service_tour_mobile', compact(['tourPhotos', 'tourDetails','wishList','userCountry', 'reviewsData', 'profileData', 'curDate', 'curDate2']));
         }
         return view('tourismo.service_tour', compact(['tourPhotos', 'tourDetails','wishList','userCountry', 'reviewsData', 'profileData', 'curDate', 'curDate2']));
     }

@@ -578,19 +578,16 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
 <script>
   var fromDate = '';
   var toDate = '';
-  var totalAdultCount = 1;
-  var totalAdultFee = parseInt('{{$tourDetails[0]->price}}' );
+  var totalAdultCount = 0;
+  var totalAdultFee = parseInt('{{$tourDetails[0]->max_adult_price}}' );
   var totalAdultValue = 0;
   var totalChildrenCount = 0;
-  var totalChildrenFee = parseInt('{{$tourDetails[0]->price}}');
+  var totalChildrenFee = parseInt('{{$tourDetails[0]->max_children_price}}');
   var totalChildrenValue = 0;
-  var totalFee = parseInt('{{$tourDetails[0]->price}}');
+  var totalFee = parseInt('{{$tourDetails[0]->max_children_price}}') + parseInt('{{$tourDetails[0]->max_adult_price}}' ) + parseInt('{{$tourDetails[0]->price}}');
   var totalOfDays = 0;
-  var totalOfDaysFee = 0;
+  var totalOfDaysFee = parseInt('{{$tourDetails[0]->price}}');
   var checkAvailblity = true;
-  var tripFee = parseInt('{{$tourDetails[0]->price}}');
-  var additionalFee = 0;
-
   $('#total').val(totalFee)
 
   function checkAvBtn(){
@@ -600,30 +597,75 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
   function checkBook(){
     var children = $('input[name="children"]').val();
     var adult = $('input[name="adult"]').val();
-    var limit = parseInt('{{$tourDetails[0]->noguest}}')
-    var totalGuest = parseInt(adult) + parseInt(children)
-    var diffGuest = 0
-    if(totalGuest > limit){
-      diffGuest = parseInt(totalGuest - limit)
-      additionalFee = tripFee * diffGuest
-    }else{
-      additionalFee = 0
-    }
-    console.log(`children ${children}`, `adult ${adult}`, `limit ${limit}` , `${totalGuest} totalguest`, `${diffGuest} diff`)
-    
-    totalFee  = additionalFee + tripFee + totalOfDaysFee
+    var bookdate = fromDate;
+    var bookdateto = toDate;
+    // if(bookdate == null || bookdate.length <= 0 || bookdate == undefined){
+    //   swal({
+    //     text: "Select a book date",
+    //     icon:"error"
+    //   });
+    //   return;
+    // }
+    // if(children ==  null || children <=0 || adult == null || adult <=0){
+    //   swal({
+    //     text: "Add your adult and children count",
+    //     icon:"error"
+    //   });
+    //   return;
+    // }
+
+    // checkAvailblity =true
+    totalFee  = totalChildrenFee +totalOfDaysFee + totalAdultFee
     $('#total').val(totalFee)
+    
+    // if(!checkAvailblity){
+    //   $("#conti-check").show()
+    //   $("#conti-book").hide()
+
+    // }else{
+    //   $("#conti-check").hide()
+    //   $("#conti-book").show()
+    // }
 
   }
   function getChildren(event){
     var value = event.target.value
-    totalChildrenValue = value
+    var limit = '{{$tourDetails[0]->max_children_count}}';
+    var price = '{{$tourDetails[0]->max_children_price}}';
+    var total  =  value <= limit ? 1 : value  / limit;
+    totalChildrenValue =value
+    if(Number.isInteger(total)){
+      console.log('whole')
+      totalChildrenCount = total
+      totalChildrenFee = total * price;
+    }else{
+      console.log('not')
+      totalChildrenCount = parseInt(total + 1)
+      totalChildrenFee = totalChildrenCount * price;
+    }
+    // checkAvailblity = false
     checkBook()
+    console.log(totalChildrenFee,totalChildrenCount, totalChildrenValue,'children')
   }
   function getAdult(event){
     var value = event.target.value
-    totalAdultCount = value;
+    var limit = '{{$tourDetails[0]->max_adult_count}}';
+    var price = '{{$tourDetails[0]->max_adult_price}}';
+    var total  =  value <= limit ? 1 : value  / limit;
+    totalAdultValue = value;
+    if(Number.isInteger(total)){
+      console.log('whole')
+      totalAdultCount = total
+      totalAdultFee = total * price;
+    }else{
+      console.log('not')
+      totalAdultCount = parseInt(total + 1)
+      totalAdultFee = totalAdultCount * price;
+    }
+    console.log(totalAdultCount,totalAdultFee,totalAdultValue,'adult')
+    // checkAvailblity = false
     checkBook()
+
   }
   
   function wishListToggle(id){
@@ -796,22 +838,13 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
     toDate = picker.endDate.format('YYYY-MM-DD hh:mm:ss')
     var a = new Date (picker.startDate.format('MM-DD-YYYY'))
     var b = new Date (picker.endDate.format('MM-DD-YYYY'))
-    var limit = parseInt('{{$tourDetails[0]->nonight}}')
     var timeDiff = 0
     if (b) {
         const diffTime = Math.abs(b - a);
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-
         totalOfDays = diffDays
         var price = '{{$tourDetails[0]->price}}';
-        if(totalOfDays > limit){
-          var exceedDays = totalOfDays - limit
-          totalOfDaysFee = exceedDays * price
-
-
-        }else{
-          totalOfDaysFee = 0
-        }
+        totalOfDaysFee = diffDays * price
         console.log(diffDays,totalOfDaysFee);
         checkBook()
     }
