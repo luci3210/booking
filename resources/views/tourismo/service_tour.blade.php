@@ -272,12 +272,12 @@ a.page-link {
                                         @endif
                                         <div class="col-md-6 form-group mt-3">
                                             <label class="adult">Adult</label>
-                                            <input type="number" class="uk-input" name="adult" id="adult"  onchange="getAdult(event)">
+                                            <input type="number" class="uk-input" name="adult" id="adult"  onchange="getAdult(event)" value="1" min="1">
                                             <div class="validate"></div>
                                         </div>
                                         <div class="col-md-6 form-group mt-3">
                                             <label class="children">Children</label>
-                                            <input type="number" class="uk-input" name="children" id="children" onchange="getChildren(event)" >
+                                            <input type="number" class="uk-input" name="children" id="children" onchange="getChildren(event)" value="0" min="0" >
                                             <div class="validate"></div>
                                         </div>
                                         <div class="col-12 mt-3">
@@ -314,8 +314,8 @@ a.page-link {
                                             <div class="validate"></div>
                                         </div>
                                         <div class="col-md-12 form-group mt-3">
-                                            <button id="conti-check" type="button" class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom" onclick="checkBook()">check availability</button>
-                                            <button id="conti-book" type="button" class="uk-button uk-button-primary" onClick="checkPaymentMethod()" style="display: none;">Continue</button>
+                                            <!-- <button id="conti-check" type="button" class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom" onclick="checkBook()">check availability</button> -->
+                                            <button id="conti-book" type="button" class="uk-button uk-button-primary" onClick="checkPaymentMethod()" >Continue</button>
                                         </div>
                                     </div>
                                     </form>
@@ -579,15 +579,17 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
   var fromDate = '';
   var toDate = '';
   var totalAdultCount = 0;
-  var totalAdultFee = 0;
+  var totalAdultFee = parseInt('{{$tourDetails[0]->max_adult_price}}' );
   var totalAdultValue = 0;
   var totalChildrenCount = 0;
-  var totalChildrenFee = 0;
+  var totalChildrenFee = parseInt('{{$tourDetails[0]->max_children_price}}');
   var totalChildrenValue = 0;
-  var totalFee = 0;
+  var totalFee = parseInt('{{$tourDetails[0]->max_children_price}}') + parseInt('{{$tourDetails[0]->max_adult_price}}' ) + parseInt('{{$tourDetails[0]->price}}');
   var totalOfDays = 0;
-  var totalOfDaysFee = 0;
-  var checkAvailblity = false;
+  var totalOfDaysFee = parseInt('{{$tourDetails[0]->price}}');
+  var checkAvailblity = true;
+  $('#total').val(totalFee)
+
   function checkAvBtn(){
     $("#conti-check").show()
     $("#conti-book").hide()
@@ -597,33 +599,33 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
     var adult = $('input[name="adult"]').val();
     var bookdate = fromDate;
     var bookdateto = toDate;
-    if(bookdate == null || bookdate.length <= 0 || bookdate == undefined){
-      swal({
-        text: "Select a book date",
-        icon:"error"
-      });
-      return;
-    }
-    if(children ==  null || children <=0 || adult == null || adult <=0){
-      swal({
-        text: "Add your adult and children count",
-        icon:"error"
-      });
-      return;
-    }
+    // if(bookdate == null || bookdate.length <= 0 || bookdate == undefined){
+    //   swal({
+    //     text: "Select a book date",
+    //     icon:"error"
+    //   });
+    //   return;
+    // }
+    // if(children ==  null || children <=0 || adult == null || adult <=0){
+    //   swal({
+    //     text: "Add your adult and children count",
+    //     icon:"error"
+    //   });
+    //   return;
+    // }
 
-    checkAvailblity =true
+    // checkAvailblity =true
     totalFee  = totalChildrenFee +totalOfDaysFee + totalAdultFee
     $('#total').val(totalFee)
     
-    if(!checkAvailblity){
-      $("#conti-check").show()
-      $("#conti-book").hide()
+    // if(!checkAvailblity){
+    //   $("#conti-check").show()
+    //   $("#conti-book").hide()
 
-    }else{
-      $("#conti-check").hide()
-      $("#conti-book").show()
-    }
+    // }else{
+    //   $("#conti-check").hide()
+    //   $("#conti-book").show()
+    // }
 
   }
   function getChildren(event){
@@ -641,8 +643,8 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
       totalChildrenCount = parseInt(total + 1)
       totalChildrenFee = totalChildrenCount * price;
     }
-    checkAvailblity = false
-    checkAvBtn()
+    // checkAvailblity = false
+    checkBook()
     console.log(totalChildrenFee,totalChildrenCount, totalChildrenValue,'children')
   }
   function getAdult(event){
@@ -661,8 +663,8 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
       totalAdultFee = totalAdultCount * price;
     }
     console.log(totalAdultCount,totalAdultFee,totalAdultValue,'adult')
-    checkAvailblity = false
-    checkAvBtn()
+    // checkAvailblity = false
+    checkBook()
 
   }
   
@@ -844,9 +846,10 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
         var price = '{{$tourDetails[0]->price}}';
         totalOfDaysFee = diffDays * price
         console.log(diffDays,totalOfDaysFee);
+        checkBook()
     }
-    checkAvailblity = false
-    checkAvBtn()
+    // checkAvailblity = false
+    // checkAvBtn()
 
     console.log(picker.startDate.format('YYYY-MM-DD hh:mm:ss'));
     console.log(picker.endDate.format('YYYY-MM-DD hh:mm:ss'));
