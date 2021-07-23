@@ -759,10 +759,10 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
       data:datam,
       success: function(data)
       {
-        // let paymenyLink = data['dataresp']['form_link']
-        // window.open(paymenyLink);
-        // console.log(paymenyLink);
-        // console.log(data);
+        let paymenyLink = data['dataresp']['form_link']
+        window.open(paymenyLink);
+        console.log(paymenyLink);
+        console.log(data);
         swal({
           text: "Booked success",
           icon:"success"
