@@ -53,6 +53,39 @@ class ServiceListingController extends Controller
         
     }
 
+    public function create_cover($desc, $id) {
+  
+        $service_name = $this->desc_name($desc);
+        $service_post = $this->service_post($desc);
+        $get_post = $this->get_post($id);
+
+        return view('merchant_dashboard.service.create_form_cover',compact('service_name','service_post','get_post'));
+
+    }
+
+    public function upload_cover(Request $request,$id=null) {
+
+        $path = 'image/cover/2021/';
+        $file = $request->file('cover_pic');
+
+        $new_image_name = 'cover2021'.$this->profile->profile_check()->id.date('Ymd').uniqid().'.jpg';
+
+        $move = $file->move(public_path($path),$new_image_name);
+
+        if(!$move) {
+
+            return response()->json(['status'=>0, 'msg'=>'Something went wrong, try again later']);
+
+        }
+
+            TourModel::where('id',$id)->where('profid',$this->profile->profile_check()->id)->update(['cover' => $new_image_name]);
+
+        return response()->json(['status'=>1, 'msg'=>'Cover successfully updated.', 'cover'=>$new_image_name]);
+
+
+    }
+
+
     public function index($desc) {
 
         $service_name = $this->desc_name($desc);

@@ -29,6 +29,7 @@ class TourModel extends Model
         'district',
         'city',
         'municipality',
+        'cover',
         'barangay',
         'address_id',
         'pay_method',

@@ -2593,12 +2593,12 @@ a, .uk-link:hover {
   padding-right: -20px;
 }
 a, .uk-breadcrumb{
-  color: #fff !important;
-  /*color: #333333 !important;*/ 
+  /*color: #fff !important;*/
+  color: #333333 !important; 
   /*font-weight: 700;*/
 }
 .uk-breadcrumb a:hover{
-  color: #1c9b87 !important;
+  color: #fff !important;
   /*font-weight: 700;*/
 }
 

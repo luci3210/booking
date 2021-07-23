@@ -7,72 +7,40 @@
 @section('curUrl', url()->current())
 <!-- /. meta tags -->
 
-<style>
-  .share-icons{
-    cursor: pointer;
-}
-.pointer{
-  cursor: pointer;
-}
+<style type="text/css">
+  .text-price {
+    color:#ff2f00 !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+ }
+  .text-price .currency-symbol {
+    font-size: 14px;
+    display: inline-block !important;
 
-.social-media-share {
-  padding: 25px;
-}
-
-.bg-circle{
-  padding: 12px 15px!important;
-  border-radius: 100%!important;
-  background-color: white!important;
-  color: #9e9e9e!important;
-  box-shadow: 0 4px 4px rgb(0 0 0 / 30%), 0 0 4px rgb(0 0 0 / 20%);
-  height: 46px;
-  width: 42px;
-}
-
-.social-slider-div{
-  margin-left: 30px;
-  padding-left: 0!important;
-}
-.uk-position-center-right {
-  right: -13px!important;
-}
-.uk-position-center-left {
-  left: -13px!important;
-}
-.mx-auto{
-  margin: auto!important;
-}
-.copy-link{
-  color: blue!important;
-  text-decoration: underline!important;
-}
-.copy-link-div{
-  margin: 0 auto!important;
-  padding-left: 0px!important;
-}
-/* for social medial share */
-
-.uk-button-small
-{
-  background-color: #502672 !important;
-  border-radius: 3px !important;
-  color: #fff !important;
-  border:none !important;
-  text-transform: capitalize !important;
-  font-weight: 800 !important;
-  font-size: 12px !important;
-}
-
-.uk-button-small:hover
-{
-  background-color: #2c0d45 !important;
-  border-radius: 3px !important;
-  border:none;
-  color: #fff !important;
-  text-transform: capitalize !important;
-  font-weight: 800 !important;
-  font-size: 12px !important;
-}
+  }
+  .mem-title {
+    text-transform: capitalize;
+  }
+  .services {
+    margin-top: -10px !important;
+  }
+  .merchant-profile {
+    margin-top: -30px !important;
+  }
+  .uk-panel {
+    height: 200px;
+  }
+  .uk-panel img {
+    height: 200px;
+    width: 100%;
+  }
+  .pointer img {
+    height: 50px;
+    width: 50px;
+  }
+  .uk-modal-body {
+    border-radius: 4px;
+  }
 </style>
 
 <section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
@@ -84,43 +52,31 @@
 </div>
 
 @foreach($bydistrict as $list)
-<div class="col-md-6 col-lg-3 d-flex align-items-stretch aos-init aos-animate" data-aos="fade-up">
+<div class="col-md-6 col-lg-2 d-flex align-items-stretch aos-init aos-animate" data-aos="fade-up">
   <div class="icon-box icon-box-pink">
   
     <div class="member">
 
       <div class="member-img">
-        <img src="{{ asset('upload/merchant/coverphoto')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}" class="img-fluid" alt="">
+        <img src="/image/cover/2021/{{ $list->cover == '' ? 'default.png' : $list->cover }}" class="img-fluid" alt="">
       </div>
 
       <div class="member-info">
-        <h4>{{ $list->roomname }}</h4>
-        <span style="font-weight: 500px; font-size: 14px;color:#ff2f00;"><b>₱ {{ $list->price }}</b> / For {{ $list->nonight }} Night</span>
+        
+        <div style="height:70px;">
+            <span>
+            <a href="{{ route('by_name',[$list->country,$list->district,$list->tour_name]) }}" style="font-size:13px;font-weight:510;">{{ substr($list->tour_name,0,39) }}..</a>
+            </span>
+            <span style="margin-top: -9px;font-size: 12px;color:#5f5e5e"><i class="fas fa-star"></i> | 0 Reviews</span>
+        </div>
+        <span>          
+            <div class="row" style="padding-left: 7px; padding-right: 11px;">          
+                <span class="col-sm text-left" style="color:#f6412d;font-size: 14px;font-weight: 650">₱ {{ $list->price }}</span>
+                <span class="col-sm text-center" style="color:#36235a;font-size: 14px;font-weight: 600 ">share</span>
+            </div>
+        </span>
 
-        <span>
-          <img style="padding-bottom: 5px;" src="{{ asset('upload/merchant/icons/baseline_local_dining_black_18dp.png')}}">
-          {{ $list->booking_package }}
-        </span>
-        
-        <span>
-          <img style="padding-bottom: 3px;" src="{{ asset('upload/merchant/icons/baseline_supervisor_account_black_18dp.png')}}">
-          Max Guests: {{ $list->noguest }}
-        </span>
-        
-        <span>
-          <img style="padding-bottom: 1px;" src="{{ asset('upload/merchant/icons/baseline_visibility_black_18dp.png')}}"> City View
-        </span>
       </div>
-
-<div class="details-m">
-  <a class="uk-button uk-button-default uk-button-small" href="">Details</a>
-  <a class="uk-button uk-button-small " href="javascript:void(0)" uk-toggle="target: #rooms">
-    <i class="fas fa-share"></i> Share
-  </a>
-  <!-- share modal -->
-
-  <!-- /. share modal -->
-</div>
 
     </div>
   </div>

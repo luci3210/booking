@@ -53,6 +53,7 @@ Route::get('/destination/ph', 'Tourismo\HomeController@page_destination')->name(
 
 // Route::get('/destination/{destination}', 'Tourismo\DestinationController@location')->name('location_country');
 Route::get('/destination/{country}/{district}', 'Tourismo\DestinationController@by_district')->name('by_district');
+Route::get('/destination/{country}/{district}/{name}', 'Tourismo\DestinationController@by_name')->name('by_name');
 
 
 
@@ -82,7 +83,6 @@ Route::get('/invoice/download','user\TraxionApiController@invoice_copy')->name('
 Auth::routes();
 // success payment traxion 
 Route::get('/checkout/status', 'user\TraxionApiController@payment_status')->name('checkout_callback');
-
 
 #merchant---
 
@@ -141,7 +141,6 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant/pro
 
         Route::get('/address_delete/{id}','Merchant\ProfileAddressController@address_delete')
         ->name('address_delete');
-
 });
 
 
@@ -150,6 +149,12 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant_das
         #services---
         Route::get('/{destination}/','Merchant\ServiceListingController@index')
         ->name('service_listing');
+
+        Route::get('{destination}/{id}/create_cover/','Merchant\ServiceListingController@create_cover')
+        ->name('add_cover');
+
+        Route::post('upload_cover/{id}','Merchant\ServiceListingController@upload_cover')
+        ->name('upload-cover');
 
         Route::get('/{destination}/create_post','Merchant\ServiceListingController@service_create_post')
         ->name('service_listing_create_post');
@@ -166,11 +171,8 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant_das
         Route::post('create_post_hotel/{id}','Merchant\ServiceListingController@service_save_hotel')
         ->name('service_listing_save_hotel');
 
-
         Route::post('exlusive_save_post/{id}','Merchant\ServiceListingController@exlusive_create_post')
         ->name('exlusive_save_post');
-
-
 
         Route::get('finance/income','Merchant\FinanceController@incomeIndex')
         ->name('income_index');
@@ -180,13 +182,12 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant_das
 Route::group(['middleware'=>'password.confirm','jobs','jobs'=>['merchant'], 'prefix'=>'merchant_dashboard/finance'], function() {
         
         Route::get('/bank','Merchant\FinanceController@bank')->name('bank');
+
         Route::post('/bank/create','Merchant\FinanceController@merchant_bank_create')->name('merchant_bank_create');
         
         Route::get('/mybalance/','Merchant\FinanceController@mybalance')->name('mybalance');
-        
 
 });
-
 
 
 
@@ -196,21 +197,6 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant_das
         ->name('booking-index');
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
