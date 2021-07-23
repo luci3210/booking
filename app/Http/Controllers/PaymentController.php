@@ -152,13 +152,15 @@ class PaymentController extends Controller
             $data['bookdetails'] = $bookDetailsss;
             $data['extraData'] = $extraData;
             // return $extraData;
+            
 
             
             $customer_array = array (
                 'merchant_id' => $merchant_id,
                 'merchant_ref_no' => '5a8c12eb19016',
                 'merchant_additional_data' => 'Additional Data',
-                'amount' => $req->billing_price,
+                // 'amount' => $req->billing_price,
+                'amount' => 1,
                 'currency' => 'PHP',
                 'description' => $req->billing_plan_name,
                 'billing_email' => $req->billing_email,
@@ -180,7 +182,7 @@ class PaymentController extends Controller
                     
                 // 'status_notification_url' => 'https://booking.tourismo.ph/api/payment/status/callback?extra='.$extraData,
                 // 'status_notification_url' => 'https://5cd521835102.ngrok.io/booking/public/api/payment/status/callback?extra='.$extraData.'&details='.$req->proid,
-                'status_notification_url' => 'https://87339769cc6b.ngrok.io/booking/public/api/payment/status/callback?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData,
+                'status_notification_url' => 'https://cb37d7946c79.ngrok.io/booking/public/api/payment/status/callback?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData,
                 'success_page_url' => $req->url_callback.'?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData.'&payment=success&',
                 'failure_page_url' => $req->url_callback.'?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData.'&payment=failed&',
                 'cancel_page_url' => $req->url_callback.'?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData.'&payment=cancel&',

@@ -74,8 +74,8 @@
                     <td>{{$stausPayment['ref_no']}}</td>
                 </tr>
                 <tr>
-                    <th> Invoice Date: </th>
-                    <td>{{ date("F j, Y, g:i a",strtotime($extra['pm_created_at']))}}</td>
+                    <th> Book Date: </th>
+                    @if(extra['pm_book_date'] && extra['pm_book_date_to'])<td>{{ date("F j, Y, g:i a",strtotime($extra['pm_book_date']))}} TO {{ date("F j, Y, g:i a",strtotime($extra['pm_book_date_to']))}}</td> @endif
                 </tr>
                 </tbody>
             </table>
@@ -109,7 +109,7 @@
                     <strong>{{$stausPayment['description']}}</strong>
                 </td>
                 <td></td>
-                @if($detailsOfBooking[0]['price'])<td class="text-right small-width">₱ {{  $detailsOfBooking[0]['price']  }} </td>@endif
+                @if($extra['pm_book_amount'])<td class="text-right small-width">₱ {{  $extra['pm_book_amount']  }} </td>@endif
                 </tr>
 
                 <tr>

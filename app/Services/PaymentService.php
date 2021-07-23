@@ -42,8 +42,19 @@ Class PaymentService extends SecurityServices{
             // $bookdate = '2025-09-23 14:44:00';
             // date("Y-m-d H:i:s", 1624084625);
             // return strtotime($d);
+            $covertData['pm_id'] = $data['pm_id'];
+            $covertData['pm_book_date'] = $data['pm_book_date'];
+            $covertData['pm_book_date_to'] = $data['pm_book_date_to'];
+            $covertData['pm_book_amount'] = $data['pm_book_amount'];
+            $covertData['user_lname'] = $data['user_lname'];
+            $covertData['user_fname'] = $data['user_fname'];
+            $covertData['user_email'] = $data['user_email'];
+            $covertData['pm_child_count'] = $data['pm_child_count'];
+            $covertData['pm_adult_count'] = $data['pm_adult_count'];
+            $covertData['pm_adult_count'] = $data['pm_adult_count'];
+            
 
-            $data = base64_encode(json_encode($data));
+            $data = base64_encode(json_encode($covertData));
             return $data;
         } catch (\Exception $e) {
             return $e;
@@ -143,7 +154,7 @@ Class PaymentService extends SecurityServices{
         $details = [
             'title'=> 'Receipt',
             'body'=>'thank you for purchasing thru Tourismo',
-            'url'=>'https://133e9cbc5b16.ngrok.io/booking/public/invoice/download?',
+            'url'=>'https://cb37d7946c79.ngrok.io/booking/public/invoice/download?',
             //'url'=>'https://ngrok.io/booking/public/invoice/download?',
             // 'url'=>'https://87339769cc6b.ngrok.io/booking/public/invoice/download?',
             // 'url'=>'https://133e9cbc5b16.ngrok.io/booking/public/invoice/download?',

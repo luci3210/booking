@@ -50,7 +50,7 @@
 
 .link-secondary:hover{
     color: #36235a !important;
-    font-weight: 600;
+    /* font-weight: 600; */
     /* background-color: #ececec; */
     border-radius: 70%;
 }
