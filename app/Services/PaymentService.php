@@ -154,12 +154,8 @@ Class PaymentService extends SecurityServices{
         $details = [
             'title'=> 'Receipt',
             'body'=>'thank you for purchasing thru Tourismo',
-            'url'=>'https://cb37d7946c79.ngrok.io/booking/public/invoice/download?',
-            //'url'=>'https://ngrok.io/booking/public/invoice/download?',
-            // 'url'=>'https://87339769cc6b.ngrok.io/booking/public/invoice/download?',
-            // 'url'=>'https://133e9cbc5b16.ngrok.io/booking/public/invoice/download?',
-            // 'url'=>'https://booking.tourismo.ph.ngrok.io/booking/public/invoice/download?',
-
+            // 'url'=>'https://0bf01cce8cc3.ngrok.io/booking/public/invoice/download?',
+            'url'=>'https://booking.tourismo.ph/booking/public/invoice/download?',
             'extra'=>$extraData,
             'status'=>$statusPayment,
             'profileID'=>$cn,

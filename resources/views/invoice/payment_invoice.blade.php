@@ -61,8 +61,9 @@
             <div class="col-sm-7">
             <address>
                 <strong>To:</strong>
-                <span>{{$extra['user_fname']}} {{$extra['user_lname']}}</span><br>
-                <span>{{$extra['user_email']}}</span>
+                <!-- name -->
+                @if($extra['user_fname'] && $extra['user_lname'])<span>{{$extra['user_fname']}} {{$extra['user_lname']}}</span><br>@endif
+                @if($extra['user_email'])<span>{{$extra['user_email']}}</span>@endif
             </address>
             </div>
 
@@ -75,7 +76,9 @@
                 </tr>
                 <tr>
                     <th> Book Date: </th>
-                    @if(extra['pm_book_date'] && extra['pm_book_date_to'])<td>{{ date("F j, Y, g:i a",strtotime($extra['pm_book_date']))}} TO {{ date("F j, Y, g:i a",strtotime($extra['pm_book_date_to']))}}</td> @endif
+                    <!-- date -->
+                    <td>{{ date("F j, Y, g:i a",$extra['pm_book_date'])  }} TO {{ date("F j, Y, g:i a",$extra['pm_book_date_to'])  }} </td>
+
                 </tr>
                 </tbody>
             </table>
@@ -86,7 +89,7 @@
                 <tbody>
                 <tr class="well" style="padding: 5px">
                     <th style="padding: 5px"><div> Payment Thru ({{$stausPayment['payment_method']}}) </div></th>
-                     @if($detailsOfBooking[0]['price'])<td> <td style="padding: 5px"><strong>₱ {{  $detailsOfBooking[0]['price']  }} </strong></td>@endif
+                     @if($detailsOfBooking[0]['price'])<td> <td style="padding: 5px"></td>@endif
 
                 </tr>
                 </tbody>
@@ -109,18 +112,21 @@
                     <strong>{{$stausPayment['description']}}</strong>
                 </td>
                 <td></td>
-                @if($extra['pm_book_amount'])<td class="text-right small-width">₱ {{  $extra['pm_book_amount']  }} </td>@endif
+                <!-- amount -->
+                @if($extra['pm_book_amount'])<td class="text-right small-width">PHP {{  number_format($extra['pm_book_amount'],2)  }} </td>@endif
                 </tr>
 
                 <tr>
                 <td>
                     <strong>Service</strong>
-                    <p><strong>Book Date</strong> {{ date("F j, Y, g:i a",$extra['pm_book_date'])}} </p>
+                    <!-- bookdate -->
+                    @if($extra['pm_adult_count'])<p>Adult Count - {{$extra['pm_adult_count']}}</p>@endif
+                    @if($extra['pm_child_count'])<p>Children/Child Count - {{$extra['pm_child_count']}}</p>@endif
                     @if($detailsOfBooking[0]['nonight'])<p>Nights no.{{$detailsOfBooking[0]['nonight']}}</p>@endif
                     @if($detailsOfBooking[0]['noguest'])<p>Guest no.{{$detailsOfBooking[0]['noguest']}}</p>@endif
                     @if($detailsOfBooking[0]['roomdesc'])<p>ROOM: {{$detailsOfBooking[0]['roomdesc']}}</p>@endif
                     @if($detailsOfBooking[0]['tour_desc'])<p>TOUR: {{$detailsOfBooking[0]['tour_desc']}}</p>@endif
-                    @if($detailsOfBooking[0]['tour_expect'])<p>tour_expect: {{$detailsOfBooking[0]['tour_expect']}}</p>@endif
+                    @if($detailsOfBooking[0]['tour_expect'])<p>EXPECT: {{$detailsOfBooking[0]['tour_expect']}}</p>@endif
                 </td>
                 <td></td>
                 <td class="text-right"></td> 
@@ -135,7 +141,7 @@
             <tbody>
                 <tr>
                 <td class="text-right"><strong>Total:</strong></td>
-                @if($detailsOfBooking[0]['price'])<td class="text-right small-width">₱ {{  $detailsOfBooking[0]['price']  }} </td>@endif
+                @if($extra['pm_book_amount'])<td class="text-right small-width">PHP {{  number_format($extra['pm_book_amount'],2)  }} </td>@endif
                 </tr>
             </tbody>
             </table>
