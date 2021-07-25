@@ -1,5 +1,6 @@
  <?php
 
+use FontLib\Table\Type\name;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,11 @@ Route::post('/auth/check-login', 'Auth\UserLoginController@checkLogin')->name('c
 Route::prefix('service-tour')->group(function () {
     Route::get('get/tours/{service}/{limit}/{offset}/', 'mobile\ServiceTourController@getTours')->name('get_tours');
     Route::get('get/tour/{id}', 'mobile\ServiceTourController@getTour')->name('get_tour');
+});
+
+
+Route::prefix('gsp')->group(function(){
+    Route::get('register','gsp\ApiController@index')->name('register_gsp');
 });
 
 

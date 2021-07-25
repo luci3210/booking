@@ -31,7 +31,7 @@
 } */
 .pd-2{
     padding: 2px 2px;
-}
+}      
 .uk-navbar-container,.uk-navbar-transparent{
     background-color: #ffffff!important;
 }
