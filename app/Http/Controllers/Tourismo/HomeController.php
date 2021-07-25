@@ -19,6 +19,8 @@ use App\user\PageReviewsModel;
 
 use App\Model\Admin\LocationCountyModel;
 
+use App\Services\GspService;
+
 use Jenssegers\Agent\Agent;
 
 
@@ -84,8 +86,15 @@ class HomeController extends Controller
         
     }
 
-    public function index()
+    public function index(Request $req)
     {
+
+        $gspToken =  $req->query('goToken');
+        $gspService = new GspService();
+
+        if($gspToken){
+            $result = $gspService->postRequest($gspToken,'api/tourismo/userinfo');
+        }
 
     	$home_hotel 	= $this->hotels();
         $destination    = $this->destination();
