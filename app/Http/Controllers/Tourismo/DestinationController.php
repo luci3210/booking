@@ -13,7 +13,6 @@ class DestinationController extends Controller
 {
     
     public function __construct() {
-
     }
 
     public function country($country) {
@@ -34,11 +33,12 @@ class DestinationController extends Controller
 
         $districts = TourModel::join('locations_district','locations_district.id', 'service_tour.district')
                 ->join('location_country','location_country.id', 'locations_district.country_id')
+                ->join('products','service_tour.service_id', 'products.id')
                     ->where([
                         ['location_country.country', $country],
                                 ['locations_district.district',$district]
                             ])
-                         ->get(['service_tour.cover','service_tour.tour_name','service_tour.price','service_tour.nonight','service_tour.noguest','location_country.*','locations_district.*']);
+                         ->get(['service_tour.cover','service_tour.tour_name','service_tour.price','service_tour.nonight','service_tour.noguest','location_country.*','locations_district.*','products.description','products.name']);
 
         if(empty($districts[0])) {
 
@@ -52,16 +52,36 @@ class DestinationController extends Controller
 
     }
 
-    public function by_get_name($country=null,$district=null,$name=null) {
+    public function by_get_name($category=null,$country=null,$district=null,$name=null) {
 
         $get_name = TourModel::join('locations_district','locations_district.id', 'service_tour.district')
                 ->join('location_country','location_country.id', 'locations_district.country_id')
-                    ->where([
-                        ['location_country.country', $country],
-                            ['locations_district.district',$district],
-                                ['service_tour.tour_name',$name]
-                            ])
-                         ->get(['service_tour.cover','service_tour.tour_name','service_tour.price','service_tour.nonight','service_tour.noguest','location_country.*','locations_district.*']);
+                    ->join('products','service_tour.service_id', 'products.id')
+                    ->join('profiles','service_tour.profid','profiles.id')
+                        ->where([
+                            ['location_country.country', $country],
+                                ['locations_district.district',$district],
+                                    ['service_tour.tour_name',$name],
+                                        ['products.description',$category]
+                                ])
+                         ->get(['service_tour.viewdeck',
+                                'service_tour.booking_package',
+                                'service_tour.room_facilities',
+                                'service_tour.building_facilities',
+                                'service_tour.roomdesc',
+                                'service_tour.price',
+                                'service_tour.cover',
+                                'service_tour.tour_name',
+                                'service_tour.nonight',
+                                'service_tour.noguest',
+                                'service_tour.roomsize',
+                                'service_tour.service_id',
+
+                                'service_tour.tour_desc',
+                                'service_tour.tour_expect',
+                                'service_tour.serviceid',
+
+                                'location_country.*','locations_district.*','products.name','products.description','profiles.company','profiles.address']);
 
         if(empty($get_name[0])) {
 
@@ -75,6 +95,24 @@ class DestinationController extends Controller
 
     }
 
+    public function by_get_photos($name=null) {
+
+        $get_photos = TourModel::join('service_tour_photos','service_tour.id', 'service_tour_photos.upload_id')
+                ->where([['service_tour.tour_name',$name]])
+                         ->get(['service_tour_photos.id','service_tour_photos.upload_id','service_tour_photos.photo']);
+
+        if(empty($get_photos[0])) {
+
+                abort(404,'Data not found.!');
+            } 
+        else 
+        {
+
+                return $get_photos;
+            }
+
+    }
+
     public function by_district($country=null,$district=null) {
 
         $bydistrict = $this->district($country,$district);
@@ -83,11 +121,12 @@ class DestinationController extends Controller
 
     }
 
-    public function by_name($country=null,$district=null,$name=null) {
+    public function by_name($category=null,$country=null,$district=null,$name=null) {
 
-        $bydistrict = $this->by_get_name($country,$district,$name);
+        $byname = $this->by_get_name($category,$country,$district,$name);
+        $byphotos = $this->by_get_photos($name);
 
-        return view('tourismo.by_district', compact('bydistrict'));
+        return view('tourismo.by_service_name', compact('byname','byphotos'));
 
     }
 }

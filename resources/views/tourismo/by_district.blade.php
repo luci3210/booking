@@ -43,12 +43,12 @@
   }
 </style>
 
-<section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+<section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500" style="margin-top: 35px !important;">
   <div class="container">
     <div class="row">
 
 <div class="section-title">
-<h2><b><a href="{{ route('destination') }}" class="uk-link">{{ $bydistrict[0]->tour_name }} </a> - {{ $bydistrict[0]->tour_name }} </b> <span style="font-size: 15px;padding-left: 25px;"><a href="{{ route('tour_operator') }}" class="uk-link"><i class="fas fa-chevron-right"></i> Explore {{ $bydistrict->count() }} Rooms and Convention</a></span></h2>
+<h2><b><a href="{{ route('destination') }}" class="uk-link"> </a>{{ $bydistrict[0]->country }} - {{ $bydistrict[0]->district }} </b> <span style="font-size: 15px;padding-left: 25px;"><a href="{{ route('tour_operator') }}" class="uk-link"><i class="fas fa-chevron-right"></i> Explore our Rooms and Packages</a></span></h2>
 </div>
 
 @foreach($bydistrict as $list)
@@ -63,12 +63,12 @@
 
       <div class="member-info">
         
-        <div style="height:70px;">
-            <span>
-            <a href="{{ route('by_name',[$list->country,$list->district,$list->tour_name]) }}" style="font-size:13px;font-weight:510;">{{ substr($list->tour_name,0,39) }}..</a>
-            </span>
-            <span style="margin-top: -9px;font-size: 12px;color:#5f5e5e"><i class="fas fa-star"></i> | 0 Reviews</span>
-        </div>
+<div style="height:70px;">
+    <span>
+    <a href="{{ route('by_name',[$list->description,$list->country,$list->district,$list->tour_name]) }}" style="font-size:13px;font-weight:510;">{{ substr($list->tour_name,0,39) }}..</a>
+    </span>
+    <span style="margin-top: -8px;font-size: 12px;color:#5f5e5e"><i class="fas fa-star"></i> | 0 Reviews</span>
+</div>
         <span>          
             <div class="row" style="padding-left: 7px; padding-right: 11px;">          
                 <span class="col-sm text-left" style="color:#f6412d;font-size: 14px;font-weight: 650">₱ {{ $list->price }}</span>
