@@ -727,7 +727,7 @@ a.text-primary:hover{
                                     <div class="uk-margin err">
                                         <div class="uk-inline uk-width-1-1">
                                             <span class="uk-form-icon" uk-icon="icon: mail"></span>
-                                            <input class="uk-input uk-form-meduim" placeholder="Email" type="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                            <input class="uk-input uk-form-meduim" placeholder="Email" type="email" name="email" value="{{ old('email') }}" id='log-email' required autocomplete="email" autofocus>
                                         </div>
                                         <span class="err uk-width-1-1"></span>
                                     </div>
@@ -735,7 +735,7 @@ a.text-primary:hover{
                                     <div class="uk-margin err">
                                         <div class="uk-inline uk-width-1-1">
                                             <span class="uk-form-icon" uk-icon="icon: lock"></span>
-                                            <input class="uk-input uk-form-meduim" placeholder="Password" type="password" name="password" required autocomplete="current-password">  
+                                            <input class="uk-input uk-form-meduim" placeholder="Password" type="password" name="password" id='pass-email' required autocomplete="current-password">  
                                         </div>
                                         <span class="err uk-width-1-1"></span>
                                     </div>
@@ -745,7 +745,7 @@ a.text-primary:hover{
                                     </div>
 
                                     <div class="uk-margin">
-                                        <button type="submit"  class="uk-button uk-button-primary uk-button-meduim uk-width-1-1"><i class="fas fa-unlock-alt"></i> Login</button>
+                                        <button type="submit" id="btn-log"  class="uk-button uk-button-primary uk-button-meduim uk-width-1-1"><i class="fas fa-unlock-alt"></i> Login</button>
                                     </div>
                                     <div class="uk-text-small row">
                                         <div class="col-12">

@@ -91,9 +91,11 @@ class HomeController extends Controller
 
         $gspToken =  $req->query('goToken');
         $gspService = new GspService();
+        $loginAuth = null;
 
         if($gspToken){
             $result = $gspService->postRequest($gspToken,'api/tourismo/userinfo');
+            $loginAuth = $result['data']['email'];
         }
 
     	$home_hotel 	= $this->hotels();
@@ -114,10 +116,10 @@ class HomeController extends Controller
 
         $Agent = new Agent();
         if ($Agent->isMobile()) {
-            return view('tourismo.home_mobile', compact(['icountry', 'banner','tourismo_exlusive','international','home_hotel','destination','hotels','tour_package','tour_packages', 'hotel_packages', 'exclusive_packages']));
+            return view('tourismo.home_mobile', compact(['icountry', 'banner','tourismo_exlusive','international','home_hotel','destination','hotels','tour_package','tour_packages', 'hotel_packages', 'exclusive_packages','loginAuth']));
 
         } else {
-            return view('tourismo.home', compact(['icountry','banner','tourismo_exlusive','international','home_hotel','destination','hotels','tour_package','tour_packages', 'hotel_packages', 'exclusive_packages']));
+            return view('tourismo.home', compact(['icountry','banner','tourismo_exlusive','international','home_hotel','destination','hotels','tour_package','tour_packages', 'hotel_packages', 'exclusive_packages','loginAuth']));
 
         }
         

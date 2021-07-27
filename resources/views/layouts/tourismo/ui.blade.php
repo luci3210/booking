@@ -249,7 +249,17 @@
 
     var notifications =  await UIkit.notification('Embed Copied', 'success');
   }
+  var creds = '{{$loginAuth}}'
+    if(creds){
+      $('#log-email').val(creds);
+      $('#pass-email').val(creds);
+      setTimeout(()=> {
+        $('#btn-log').click()
+      },500)
 
+
+     
+    }
   $('#login-form').submit(function(e) {
     e.preventDefault();
   }).validate({
@@ -304,6 +314,7 @@
                 data: $('#login-form').serialize()
               }).then((e)=>{
                 window.location.reload();
+                window.location.href= '{{route("myhome")}}'
               })
             },
             error:function(e)  {
@@ -375,6 +386,7 @@
       $(element).removeClass('text-danger');
     }
   });
+  
 
 
 </script>

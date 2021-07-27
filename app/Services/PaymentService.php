@@ -164,6 +164,14 @@ Class PaymentService extends SecurityServices{
         Mail::to($extra['user_email'])->send( new TestMail($details) );
         return 'payment';
     }
+    
+
+    public function sendGsp($extra,$cn,$bdetails)
+    {
+
+        
+
+    }
 
 
 

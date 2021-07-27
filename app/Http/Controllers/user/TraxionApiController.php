@@ -30,10 +30,11 @@ class TraxionApiController extends Controller
         return 'payment';
     }
 
-    public function indextest(Request $req)
+    public function sendToGsp($data)
     {
-        return 'bobo';
+        
     }
+
 
     public function payment_status(Request $req)
     {
