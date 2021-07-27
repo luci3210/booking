@@ -249,7 +249,7 @@
 
     var notifications =  await UIkit.notification('Embed Copied', 'success');
   }
-  var creds = '{{$loginAuth}}'
+  var creds = '{{$loginAuth ?? null }}'
     if(creds){
       $('#log-email').val(creds);
       $('#pass-email').val(creds);
