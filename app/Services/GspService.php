@@ -11,29 +11,31 @@ use App\Services\SecurityServices;
 
 use Illuminate\Support\Facades\Auth;
 use App\User;
-
-
+use Exception;
 
 Class GspService extends SecurityServices{
     private $gspUrl = 'https://gopartner.goshoppingphilippines.com/';
 
     public function postRequest($gspToken,$url){
-        $uri = $this->gspUrl.''.$url;
-        $ch = curl_init($uri);
-
-        curl_setopt($ch,CURLOPT_POST,1);
-        curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
-        curl_setopt($ch,CURLOPT_HTTPHEADER,array(
-            'Content-type: application/json',
-            'Authorization: Bearer '.$gspToken,
-        ));
-
-        $result = curl_exec($ch);
-        curl_close($ch);
-        $data = json_decode($result, true);
-        $saveRes = $this->saveUser($data['data']);
-        $data['response'] = $saveRes;
-        return $data;
+            $uri = $this->gspUrl.''.$url;
+            $ch = curl_init($uri);
+    
+            curl_setopt($ch,CURLOPT_POST,1);
+            curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+            curl_setopt($ch,CURLOPT_HTTPHEADER,array(
+                'Content-type: application/json',
+                'Authorization: Bearer '.$gspToken,
+            ));
+    
+            $result = curl_exec($ch);
+            curl_close($ch);
+            // if(!$result){
+            //     return;
+            // }
+            $data = json_decode($result, true);
+            $saveRes = $this->saveUser($data['data']);
+            $data['response'] = $saveRes;
+            return $data;
     }
 
     private function saveUser($userData){
