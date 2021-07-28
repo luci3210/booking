@@ -29,13 +29,18 @@ Class GspService extends SecurityServices{
     
             $result = curl_exec($ch);
             curl_close($ch);
-            // if(!$result){
-            //     return;
-            // }
             $data = json_decode($result, true);
+            if(isset($data['code'])){
+                return null;
+            }
             $saveRes = $this->saveUser($data['data']);
             $data['response'] = $saveRes;
             return $data;
+            // if(!$result){
+            //     return;
+            // }
+            // $data = json_decode($result, true);
+            
     }
 
     private function saveUser($userData){

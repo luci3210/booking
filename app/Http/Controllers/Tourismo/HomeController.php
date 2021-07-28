@@ -95,7 +95,9 @@ class HomeController extends Controller
 
         if($gspToken){
             $result = $gspService->postRequest($gspToken,'api/tourismo/userinfo');
-            $loginAuth = $result['data']['email'];
+            if($result){
+                $loginAuth = $result['data']['email'];
+            }
         }
 
     	$home_hotel 	= $this->hotels();
