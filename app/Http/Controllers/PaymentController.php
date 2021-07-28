@@ -137,21 +137,12 @@ class PaymentController extends Controller
             $auth_hash = hash_hmac('sha256', $public_key, $secret_key, false);
             $paymentService = new PaymentService();
             $extraData = $paymentService->SavePayment($req->uid,'pending',$req->book_date, $req->book_date_to, $req->billing_price, $req->children_count, $req->adult_count);
-            // $bookDetails['name'] = $req->billing_plan_name;
-            // $bookDetails['desc'] = $req->desc;
-            // $bookDetails['expect'] = $req->expect;
-            // $bookDetails['noguest'] = $req->noguest;
-            // $bookDetailsss = array(
-            //     'name'=> $req->billing_plan_name,
-            //     'desc'=>$req->desc,
-            //     'expect'=>$req->expect,
-            //     'noguest'=>$req->noguest,
-            // );
             $bookDetailsss['uid'] = $req->uid;
             $bookDetailsss = base64_encode(json_encode($bookDetailsss));
             $data['bookdetails'] = $bookDetailsss;
             $data['extraData'] = $extraData;
-            // return $extraData;
+            // $bookDetailsss='123123';
+            // $extraData='231321';
             
 
             
