@@ -58,6 +58,7 @@ Route::get('/destination/ph', 'Tourismo\HomeController@page_destination')->name(
 Route::get('/destination/{country}/{district}', 'Tourismo\DestinationController@by_district')->name('by_district');
 
 Route::get('{category}/destination/{country}/{district}/service/{name}', 'Tourismo\DestinationController@by_name')->name('by_name');
+Route::get('{category}/destination/{country}/{district}/service/{name}/book', 'Tourismo\DestinationController@book')->name('book');
 
 
 
@@ -76,7 +77,10 @@ Route::get('/tour-package/{id}', 'Tourismo\TourPackageController@index')->name('
 Route::get('/service-tour/explore/{id}', 'Tourismo\ServiceTourController@index')->name('service_tour_view');
 
 Route::POST('/wishlist/toggle', 'user\WishListController@toggle_wishlist')->name('toggle_wishlist');
+
 Route::POST('payment/hotels/xxxx', 'PaymentController@pay_booking')->name('pay2')->middleware('checkUserData','checkEmailVerified');
+Route::POST('payment/hotels/xxx', 'PaymentController@traxion')->name('traxion_pay')->middleware('checkUserData','checkEmailVerified');
+
 Route::get('/tourismoph/hotel/{id}', 'Tourismo\HomeController@hotel_details')->name('tourismo-hotel-details');
 
 Route::get('/invoice/download','user\TraxionApiController@invoice_copy')->name('invoice_payment');

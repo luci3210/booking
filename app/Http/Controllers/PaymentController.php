@@ -231,6 +231,10 @@ class PaymentController extends Controller
     }
 
     
+public function traxion(Request $req) {
+        
+            
+    }
 
 
 }

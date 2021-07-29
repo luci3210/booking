@@ -118,17 +118,13 @@
   @endif
 
   
-
-
 <div style="height:60px;width:100%; background-color:#f4f4f4; padding: 12px 10px 5px;">
 <p  style="font-size:23px;font-weight:700;color:#f7442e">₱ {{ $byname[0]->price }}</p>
 </div>
-<p style="margin-top: 8px; margin-bottom: 5px;font-size:13px;">
-    {{ $byname[0]->name }} » {{ $byname[0]->country }} » {{ $byname[0]->district }} » {{ $byname[0]->tour_name }}
+  <p style="margin-top: 8px; margin-bottom: 10px;font-size:13px;">
+    {{ $byname[0]->name }} » {{ $byname[0]->country }} » {{ $byname[0]->district }}
   </p>
-
-<br>
-<button type="button" class="btn btn-block btn-warning btn-flat">Book Now</button>
+<a href="{{ route('book',[$byname[0]->description,$byname[0]->country,$byname[0]->district,$byname[0]->tour_name]) }}" class="btn btn-block btn-warning btn-flat">Book Now</a>
 <button type="button" class="btn btn-block btn-primary btn-flat">Share</button>
 
 </div>
@@ -204,18 +200,179 @@
   
   <hr>
 
-
   </div>
 
   
 @elseif($byname[0]->description == 'exclusive')
   
+  <div class="card-body">
+    
+  <strong>Tour Package about</strong>
+
+  <p class="text-muted" style="font-size: 14px;">
+      {{ $byname[0]->tour_desc }}
+  </p>
+
+  <hr>
+
+  <strong>What to expect</strong>
+
+  <p class="text-muted">
+    {{ $byname[0]->tour_expect }}
+  </p>
+
+  <hr>
+
+  <strong>Cancelation and Refund Policy</strong>
+    <p class="text-muted">
+    </p>
+  
+  <hr>
+
+  </div>
+
+
 @else
 
   @endif
 
 
 </div>
+
+
+<div class="col-5">
+
+  <div class="card-body">
+
+  <strong>More Details</strong>
+
+  <p class="text-muted" style="font-size: 14px;">
+      {{ $byname[0]->about }}
+  </p>
+
+
+  <strong>Reviews</strong>
+  <br>
+  <br>
+
+    @if(Auth::check())
+      <form method="post" action="{{route('service_tour_review')}}" role="form">
+      @csrf
+        <fieldset class="uk-fieldset">
+          <div class="uk-margin">
+              <textarea class="uk-textarea" id="comment-textarea"  name="pr_review" rows="3"  placeholder="Your comment here"></textarea>
+          </div>
+          <div class="uk-margin" style="margin: -15px  0 1px !important;">
+          <div class="rating">
+              <input class="" id="reviews-rating" name="pr_ratings" type="number" hidden />
+              <input name="pr_page_id" value="{{ $byname[0]->st_id }}" rows="5" type="number" hidden readonly/>
+                <i class="rating__star-comment far fa-star" style="font-size:14px"></i>
+                <i class="rating__star-comment far fa-star" style="font-size:14px"></i>
+                <i class="rating__star-comment far fa-star" style="font-size:14px"></i>
+                <i class="rating__star-comment far fa-star" style="font-size:14px"></i>
+                <i class="rating__star-comment far fa-star" style="font-size:14px"></i>
+          </div>
+          <p class='text-danger error-ratings' style="font-size: 12px; margin: -1px  0 3px;">Ratings is required</p>
+          </div>
+            @auth
+            <button type="button" onclick="submitReview() " class="comment-btn uk-button uk-button-small">Submit</button>
+                        <button type="submit" id="btn-review" class="comment-btn uk-button uk-button-small" hidden>Submit</button>
+
+            @endauth
+          <a href="javascript:void(0)" uk-toggle="target: #checklogin" class="comment-btn uk-button uk-button-small">Submit</a>
+
+          <p>Comments</p>
+        </fieldset>
+      </form>
+    @endif
+
+
+ @if($reviewsData)
+  @if(count($reviewsData) >= 1)
+  <div class="row">
+    @foreach($reviewsData as $data)
+
+      <article class="uk-comment col-md-12 col-sm-12">
+          <header class="uk-comment-header">
+              <div class="uk-grid-medium uk-flex-middle" uk-grid>
+    
+    <div class="uk-width-auto avatar-holder">
+      <img src="/upload/merchant/profilepic/{{ $data->profpic == '' ? 'default.png' : $data->profpic }}" width="40" height="40" alt="">
+    </div>
+    
+    <div class="uk-width-expand">
+      <p class="uk-comment-title uk-margin-remove" style="font-size:14px;">
+        <a class="uk-link-reset" href="#" >by. {{ substr($data->name, 0, 5) }}...</a>
+      </p>
+
+      <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top" >
+          <li>
+            <a href="#" style="color:black!important; font-size:12px">
+              {{ date("F j, Y, g:i a",strtotime($data->pr_created_at)) }}
+            </a>
+          </li>
+          <li>
+            <div class="rating"  style="font-size:12px;">
+              @for($x = 1; $x <= $data->pr_ratings; $x++)
+                <i class="rating__star fas fa-star"></i>
+              @endfor
+              @for($x = 1; $x <=  (5-$data->pr_ratings); $x++)
+              <i class="rating__star far fa-star"></i>
+              @endfor
+            </div>
+          
+          </li>
+      </ul>
+
+    </div>
+
+
+</div>
+
+    </header>
+    <div class="uk-comment-body">
+        <p class="comment-text" style="font-size:14px;">
+          @if(!empty($data->pr_review))
+            {{$data->pr_review}}
+          @else
+            no review
+          @endif
+        </p>
+    </div>
+    <hr class="mt-1">
+</article>
+            <!-- /. article -->
+          <!-- </li> -->
+          @endforeach
+        </div>
+        <ul class="pagination pagination-sm m-0 float-left">
+            {{$reviewsData->links() }}
+        </ul>
+      <!-- /.ul -->
+        @else
+        <h3>no reviews</h3>
+        @endif
+      @endif
+      @if(!$reviewsData)
+      <h3>something went wrong</h3>
+      @endif
+
+
+
+
+
+
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
 
 </div>
 
@@ -227,6 +384,17 @@
 @endsection
 
 @section('js')
+
+<script type="text/javascript">
+
+const ratingStars=[...document.getElementsByClassName("rating__star-comment")];let ratingReview=0;function executeRating(t){const e=t.length;let a;t.map(n=>{n.onclick=(()=>{if(a=t.indexOf(n),"rating__star-comment far fa-star "===n.className)for(;a>=0;--a)t[a].className="rating__star-comment fas fa-star count-star";else for(;a<e;++a)t[a].className="rating__star-comment far fa-star ";ratingReview=$(".count-star").length;var r=$("#comment-textarea").val();$("#reviews-rating").val(parseInt(ratingReview)),ratingReview>=1||r.length>=1?$(".comment-btn").show(500):$(".comment-btn").hide(500)})})}function submitReview(){ratingReview>=1?$("#btn-review").click():$(".error-ratings").show()}executeRating(ratingStars),window.localStorage.removeItem("bookData");
+
+
+$(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide(),$("#comment-textarea").on("focus",function(t){$(".comment-btn").show(500)}),$("#comment-textarea").on("blur",function(t){var e=$("#comment-textarea").val();ratingReview=$(".count-star").length,e.length>=1||ratingReview>=1||$(".comment-btn").hide(500)})});
+
+</script>
+
+
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v10.0&appId=2142027805833973&autoLogAppEvents=1" nonce="uUSyMk8o"></script>
 @endsection

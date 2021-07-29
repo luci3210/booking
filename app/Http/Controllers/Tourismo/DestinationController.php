@@ -6,16 +6,21 @@ namespace App\Http\Controllers\Tourismo;
 use App\Model\Admin\LocationCountyModel;
 use App\Model\Merchant\TourModel;
 
+use App\user\PageReviewsModel;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class DestinationController extends Controller
 {
     
     public function __construct() {
+
     }
 
-    public function country($country) {
+    protected function country($country) {
 
         return LocationCountyModel::where('location_country.country',$country)->get()->first();
     }
@@ -29,7 +34,7 @@ class DestinationController extends Controller
 
     }
 
-    public function district($country=null,$district=null) {
+    protected function district($country=null,$district=null) {
 
         $districts = TourModel::join('locations_district','locations_district.id', 'service_tour.district')
                 ->join('location_country','location_country.id', 'locations_district.country_id')
@@ -52,7 +57,7 @@ class DestinationController extends Controller
 
     }
 
-    public function by_get_name($category=null,$country=null,$district=null,$name=null) {
+    protected function by_get_name($category=null,$country=null,$district=null,$name=null) {
 
         $get_name = TourModel::join('locations_district','locations_district.id', 'service_tour.district')
                 ->join('location_country','location_country.id', 'locations_district.country_id')
@@ -76,12 +81,17 @@ class DestinationController extends Controller
                                 'service_tour.noguest',
                                 'service_tour.roomsize',
                                 'service_tour.service_id',
+                                'service_tour.id as st_id',
 
                                 'service_tour.tour_desc',
                                 'service_tour.tour_expect',
                                 'service_tour.serviceid',
 
-                                'location_country.*','locations_district.*','products.name','products.description','profiles.company','profiles.address']);
+                                'location_country.*','locations_district.*','products.name','products.description',
+
+                                'profiles.company',
+                                'profiles.about',
+                                'profiles.address']);
 
         if(empty($get_name[0])) {
 
@@ -95,7 +105,7 @@ class DestinationController extends Controller
 
     }
 
-    public function by_get_photos($name=null) {
+    protected function by_get_photos($name=null) {
 
         $get_photos = TourModel::join('service_tour_photos','service_tour.id', 'service_tour_photos.upload_id')
                 ->where([['service_tour.tour_name',$name]])
@@ -113,6 +123,52 @@ class DestinationController extends Controller
 
     }
 
+    protected function getReviews($name=null){
+
+        $reviewsData = new PageReviewsModel();
+        $reviewsData = $reviewsData->where([
+            ['page_reviews.pr_temp_status', 1],
+                ['service_tour.tour_name', $name]
+                ]);
+        $reviewsData = $reviewsData->join('service_tour','page_reviews.pr_page_id', 'service_tour.id');
+        $reviewsData = $reviewsData->join('users', 'page_reviews.pr_user_id', 'users.id');
+        $reviewsData = $reviewsData->paginate(2);
+        $reviewsData = $reviewsData->setCollection($reviewsData->getCollection()->makeHidden(
+        ['id',
+        'password', 
+        'email',
+        'created_at',
+        'updated_at',
+        'bdate',
+        'accnt_nu',
+        'address',
+        'pnumber',
+        'remember_token',
+        'email_verified_at',
+        'job',
+        ]));
+
+    }
+
+    protected function userCountry(){
+       
+        $userCountry = new LocationCountyModel();
+        $userCountry = $userCountry->where([['id',Auth::user()->country]]);
+        $country = $userCountry->get();
+
+        if(empty($country[0])) {
+
+                abort(404,'Data not found.!');
+            } 
+        else 
+        {
+
+                return $country;
+            }
+       
+    }
+
+
     public function by_district($country=null,$district=null) {
 
         $bydistrict = $this->district($country,$district);
@@ -125,8 +181,20 @@ class DestinationController extends Controller
 
         $byname = $this->by_get_name($category,$country,$district,$name);
         $byphotos = $this->by_get_photos($name);
+        $reviewsData = $this->getReviews($name);
 
-        return view('tourismo.by_service_name', compact('byname','byphotos'));
+        return view('tourismo.by_service_name', compact('byname','byphotos','reviewsData'));
+
+    }
+
+    public function book($category=null,$country=null,$district=null,$name=null) {
+
+        $byname = $this->by_get_name($category,$country,$district,$name);
+        $byphotos = $this->by_get_photos($name);
+        $reviewsData = $this->getReviews($name);
+        $country = $this->userCountry();
+
+        return view('tourismo.book', compact('byname','byphotos','reviewsData','country'));
 
     }
 }
