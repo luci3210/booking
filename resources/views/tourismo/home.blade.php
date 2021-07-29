@@ -37,22 +37,27 @@
 </style>
 
 @section('banner')
-<div class="uk-position-relative uk-visible-toggle uk-light mt-sm-slider d-none d-sm-none d-lg-block d-md-block d-xl-block " tabindex="-1" uk-slideshow="ratio: 10:3; animation: push">
-    <ul class="uk-slideshow-items min-vh-30">
-      @foreach($banner as $list)
-        <li>
-            <img src="{{ asset('image/banner')}}/{{ $list->banner_img == '' ? 'default.png' : $list->banner_img }}" alt="" uk-cover>
-            <div class="uk-position-center uk-position-small uk-text-center uk-light">
-                0<h1 class="uk-margin-remove font-mobile"><b>{{ $list->short_des }}</b></h1>
-                <p class="uk-margin-remove">{{ $list->long_desc }}</p>
-            </div>
-        </li>
-      @endforeach
-    </ul>
+<!-- <div class="row ">
+  <div class="col-12"> -->
+    <div class="container-fluid uk-position-relative uk-visible-toggle uk-light mt-sm-slider d-none d-sm-none d-lg-block d-md-block d-xl-block " tabindex="-1" uk-slideshow="ratio: 10:3; animation: push">
+        <ul class="uk-slideshow-items min-vh-30">
+          @foreach($banner as $list)
+            <li>
+                <img src="{{ asset('image/banner')}}/{{ $list->banner_img == '' ? 'default.png' : $list->banner_img }}" alt="" uk-cover>
+                <div class="uk-position-center uk-position-small uk-text-center uk-light">
+                    <h1 class="uk-margin-remove font-mobile"><b>{{ $list->short_des }}</b></h1>
+                    <p class="uk-margin-remove">{{ $list->long_desc }}</p>
+                </div>
+            </li>
+          @endforeach
+        </ul>
 
-    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
-    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
-</div>
+        <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+        <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+    </div>
+  <!-- </div>
+</div> -->
+
 @endsection
 
 

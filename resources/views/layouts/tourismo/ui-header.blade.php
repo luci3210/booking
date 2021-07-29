@@ -567,8 +567,8 @@ a.text-primary:hover{
 
 <!-- /.nav -->
 
-<div class="row" style="padding: 10px 3px 0;">
-    <div class="col-12 d-block d-md-none d-lg-none mt-5">
+<div class="row d-block d-md-none d-lg-none" style="padding: 10px 3px 0;">
+    <div class="col-12  mt-5">
         <div class="uk-card card-padding nav-mobile-boxshadow">
             <div class="mobile-nav-icon">
 

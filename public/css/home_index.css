@@ -33,10 +33,10 @@
   padding-left: 0!important;
 }
 .uk-position-center-right {
-  right: -25px!important;
+  /* right: -25px!important; */
 }
 .uk-position-center-left {
-  left: -25px!important;
+  /* left: -25px!important; */
 }
 .mx-auto{
   margin: auto!important;
