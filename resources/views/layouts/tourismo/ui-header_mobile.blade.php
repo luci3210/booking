@@ -270,7 +270,7 @@
         @auth
         <div class="d-flex w100">
         <div class="position-relative">
-        <a type="button" class="profile-icon" ><i class="fas fa-user-circle icon-profile"></i></a>
+        <a type="button" class="profile-icon" ><i class="fas fa-user-circle icon-profile text-light"></i></a>
         <div uk-dropdown="mode: click">
             <ul class="uk-nav uk-dropdown-nav">
                 <li class=""><a href="{{ route('myhome') }}" class="text-dark">Home</a></li>
