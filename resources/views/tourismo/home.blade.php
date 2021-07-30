@@ -240,7 +240,7 @@
                 
 <div class="mem-button">
 
-  <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('provice', $list->provice_id) }}">
+  <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('by_country', $list->provice_id) }}">
     Explore
   </a>
 

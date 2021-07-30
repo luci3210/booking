@@ -57,7 +57,7 @@ Route::get('/destination/ph', 'Tourismo\HomeController@page_destination')->name(
 
 Route::get('/destination/countries', 'Tourismo\DestinationController@by_countries')->name('by_countries');
 
-Route::get('/destination/aaaa{country}', 'Tourismo\DestinationController@by_country')->name('by_country');
+Route::get('/destination/{country}', 'Tourismo\DestinationController@by_country')->name('by_country');
 
 Route::get('/destination/{country}/{district}', 'Tourismo\DestinationController@by_district')->name('by_district');
 Route::get('{category}/destination/{country}/{district}/service/{name}', 'Tourismo\DestinationController@by_name')->name('by_name');

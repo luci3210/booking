@@ -53,11 +53,9 @@ class DestinationController extends Controller
             } 
         else 
         {
-
-                return $country;
-            }
+            return $country;
+        }
     }
-
 
     public function location($country) {
 
@@ -210,15 +208,13 @@ class DestinationController extends Controller
 
     public function by_country($country) {
 
-        $country = $this->country($country);  
-
-        return view('tourismo.by_country', compact('country'));   
+        $country = $this->country($country); 
+        return view('tourismo.by_country',compact('country'));   
     }
 
     public function by_district($country=null,$district=null) {
 
-        $bydistrict = $this->district($country,$district);
-
+        $bydistrict = $this->district($country,$district);  
         return view('tourismo.by_district', compact('bydistrict'));
 
     }
