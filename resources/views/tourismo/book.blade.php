@@ -347,21 +347,20 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
   let qtyCount = 1;
   let qtyTotalCountFee = 0;
   let totalAdultCount = 1;
-  let totalAdultFee = parseInt('{{$byname[0]->price}}' );
+  let totalAdultFee = parseFloat('{{$byname[0]->price}}' );
   let totalAdultValue = 0;
   let totalChildrenCount = 0;
-  let totalChildrenFee = parseInt('{{$byname[0]->price}}');
+  let totalChildrenFee = parseFloat('{{$byname[0]->price}}');
   let totalChildrenValue = 0;
-  let totalFee = parseInt('{{$byname[0]->price}}');
+  let totalFee = parseFloat('{{$byname[0]->price}}');
   let totalOfDays = parseInt('{{$byname[0]->nonight}}');
   let totalOfDaysFee = 0;
   let checkAvailblity = true;
-  let tripFee = parseInt('{{$byname[0]->price}}');
+  let tripFee = parseFloat('{{$byname[0]->price}}');
   let tripFeess = '{{$byname[0]->price}}';
   let additionalFee = 0;
   let nightsLimit = parseInt('{{$byname[0]->nonight}}');
-  $('#billing_total_payment').text(parseFloat(totalFee.toLocaleString()).toFixed(2))
-
+  $('#billing_total_payment').text(tripFee.toLocaleString(undefined, {minimumFractionDigits: 2}))
 
 
   $('input[name="datetimes"]').daterangepicker({
@@ -411,14 +410,13 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
     const qtyFee =   qtyCount > 1 ? tripFee * qtyCount : tripFee
     const diffGuest = 0 
     const totals =  parseInt(totalOfDaysFee + qtyFee)
-    let totalFeee  =  totals > parseInt(tripFee) ?  totals : tripFee
-    $('#billing_total_payment').text(parseFloat(totalFeee.toLocaleString()).toFixed(2))
-    $('#days-fee').text(parseFloat(totalOfDaysFee.toLocaleString()).toFixed(2))
-    $('#qty-fee').text(parseFloat(qtyFee.toLocaleString()).toFixed(2))
-    $('#days-count').text(`${parseInt(totalOfDays)} Days x ${parseFloat(tripFee.toLocaleString()).toFixed(2)} Price `)
-    $('#qty-count').text(`${parseInt(qtyCount)} Qty x ${parseFloat(tripFee.toLocaleString()).toFixed(2)} Price `)
-
-    console.log(`totals ${totals} tripFee ${tripFee} ${totalFee}`)
+    let totalFeee  =  totals > tripFee ?  totals : tripFee
+    $('#billing_total_payment').text(totalFeee.toLocaleString(undefined, {minimumFractionDigits: 2}))
+    $('#qty-fee').text(qtyFee.toLocaleString(undefined, {minimumFractionDigits: 2}))
+    $('#days-fee').text(totalOfDaysFee.toLocaleString(undefined, {minimumFractionDigits: 2}))
+    $('#days-count').text(`${parseInt(totalOfDays)} Days x ${tripFee.toLocaleString(undefined, {minimumFractionDigits: 2})} Price `)
+    $('#qty-count').text(`${parseInt(qtyCount)} Qty x ${tripFee.toLocaleString(undefined, {minimumFractionDigits: 2})} Price `)
+    console.log(`totals ${totals} tripFee ${tripFee} totals${totalFee}`)
     
   }
 
