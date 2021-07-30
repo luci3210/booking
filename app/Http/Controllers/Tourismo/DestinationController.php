@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Tourismo;
 
 use App\Model\Admin\LocationCountyModel;
 use App\Model\Merchant\TourModel;
+use App\Model\Admin\DestinationModel;
+
 
 use App\user\PageReviewsModel;
 
@@ -20,15 +22,46 @@ class DestinationController extends Controller
 
     }
 
-    protected function country($country) {
+    protected function countries() {
 
-        return LocationCountyModel::where('location_country.country',$country)->get()->first();
+        $countries = DestinationModel::join('locations_district','locations_district.id','destinations.destination_id')
+            ->where([ ['destinations.temp_status','=',1],
+                ['destinations.country_id','<>',1] ])
+                ->get(['locations_district.id as provice_id','destinations.*']);
+
+        if(empty($countries[0])) {
+
+                abort(404,'Data not found.!');
+            } 
+        else 
+        {
+
+                return $countries;
+            }
+    }
+
+    protected function country($country=null) {
+
+        $country = DestinationModel::join('location_country','location_country.id','destinations.country_id')
+            ->where([ ['destinations.temp_status','=',1],
+                ['location_country.country',$country] ])
+                ->get(['location_country.country','destinations.*']);
+
+        if(empty($country[0])) {
+
+                abort(404,'Data not found.!');
+            } 
+        else 
+        {
+
+                return $country;
+            }
     }
 
 
     public function location($country) {
 
-        $location = $this->country($country);
+        $location = $this->countries($country);
 
         return view('tourismo.destination', compact('location'));
 
@@ -168,6 +201,19 @@ class DestinationController extends Controller
        
     }
 
+    public function by_countries() {
+
+        $getcountry = $this->countries();
+
+        return view('tourismo.by_countries', compact('getcountry'));
+    }
+
+    public function by_country($country) {
+
+        $country = $this->country($country);  
+
+        return view('tourismo.by_country', compact('country'));   
+    }
 
     public function by_district($country=null,$district=null) {
 

@@ -70,8 +70,8 @@
 </div>
 
 <div class="card-body">
-  <p class="text-muted" id="billing_service_name">
-    Name :  {{ $byname[0]->tour_name }}
+  <p class="text-muted">
+    Name : <span id="billing_service_name">{{ $byname[0]->tour_name }}</span>
   </p>
 
   <hr>
@@ -207,7 +207,9 @@
       <td></td>
       <td>
         <b>  
-          <p id="billing_total_payment"> {{ $byname[0]->price }} </p>
+          <p> 
+            <span id="billing_total_payment">{{ $byname[0]->price }}</span>
+          </p>
         </b>
       </td>
     </tr>
@@ -331,6 +333,7 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
 
 
 <script type="text/javascript">
+
     function checkPaymentMethod() {
 
     let paymentType= $('input[name="payment-method"]:checked').val();
@@ -354,6 +357,7 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
 
   function paybyTraxion() { 
 
+
     var firstname      =   $('input[name="billing_first_name"]').val();
     var lastname       =   $('input[name="billing_last_name"]').val();
     var middlename     =   $('input[name="billing_middle_name"]').val();
@@ -363,13 +367,60 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
     var address        =   $('input[name="billing_address"]').val();
 
 
-    var quantity    =   $('input[name="s_quantity"]').val(); 
-    var adult       =   $('input[name="s_adult"]').val(); 
-    var children    =   $('input[name="s_children"]').val(); 
+    // var quantity    =   $('input[name="s_quantity"]').val(); 
+    // var adult       =   $('input[name="s_adult"]').val(); 
+    // var children    =   $('input[name="s_children"]').val(); 
     
     var totalpament    =   $('#billing_total_payment').text();
     var servicename    =   $('#billing_service_name').text();
 
+     var datam = {
+
+        billing_firstname: firstname,
+        billing_lastname: lastname,
+        billing_middlename: middlename,
+        billing_phoneno: phoneno,
+        billing_emailaddress: emailaddress,
+        billing_country: country,
+        billing_address: address,
+        billing_totalpament: totalpament,
+        billing_servicename: servicename
+        
+    };
+    console.log(datam);
+    window.localStorage.setItem('bookData',JSON.stringify(datam));
+   
+    var crfToken = $('meta[name="csrf-token"]').attr('content');
+    $.ajaxSetup({
+        
+        headers: {
+
+        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+        'Accept': 'application/json',
+        '_token': '{{ Session::token()  }}',
+        'Authorization': '{{ Session::token()  }}',
+      }
+
+    });
+
+
+        $.ajax({
+
+        method:"POST",
+        data:datam,
+        url: "{{ route('traxion_pay') }}",
+        success: function(data) {
+
+        let paymenyLink = data['dataresp']['form_link'];
+        window.open(paymenyLink);
+        console.log(data);
+        console.log(paymenyLink);
+       
+      }
+
+    });
+
+}
 </script>
 
 

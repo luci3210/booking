@@ -739,13 +739,14 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
         noguest:'{{$tourDetails[0]->noguest}}',
         proid:'{{$profileData[0]->id}}',
         uid: '{{$tourDetails[0]->id}}',
-        url_callback:'{{route('checkout_callback')}}',
+        // url_callback:'{{route('checkout_callback')}}',
         // myurl:'http://127.0.0.1:8000/checkout',
-        myurl:'https://booking.tourismo.ph/checkout',
+        // myurl:'https://booking.tourismo.ph/checkout',
         
     };
     console.log(datam);
     window.localStorage.setItem('bookData',JSON.stringify(datam));
+
     var crfToken = $('meta[name="csrf-token"]').attr('content');
     $.ajaxSetup({
       url: '{{ route('pay2') }}',

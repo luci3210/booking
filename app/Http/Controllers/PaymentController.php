@@ -232,8 +232,103 @@ class PaymentController extends Controller
 
     
 public function traxion(Request $req) {
-        
+                try {
+
             
+            $paymentInfo = $req->post();
+            $data['post'] =  $paymentInfo;
+
+            $credentials = $this->creds();
+
+            $secret_key = $credentials->private_key;
+            $public_key = $credentials->public_key;
+
+            $merchant_id = "8529";
+
+            $site_url = "https://dev.traxionpay.com/";
+            $api_url = "https://devapi.traxionpay.com/";
+            
+            $dataToHash = "5a8c12eb19016500.00PHPMy Product";
+            $secure_hash = hash_hmac('sha256', $dataToHash, $secret_key, false);
+            $auth_hash = hash_hmac('sha256', $public_key, $secret_key, false);
+            
+            $customer_array = array (
+                "merchant_id" =>  6328,
+                "merchant_ref_no" => "ABC123DEF456",
+                "merchant_additional_data" => "eyJwYXltZW50X2NvZGUiOiJBQkMxMjNERUY0NTYifQ==",
+                "amount" => $req->billing_totalpament,
+                "currency" => 'PHP',
+                "description" => $req->billing_servicename,
+                "billing_email" => $req->billing_emailaddress,
+                "billing_first_name" => $req->billing_firstname,
+                "billing_last_name" => $req->billing_lastname,
+                "billing_middle_name" => $req->billing_middlename,
+                "billing_phone" => "",
+                "billing_mobile" => $req->billing_phoneno,
+                "billing_address" => $req->billing_address,
+                "billing_address2" => "",
+                "billing_city" => "Quezon City",
+                "billing_state" => "N/A",
+                "billing_zip" => "11601",
+                "billing_country" => $req->billing_country,
+                "billing_remark" => "",
+                "payment_method" => "",
+                "status_notification_url" => $api_url . 'callback',
+                "success_page_url" => "https://devapi.traxionpay.com/callback",
+                "failure_page_url" => "https://dev.traxionpay.com/",
+                "cancel_page_url" => "https://dev.traxionpay.com/",
+                "pending_page_url" => "https://dev.traxionpay.com/",
+                "secure_hash" => "9a299db22a2d7ac57b9919b4acafa958f76161b8e2488ad222ed57bb19114a7e",
+                "auth_hash" => "a6e2e678d349b1e8cc279a2bf4557acf711572d6d50dabb23a21d415e79ed169",
+                "alg" => "HS256",
+            );
+
+
+             // $payform_data = json_encode($raw_payform, JSON_UNESCAPED_SLASHES);
+            // $decoded = utf8_decode(base64_encode(utf8_encode($payform_data)));
+
+            $billing_json = json_encode($customer_array, JSON_UNESCAPED_SLASHES);
+            // $data['form_data'] = base64_encode($billing_json);
+            $paymentInfo['form_data'] = utf8_decode(base64_encode(utf8_encode($billing_json)));
+            $data['decodedform'] = $paymentInfo;
+            // $paymentInfo['form_data'] = base64_encode($billing_json);
+
+            $curl = curl_init();
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => "https://api.traxionpay.com/payform-link?format=json",
+        // CURLOPT_URL => "https://devapi.traxionpay.com/payform",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => $data,
+        CURLOPT_HTTPHEADER => array(
+            "cache-control: no-cache",
+            "content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW"
+        ),
+    ));
+
+     $response = curl_exec($curl);
+            $err = curl_error($curl);
+
+            curl_close($curl);
+            sleep(2);
+            $dataresp = '';
+            if ($err) {
+                echo "cURL Error #:" . $err;
+            } else {
+                $dataresp = json_decode($response);
+            }
+            $data['dataresp'] = $dataresp;
+            return $data;
+        } catch (\Exception $exception) {
+            return $exception->getMessage();
+        }
+        return 'no';
+
+
     }
 
 

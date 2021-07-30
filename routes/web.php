@@ -55,8 +55,11 @@ Route::get('/destination/ph', 'Tourismo\HomeController@page_destination')->name(
 
 
 
-Route::get('/destination/{country}/{district}', 'Tourismo\DestinationController@by_district')->name('by_district');
+Route::get('/destination/countries', 'Tourismo\DestinationController@by_countries')->name('by_countries');
 
+Route::get('/destination/countries/{country}', 'Tourismo\DestinationController@by_country')->name('by_country');
+
+Route::get('/destination/{country}/{district}', 'Tourismo\DestinationController@by_district')->name('by_district');
 Route::get('{category}/destination/{country}/{district}/service/{name}', 'Tourismo\DestinationController@by_name')->name('by_name');
 Route::get('{category}/destination/{country}/{district}/service/{name}/book', 'Tourismo\DestinationController@book')->name('book');
 
@@ -66,7 +69,7 @@ Route::get('/destination/ph', 'Tourismo\HomeController@page_destination')->name(
 Route::get('/destination/region/{id}/ph', 'Tourismo\HomeController@page_region')->name('region');
 
 
-Route::get('/destination/region/provice/{id}/ph', 'Tourismo\HomeController@page_provice')->name('provice');
+Route::get('/destination/region/provice/{id}/ph', 'Tourismo\HomeController@page_provice')->name('provice'); //remove
 
 Route::get('/hotel_and_resort/ph', 'Tourismo\HomeController@page_hotels')->name('hotel_and_resort');
 Route::get('/tour_operators/ph', 'Tourismo\HomeController@page_tour_operator')->name('tour_operator');
@@ -79,7 +82,7 @@ Route::get('/service-tour/explore/{id}', 'Tourismo\ServiceTourController@index')
 Route::POST('/wishlist/toggle', 'user\WishListController@toggle_wishlist')->name('toggle_wishlist');
 
 Route::POST('payment/hotels/xxxx', 'PaymentController@pay_booking')->name('pay2')->middleware('checkUserData','checkEmailVerified');
-Route::POST('payment/hotels/xxx', 'PaymentController@traxion')->name('traxion_pay')->middleware('checkUserData','checkEmailVerified');
+Route::POST('payment/hotels/xxxaaa', 'PaymentController@traxion')->name('traxion_pay')->middleware('checkUserData','checkEmailVerified');
 
 Route::get('/tourismoph/hotel/{id}', 'Tourismo\HomeController@hotel_details')->name('tourismo-hotel-details');
 

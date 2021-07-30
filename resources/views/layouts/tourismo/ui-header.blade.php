@@ -680,7 +680,7 @@ a.text-primary:hover{
 
 
                                     <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid err">
-                                        <label><input class="uk-checkbox" name="terms" type="checkbox"> I aggree in terms</label>
+                                        <label><input class="uk-checkbox" name="terms" type="checkbox"> I agree in terms</label>
                                         <span class="err uk-width-1-1"></span>
                                     </div>
 

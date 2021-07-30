@@ -142,7 +142,7 @@
       <h2><b>Local Destination </b> 
         <span style="font-size: 15px;padding-left: 25px;">
           <a href="{{ route('destination') }}" class="uk-link">
-            <i class="fas fa-chevron-right"></i> Explore {{ $number_of_distination->count() }} {{ $icountry->country }}Destination
+            <i class="fas fa-chevron-right"></i> Explore {{ $number_of_distination->count() }} {{ $icountry->country }} Destination
           </a></span>
       </h2>
     </div>
@@ -164,7 +164,7 @@
                 <p class="mem-title"><i class="fas fa-map-marked-alt"></i>  {{ substr($list->destination_info, 0, 15) }}...</p>
 
                 <span>
-                  <i class="fas fa-building"></i> No. of hotels : 150
+                  <i class="fas fa-building"></i> No. of hotels : 150 {{ $list->country }}
                 </span><br>
 
                 <span>
@@ -173,9 +173,10 @@
 
                 <div class="mem-button">
 
-                  <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('provice', $list->provice_id) }}">
-                    Explore
-                  </a>
+{{--<a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('provice', $list->provice_id) }}">--}}
+<a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('by_district',[$icountry->country,$list->destination_info]) }}">
+  Explore
+</a>
 
                   <a class="uk-button uk-button-small mb-sm-1" href="javascript:void(0)"uk-toggle="target: #prov-{{$list->upload_id}}" >
                     Share
@@ -207,7 +208,7 @@
     <div class="row">
 
 <div class="section-title">
-  <h2><b>International Destination </b> <span style="font-size: 15px;padding-left: 25px;"><a href="{{ route('destination') }}" class="uk-link"><i class="fas fa-chevron-right"></i> Explore {{ $international[0]->count() }} Destination</a></span></h2>
+  <h2><b>International Destination </b> <span style="font-size: 15px;padding-left: 25px;"><a href="{{ route('by_countries') }}" class="uk-link"><i class="fas fa-chevron-right"></i> Explore {{ $international[0]->count() }} countries</a></span></h2>
 </div>
 
 <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider>
