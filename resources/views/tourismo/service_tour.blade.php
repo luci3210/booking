@@ -15,6 +15,16 @@
   text-align: center;
   cursor: pointer;
 }
+
+.uk-accordion-title::after {
+    content: "";
+    width: 1.4em;
+    height: 1.4em;
+    float: none!important;
+    background-image: url(data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2213%22%20height%3D%2213%22%20viewBox%3D%220%200%2013%2013%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23666%22%20width%3D%2213%22%20height%3D%221%22%20x%3D%220%22%20y%3D%226%22%20%2F%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23666%22%20width%3D%221%22%20height%3D%2213%22%20x%3D%226%22%20y%3D%220%22%20%2F%3E%0A%3C%2Fsvg%3E);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
 .heart-icon{
   color: #009d8a!important;
 }
@@ -264,20 +274,32 @@ a.page-link {
                                             <div class="validate"></div>
                                         </div>
                                         @if(count($userCountry) >= 1)
-                                        <div class="col-md-12 form-group mt-3">
+                                        <div class="col-md-6 form-group mt-3">
                                             <label class="labelcoz">Country</label>
                                             <input type="text" class="uk-input" name="billing_country" id="billing_country" value="{{ $userCountry[0]->country }}" readonly="readonly">
                                             <div class="validate"></div>
                                         </div>
                                         @endif
+                                        @if(count($userCountry) <= 0)
+                                        <div class="col-md-6 form-group mt-3">
+                                            <label class="labelcoz">Country</label>
+                                            <input type="text" class="uk-input" name="billing_country" id="billing_country" value="none" readonly="readonly">
+                                            <div class="validate"></div>
+                                        </div>
+                                        @endif
+                                        <div class="col-md-6 form-group mt-3">
+                                            <label class="qty">Quantity</label>
+                                            <input type="number" class="uk-input" name="qty" id="qty"  onchange="getQty(event)" value="1" min="1">
+                                            <div class="validate"></div>
+                                        </div>
                                         <div class="col-md-6 form-group mt-3">
                                             <label class="adult">Adult</label>
-                                            <input type="number" class="uk-input" name="adult" id="adult"  onchange="getAdult(event)" value="1" min="1">
+                                            <input type="number" class="uk-input" name="adult" id="adult"   value="1" min="1">
                                             <div class="validate"></div>
                                         </div>
                                         <div class="col-md-6 form-group mt-3">
                                             <label class="children">Children</label>
-                                            <input type="number" class="uk-input" name="children" id="children" onchange="getChildren(event)" value="0" min="0" >
+                                            <input type="number" class="uk-input" name="children" id="children" value="0" min="0" >
                                             <div class="validate"></div>
                                         </div>
                                         <div class="col-12 mt-3">
@@ -576,20 +598,22 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
 </script>
 
 <script>
-  var fromDate = '';
-  var toDate = '';
-  var totalAdultCount = 1;
-  var totalAdultFee = parseInt('{{$tourDetails[0]->price}}' );
-  var totalAdultValue = 0;
-  var totalChildrenCount = 0;
-  var totalChildrenFee = parseInt('{{$tourDetails[0]->price}}');
-  var totalChildrenValue = 0;
-  var totalFee = parseInt('{{$tourDetails[0]->price}}');
-  var totalOfDays = 0;
-  var totalOfDaysFee = 0;
-  var checkAvailblity = true;
-  var tripFee = parseInt('{{$tourDetails[0]->price}}');
-  var additionalFee = 0;
+  let fromDate = '';
+  let toDate = '';
+  let qtyCount = 1;
+  let qtyTotalCountFee = 0;
+  let totalAdultCount = 1;
+  let totalAdultFee = parseInt('{{$tourDetails[0]->price}}' );
+  let totalAdultValue = 0;
+  let totalChildrenCount = 0;
+  let totalChildrenFee = parseInt('{{$tourDetails[0]->price}}');
+  let totalChildrenValue = 0;
+  let totalFee = parseInt('{{$tourDetails[0]->price}}');
+  let totalOfDays = 0;
+  let totalOfDaysFee = 0;
+  let checkAvailblity = true;
+  let tripFee = parseInt('{{$tourDetails[0]->price}}');
+  let additionalFee = 0;
 
   $('#total').val(totalFee)
 
@@ -598,36 +622,44 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
     $("#conti-book").hide()
   }
   function checkBook(){
-    var children = $('input[name="children"]').val();
-    var adult = $('input[name="adult"]').val();
-    var limit = parseInt('{{$tourDetails[0]->noguest}}')
-    var totalGuest = parseInt(adult) + parseInt(children)
-    var diffGuest = 0
-    if(totalGuest > limit){
-      diffGuest = parseInt(totalGuest - limit)
-      additionalFee = tripFee * diffGuest
-    }else{
-      additionalFee = 0
-    }
+    const children = $('input[name="children"]').val();
+    const adult = $('input[name="adult"]').val();
+    const limit = parseInt('{{$tourDetails[0]->noguest}}')
+    const totalGuest = parseInt(adult) + parseInt(children)
+    const qtyFee =  tripFee * qtyCount
+    const diffGuest = 0 
+    // if(totalGuest > limit){
+    //   diffGuest = parseInt(totalGuest - limit)
+    //   additionalFee = tripFee * diffGuest
+    // }else{
+    //   additionalFee = 0
+    // }
     console.log(`children ${children}`, `adult ${adult}`, `limit ${limit}` , `${totalGuest} totalguest`, `${diffGuest} diff`)
     
-    totalFee  = additionalFee + tripFee + totalOfDaysFee
+    totalFee  = totalOfDaysFee + qtyFee
     $('#total').val(totalFee)
 
   }
   function getChildren(event){
-    var value = event.target.value
+    const value = event.target.value
     totalChildrenValue = value
     checkBook()
   }
+
+  function getQty(event){
+    const value = event.target.value
+    qtyCount = value;
+    checkBook()
+
+  }
   function getAdult(event){
-    var value = event.target.value
+    const value = event.target.value
     totalAdultCount = value;
     checkBook()
   }
   
   function wishListToggle(id){
-    var crfToken = $('meta[name="csrf-token"]').attr('content');
+    const crfToken = $('meta[name="csrf-token"]').attr('content');
     // console.log(crfToken);
     $.ajaxSetup({
         url: '{{ route('toggle_wishlist') }}',
@@ -685,22 +717,23 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
   function paybyTraxion(){
     // var bookdate = $('input[name="book_date"]').val();
     // var bookdateto = $('input[name="book_date_to"]').val();
-    var bookdate = fromDate;
-    var bookdateto = toDate;
-    var fname = $('input[name="billing_first_name"]').val();
-    var lname = $('input[name="billing_last_name"]').val();
-    var company = $('input[name="billing_company"]').val();
-    var children = $('input[name="children"]').val();
-    var adult = $('input[name="adult"]').val();
-    var city = $('input[name="billing_city"]').val();
-    var country = $('input[name="billing_country"]').val();
-    var address_1 = $('input[name="billing_address_1"]').val();
-    var state = $('input[name="billing_state"]').val();
-    var postcode = $('input[name="billing_postcode"]').val();
-    var phone = $('input[name="billing_phone"]').val();
-    var email = $('input[name="billing_email"]').val();
-    var plan_price = $('#plan_price_checkout').val();
-    var plan_name = $('#plan_name_checkout').text();
+    const bookdate = fromDate;
+    const bookdateto = toDate;
+    const fname = $('input[name="billing_first_name"]').val();
+    const lname = $('input[name="billing_last_name"]').val();
+    const qty = $('input[name="qty"]').val();
+    const company = $('input[name="billing_company"]').val();
+    const children = $('input[name="children"]').val();
+    const adult = $('input[name="adult"]').val();
+    const city = $('input[name="billing_city"]').val();
+    const country = $('input[name="billing_country"]').val();
+    const address_1 = $('input[name="billing_address_1"]').val();
+    const state = $('input[name="billing_state"]').val();
+    const postcode = $('input[name="billing_postcode"]').val();
+    const phone = $('input[name="billing_phone"]').val();
+    const email = $('input[name="billing_email"]').val();
+    const plan_price = $('#plan_price_checkout').val();
+    const plan_name = $('#plan_name_checkout').text();
     if(bookdate == null || bookdate.length <= 0 || bookdate == undefined){
       swal({
         text: "Select a book date",
@@ -708,7 +741,15 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
       });
       return;
     }
-    if(children ==  null || children <=0 || adult == null || adult <=0){
+
+    if(qty == null || qty <= 0 || qty == undefined){
+      swal({
+        text: "Quantity cant be zero",
+        icon:"error"
+      });
+      return;
+    }
+    if(children ==  null || adult == null || adult <=0){
       swal({
         text: "Add your adult and children count",
         icon:"error"
@@ -734,6 +775,7 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
         book_date_to:bookdateto,
         children_count:children,
         adult_count:adult,
+        book_qty:qty,
         desc:'{{$tourDetails[0]->tour_desc}}',
         expect:'{{$tourDetails[0]->tour_expect}}',
         noguest:'{{$tourDetails[0]->noguest}}',
@@ -741,7 +783,7 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
         uid: '{{$tourDetails[0]->id}}',
         url_callback:'{{route('checkout_callback')}}',
         // myurl:'http://127.0.0.1:8000/checkout',
-        myurl:'https://booking.tourismo.ph/checkout',
+        myurl:'https://booking.tourismo.ph/checkout/status',
         
     };
     console.log(datam);
@@ -812,7 +854,7 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
         }else{
           totalOfDaysFee = 0
         }
-        console.log(diffDays,totalOfDaysFee);
+        console.log(diffDays,'days',totalOfDaysFee,'additional');
         checkBook()
     }
     // checkAvailblity = false
