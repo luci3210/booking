@@ -195,7 +195,7 @@
 
 <div class="col-md-6" style="margin-top:10px;">
   <div style="height:50px;width:100%; background-color:#f4f4f4; padding: 10px 10px 10px;">
-    <p  style="font-size:18px;font-weight:700;color:#f7442e">Amount - ₱ {{ $byname[0]->price }}</p>
+    <p  style="font-size:18px;font-weight:700;color:#f7442e">Amountss - ₱ {{ $byname[0]->price }}</p>
   </div>
 
 <div class="table-responsive">
@@ -357,9 +357,11 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
   let totalOfDaysFee = 0;
   let checkAvailblity = true;
   let tripFee = parseInt('{{$byname[0]->price}}');
+  let tripFeess = '{{$byname[0]->price}}';
   let additionalFee = 0;
   let nightsLimit = parseInt('{{$byname[0]->nonight}}');
   $('#billing_total_payment').text(parseFloat(totalFee.toLocaleString()).toFixed(2))
+
 
 
   $('input[name="datetimes"]').daterangepicker({
