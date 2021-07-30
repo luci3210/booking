@@ -118,7 +118,7 @@ class HomeController extends Controller
 
         $Agent = new Agent();
         if ($Agent->isMobile()) {
-            return view('tourismo.home_mobile', compact(['icountry', 'banner','tourismo_exlusive','international','home_hotel','destination','hotels','tour_package','tour_packages', 'hotel_packages', 'exclusive_packages','loginAuth']));
+            return view('tourismo.mobile.home_mobile', compact(['icountry', 'banner','tourismo_exlusive','international','home_hotel','destination','hotels','tour_package','tour_packages', 'hotel_packages', 'exclusive_packages','loginAuth']));
 
         } else {
             return view('tourismo.home', compact(['icountry','banner','tourismo_exlusive','international','home_hotel','destination','hotels','tour_package','tour_packages', 'hotel_packages', 'exclusive_packages','loginAuth']));

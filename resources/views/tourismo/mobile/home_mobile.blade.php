@@ -63,6 +63,9 @@
         top: 12.5rem;
         width: 5rem;
     }
+    .ex-holder{
+        height: 13rem;
+    }
 
 }
 /* // xs devices (320px and up) */
@@ -91,6 +94,10 @@
         top: 12.5rem;
         width: 5rem;
     }
+    .ex-holder{
+        height: 12rem;
+    }
+    
     
 }
 /* // sm devices (360px and up) */
@@ -119,11 +126,14 @@
         top: 12.5rem;
         width: 5rem;
     }
+    .ex-holder{
+        height: 13rem;
+    }
     
 }
 
 /* // Medium devices (411px and up) */
-@media (min-width: 411px) { 
+@media (min-width: 414px) { 
     .title-tour{
         margin-top: 10px;
         padding: .2rem .2rem;
@@ -148,16 +158,24 @@
         top: 12.5rem;
         width: 5rem;
     }
+    .ex-holder{
+        height: 14rem;
+    }
     
 }
 
 /* // lg devices (tablets, 480px and up) */
 @media (min-width: 480px) { 
-
+    .ex-holder{
+        height: 15rem;
+    }
 }
 
 /* // sm web devices (tablets, 576px and up) */
 @media (min-width: 576px) { 
+    .ex-holder{
+        height: 16rem;
+    }
 
 }
 </style>
@@ -174,16 +192,15 @@
                             <li onclick="goToNextPage('{{ route('service_tour_view', $list->upload_id) }}')">
                                 <div class=" shadow-cards">
                                     <div class="uk-card-media-top">
-                                        <div style="width: 100%; 
+                                        <div class="ex-holder" style="width: 100%; 
                                         background-size: cover;
                                         background-position: center;
                                         background-repeat: no-repeat;
-                                        height: 10rem;
                                         background-image: url('{{ asset('image/tour/2021')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}');
                                         border-top-left-radius: 10px!important;
                                         border-top-right-radius: 10px!important;"></div>
                                     </div>
-                                    <div class="px-2">
+                                    <div class="px-2 pb-1">
                                         <h3 class="title-tour text-nowrap mb-0 ">{{ $list->tour_name }}</h3>
                                         <h3 class="review-tour text-nowrap mb-0 mt-0"><i class="fas fa-star text-warning"></i>{{ $list->upload_id + 1 }} <span class="text-muted">(reviews 3,2320)</span></h3>
                                         <h3 class="book-tour text-nowrap  mt-0 text-dark">800k+ Booked</h3>
