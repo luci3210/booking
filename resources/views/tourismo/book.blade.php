@@ -49,6 +49,14 @@
     font-size: 15px;
     padding-left: 5px;
 }
+.datepicker{
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+}
+.f-bold{
+  font-weight: bold!important;
+}
 </style>
 
 @endsection
@@ -156,7 +164,7 @@
   
   <div class="form-group">
     <label>Quantity -rooms-</label>
-    <input type="text" class="form-control" name="quantity" id="quantity"  onchange="getAdult(event)" value="1" min="1">
+    <input type="text" class="form-control" name="qty" id="quantity"  onchange="getQty(event)" value="1" min="1">
   </div> 
 
 </div>
@@ -164,21 +172,21 @@
 <div class="col-md-6" style="margin-bottom: 12px;">
   <div class="form-group">
     <label>Adult</label>
-    <input type="text" class="form-control" name="adult" id="adult"  onchange="getAdult(event)" value="" min="1">
+    <input type="text" class="form-control" name="adult" id="adult"   value="1" min="1">
   </div> 
 </div>
 
 <div class="col-md-6">
   <div class="form-group">
     <label>Children</label>
-    <input type="text" class="form-control" name="children" id="children" onchange="getChildren(event)" value="0" min="0">
+    <input type="text" class="form-control" name="children" id="children"  value="0" min="0">
   </div> 
 </div>
 
 <div class="col-md-12">
   <div class="form-group">
     <label>Date</label>
-    <input type="text" class="form-control float-right" id="reservationtime">
+    <input type="text" class="form-control float-right datepicker" name="datetimes" >
   </div> 
 </div>
 </div>
@@ -194,13 +202,13 @@
   <table class="table">
     <tbody><tr>
       <th>Quantity </th>
-      <td>qty x price</td>
-      <td>result</td>
+      <td ><h6 id="qty-count" class="mb-0 f-bold">Qty x Price</h6></td>
+      <td id="qty-fee">result</td>
     </tr>
     <tr>
       <th>No. of days</th>
-      <td>days x price</td>
-      <td>result</td>
+      <td ><h6 id="days-count" class="mb-0 f-bold">Days x Price</h6><small class="text-muted">free nights {{$byname[0]->nonight}}</small></td>
+      <td id="days-fee">result</td>
     </tr>
     <tr>
       <th>Total:</th>
@@ -208,7 +216,7 @@
       <td>
         <b>  
           <p> 
-            <span id="billing_total_payment">{{ $byname[0]->price }}</span>
+            <span id="billing_total_payment">0</span>
           </p>
         </b>
       </td>
@@ -260,7 +268,7 @@
 
 <script type="text/javascript">
 
-const ratingStars=[...document.getElementsByClassName("rating__star-comment")];let ratingReview=0;function executeRating(t){const e=t.length;let a;t.map(n=>{n.onclick=(()=>{if(a=t.indexOf(n),"rating__star-comment far fa-star "===n.className)for(;a>=0;--a)t[a].className="rating__star-comment fas fa-star count-star";else for(;a<e;++a)t[a].className="rating__star-comment far fa-star ";ratingReview=$(".count-star").length;var r=$("#comment-textarea").val();$("#reviews-rating").val(parseInt(ratingReview)),ratingReview>=1||r.length>=1?$(".comment-btn").show(500):$(".comment-btn").hide(500)})})}function submitReview(){ratingReview>=1?$("#btn-review").click():$(".error-ratings").show()}executeRating(ratingStars),window.localStorage.removeItem("bookData");
+// const ratingStars=[...document.getElementsByClassName("rating__star-comment")];let ratingReview=0;function executeRating(t){const e=t.length;let a;t.map(n=>{n.onclick=(()=>{if(a=t.indexOf(n),"rating__star-comment far fa-star "===n.className)for(;a>=0;--a)t[a].className="rating__star-comment fas fa-star count-star";else for(;a<e;++a)t[a].className="rating__star-comment far fa-star ";ratingReview=$(".count-star").length;var r=$("#comment-textarea").val();$("#reviews-rating").val(parseInt(ratingReview)),ratingReview>=1||r.length>=1?$(".comment-btn").show(500):$(".comment-btn").hide(500)})})}function submitReview(){ratingReview>=1?$("#btn-review").click():$(".error-ratings").show()}executeRating(ratingStars),window.localStorage.removeItem("bookData");
 
 
 $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide(),$("#comment-textarea").on("focus",function(t){$(".comment-btn").show(500)}),$("#comment-textarea").on("blur",function(t){var e=$("#comment-textarea").val();ratingReview=$(".count-star").length,e.length>=1||ratingReview>=1||$(".comment-btn").hide(500)})});
@@ -334,94 +342,314 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
 
 <script type="text/javascript">
 
-    function checkPaymentMethod() {
+  let fromDate = '';
+  let toDate = '';
+  let qtyCount = 1;
+  let qtyTotalCountFee = 0;
+  let totalAdultCount = 1;
+  let totalAdultFee = parseInt('{{$byname[0]->price}}' );
+  let totalAdultValue = 0;
+  let totalChildrenCount = 0;
+  let totalChildrenFee = parseInt('{{$byname[0]->price}}');
+  let totalChildrenValue = 0;
+  let totalFee = parseInt('{{$byname[0]->price}}');
+  let totalOfDays = parseInt('{{$byname[0]->nonight}}');
+  let totalOfDaysFee = 0;
+  let checkAvailblity = true;
+  let tripFee = parseInt('{{$byname[0]->price}}');
+  let additionalFee = 0;
+  let nightsLimit = parseInt('{{$byname[0]->nonight}}');
+  $('#billing_total_payment').text(parseFloat(totalFee.toLocaleString()).toFixed(2))
 
-    let paymentType= $('input[name="payment-method"]:checked').val();
+
+  $('input[name="datetimes"]').daterangepicker({
+    timePicker: true,
+    minDate: "{{$curDate2}}",
+    startDate: moment().startOf('hour'),
+    endDate: moment().startOf('hour').add(32, 'hour'),
+    locale: {
+      format: 'M/DD hh:mm A'
+    }
+  });
+
+  $('input[name="datetimes"]').on('apply.daterangepicker', function(ev, picker) {
+    fromDate = picker.startDate.format('YYYY-MM-DD hh:mm:ss')
+    toDate = picker.endDate.format('YYYY-MM-DD hh:mm:ss')
+    var a = new Date (picker.startDate.format('MM-DD-YYYY'))
+    var b = new Date (picker.endDate.format('MM-DD-YYYY'))
+    var limit = parseInt('{{$byname[0]->nonight}}')
+    var timeDiff = 0
+    if (b) {
+        const diffTime = Math.abs(b - a);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+
+        totalOfDays = diffDays
+        var price = '{{$byname[0]->price}}';
+        if(totalOfDays > limit){
+          var exceedDays = totalOfDays - limit
+          totalOfDaysFee = exceedDays * price
+
+
+        }else{
+          totalOfDaysFee = 0
+        }
+        console.log(diffDays,'days',totalOfDaysFee,'additional');
+        checkBook()
+    }
+
+    console.log(picker.startDate.format('YYYY-MM-DD hh:mm:ss'));
+    console.log(picker.endDate.format('YYYY-MM-DD hh:mm:ss'));
+  });
+  
+
+  function checkBook(){
+    const children = $('input[name="children"]').val();
+    const adult = $('input[name="adult"]').val();
+    const totalGuest = parseInt(adult) + parseInt(children)
+    const qtyFee =   qtyCount > 1 ? tripFee * qtyCount : tripFee
+    const diffGuest = 0 
+    const totals =  parseInt(totalOfDaysFee + qtyFee)
+    let totalFeee  =  totals > parseInt(tripFee) ?  totals : tripFee
+    $('#billing_total_payment').text(parseFloat(totalFeee.toLocaleString()).toFixed(2))
+    $('#days-fee').text(parseFloat(totalOfDaysFee.toLocaleString()).toFixed(2))
+    $('#qty-fee').text(parseFloat(qtyFee.toLocaleString()).toFixed(2))
+    $('#days-count').text(`${parseInt(totalOfDays)} Days x ${parseFloat(tripFee.toLocaleString()).toFixed(2)} Price `)
+    $('#qty-count').text(`${parseInt(qtyCount)} Qty x ${parseFloat(tripFee.toLocaleString()).toFixed(2)} Price `)
+
+    console.log(`totals ${totals} tripFee ${tripFee} ${totalFee}`)
     
-    if(paymentType == 'traxion')  {
+  }
 
-      return paybyTraxion();
 
+  function getQty(event){
+    const value = event.target.value
+    qtyCount = value;
+    checkBook()
+
+  }
+
+  function checkPaymentMethod(){
+    let paymentType= $('input[name="payment-method"]:checked').val();
+    checkBook()
+
+    if(paymentType == 'traxion'){
+        paybyTraxion();
+        return;
     }
-
-    if(paymentType == 'paypal') {
-
-      alert('Paypal will be available soon...')
+    if(paymentType == 'paypal'){
+      alert(paymentType)
+      return;
     }
-
-    if(paymentType == null) {
-
+    if(paymentType == null){
       alert('please select payment type...')
     }
   }
 
-  function paybyTraxion() { 
 
 
-    var firstname      =   $('input[name="billing_first_name"]').val();
-    var lastname       =   $('input[name="billing_last_name"]').val();
-    var middlename     =   $('input[name="billing_middle_name"]').val();
-    var phoneno        =   $('input[name="billing_phone"]').val();
-    var emailaddress   =   $('input[name="billing_email"]').val();
-    var country        =   $('input[name="billing_country"]').val();
-    var address        =   $('input[name="billing_address"]').val();
+  function paybyTraxion(){
+    const bookdate     = fromDate;
+    const bookdateto   = toDate;
+    const fname        = $('input[name="billing_first_name"]').val();
+    const lname        = $('input[name="billing_last_name"]').val();
+    const qty          = $('input[name="qty"]').val();
+    const company      = $('input[name="billing_company"]').val();
+    // const middlename   = $('input[name="billing_middle_name"]').val();
+    const children     = $('input[name="children"]').val();
+    const adult        = $('input[name="adult"]').val();
+    const city         = $('input[name="billing_city"]').val();
+    const country      = $('input[name="billing_country"]').val();
+    const address_1    = $('input[name="billing_address_1"]').val();
+    const state        = $('input[name="billing_state"]').val();
+    const postcode     = $('input[name="billing_postcode"]').val();
+    const phone        = $('input[name="billing_phone"]').val();
+    const email        = $('input[name="billing_email"]').val();
+    const plan_price   = $('#plan_price_checkout').val();
+    const plan_name    = $('#plan_name_checkout').text();
+    if(bookdate == null || bookdate.length <= 0 || bookdate == undefined){
+      swal({
+        text: "Select a book date",
+        icon:"error"
+      });
+      return;
+    }
 
+    if(qty == null || qty <= 0 || qty == undefined){
+      swal({
+        text: "Quantity cant be zero",
+        icon:"error"
+      });
+      return;
+    }
+    if(children ==  null || adult == null || adult <=0){
+      swal({
+        text: "Add your adult and children count",
+        icon:"error"
+      });
+      return;
+    }
 
-    // var quantity    =   $('input[name="s_quantity"]').val(); 
-    // var adult       =   $('input[name="s_adult"]').val(); 
-    // var children    =   $('input[name="s_children"]').val(); 
-    
-    var totalpament    =   $('#billing_total_payment').text();
-    var servicename    =   $('#billing_service_name').text();
-
-     var datam = {
-
-        billing_firstname: firstname,
-        billing_lastname: lastname,
-        billing_middlename: middlename,
-        billing_phoneno: phoneno,
-        billing_emailaddress: emailaddress,
+    var datam = {
+        billing_first_name: fname,
+        billing_last_name: lname,
+        billing_company: company,
+        billing_city: city,
         billing_country: country,
-        billing_address: address,
-        billing_totalpament: totalpament,
-        billing_servicename: servicename
+        billing_address_1: address_1,
+        billing_state: state,
+        billing_postcode: postcode,
+        billing_phone: phone,
+        billing_email: email,
+        // billing_price: plan_price,
+        billing_price: totalFee,
+        billing_plan_name: plan_name,
+        book_date:bookdate,
+        book_date_to:bookdateto,
+        children_count:children,
+        adult_count:adult,
+        book_qty:qty,
+        desc:'{{$byname[0]->tour_desc}}',
+        expect:'{{$byname[0]->tour_expect}}',
+        noguest:'{{$byname[0]->noguest}}',
+        proid:'{{$profileData[0]->id}}',
+        uid: '{{$byname[0]->id}}',
+        // url_callback:'{{route('checkout_callback')}}',
+        // myurl:'http://127.0.0.1:8000/checkout',
+
+        // myurl:'https://booking.tourismo.ph/checkout',
+
+        myurl:'https://booking.tourismo.ph/checkout/status',
         
     };
     console.log(datam);
     window.localStorage.setItem('bookData',JSON.stringify(datam));
-   
+
     var crfToken = $('meta[name="csrf-token"]').attr('content');
     $.ajaxSetup({
-        
-        headers: {
-
+      url: '{{ route('pay2') }}',
+      headers: {
         'X-CSRF-TOKEN': '{{ csrf_token() }}',
         'Accept': 'application/json',
         '_token': '{{ Session::token()  }}',
         'Authorization': '{{ Session::token()  }}',
-      }
-
-    });
-
-
-        $.ajax({
-
-        method:"POST",
-        data:datam,
-        url: "{{ route('traxion_pay') }}",
-        success: function(data) {
-
-        let paymenyLink = data['dataresp']['form_link'];
+      },
+      method:"post",
+      data:datam,
+      success: function(data)
+      {
+        let paymenyLink = data['dataresp']['form_link']
         window.open(paymenyLink);
-        console.log(data);
         console.log(paymenyLink);
-       
+        console.log(data);
+        swal({
+          text: "Booked success",
+          icon:"success"
+        });
+      },
+      fail:function(jqXHR) {
+        console.log( "Request failed: xxxx" + jqXHR );
+      },
+      error:function(data){
+        swal({
+        text: `${data.responseText}`,
+        icon:"error"
+      });
       }
-
     });
-
-}
+    $.ajax();
+  }
+    
 </script>
 
+
+<script>
+
+// function checkPaymentMethod() {
+
+// let paymentType= $('input[name="payment-method"]:checked').val();
+
+// if(paymentType == 'traxion')  {
+
+//   return paybyTraxion();
+
+// }
+
+// if(paymentType == 'paypal') {
+
+//   alert('Paypal will be available soon...')
+// }
+
+// if(paymentType == null) {
+
+//   alert('please select payment type...')
+// }
+// }
+
+// function paybyTraxion() { 
+
+
+// var firstname      =   $('input[name="billing_first_name"]').val();
+// var lastname       =   $('input[name="billing_last_name"]').val();
+// var middlename     =   $('input[name="billing_middle_name"]').val();
+// var phoneno        =   $('input[name="billing_phone"]').val();
+// var emailaddress   =   $('input[name="billing_email"]').val();
+// var country        =   $('input[name="billing_country"]').val();
+// var address        =   $('input[name="billing_address"]').val();
+
+// // var quantity    =   $('input[name="s_quantity"]').val(); 
+// // var adult       =   $('input[name="s_adult"]').val(); 
+// // var children    =   $('input[name="s_children"]').val(); 
+
+// var totalpament    =   $('#billing_total_payment').text();
+// var servicename    =   $('#billing_service_name').text();
+
+//  var datam = {
+
+//     billing_firstname: firstname,
+//     billing_lastname: lastname,
+//     billing_middlename: middlename,
+//     billing_phoneno: phoneno,
+//     billing_emailaddress: emailaddress,
+//     billing_country: country,
+//     billing_address: address,
+//     billing_totalpament: totalpament,
+//     billing_servicename: servicename
+    
+// };
+// console.log(datam);
+// window.localStorage.setItem('bookData',JSON.stringify(datam));
+
+// var crfToken = $('meta[name="csrf-token"]').attr('content');
+// $.ajaxSetup({
+    
+//     headers: {
+
+//     'X-CSRF-TOKEN': '{{ csrf_token() }}',
+//     'Accept': 'application/json',
+//     '_token': '{{ Session::token()  }}',
+//     'Authorization': '{{ Session::token()  }}',
+//   }
+
+// });
+
+
+//   $.ajax({
+
+//     method:"POST",
+//     data:datam,
+//     url: "{{ route('traxion_pay') }}",
+//     success: function(data) {
+
+//     let paymenyLink = data['dataresp']['form_link'];
+//     window.open(paymenyLink);
+//     console.log(data);
+//     console.log(paymenyLink);
+   
+//   }
+
+// });
+
+// }
+</script>
 
 @endsection
