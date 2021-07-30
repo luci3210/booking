@@ -192,14 +192,13 @@ class DestinationController extends Controller
         $country = $userCountry->get();
 
         if(empty($country[0])) {
-
                 abort(404,'Data not found.!');
             } 
         else 
         {
 
-                return $country;
-            }
+            return $country;
+        }
        
     }
 
