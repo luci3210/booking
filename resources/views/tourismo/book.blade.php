@@ -195,7 +195,7 @@
 
 <div class="col-md-6" style="margin-top:10px;">
   <div style="height:50px;width:100%; background-color:#f4f4f4; padding: 10px 10px 10px;">
-    <p  style="font-size:18px;font-weight:700;color:#f7442e">Amountss - ₱ {{ $byname[0]->price }}</p>
+    <p  style="font-size:18px;font-weight:700;color:#f7442e">Amount - ₱ {{ number_format($byname[0]->price,2) }}</p>
   </div>
 
 <div class="table-responsive">
