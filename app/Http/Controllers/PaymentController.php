@@ -215,7 +215,6 @@ class PaymentController extends Controller
             $err = curl_error($curl);
 
             curl_close($curl);
-            sleep(2);
             $dataresp = '';
             if ($err) {
                 echo "cURL Error #:" . $err;

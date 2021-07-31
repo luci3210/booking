@@ -411,8 +411,8 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
     const qtyFee =   qtyCount > 1 ? tripFee * qtyCount : tripFee
     const diffGuest = 0 
     const totals =  parseInt(totalOfDaysFee + qtyFee)
-    let totalFeee  =  totals > tripFee ?  totals : tripFee
-    $('#billing_total_payment').text(totalFeee.toLocaleString(undefined, {minimumFractionDigits: 2}))
+    totalFee  =  totals > tripFee ?  totals : tripFee
+    $('#billing_total_payment').text(totalFee.toLocaleString(undefined, {minimumFractionDigits: 2}))
     $('#qty-fee').text(qtyFee.toLocaleString(undefined, {minimumFractionDigits: 2}))
     $('#days-fee').text(totalOfDaysFee.toLocaleString(undefined, {minimumFractionDigits: 2}))
     $('#days-count').text(`${parseInt(totalOfDays)} Days x ${tripFee.toLocaleString(undefined, {minimumFractionDigits: 2})} Price `)
@@ -455,7 +455,7 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
     const lname        = $('input[name="billing_last_name"]').val();
     const qty          = $('input[name="qty"]').val();
     const company      = $('input[name="billing_company"]').val();
-    // const middlename   = $('input[name="billing_middle_name"]').val();
+    const middlename   = $('input[name="billing_middle_name"]').val();
     const children     = $('input[name="children"]').val();
     const adult        = $('input[name="adult"]').val();
     const city         = $('input[name="billing_city"]').val();
@@ -466,7 +466,7 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
     const phone        = $('input[name="billing_phone"]').val();
     const email        = $('input[name="billing_email"]').val();
     const plan_price   = $('#plan_price_checkout').val();
-    const plan_name    = $('#plan_name_checkout').text();
+    const plan_name    = $('#billing_service_name').text();
     if(bookdate == null || bookdate.length <= 0 || bookdate == undefined){
       swal({
         text: "Select a book date",
@@ -493,6 +493,7 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
     var datam = {
         billing_first_name: fname,
         billing_last_name: lname,
+        billing_middle_name: middlename,
         billing_company: company,
         billing_city: city,
         billing_country: country,
@@ -514,11 +515,7 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
         noguest:'{{$byname[0]->noguest}}',
         proid:'{{$byname[0]->id}}',
         uid: '{{$byname[0]->id}}',
-        // url_callback:'{{route('checkout_callback')}}',
-        // myurl:'http://127.0.0.1:8000/checkout',
-
-        // myurl:'https://booking.tourismo.ph/checkout',
-
+        url_callback:'{{route('checkout_callback')}}',
         myurl:'https://booking.tourismo.ph/checkout/status',
         
     };
@@ -527,7 +524,7 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
 
     var crfToken = $('meta[name="csrf-token"]').attr('content');
     $.ajaxSetup({
-      url: '{{ route('pay2') }}',
+      url: '{{ route('generate_link') }}',
       headers: {
         'X-CSRF-TOKEN': '{{ csrf_token() }}',
         'Accept': 'application/json',
@@ -538,10 +535,10 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
       data:datam,
       success: function(data)
       {
+        console.log(data);
         let paymenyLink = data['dataresp']['form_link']
         window.open(paymenyLink);
-        console.log(paymenyLink);
-        console.log(data);
+        // console.log(paymenyLink);
         swal({
           text: "Booked success",
           icon:"success"

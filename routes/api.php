@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::post('traxion/pay', 'Payment\TraxionController@generate_link')->name('generate_link');
 
 Route::post('search', 'Tourismo\HeaderSearchController@Search')->name('search');
 Route::post('/auth/check-login', 'Auth\UserLoginController@checkLogin')->name('check_auth');
