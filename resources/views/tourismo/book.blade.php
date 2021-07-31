@@ -135,7 +135,7 @@
 <div class="col-4">
 <div class="form-group">
   <label>Country</label>
-  <input type="text" class="form-control" name="billing_country" id="billing_country" value="{{ $country[0]->country }}" readonly="readonly">
+  <input type="text" class="form-control" name="billing_country" id="billing_country" value="" readonly="readonly">
 </div>
 </div>
 
@@ -366,7 +366,8 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
 
   $('input[name="datetimes"]').daterangepicker({
     timePicker: true,
-    minDate: "{{$curDate2}}",
+    minDate: "{{--$curDate2--}}",
+  
     startDate: moment().startOf('hour'),
     endDate: moment().startOf('hour').add(32, 'hour'),
     locale: {
@@ -513,7 +514,7 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
         desc:'{{$byname[0]->tour_desc}}',
         expect:'{{$byname[0]->tour_expect}}',
         noguest:'{{$byname[0]->noguest}}',
-        proid:'{{$profileData[0]->id}}',
+        proid:'{{$byname[0]->id}}',
         uid: '{{$byname[0]->id}}',
         // url_callback:'{{route('checkout_callback')}}',
         // myurl:'http://127.0.0.1:8000/checkout',

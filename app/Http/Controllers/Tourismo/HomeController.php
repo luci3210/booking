@@ -356,9 +356,10 @@ public function tourismo_exlusive() {
 public function desni_international() {
 
     return DestinationModel::join('locations_district','locations_district.id','destinations.destination_id')
+            ->join('location_country','destinations.country_id','location_country.id')
             ->where([ ['destinations.temp_status','=',1],
                 ['destinations.country_id','<>',1] ])
-                ->get(['locations_district.id as provice_id','destinations.*']);
+                ->get(['locations_district.id as provice_id','destinations.*','location_country.country']);
 }
 
 public function destination_reg_one() { 

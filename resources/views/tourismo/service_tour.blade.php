@@ -715,24 +715,25 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
     }
   }
   function paybyTraxion(){
-    const bookdate     = fromDate;
-    const bookdateto   = toDate;
-    const fname        = $('input[name="billing_first_name"]').val();
-    const lname        = $('input[name="billing_last_name"]').val();
-    const qty          = $('input[name="qty"]').val();
-    const company      = $('input[name="billing_company"]').val();
-    // const middlename   = $('input[name="billing_middle_name"]').val();
-    const children     = $('input[name="children"]').val();
-    const adult        = $('input[name="adult"]').val();
-    const city         = $('input[name="billing_city"]').val();
-    const country      = $('input[name="billing_country"]').val();
-    const address_1    = $('input[name="billing_address_1"]').val();
-    const state        = $('input[name="billing_state"]').val();
-    const postcode     = $('input[name="billing_postcode"]').val();
-    const phone        = $('input[name="billing_phone"]').val();
-    const email        = $('input[name="billing_email"]').val();
-    const plan_price   = $('#plan_price_checkout').val();
-    const plan_name    = $('#plan_name_checkout').text();
+    // var bookdate = $('input[name="book_date"]').val();
+    // var bookdateto = $('input[name="book_date_to"]').val();
+    const bookdate = fromDate;
+    const bookdateto = toDate;
+    const fname = $('input[name="billing_first_name"]').val();
+    const lname = $('input[name="billing_last_name"]').val();
+    const qty = $('input[name="qty"]').val();
+    const company = $('input[name="billing_company"]').val();
+    const children = $('input[name="children"]').val();
+    const adult = $('input[name="adult"]').val();
+    const city = $('input[name="billing_city"]').val();
+    const country = $('input[name="billing_country"]').val();
+    const address_1 = $('input[name="billing_address_1"]').val();
+    const state = $('input[name="billing_state"]').val();
+    const postcode = $('input[name="billing_postcode"]').val();
+    const phone = $('input[name="billing_phone"]').val();
+    const email = $('input[name="billing_email"]').val();
+    const plan_price = $('#plan_price_checkout').val();
+    const plan_name = $('#plan_name_checkout').text();
     if(bookdate == null || bookdate.length <= 0 || bookdate == undefined){
       swal({
         text: "Select a book date",
