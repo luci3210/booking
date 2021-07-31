@@ -124,8 +124,14 @@
   <p style="margin-top: 8px; margin-bottom: 10px;font-size:13px;">
     {{ $byname[0]->name }} » {{ $byname[0]->country }} » {{ $byname[0]->district }}
   </p>
-<a href="{{ route('book',[$byname[0]->description,$byname[0]->country,$byname[0]->district,$byname[0]->tour_name]) }}" class="btn btn-block btn-warning btn-flat">Book Now</a>
-<button type="button" class="btn btn-block btn-primary btn-flat">Share</button>
+@if(Auth::check())
+   @auth
+    <a href="{{ route('book',[$byname[0]->description,$byname[0]->country,$byname[0]->district,$byname[0]->tour_name]) }}" class="btn btn-block btn-warning btn-flat">Book Now</a>
+    @endauth
+@else
+<a href="javascript:void(0)" uk-toggle="target: #login" class="btn btn-block btn-warning btn-flat">Book Now</a>
+@endif
+<button type="button" class="btn btn-block btn-primary btn-flat" disabled="disabled">Share</button>
 
 </div>
 

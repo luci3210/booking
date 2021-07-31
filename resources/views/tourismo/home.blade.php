@@ -240,7 +240,7 @@
                 
 <div class="mem-button">
 
-  <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('provice', $list->provice_id) }}">
+  <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('by_country', $list->country) }}">
     Explore
   </a>
 
@@ -462,7 +462,7 @@ Founded in 2018, Tourismo PH envisioned a company that is committed in energizin
 
 
 
-<section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+<!-- <section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
 <div class="container">
 <div class="row">
 
@@ -521,13 +521,13 @@ Founded in 2018, Tourismo PH envisioned a company that is committed in energizin
 
 </div>
 </div>
-</section>
+</section> -->
 
 
 <!-- ----------------------------------------TOUR PACKAGE---------------------------------------- -->
 
 
-<section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+<!-- <section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
 <div class="container">
 <div class="row">
 
@@ -586,7 +586,7 @@ Founded in 2018, Tourismo PH envisioned a company that is committed in energizin
 
 </div>
 </div>
-</section>
+</section> -->
 
 
 

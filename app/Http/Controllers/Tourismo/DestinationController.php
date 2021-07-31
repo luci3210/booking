@@ -9,7 +9,6 @@ use App\Model\Admin\DestinationModel;
 
 
 use App\user\PageReviewsModel;
-use App\Model\Merchant\ProfileModel;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -54,11 +53,9 @@ class DestinationController extends Controller
             } 
         else 
         {
-
-                return $country;
-            }
+            return $country;
+        }
     }
-
 
     public function location($country) {
 
@@ -116,7 +113,6 @@ class DestinationController extends Controller
                                 'service_tour.roomsize',
                                 'service_tour.service_id',
                                 'service_tour.id as st_id',
-                                'service_tour.profid',
 
                                 'service_tour.tour_desc',
                                 'service_tour.tour_expect',
@@ -192,13 +188,14 @@ class DestinationController extends Controller
         $country = $userCountry->get();
 
         if(empty($country[0])) {
+
                 abort(404,'Data not found.!');
             } 
         else 
         {
 
-            return $country;
-        }
+                return $country;
+            }
        
     }
 
@@ -230,35 +227,20 @@ class DestinationController extends Controller
         $byphotos = $this->by_get_photos($name);
         $reviewsData = $this->getReviews($name);
 
-
         return view('tourismo.by_service_name', compact('byname','byphotos','reviewsData'));
 
     }
 
-    protected function getProfileCompany($id){
-        $profile = new ProfileModel();
-        $profile = $profile->where('id', $id);
-
-        return $profile->get();
-    }
-
     public function book($category=null,$country=null,$district=null,$name=null) {
-
+if($this->middleware('auth')) {
         $byname = $this->by_get_name($category,$country,$district,$name);
-        if(empty($byname) || count($byname) <= 0){
-            abort(404,'404 Error - the requested page does not exist.');
-        }
-
         $byphotos = $this->by_get_photos($name);
         $reviewsData = $this->getReviews($name);
         $country = $this->userCountry();
-        $curDate = $this->getDateNow().'T00:00:00';
-        $curDate2 = $this->getDateNowv2();
-        $profileID = $byname[0]['profid'];
-        $profileData = $this->getProfileCompany($profileID);
 
-
-        return view('tourismo.book', compact('byname','byphotos','reviewsData','country', 'curDate', 'curDate2','profileData'));
-
+            return view('tourismo.book', compact('byname','byphotos','reviewsData','country'));
+        } else {
+            abort(404,'Data not found.!');
+        }
     }
 }
