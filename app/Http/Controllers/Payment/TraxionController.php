@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\Admin\PayCredsModel;
 use App\Services\PaymentService;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 
 class TraxionController extends Controller
 {
@@ -14,6 +16,29 @@ class TraxionController extends Controller
     public function generate_link(Request $req)
     {
         try{
+            $bookData   = array(
+                'pm_book_date' => $req->book_date_from,
+                'pm_book_date_to' => $req->book_date_to,
+                'pm_page_id' => $req->uid,
+                'pm_payment_status' => 'pending',
+                'pm_book_amount' => $req->billing_price,
+                'pm_adult_count' => $req->adult_count,
+                'pm_child_count' => $req->children_count,
+                'pm_book_qty' => $req->book_qty,
+                'pm_user_id' => $req->myid,
+            );
+            $paymentService = new PaymentService();
+            $extraData = $paymentService->SavePaymentV2($bookData);
+
+            $contactData = array(
+                'user_email' => $req->billing_email,
+                'user_fname' => $req->billing_first_name,
+                'user_mname' => $req->billing_last_name,
+                'user_lname' => $req->billing_middle_name,
+            );
+
+            $contactData = base64_encode(json_encode($contactData));
+
 
             $credentials    = $this->get_creds();
             // traxion creds
@@ -22,18 +47,15 @@ class TraxionController extends Controller
             $auth_hash = hash_hmac('sha256', $credentials['public_key'], $credentials['secret_key'], false);
             // hash
 
-            $paymentService = new PaymentService();
-            // $extraData = $paymentService->SavePayment($req->uid,'pending',$req->book_date, $req->book_date_to, $req->billing_price, $req->children_count, $req->adult_count,$req->book_qty);
             $bookDetailsss['uid'] = $req->uid;
-            $extraData ='21321';
             $bookDetailsss = base64_encode(json_encode($bookDetailsss));
 
             $customer_array = array (
             'merchant_id'               => $credentials['merchant_id'],
             'merchant_ref_no'           => '5a8c12eb19016',
             'merchant_additional_data'  => 'Additional Data',
-            'amount'                    => $req->billing_price,
-            // 'amount' => 1,
+            // 'amount'                    => $req->billing_price,
+            'amount' => 1,
             'currency'                  => 'PHP',
             'description'               => $req->billing_plan_name,
             'billing_email'             => $req->billing_email,
@@ -51,12 +73,12 @@ class TraxionController extends Controller
             "billing_country"           => $req->billing_country,
             "billing_remark"            => "N/A",
             "payment_method"            => "",
-            'status_notification_url'   => 'https://0bf01cce8cc3.ngrok.io/booking/public/api/payment/status/callback?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData,
+            'status_notification_url'   => 'https://58b22b7e56d4.ngrok.io/booking/public/api/payment/status/callback?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData.'&contact='.$contactData,
             // 'status_notification_url' => 'https://booking.tourismo.ph/api/payment/status/callback?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData,
-            'success_page_url'          => $req->url_callback.'?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData.'&payment=success&',
-            'failure_page_url'          => $req->url_callback.'?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData.'&payment=failed&',
-            'cancel_page_url'           => $req->url_callback.'?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData.'&payment=cancel&',
-            'pending_page_url'          => $req->url_callback.'?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData.'&payment=pending&',
+            'success_page_url'          => $req->url_callback.'?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData.'&contact='.$contactData.'&payment=success&',
+            'failure_page_url'          => $req->url_callback.'?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData.'&contact='.$contactData.'&payment=failed&',
+            'cancel_page_url'           => $req->url_callback.'?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData.'&contact='.$contactData.'&payment=cancel&',
+            'pending_page_url'          => $req->url_callback.'?details='.$bookDetailsss.'&cn='.$req->proid.'&extra='.$extraData.'&contact='.$contactData.'&payment=pending&',
             'secure_hash'               => $secure_hash,
             'auth_hash'                 => $auth_hash,
             'alg'                       => 'HS256',

@@ -146,7 +146,7 @@
 <div class="col-12">
 <div class="form-group">
   <label>Address</label>
-  <input type="text" class="form-control" name="billing_address" id="billing_address" value="{{ Auth::user()->address }}" readonly="readonly">
+  <input type="text" class="form-control" name="billing_address_1" id="billing_address_1" value="{{ Auth::user()->address }}" readonly="readonly">
 </div>
 </div>
 
@@ -410,9 +410,10 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
     const totalGuest = parseInt(adult) + parseInt(children)
     const qtyFee =   qtyCount > 1 ? tripFee * qtyCount : tripFee
     const diffGuest = 0 
-    const totals =  parseInt(totalOfDaysFee + qtyFee)
+    const totals =  parseFloat(totalOfDaysFee + qtyFee)
     totalFee  =  totals > tripFee ?  totals : tripFee
-    $('#billing_total_payment').text(totalFee.toLocaleString(undefined, {minimumFractionDigits: 2}))
+    var displayFee  =  totals > tripFee ?  totals.toLocaleString(undefined, {minimumFractionDigits: 2}) : tripFee.toLocaleString(undefined, {minimumFractionDigits: 2})
+    $('#billing_total_payment').text(displayFee)
     $('#qty-fee').text(qtyFee.toLocaleString(undefined, {minimumFractionDigits: 2}))
     $('#days-fee').text(totalOfDaysFee.toLocaleString(undefined, {minimumFractionDigits: 2}))
     $('#days-count').text(`${parseInt(totalOfDays)} Days x ${tripFee.toLocaleString(undefined, {minimumFractionDigits: 2})} Price `)
@@ -494,6 +495,7 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
         billing_first_name: fname,
         billing_last_name: lname,
         billing_middle_name: middlename,
+        billing_email: email,
         billing_company: company,
         billing_city: city,
         billing_country: country,
@@ -505,18 +507,19 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
         // billing_price: plan_price,
         billing_price: totalFee,
         billing_plan_name: plan_name,
-        book_date:bookdate,
+        book_date_from:bookdate,
         book_date_to:bookdateto,
-        children_count:children,
-        adult_count:adult,
+        children_count:parseInt(children),
+        adult_count:parseInt(adult),
         book_qty:qty,
         desc:`{{$byname[0]->tour_desc}}`,
         expect:`{{$byname[0]->tour_expect}}`,
         noguest:'{{$byname[0]->noguest}}',
-        proid:'{{$byname[0]->id}}',
-        uid: '{{$byname[0]->id}}',
+        proid:'{{$byname[0]->proid}}',
+        uid: '{{$byname[0]->st_id}}',
         url_callback:'{{route('checkout_callback')}}',
         myurl:'https://booking.tourismo.ph/checkout/status',
+        myid:'{{ Auth::user()->id }}'
         
     };
     console.log(datam);
@@ -538,7 +541,7 @@ $(document).ready(function(){$(".error-ratings").hide(),$(".comment-btn").hide()
         console.log(data);
         let paymenyLink = data['dataresp']['form_link']
         window.open(paymenyLink);
-        // console.log(paymenyLink);
+        console.log(paymenyLink);
         swal({
           text: "Booked success",
           icon:"success"
