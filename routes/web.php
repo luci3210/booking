@@ -62,7 +62,7 @@ Route::get('/destination/{country}', 'Tourismo\DestinationController@by_country'
 Route::get('/destination/{country}/{district}', 'Tourismo\DestinationController@by_district')->name('by_district');
 Route::get('{category}/destination/{country}/{district}/service/{name}', 'Tourismo\DestinationController@by_name')->name('by_name');
 
-        Route::get('{category}/destination/{country}/{district}/service/{name}/book','Tourismo\DestinationController@book')
+Route::get('{category}/destination/{country}/{district}/service/{name}/book','Tourismo\DestinationController@book')
                 ->name('book');
 
 

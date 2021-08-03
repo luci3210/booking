@@ -34,6 +34,34 @@
   .uk-modal-body {
     border-radius: 4px;
   }
+
+.home_slider_member_info {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size:.8rem; 
+  font-weight:510; 
+  margin-top: 3px; 
+  text-transform: capitalize;
+}
+.home_slider_member_info a {
+  color: #000 !important;
+}
+.home_slider_member_info a:hover {
+
+  color: #303030 !important;
+}
+.home_reviews_share {
+  margin-top: -8px;
+  font-size: 12px;
+  color:#5f5e5e;
+}
+.home_row_price {
+  padding-left: 7px; 
+  padding-right: 11px; 
+  margin-bottom: 5px;
+
+}
+
 </style>
 
 @section('banner')
@@ -64,73 +92,94 @@
 
 
 @section('content')
-<section class="services team aos-init aos-animate " data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+
+
+<!-- -----------------------Tourismo Exclusive----------------------------- -->
+
+
+<section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
   <div class="container">
     <div class="row">
 
-    <div class="section-title">
-      <h2>
-        <b>Tourismo Exclusive  </b> 
-          <span style="font-size: 15px;padding-left: 25px;">
-            <a href="{{ route('open_services',$slmenu_exlusive[0]->description) }}" class="uk-link"><i class="fas fa-chevron-right"></i> 
-                Explore {{  $exclusive_packages->count() }} exclusive
-            </a>
-          </span>
-      </h2>
-    </div>
+<div class="section-title">
+  <h2><b>Tourismo Exclusive  </b> 
+    <span style="font-size: 15px;padding-left: 15px;">
+      <a href="{{ route('tour_operator') }}" class="uk-link"><i class="fas fa-chevron-right"></i> 
+        Explore 
+      </a>
+    </span>
+  </h2>
 
-<div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider>
-    <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid">
-
-        @foreach($exclusive_packages as $list)
-        <li>
-          <div class="icon-box icon-box-pink">
-
-  <div class="uk-panel">
-      <img src="{{ asset('image/tour/2021')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}" alt=""  style="border-radius: 4px;">
-      <div class="uk-position-center uk-panel"> </div>
-  </div>
-
-              <div class="member-info">
-
-                <p class="mem-title" title="{{ $list->tour_name }}">{{ substr($list->tour_name, 0, 15) }} ...</p>
-
-                <span>
-                  <i class="fas fa-building"></i> {{ $list->company }}
-                </span><br>
-
-                <span class="text-price">
-                  <div class="currency-symbol">₱</div> {{ $list->price }}
-                </span><br>
-
-<div class="mem-button">
-  <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('service_tour_view', $list->upload_id) }}">
-
-    Explore
-  </a>
-
-  <a class="uk-button uk-button-small mb-sm-1" href="javascript:void(0)"uk-toggle="target: #prov-{{$list->upload_id}}">
-
-   Share
-  </a>
 </div>
 
-              </div>
+<div class="uk-section" style="margin-top:-65px; margin-bottom: -110px;">
+<div uk-slider>
 
-          </div>
+<div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1">
+
+<ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-6@m">
+
+  @foreach($get_service_name as $list)
+    @if($list->name == 'Exclusive')
+  <div class="col-md-6 col-lg-2 d-flex align-items-stretch aos-init aos-animate" data-aos="fade-up">
+    <div class="icon-box icon-box-pink" style="margin-right:5px; margin-left: 3px;">
+      <li>
+        <a href="{{ route('by_name',[$list->description,$list->country,$list->district,$list->tour_name]) }}">
+          <img src="/image/cover/2021/{{ $list->cover == '' ? 'default.png' : $list->cover }}" alt="" style="border-radius: 4px;">
+        </a>
+        <div class="uk-position-center uk-panel"></div>
+
+
+<div class="member-info">
+        
+<div style="height:65px;">
+
+<div class="home_slider_member_info">
+  <a href="{{ route('by_name',[$list->description,$list->country,$list->district,$list->tour_name]) }}">    
+    @if(strlen($list->tour_name) <= 39 )
+      {{ $list->tour_name }}
+    @else
+      {{ substr($list->tour_name,0,39) }}...
+    @endif
+  </a>
+</div>  
+
+<span class="home_reviews_share">
+  <i class="fas fa-star"></i> | 0 Reviews | 
+    <a href="javascript:void(0)"uk-toggle="target: #prov-{{$list->serviceid}}" style="font-weight:510">
+      <i class="fas fa-share-alt"></i> Share
+    </a>
+  </span>
+</div>         
+
+<div class="row home_row_price">          
+    <span class="col-sm text-left" style="color:#ee4d2d;
+  font-size:.9rem;
+  font-weight: 510;">₱ {{ $list->price }}</span>
+</div>
+    
+</div>
+
+
       </li>
-      @endforeach  
-  </ul>
+    </div>
+  </div>
+    @endif
+  @endforeach
+
+</ul>
 
 <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
 <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
 
 </div>
 
+</div>
+</div>
+    
     </div>
   </div>
 </section>
-
 
 
 
@@ -267,8 +316,184 @@
 </section>
 
 
-<!-- -------------------------------------- -->
-<!-- <section class="why-us section-bg aos-init aos-animate" data-aos="fade-up" date-aos-delay="200">
+<!-- -----------------------Rooms----------------------------- -->
+
+<section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+  <div class="container">
+    <div class="row">
+
+<div class="section-title">
+  <h2><b>Rooms </b> 
+    <span style="font-size: 15px;padding-left: 15px;">
+      <a href="{{ route('tour_operator') }}" class="uk-link"><i class="fas fa-chevron-right"></i> 
+        Explore 
+      </a>
+    </span>
+  </h2>
+
+</div>
+
+<div class="uk-section" style="margin-top:-65px; margin-bottom: -110px;">
+<div uk-slider>
+
+<div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1">
+
+<ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-6@m">
+
+  @foreach($get_service_name as $list)
+    @if($list->name == 'Hotel')
+  <div class="col-md-6 col-lg-2 d-flex align-items-stretch aos-init aos-animate" data-aos="fade-up">
+    <div class="icon-box icon-box-pink" style="margin-right:5px; margin-left: 3px;">
+      <li>
+        <a href="{{ route('by_name',[$list->description,$list->country,$list->district,$list->tour_name]) }}">
+          <img src="/image/cover/2021/{{ $list->cover == '' ? 'default.png' : $list->cover }}" alt="" style="border-radius: 4px;">
+        </a>
+        <div class="uk-position-center uk-panel"></div>
+
+
+<div class="member-info">
+        
+<div style="height:65px;">
+
+<div class="home_slider_member_info">
+  <a href="{{ route('by_name',[$list->description,$list->country,$list->district,$list->tour_name]) }}">    
+    @if(strlen($list->tour_name) <= 39 )
+      {{ $list->tour_name }}
+    @else
+      {{ substr($list->tour_name,0,39) }}...
+    @endif
+  </a>
+</div>  
+
+<span class="home_reviews_share">
+  <i class="fas fa-star"></i> | 0 Reviews | 
+    <a href="javascript:void(0)"uk-toggle="target: #prov-{{$list->serviceid}}" style="font-weight:510">
+      <i class="fas fa-share-alt"></i> Share
+    </a>
+  </span>
+</div>         
+
+<div class="row home_row_price">          
+    <span class="col-sm text-left" style="color:#ee4d2d;
+  font-size:.9rem;
+  font-weight: 510;">₱ {{ $list->price }}</span>
+</div>
+    
+</div>
+
+
+      </li>
+    </div>
+  </div>
+    @endif
+  @endforeach
+
+</ul>
+
+<a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+<a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
+
+</div>
+
+</div>
+</div>
+    
+    </div>
+  </div>
+</section>
+
+
+
+<!-- -----------------------Tour and Packages----------------------------- -->
+
+
+<section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+  <div class="container">
+    <div class="row">
+
+<div class="section-title">
+  <h2><b>Tour and Packages  </b> 
+    <span style="font-size: 15px;padding-left: 15px;">
+      <a href="{{ route('tour_operator') }}" class="uk-link"><i class="fas fa-chevron-right"></i> 
+        Explore 
+      </a>
+    </span>
+  </h2>
+
+</div>
+
+<div class="uk-section" style="margin-top:-65px; margin-bottom: -110px;">
+<div uk-slider>
+
+<div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1">
+
+<ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-6@m">
+
+  @foreach($get_service_name as $list)
+    @if($list->name == 'Tour Packages')
+  <div class="col-md-6 col-lg-2 d-flex align-items-stretch aos-init aos-animate" data-aos="fade-up">
+    <div class="icon-box icon-box-pink" style="margin-right:5px; margin-left: 3px;">
+      <li>
+        <a href="{{ route('by_name',[$list->description,$list->country,$list->district,$list->tour_name]) }}">
+          <img src="/image/cover/2021/{{ $list->cover == '' ? 'default.png' : $list->cover }}" alt="" style="border-radius: 4px;">
+        </a>
+        <div class="uk-position-center uk-panel"></div>
+
+
+<div class="member-info">
+        
+<div style="height:65px;">
+
+<div class="home_slider_member_info">
+  <a href="{{ route('by_name',[$list->description,$list->country,$list->district,$list->tour_name]) }}">    
+    @if(strlen($list->tour_name) <= 39 )
+      {{ $list->tour_name }}
+    @else
+      {{ substr($list->tour_name,0,39) }}...
+    @endif
+  </a>
+</div>  
+
+<span class="home_reviews_share">
+  <i class="fas fa-star"></i> | 0 Reviews | 
+    <a href="javascript:void(0)"uk-toggle="target: #prov-{{$list->serviceid}}" style="font-weight:510">
+      <i class="fas fa-share-alt"></i> Share
+    </a>
+  </span>
+</div>         
+
+<div class="row home_row_price">          
+    <span class="col-sm text-left" style="color:#ee4d2d;
+  font-size:.9rem;
+  font-weight: 510;">₱ {{ $list->price }}</span>
+</div>
+    
+</div>
+
+
+      </li>
+    </div>
+  </div>
+    @endif
+  @endforeach
+
+</ul>
+
+<a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+<a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
+
+</div>
+
+</div>
+</div>
+    
+    </div>
+  </div>
+</section>
+
+
+<!-- -------------------ads------------------- -->
+<section class="why-us section-bg aos-init aos-animate" data-aos="fade-up" date-aos-delay="200">
 <div class="container">
 
   <div class="row">
@@ -290,175 +515,7 @@ Founded in 2018, Tourismo PH envisioned a company that is committed in energizin
   </div>
 
 </div>
-</section> -->
-
-<!-- rooms section start -->
-  <section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
-
-  <div class="container">
-    <div class="row">
-
-      <div class="section-title">
-        
-        <h2><b>Rooms </b> 
-          <span style="font-size: 15px;padding-left: 25px;">
-            <a href="{{ route('tour_operator') }}" class="uk-link"><i class="fas fa-chevron-right"></i> 
-              Explore {{ $hotel_packages->count() }} Exclusive
-            </a>
-          </span>
-        </h2>
-
-      </div>
-      <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider>
-      <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid">
-        @foreach($hotel_packages as $list)
-        <li>
-
-<div class="icon-box icon-box-pink">
-
-<div class="uk-panel">
-<img src="{{ asset('image/tour/2021')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}" alt=""  style="border-radius: 4px;">
-<div class="uk-position-center uk-panel"> </div>
-</div>
-
-
-<div class="member-info">
-
-  <p class="mem-title" title="{{ $list->tour_name }}">{{ $list->tour_name }}</p>
-
-  <span class="text-price">
-    <div class="currency-symbol">₱</div> {{ $list->price }} / For {{ $list->nonight }} Night
-  </span><br>
-
-  <span>
-    <i class="fas fa-concierge-bell"></i> {{ $list->booking_package }}
-  </span><br>
-
-
-  <span>
-    <i class="fas fa-user-friends"></i> Max Guests: {{ $list->noguest }}
-  </span><br>
-
-  <span>
-    <i class="fas fa-chalkboard-teacher"></i> View: {{$list->viewdeck}}
-  </span><br>
-
-
-  <div class="mem-button">
-    <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('service_tour_view', $list->upload_id) }}">
-      Explore
-    </a>
-
-    <a class="uk-button uk-button-small mb-sm-1" href="javascript:void(0)"uk-toggle="target: #prov-{{$list->upload_id}}" >
-     Share
-    </a>
-  </div>
-
-</div>
-
-</div>
-
-        </li>
-        @endforeach
-      </ul>
-      <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-      <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
-      </div>
-    </div>
-  </div>
 </section>
-
-
-
-
-
-
-<section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
-
-  <div class="container">
-    <div class="row">
-
-      <div class="section-title">
-        
-        <h2><b>Tour and Packages </b> 
-          <span style="font-size: 15px;padding-left: 25px;">
-            <a href="{{ route('tour_operator') }}" class="uk-link"><i class="fas fa-chevron-right"></i> 
-              Explore {{ $tour_packages->count() }} Exclusive
-            </a>
-          </span>
-        </h2>
-
-      </div>
-      <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider>
-      <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid">
-        @foreach($tour_packages as $list)
-        <li>
-
-<div class="icon-box icon-box-pink">
-
-<div class="uk-panel">
-<img src="{{ asset('image/tour/2021')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}" alt=""  style="border-radius: 4px;">
-<div class="uk-position-center uk-panel"> </div>
-</div>
-
-
-<div class="member-info">
-
-  <p class="mem-title" title="{{ $list->tour_name }}">{{ $list->tour_name }}</p>
-
-  <span class="text-price">
-    <div class="currency-symbol">₱</div> {{ $list->price }} / For {{ $list->nonight }} Night
-  </span><br>
-
-
-  <span>
-    <i class="fas fa-concierge-bell"></i> {{ $list->booking_package }}
-  </span><br>
-
-
-  <span>
-    <i class="fas fa-user-friends"></i> Max Guests: {{ $list->noguest }}
-  </span><br>
-
-
-  <span>
-    <i class="fas fa-chalkboard-teacher"></i> View: {{$list->viewdeck}}
-  </span><br>
-
-
-  <div class="mem-button">
-    <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('service_tour_view', $list->upload_id) }}">
-      Explore
-    </a>
-
-    <a class="uk-button uk-button-small mb-sm-1" href="javascript:void(0)"uk-toggle="target: #prov-{{$list->upload_id}}">
-     Share
-    </a>
-  </div>
-
-</div>
-
-</div>
-
-        </li>
-        @endforeach
-      </ul>
-
-      <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-      <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
-
-
-
-
-
-
 
 
 

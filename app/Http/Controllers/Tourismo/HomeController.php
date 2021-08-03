@@ -110,6 +110,8 @@ class HomeController extends Controller
         $tour_packages   = $this->getServiceTourData('10011',10); // new from service_tour tbl
     	$hotel_packages 	= $this->getServiceTourData('10016',10); // new from service_tour tbl
     	$exclusive_packages 	= $this->getServiceTourData('100113',10); // new from service_tour tbl
+
+        $get_service_name = $this->get_service_name(10);
         $banner            = $this->banner();
         $icountry = $this->get_country($country = "Philippines");
 
@@ -121,7 +123,8 @@ class HomeController extends Controller
             return view('tourismo.mobile.home_mobile', compact(['icountry', 'banner','tourismo_exlusive','international','home_hotel','destination','hotels','tour_package','tour_packages', 'hotel_packages', 'exclusive_packages','loginAuth']));
 
         } else {
-            return view('tourismo.home', compact(['icountry','banner','tourismo_exlusive','international','home_hotel','destination','hotels','tour_package','tour_packages', 'hotel_packages', 'exclusive_packages','loginAuth']));
+            return view('tourismo.home', compact(
+                ['icountry','banner','tourismo_exlusive','international','home_hotel','destination','hotels','tour_package','tour_packages', 'hotel_packages', 'exclusive_packages','loginAuth','get_service_name']));
 
         }
         
@@ -408,5 +411,46 @@ public function tour_package() {
 
     return ProfileModel::where('type',10011)->where('temp_status',1)->get();
 }
+
+
+
+
+protected function get_service_name($limit=null) {
+    
+    $service_name = TourModel::join('locations_district','locations_district.id', 'service_tour.district')
+                ->join('location_country','location_country.id', 'locations_district.country_id')
+                ->join('products','service_tour.service_id', 'products.id')
+                    ->where([['service_tour.temp_status',1]
+                            ])->inRandomOrder()->limit($limit)
+                         ->get(['service_tour.id as serviceid','service_tour.cover',
+                            'service_tour.tour_name',
+                            'service_tour.price',
+                            'service_tour.temp_status',
+                            'location_country.country',
+                            'locations_district.district',
+                            'products.description',
+                            'products.name']);
+
+
+        if(empty($service_name[0])) {
+
+                abort(404,'Data not found.!');
+            } 
+        else 
+        {
+
+                return $service_name;
+            }
+
+    }
+
+
+
+
+
+
+
+
+
 
 }
