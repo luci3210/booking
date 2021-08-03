@@ -515,7 +515,7 @@ a.text-primary:hover{
         <nav class="nav d-flex " >
             @foreach($slmenu as $data)
                 @if($data->status == 'active')
-                <a class="p-3 link-secondary " href="{{ route('open_services',$data->description) }}" ><i class="{{$data->icon_id}}"></i> {{$data->name}}</a>
+                <a class="p-3 link-secondary " style="font-size:.9rem;font-weight:500" href="{{ route('open_services',$data->description) }}" ><i class="{{$data->icon_id}}"></i> {{$data->name}}</a>
                 @else
                 <a class="p-3 link-disabled fade-disabled" href="#" onclick="return false;"><i class="{{$data->icon_id}}"></i> {{$data->name}}</a>
                 @endif
@@ -525,7 +525,7 @@ a.text-primary:hover{
     
               @foreach($slmenu_exlusive as $data)
                 @if($data->status == 'active')
-                <a class="p-3 link-secondary " href="{{ route('open_services',$data->description) }}" ><i class="{{$data->icon_id}}"></i> {{$data->name}}</a>
+                <a class="p-3 link-secondary " style="font-size:.9rem;font-weight:500" href="{{ route('open_services',$data->description) }}" ><i class="{{$data->icon_id}}"></i> {{$data->name}}</a>
                 @else
                 <a class="p-3 link-disabled fade-disabled" href="" onclick="return false;"><i class="{{$data->icon_id}}"></i> {{$data->name}}</a>
                 @endif
