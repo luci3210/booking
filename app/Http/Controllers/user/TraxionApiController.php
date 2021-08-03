@@ -32,8 +32,8 @@ class TraxionApiController extends Controller
         $bdetails = $req->query('details');
         
         $paymentService = new PaymentService();
-        $paymentService->updatePaymentStatus($req,$extra,$cn,$bdetails,$contactData);
-        return $contactData;
+        $result = $paymentService->updatePaymentStatus($req,$extra,$cn,$bdetails,$contactData);
+        return $result;
     }
 
     public function sendToGsp($data)
@@ -86,7 +86,7 @@ class TraxionApiController extends Controller
 
 
         $detailsOfBooking = $this->getPackageDetails($bdetails['uid']);
-        // return $cdetails;
+        // return $detailsOfBooking;
  
         $pdf = PDF::loadView('invoice.payment_invoice',compact(['extra', 'stausPayment','cdetails','detailsOfBooking', 'contact']));
         return $pdf->download('invoice.pdf');

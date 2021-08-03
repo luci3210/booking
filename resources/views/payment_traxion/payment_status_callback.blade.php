@@ -8,7 +8,7 @@
 }
 
 </style>
-<div class="container h-100 mh-100">
+<div class="container h-100 mh-100 mt-5">
     @if($statusRes == 'success')
     <div class="alert alert-success alert-dismissible fade show m-0" role="alert">
         <p class="m-0"> <strong>{{$statusRes}}!</strong> Please check your email for receipt</p>
