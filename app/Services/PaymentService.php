@@ -31,12 +31,12 @@ Class PaymentService extends SecurityServices{
             $data['pm_adult_count'] = $adultCount;
             $data['pm_book_qty'] = $qty;
             $data['pm_created_at'] = $this->getDatetimeNow();
-            $data['pm_id'] = PaymentModel::insertGetId($data); // save
+            $data['pm_id'] = PaymentModel::insertGetId($data); // save retund
             $data['user_email'] = $user->email;
             $data['user_number'] = $user->pnumber;
             $data['user_fname'] = $user->fname;
             $data['user_lname'] = $user->lname;
-            $data['pm_created_at'] = null;
+            $data['user_mname'] = $user->mname;
             $data['pm_book_date'] = strtotime($from);
             $data['pm_book_date_to'] = strtotime($to);
 
@@ -57,6 +57,26 @@ Class PaymentService extends SecurityServices{
 
             $data = base64_encode(json_encode($covertData));
             return $data;
+        } catch (\Exception $e) {
+            return $e;
+        }
+      
+    }
+    public function SavePaymentV2($data)
+    {
+        try {
+            $data['pm_created_at'] = $this->getDatetimeNow();
+            $data['pm_id'] = PaymentModel::insertGetId($data); // save retund id
+
+            $returnData['pm_id'] = $data['pm_id'];
+            $returnData['pm_book_date'] = strtotime($data['pm_book_date']);
+            $returnData['pm_book_date_to'] = strtotime($data['pm_book_date_to']);
+            $returnData['pm_book_amount'] = $data['pm_book_amount'];
+            $returnData['pm_child_count'] = $data['pm_child_count'];
+            $returnData['pm_adult_count'] = $data['pm_adult_count'];
+
+            $returnData = base64_encode(json_encode($returnData));
+            return $returnData;
         } catch (\Exception $e) {
             return $e;
         }
@@ -107,7 +127,7 @@ Class PaymentService extends SecurityServices{
 
     }
 
-    public function updatePaymentStatus(Request $req,$extra,$cn,$bdetails)
+    public function updatePaymentStatus(Request $req,$extra,$cn,$bdetails,$contact)
     {
         $sp = new StatusPaymentModel();
         $sp = $sp->where('ps_ref_no',$req->ref_no)->get();
@@ -152,17 +172,19 @@ Class PaymentService extends SecurityServices{
         $statusPayment['payment_method'] = $req->payment_method;
         $statusPayment = base64_encode(json_encode($statusPayment));
         $extraData = base64_encode(json_encode($extra));
+        $contactData = base64_encode(json_encode($contact));
         $details = [
             'title'=> 'Receipt',
             'body'=>'thank you for purchasing thru Tourismo',
-            // 'url'=>'https://0bf01cce8cc3.ngrok.io/booking/public/invoice/download?',
-            'url'=>'https://booking.tourismo.ph/booking/public/invoice/download?',
+            // 'url'=>'https://8fa8bc3668f4.ngrok.io/booking/public/invoice/download?',
+            'url'=>'https://booking.tourismo.ph/invoice/download?',
             'extra'=>$extraData,
             'status'=>$statusPayment,
             'profileID'=>$cn,
-            'bdetails'=>$bdetails
+            'bdetails'=>$bdetails,
+            'contact'=>$contactData
         ];
-        Mail::to($extra['user_email'])->send( new TestMail($details) );
+        Mail::to($contact['user_email'])->send( new TestMail($details) );
         return 'payment';
     }
     

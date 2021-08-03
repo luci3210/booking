@@ -21,13 +21,19 @@ class TraxionApiController extends Controller
 
     public function status_callback(Request $req){
         $extra = $req->query('extra');
-        $cn = $req->query('cn');
-        $bdetails = $req->query('details');
         $extra = base64_decode($extra);
         $extra = (array)json_decode($extra);
+
+        $contactData = $req->query('contact');
+        $contactData = base64_decode($contactData);
+        $contactData = (array)json_decode($contactData);
+
+        $cn = $req->query('cn');
+        $bdetails = $req->query('details');
+        
         $paymentService = new PaymentService();
-        $paymentService->updatePaymentStatus($req,$extra,$cn,$bdetails);
-        return 'payment';
+        $result = $paymentService->updatePaymentStatus($req,$extra,$cn,$bdetails,$contactData);
+        return $result;
     }
 
     public function sendToGsp($data)
@@ -47,6 +53,11 @@ class TraxionApiController extends Controller
         $bdetails = base64_decode($bdetails);
         $bdetails = (array)json_decode($bdetails);
 
+        $contactData = $req->query('contact');
+        $contactData = base64_decode($contactData);
+        $contactData = (array)json_decode($contactData);
+
+
       
         return view('payment_traxion.payment_status_callback',compact(['statusRes',]));
 
@@ -61,6 +72,7 @@ class TraxionApiController extends Controller
         $stausPayment = $req->query('status');
         $stausPayment = base64_decode($stausPayment);
         $stausPayment = (array)json_decode($stausPayment);
+        
         $cn = $req->query('cn');
         $cdetails = $this->getProfile($cn);
 
@@ -68,11 +80,15 @@ class TraxionApiController extends Controller
         $bdetails = base64_decode($bdetails);
         $bdetails = (array)json_decode($bdetails);
 
+        $contact = $req->query('contact');
+        $contact = base64_decode($contact);
+        $contact = (array)json_decode($contact);
+
 
         $detailsOfBooking = $this->getPackageDetails($bdetails['uid']);
         // return $detailsOfBooking;
  
-        $pdf = PDF::loadView('invoice.payment_invoice',compact(['extra', 'stausPayment','cdetails','detailsOfBooking']));
+        $pdf = PDF::loadView('invoice.payment_invoice',compact(['extra', 'stausPayment','cdetails','detailsOfBooking', 'contact']));
         return $pdf->download('invoice.pdf');
     }
 

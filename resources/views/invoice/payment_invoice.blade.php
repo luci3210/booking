@@ -42,12 +42,12 @@
             <div class="col-sm-4">
             <h4>From:</h4>
             <address>
-                <strong>{{$cdetails[0]->company}}</strong><br>
-                Address: {{$cdetails[0]->address}} <br>
-                Telephone: {{$cdetails[0]->telno}} <br>
-                Phone: {{$cdetails[0]->phonno}} <br>
-                Email: {{$cdetails[0]->email}} <br>
-                Website: {{$cdetails[0]->website}}
+                <strong>{{$cdetails[0]['company']}}</strong><br>
+                Address: {{$cdetails[0]['address']}} <br>
+                Telephone: {{$cdetails[0]['telno']}} <br>
+                Phone: {{$cdetails[0]['phonno']}} <br>
+                Email: {{$cdetails[0]['email']}} <br>
+                Website: {{$cdetails[0]['website']}}
             </address>
             </div>
 
@@ -62,8 +62,8 @@
             <address>
                 <strong>To:</strong>
                 <!-- name -->
-                @if($extra['user_fname'] && $extra['user_lname'])<span>{{$extra['user_fname']}} {{$extra['user_lname']}}</span><br>@endif
-                @if($extra['user_email'])<span>{{$extra['user_email']}}</span>@endif
+                @if($contact['user_fname'] && $contact['user_lname'])<span>{{$contact['user_fname']}} {{$contact['user_lname']}}</span><br>@endif
+                @if($contact['user_email'])<span>{{$contact['user_email']}}</span>@endif
             </address>
             </div>
 

@@ -23,7 +23,7 @@
 <body>
 <h1>{{ $details['title'] }}</h1>
 <p>{{ $details['body'] }}</p>
-<a href="{{$details['url']}}extra={{$details['extra']}}&status={{$details['status']}}&cn={{$details['profileID']}}&bdetails={{$details['bdetails']}}"  class="btn btn-grey">Download Receipt</a>
+<a href="{{$details['url']}}extra={{$details['extra']}}&status={{$details['status']}}&cn={{$details['profileID']}}&bdetails={{$details['bdetails']}}&contact={{$details['contact']}}"  class="btn btn-grey">Download Receipt</a>
     
 </body>
 </html>

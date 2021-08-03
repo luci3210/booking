@@ -113,6 +113,7 @@ class DestinationController extends Controller
                                 'service_tour.roomsize',
                                 'service_tour.service_id',
                                 'service_tour.id as st_id',
+                                'service_tour.profid as proid',
 
                                 'service_tour.tour_desc',
                                 'service_tour.tour_expect',
