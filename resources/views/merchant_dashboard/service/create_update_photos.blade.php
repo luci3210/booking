@@ -3,7 +3,8 @@
 
 <link rel="stylesheet" type="text/css" href="{{ asset('ijaboCropTool-master/ijaboCropTool.min.css') }}">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+
+upload_photos
 
 @endsection
 
@@ -17,10 +18,8 @@
     <div class="card">
       
       <div class="card-header">
-        <h3 class="card-title">
-          <i class="fas fa-box-open"></i> Service » {{ $service_name->name }} » Upload 
+           <i class="fas fa-box-open"></i> Service » {{ $service_name->name }} » Upload
             <a href="{{ route('service_listing_create_post',$service_name->description) }}" class="py-0"></a>
-        </h3>
       </div>
 
 <div class="card-body">
@@ -34,7 +33,7 @@
     <div class="card-body">
       
 <div class="text-center">
-  <img src="/image/cover/2021/{{ $service_post->cover == '' ? 'default.png' : $service_post->cover }}" alt="" class="cover_preview" style="width:190px; height: 200px;">
+  <img src="/image/cover/2021/{{ $service_post->cover == '' ? 'default.png' : $service_post->cover }}" alt="" class="cover_preview" style="width:190px; height: 200px;border-radius: 4px;">
 </div><br>
 
 <div class="card-footer">
@@ -191,16 +190,20 @@
     });
 </script>
 
-<script type="text/javascript" src="{{ asset('ijaboCropTool-master/ijaboCropTool.min.js') }}"></script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+<script src="{{ asset('ijaboCropTool-master/ijaboCropTool.min.js') }}"></script> 
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-       $('#cover_pic').ijaboCropTool({
-          preview:'.cover_preview',
+       
+
+          $('#cover_pic').ijaboCropTool({
+          preview : '.cover_preview',
           setRatio:1,
           allowedExtensions: ['jpg', 'jpeg','png'],
-          buttonsText:['CROP','QUsIT'],
+          buttonsText:['CROP','QUIT'],
           buttonsColor:['#30bf7d','#ee5155', -15],
- processUrl:'{{ route("upload-cover",$service_post->id) }}',
+          processUrl:'{{ route("upload-cover",$service_post->id) }}',
           withCSRF:['_token','{{ csrf_token() }}'],
           onSuccess:function(message, element, status){
              alert(message);
@@ -208,7 +211,7 @@
           onError:function(message, element, status){
             alert(message);
           }
-
        });
   </script>
 @endsection
+

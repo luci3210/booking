@@ -63,9 +63,10 @@ class ServiceListingController extends Controller
 
     }
 
-    public function upload_cover(Request $request,$id=null) {
+    public function upload_cover(Request $request,$id) {
 
         $path = 'image/cover/2021/';
+        
         $file = $request->file('cover_pic');
 
         $new_image_name = 'cover2021'.$this->profile->profile_check()->id.date('Ymd').uniqid().'.jpg';
@@ -75,14 +76,12 @@ class ServiceListingController extends Controller
         if(!$move) {
 
             return response()->json(['status'=>0, 'msg'=>'Something went wrong, try again later']);
-
         }
-
-            TourModel::where('id',$id)->where('profid',$this->profile->profile_check()->id)->update(['cover' => $new_image_name]);
+            TourModel::where([
+                    ['id',$id],
+                        ['profid',$this->profile->profile_check()->id] ])->update(['cover' => $new_image_name]);
 
         return response()->json(['status'=>1, 'msg'=>'Cover successfully updated.', 'cover'=>$new_image_name]);
-
-
     }
 
 

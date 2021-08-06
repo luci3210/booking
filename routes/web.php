@@ -212,8 +212,6 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant_das
 });
 
 
-
-
 // ---------------------------------address
 Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchantz/profile'], function() {
 

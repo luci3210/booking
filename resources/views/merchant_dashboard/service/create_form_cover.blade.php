@@ -1,6 +1,8 @@
 @extends('layouts.merchant-app')
 @section('third_party_stylesheets')
   <link rel="stylesheet" type="text/css" href="{{ asset('ijaboCropTool-master/ijaboCropTool.min.css') }}">
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  -->
+
 @endsection
 
 @section('content')
@@ -141,6 +143,7 @@
 @endsection
 @section('merchantjs')
 <script type="text/javascript" src="{{ asset('ijaboCropTool-master/ijaboCropTool.min.js') }}"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  -->
 <script>
        $('#cover_pic').ijaboCropTool({
 

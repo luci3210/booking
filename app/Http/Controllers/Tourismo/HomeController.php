@@ -111,7 +111,7 @@ class HomeController extends Controller
     	$hotel_packages 	= $this->getServiceTourData('10016',10); // new from service_tour tbl
     	$exclusive_packages 	= $this->getServiceTourData('100113',10); // new from service_tour tbl
 
-        $get_service_name = $this->get_service_name(10);
+        $get_service_name = $this->get_service_name(35);
         $banner            = $this->banner();
         $icountry = $this->get_country($country = "Philippines");
 
