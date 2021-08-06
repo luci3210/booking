@@ -13,6 +13,7 @@ use App\user\PageReviewsModel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Jenssegers\Agent\Agent;
 
 
 class DestinationController extends Controller
@@ -227,8 +228,15 @@ class DestinationController extends Controller
         $byname = $this->by_get_name($category,$country,$district,$name);
         $byphotos = $this->by_get_photos($name);
         $reviewsData = $this->getReviews($name);
+        $Agent = new Agent();
+        if ($Agent->isMobile()) {
+            return view('tourismo.mobile.by_service_name_mobile', compact('byname','byphotos','reviewsData'));
 
-        return view('tourismo.by_service_name', compact('byname','byphotos','reviewsData'));
+        }else{
+            return view('tourismo.by_service_name', compact('byname','byphotos','reviewsData'));
+
+        }
+
 
     }
 
