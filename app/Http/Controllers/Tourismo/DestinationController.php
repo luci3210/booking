@@ -241,13 +241,20 @@ class DestinationController extends Controller
     }
 
     public function book($category=null,$country=null,$district=null,$name=null) {
-if($this->middleware('auth')) {
+    if($this->middleware('auth')) {
         $byname = $this->by_get_name($category,$country,$district,$name);
         $byphotos = $this->by_get_photos($name);
         $reviewsData = $this->getReviews($name);
         $country = $this->userCountry();
+        $Agent = new Agent();
 
+        if ($Agent->isMobile()) {
+            return view('tourismo.mobile.book_mobile', compact('byname','byphotos','reviewsData','country'));
+
+        }else{
             return view('tourismo.book', compact('byname','byphotos','reviewsData','country'));
+        }
+
         } else {
             abort(404,'Data not found.!');
         }
