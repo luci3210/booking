@@ -15,6 +15,7 @@ use App\user\PaymentModel;
 
 use App\Model\Merchant\TourPhoModel;
 use App\Model\Merchant\TourModel;
+use Jenssegers\Agent\Agent;
 
 class UserBookingController extends Controller
 {
@@ -39,7 +40,14 @@ class UserBookingController extends Controller
         $data['data']['account'] = $account;
         $data['data']['country'] = $country;
         // return $hotelList;
-        return view('tourismo.account.account_booking_index',compact("hotelList", "tourList","data"));
+        $Agent = new Agent();
+        if ($Agent->isMobile()) {
+            return view('tourismo.account.mobile.account_booking_index_mobile',compact("hotelList", "tourList","data"));
+
+        }else{
+            return view('tourismo.account.account_booking_index',compact("hotelList", "tourList","data"));
+
+        }
 
     }
 
