@@ -100,6 +100,8 @@ class HomeController extends Controller
         }
 
     	$home_hotel 	= $this->hotels();
+        $destination    = $this->destination();
+        $international    = $this->desni_international();
         $tourismo_exlusive    = $this->tourismo_exlusive();
         $hotels         = $this->hotel();
         $tour_package   = $this->tour_package(); 
@@ -107,16 +109,17 @@ class HomeController extends Controller
         $tour_packages   = $this->getServiceTourData('10011',10); // new from service_tour tbl
     	$hotel_packages 	= $this->getServiceTourData('10016',10); // new from service_tour tbl
     	$exclusive_packages 	= $this->getServiceTourData('100113',10); // new from service_tour tbl
+
+        
+        $get_service_name = $this->get_service_name(12);
+
+        $service_exclusive = $this->get_service_exclusive('exclusive', 12);
+        $service_rooms = $this->get_service_rooms(12);
+        $service_tours = $this->get_service_tour(12);
+
+
+        $banner            = $this->banner();
         $icountry = $this->get_country($country = "Philippines");
-
-
-        $service_exclusives = $this->get_service_name('exclusive',12);
-        $service_tours = $this->get_service_name('tour_operator',12);
-        $service_rooms = $this->get_service_name('hotel_and_resort',12);
-
-        $international    = $this->desni_international();
-        $destination    = $this->destination();
-        $banner = $this->banner();
 
 
         // return $hotel_packages;
@@ -127,7 +130,7 @@ class HomeController extends Controller
 
         } else {
             return view('tourismo.home', compact(
-                ['banner','international','hotels','destination','loginAuth','service_exclusives','service_rooms','service_tours']));
+                ['icountry','banner','tourismo_exlusive','international','home_hotel','destination','hotels','tour_package','tour_packages', 'hotel_packages', 'exclusive_packages','loginAuth','get_service_name','service_exclusive']));
 
         }
         

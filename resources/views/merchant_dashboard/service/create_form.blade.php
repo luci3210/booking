@@ -228,6 +228,22 @@
 </div>
 
 
+
+
+<div class="form-group">
+  <label>
+    <span class="text-danger">*</span> xxxxxxxxxxxx
+    <small class="text-danger has-error">
+      {{ $errors->has('tour_package_desc') ?  $errors->first('tour_package_desc') : '' }}
+    </small>
+  </label>
+  <textarea id="mytextarea">Hello, World!</textarea>
+  <!-- <textarea name="xxx" class="form-control tinymce" id="postDescription" rows="3" placeholder="Tour Package Description ..."></textarea> -->
+</div>
+
+
+
+
 <div class="form-group">
   <label>
     <span class="text-danger">*</span> What to expect
@@ -459,8 +475,16 @@
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" type="text/javascript"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" type="text/javascript"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+  tinymce.init({
+    selector: '#mytextarea'
+  });
+</script>
+
+
 <script type="text/javascript">
 
 $('.facilities').select2( {
