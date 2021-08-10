@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 // testing
 Route::get('/check/me/', 'PaymentController@getUser')->middleware('checkUserData');
+Route::get('/check/geo/{lat}/{lng}', 'Tourismo\HomeController@checkgeo');
 
 
 // email verfication

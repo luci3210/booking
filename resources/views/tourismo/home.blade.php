@@ -36,7 +36,8 @@
     border: solid 1px #502672 !important;
     font-weight: 700!important;
     color: #4a4a4a!important;
-    font-size: .8rem!important;
+    font-size: .7rem!important;
+    border-radius:5px!important;
     text-transform:capitalize;
   }
   .btn-outline-web:hover{
@@ -119,8 +120,10 @@
             <div class="icon-box icon-box-pink">
 
               <div class="uk-panel">
+                <a href="{{ route('open_services',$slmenu_exlusive[0]->description) }}">
                   <img src="{{ asset('image/tour/2021')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}" alt=""  style="border-radius: 4px;">
                   <div class="uk-position-center uk-panel"> </div>
+                </a>
               </div>
 
                 <div class="member-info">
@@ -135,17 +138,25 @@
                     <div class="currency-symbol">₱</div> {{ $list->price }}
                   </span><br>
 
-                  <div class="mem-button">
-                    <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('service_tour_view', $list->upload_id) }}">
-
-                      Explore
-                    </a>
-
-                    <a class="uk-button uk-button-small mb-sm-1" href="javascript:void(0)"uk-toggle="target: #prov-{{$list->upload_id}}">
-
-                    Share
-                    </a>
+                  <div class="row g-1 px-1 my-2">
+                    <div class="col-6">
+                      <div class="d-grid gap-2">
+                        <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('service_tour_view', $list->upload_id) }}">
+                          Explore
+                        </a>
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-6">
+                      <div class="d-grid gap-2">
+                        <a class="uk-button uk-button-small mb-sm-1" href="javascript:void(0)"uk-toggle="target: #prov-{{$list->upload_id}}">
+                        Share
+                        </a>
+                      </div>
+                    </div>
+                    <!-- /.col -->
                   </div>
+                  <!-- row -->
 
                 </div>
 
@@ -159,10 +170,80 @@
 </div>
 
     </div>
-  <a href="{{ route('open_services',$slmenu_exlusive[0]->description) }}" class="uk-button btn-outline-web  uk-width-1-3@m  uk-width-1@s mx-auto my-2">Explore all exclusive</a>
+  <a href="{{ route('open_services',$slmenu_exlusive[0]->description) }}" class="uk-button btn-outline-web  uk-width-1-4@m  uk-width-1@s mx-auto my-2">Explore all exclusive</a>
 
   </div>
 </section>
+
+
+
+<section class="services team aos-init aos-animate " data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+  <div class="container text-center">
+    <div class="row text-start">
+
+      <div class="section-title">
+        <h2><b>Local Destination</b> 
+          <span style="font-size: 15px;padding-left: 25px;">
+            <a href="{{ route('destination') }}" class="uk-link">
+              <i class="fas fa-chevron-right"></i> Explore {{ $number_of_distination->count() }} {{ $icountry->country }} Destination
+            </a></span>
+        </h2>
+      </div>
+
+      <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider>
+      <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid">
+
+          @foreach($destination as $list)
+          <li>
+            <div class="icon-box icon-box-pink">
+
+                <div class="uk-panel">
+                    <img src="{{ asset('image/destination')}}/{{ $list->destination_image == '' ? 'default.png' : $list->destination_image }}" alt=""  style="border-radius: 4px;">
+                    <div class="uk-position-center uk-panel"> </div>
+                </div>
+
+            <div class="member-info">
+
+                  <p class="mem-title"><i class="fas fa-map-marked-alt"></i>  {{ substr($list->destination_info, 0, 15) }}...</p>
+
+                  <span>
+                    <i class="fas fa-building"></i> No. of hotels : 150 {{ $list->country }}
+                  </span><br>
+
+                  <span>
+                    <i class="fas fa-directions"></i> No. of Tour Operators : 251
+                  </span><br>
+
+                  <div class="row g-1 px-1 my-2">
+                    <div class="col-12">
+                      <div class="d-grid gap-2">
+                        <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('by_district',[$icountry->country,$list->destination_info]) }}">
+                          Explore
+                        </a>
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <!-- row -->
+            </div>
+
+          </div>
+          </li>
+          @endforeach
+          
+      </ul>
+
+      <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+      <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
+
+  </div>
+
+    </div>
+  <a href="{{ route('destination') }}" class="uk-button btn-outline-web  uk-width-1-4@m  uk-width-1@s mx-auto my-2">Explore all Local destination</a>
+
+  </div>
+</section>
+
 
 
 
@@ -201,17 +282,17 @@
                 <span>
                   <i class="fas fa-directions"></i> No. of Tour Operators : 251
                 </span><br>
-                
-<div class="mem-button">
-
-  <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('by_country', $list->country) }}">
-    Explore
-  </a>
-
-  <a class="uk-button uk-button-small mb-sm-1" href="javascript:void(0)" uk-toggle="target: #prov-{{$list->upload_id}}">
-    Share
-  </a>
-</div>
+                <div class="row g-1 px-1 my-2">
+                  <div class="col-12">
+                    <div class="d-grid gap-2">
+                      <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('by_country', $list->country) }}">
+                        Explore
+                      </a>
+                    </div>
+                  </div>
+                  <!-- /.col -->
+                </div>
+                <!-- row -->
 
               </div>
 
@@ -227,7 +308,7 @@
 </div>
 
     </div>
-  <a href="{{ route('by_countries') }}" class="uk-button btn-outline-web  uk-width-1-3@m  uk-width-1@s mx-auto my-2">Explore all Countries</a>
+  <a href="{{ route('by_countries') }}" class="uk-button btn-outline-web  uk-width-1-4@m  uk-width-1@s mx-auto my-2">Explore all Countries</a>
   </div>
 </section>
 
@@ -248,59 +329,39 @@
             </a></span>
         </h2>
       </div>
+      <div class="row" id="loaders">
+        <div class="col-md-3 col-sm-6 col-6 ">
+          <div class="content-placeholder "></div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-6 ">
+          <div class="content-placeholder "></div>
+        </div>
+        <div class="col-md-3  d-none d-lg-block ">
+          <div class="content-placeholder "></div>
+        </div>
+        <div class="col-md-3 d-none d-lg-block">
+          <div class="content-placeholder "></div>
+        </div>
+      </div>
+      
+      <!-- /.holder -->
+      <!-- <div class="col-12" id='load-near'>
+        
+      </div> -->
+      
+      <div class="uk-position-relative uk-visible-toggle uk-light  d-none" id="nearby-slider" tabindex="-1" uk-slider>
+          <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid" id="">
+          </ul>
 
-      <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider>
-      <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid">
+          <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+          <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
 
-          @foreach($destination as $list)
-          <li>
-            <div class="icon-box icon-box-pink">
+      </div>
+      <!-- /.slider -->
 
-                <div class="uk-panel">
-                    <img src="{{ asset('image/destination')}}/{{ $list->destination_image == '' ? 'default.png' : $list->destination_image }}" alt=""  style="border-radius: 4px;">
-                    <div class="uk-position-center uk-panel"> </div>
-                </div>
-
-            <div class="member-info">
-
-                  <p class="mem-title"><i class="fas fa-map-marked-alt"></i>  {{ substr($list->destination_info, 0, 15) }}...</p>
-
-                  <span>
-                    <i class="fas fa-building"></i> No. of hotels : 150 {{ $list->country }}
-                  </span><br>
-
-                  <span>
-                    <i class="fas fa-directions"></i> No. of Tour Operators : 251
-                  </span><br>
-
-                  <div class="mem-button">
-
-                  {{--<a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('provice', $list->provice_id) }}">--}}
-                  <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('by_district',[$icountry->country,$list->destination_info]) }}">
-                    Explore
-                  </a>
-
-                    <a class="uk-button uk-button-small mb-sm-1" href="javascript:void(0)"uk-toggle="target: #prov-{{$list->upload_id}}" >
-                      Share
-                    </a>
-
-                  </div>
-
-            </div>
-
-          </div>
-          </li>
-          @endforeach
-          
-      </ul>
-
-      <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-      <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
-
-  </div>
 
     </div>
-  <a href="{{ route('destination') }}" class="uk-button btn-outline-web  uk-width-1-3@m  uk-width-1@s mx-auto my-2">Explore all near by destination</a>
+  <a href="{{ route('destination') }}" class="uk-button btn-outline-web  uk-width-1-4@m  uk-width-1@s mx-auto my-2">Explore all near by destination</a>
 
   </div>
 </section>
@@ -335,7 +396,9 @@
       <div class="icon-box icon-box-pink">
 
       <div class="uk-panel">
-      <img src="{{ asset('image/tour/2021')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}" alt=""  style="border-radius: 4px;">
+      <a href="{{ route('service_tour_view', $list->upload_id) }}">
+        <img src="{{ asset('image/tour/2021')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}" alt=""  style="border-radius: 4px;">
+      </a>
       <div class="uk-position-center uk-panel"> </div>
       </div>
 
@@ -361,17 +424,25 @@
         <i class="fas fa-chalkboard-teacher"></i> View: {{$list->viewdeck}}
       </span><br>
 
-
-      <div class="mem-button">
-        <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('service_tour_view', $list->upload_id) }}">
-          Explore
-        </a>
-
-        <a class="uk-button uk-button-small mb-sm-1" href="javascript:void(0)"uk-toggle="target: #prov-{{$list->upload_id}}" >
-        Share
-        </a>
+      <div class="row g-1 px-1 my-2">
+        <div class="col-6">
+          <div class="d-grid gap-2">
+           <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('service_tour_view', $list->upload_id) }}">
+              Explore
+            </a>
+          </div>
+        </div>
+        <!-- /.col -->
+        <div class="col-6">
+          <div class="d-grid gap-2">
+            <a class="uk-button uk-button-small mb-sm-1" href="javascript:void(0)"uk-toggle="target: #prov-{{$list->upload_id}}" >
+              share
+            </a>
+          </div>
+        </div>
+        <!-- /.col -->
       </div>
-
+      <!-- row -->
       </div>
 
       </div>
@@ -383,7 +454,7 @@
     <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
     </div>
   </div>
-  <a href="{{ route('tour_operator') }}" class="uk-button btn-outline-web  uk-width-1-3@m  uk-width-1@s mx-auto my-2">Explore All Hotels & Rooms</a>
+  <a href="{{ route('tour_operator') }}" class="uk-button btn-outline-web  uk-width-1-4@m  uk-width-1@s mx-auto my-2">Explore All Hotels & Rooms</a>
   
 </div>
 </section>
@@ -427,7 +498,7 @@
       <!-- /.col -->
     </div>
     <!-- /.row -->
-  <a href="{{ route('destination') }}" class="uk-button btn-outline-web  uk-width-1-3@m  uk-width-1@s mx-auto my-2">Explore all Partners</a>
+  <a href="{{ route('destination') }}" class="uk-button btn-outline-web  uk-width-1-4@m  uk-width-1@s mx-auto my-2">Explore all Partners</a>
 
   </div>
   <!-- /.container -->
@@ -459,30 +530,13 @@
                 <div class="uk-position-center uk-panel"> </div>
               </div>
               <!-- /.panel -->
-              <div class="member-info">
+                <div class="member-info">
+                  <p class="mem-title text-dark" title="">title{{ $x }}</p>
 
-              <p class="mem-title elips-1" title="{{ $list->tour_name }}">TITLE {{ $x }}</p>
-              <span>
-                <i class="fas fa-user-edit"></i> : name of me {{$x}}
-              </span><br>
-              <span>
-                <i class="fas fa-calendar"></i> : August {{$x}}, 2021
-              </span>
-              <p class="my-1 elips-3 text-muted fs-6 fw-light">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui ex exercitationem facilis aliquam modi ad, saepe alias quam tenetur rem nobis corporis harum similique aperiam molestias voluptatibus amet. Suscipit, quidem.</p>
-              
-              </div>
-              <!-- /.mem info -->
-                <div class="mem-button">
-                  <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="#">
-                    Explore
-                  </a>
-
-                  <a class="uk-button uk-button-small mb-sm-1" href="javascript:void(0)" uk-toggle="#" >
-                  Share
-                  </a>
+                  <span>
+                    <i class="fas fa-calendar"></i> 08/2{{ $x}}/2021
+                  </span><br>
                 </div>
-                <!-- /.btn -->
-
               </div>
               <!-- /.box -->
               
@@ -698,9 +752,16 @@
 
 
 
-
 @endsection
 
 @section('js')
+<script>
+getLocation()
+
+function getNearByDestionation (){
+
+}
+
+</script>
 
 @endsection
