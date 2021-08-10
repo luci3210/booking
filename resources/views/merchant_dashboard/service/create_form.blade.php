@@ -69,9 +69,9 @@
 
 
 @if($service_name->name == 'Hotel')
-  <form action="{{ route('service_listing_save_hotel',$service_name->id) }}" method="post">
+  <form action="{{ route('service_listing_save_hotel',$service_name->id) }}" method="post" accept-charset="utf-8">
 @else
-  <form action="{{ route('service_listing_save_post',$service_name->id) }}" method="post">
+  <form action="{{ route('service_listing_save_post',$service_name->id) }}" method="post" accept-charset="utf-8">
 @endif
 
 
@@ -232,27 +232,18 @@
 
 <div class="form-group">
   <label>
-    <span class="text-danger">*</span> xxxxxxxxxxxx
-    <small class="text-danger has-error">
-      {{ $errors->has('tour_package_desc') ?  $errors->first('tour_package_desc') : '' }}
-    </small>
-  </label>
-  <textarea id="mytextarea">Hello, World!</textarea>
-  <!-- <textarea name="xxx" class="form-control tinymce" id="postDescription" rows="3" placeholder="Tour Package Description ..."></textarea> -->
-</div>
-
-
-
-
-<div class="form-group">
-  <label>
     <span class="text-danger">*</span> What to expect
     <small class="text-danger has-error">
       {{ $errors->has('what_expect') ?  $errors->first('what_expect') : '' }}
     </small>
   </label>
-  <textarea name="what_expect" class="form-control" rows="3" placeholder="What to expect ...."></textarea>
+  <textarea name="what_expect" class="form-control tinymce" id="what_expect" rows="3" placeholder="Tour Package Description ..."></textarea>
 </div>
+
+
+
+
+
 
 <div class="form-group">
   <label>
@@ -479,9 +470,59 @@
 
 <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
-  tinymce.init({
-    selector: '#mytextarea'
-  });
+  var editor_config = {
+
+    path_absolute: "/", 
+    selector: "textarea.tinymce",
+    height: 500,
+    plugins: [
+    "advlist autolink lists link image charmap print preview anchor",
+    "searchreplace visualblocks code fullscreen",
+    "insertdatetime media table paste imagetools wordcount"
+    ],
+    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+    relative_urls: false,
+
+    images_upload_handler: function (blobInfo, success, failure) {
+
+      var xhr, formData;
+      xhr = new XMLHttpRequest();
+      xhr.withCredentials = false;
+      xhr.open('POST', '{{ route("editor_upload_photo") }}');
+      var token = "{{ csrf_token() }}";
+      xhr.setRequestHeader("X-CSRF-Token", token);
+      xhr.onload = function() {
+
+        var json;
+        if (xhr.status != 200) {
+
+          failure('HTTP Error: ' + xhr.status);
+          return;
+
+        }
+
+        json = JSON.parse(xhr.responseText);
+
+          if (!json || typeof json.location != 'string') {
+
+            failure('Invalid JSON:' + xhr.responseText);
+            return;
+
+          }
+
+          success(json.location);
+
+      };
+
+      formData = new FormData();
+      formData.append('file', blobInfo.blob(), blobInfo.filename());
+      xhr.send(formData);
+
+    }
+
+  };
+
+  tinymce.init(editor_config);
 </script>
 
 

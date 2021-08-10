@@ -14,6 +14,7 @@ use App\Model\Admin\LocationCountyModel;
 use App\Model\Merchant\HotelPhoMoldel;
 
 use App\Model\Merchant\HotelModel;
+use Jenssegers\Agent\Agent;
 
 class WishListController extends Controller
 {
@@ -39,7 +40,14 @@ class WishListController extends Controller
         $hotel_ids = [];
         $wishListData = $this->getAllMyWishList();
         // return $wishListData;
+        $Agent = new Agent();
+        if ($Agent->isMobile()) {
+        return view('tourismo.account.mobile.account_wishlist_index_mobile',compact("data","wishListData"));
+
+        }else{
         return view('tourismo.account.account_wishlist_index',compact("data","wishListData"));
+
+        }
     }
 
     protected function getAllMyWishList(){

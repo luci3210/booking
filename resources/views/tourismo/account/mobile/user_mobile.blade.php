@@ -21,7 +21,12 @@
 </style>
 @section('content')
 
-<div class="px-1">
+<div class="container">
+    <div class="row g-1">
+        <div class="col-12">
+          @include('tourismo.account.mobile.user_acct_menu_mobile')
+        </div>
+    </div>
     <form action="{{ route('accnt_profile_update',$data['data']['account'][0]->id) }}" method="post" role="form" class="uk-form-stacked" uk-grid>
         @method('patch')
         @csrf

@@ -2588,7 +2588,7 @@ a, .uk-link:hover {
   content: "/" !important;
 }
 .uk-breadcrumb > * > *{
-  color: #fff !important;
+  /* color: #fff !important; */
   font-weight: 400;
   padding-right: -20px;
 }

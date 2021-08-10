@@ -97,13 +97,11 @@
             </tr>
             @foreach($service_post as $post)
             <tr>
-              <td style="width: 10px">#</td>
+              <td style="width: 10px">{{ $loop->index + 1 }}</td>
               <td>
                 
               <div class="user-block">
-                <a href="{{ route('add_cover',[$service_name->description,$post->id]) }}">Create Cover</a>
-                <img class="img-circle img-bordered-sm" src="https://www.hotelnewsnow.com/Media/Default/Images2016/Locations/Westin-Wilmington-Front.jpg" alt="user image">
-                
+          <img src="/image/cover/2021/{{ $post->cover == '' ? 'default.png' : $post->cover }}" class="img-squire">
               </div>
 
               </td>

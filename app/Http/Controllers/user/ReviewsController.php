@@ -13,6 +13,7 @@ use App\Model\Admin\LocationCountyModel;
 use App\user\WishlistHotelsRoom;
 
 use App\user\PageReviewsModel;
+use Jenssegers\Agent\Agent;
 
 class ReviewsController extends Controller
 {
@@ -38,7 +39,15 @@ class ReviewsController extends Controller
         $data['data']['account'] = $account;
         $data['data']['country'] = $country;
         // return $reviewList;
+        // return $hotelList;
+        $Agent = new Agent();
+        if ($Agent->isMobile()) {
+        return view('tourismo.account.mobile.account_review_index_mobile',compact("reviewList","data"));
+
+        }else{
         return view('tourismo.account.account_review_index',compact("reviewList","data"));
+
+        }
 
     }
 

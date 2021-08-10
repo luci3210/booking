@@ -26,6 +26,7 @@ use App\Http\Requests\MerchantPostHotel;
 use App\Http\Requests\MerchantPostExlusive;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 
 class ServiceListingController extends Controller
 {
@@ -66,7 +67,7 @@ class ServiceListingController extends Controller
     public function upload_cover(Request $request,$id) {
 
         $path = 'image/cover/2021/';
-        
+
         $file = $request->file('cover_pic');
 
         $new_image_name = 'cover2021'.$this->profile->profile_check()->id.date('Ymd').uniqid().'.jpg';
@@ -251,6 +252,18 @@ class ServiceListingController extends Controller
         TourPhoModel::create(['merchant_id' => $this->profile->profile_check()->id, 'upload_id' => $id, 'photo' => $new_image_name]);
 
         return response()->json(['uploaded' => '/image/tour/2021'.$new_image_name]);
+    }
+
+    public function editor_upload_photo(Request $request) {
+
+        $imageName = $request->file('file');
+        
+        $new_image_name = 'post-'.$this->profile->profile_check()->id.'-'.time().'-'.date('Ymd').'-'.uniqid().'.'.$imageName->extension();
+
+         request()->file->move(public_path('image/tour/post/'), $new_image_name);
+
+        return json_encode(['location' => asset('image/tour/post/'.$new_image_name)]);
+
     }
 
     public function room_facilities() {

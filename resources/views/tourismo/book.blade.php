@@ -63,19 +63,9 @@
 <section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500" style="margin-top: 35px !important;">
   <div class="container">
     <div class="row">
-
-
-
-
-
-
-
-
-
-
-<div class="card-header">
-<h3 class="card-title">Booking Details | {{ $byname[0]->name }} » {{ $byname[0]->country }} » {{ $byname[0]->district }}</h3>
-</div>
+      <div class="card-header">
+      <h3 class="card-title">Booking Details | {{ $byname[0]->name }} » {{ $byname[0]->country }} » {{ $byname[0]->district }}</h3>
+      </div>
 
 <div class="card-body">
   <p class="text-muted">

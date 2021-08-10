@@ -194,9 +194,8 @@
 
   <strong>What to expect</strong>
 
-  <p class="text-muted">
-    {{ $byname[0]->tour_expect }}
-  </p>
+    {!! $byname[0]->tour_expect !!}
+  
 
   <hr>
 
@@ -224,7 +223,7 @@
   <strong>What to expect</strong>
 
   <p class="text-muted">
-    {{ $byname[0]->tour_expect }}
+    <pre>{{ $byname[0]->tour_expect }}</pre>
   </p>
 
   <hr>

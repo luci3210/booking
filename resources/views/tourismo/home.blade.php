@@ -11,6 +11,20 @@
     display: inline-block !important;
 
   }
+<<<<<<< HEAD
+=======
+  .btn-outline-web{
+    border: solid 1px #502672 !important;
+    font-weight: 700!important;
+    color: #4a4a4a!important;
+    font-size: .8rem!important;
+    text-transform:capitalize;
+  }
+  .btn-outline-web:hover{
+    background-color:#502672 !important;
+    color:white !important;
+  }
+>>>>>>> df3a6c183f83309482233c513dd1b3f53b183a6b
   .mem-title {
     text-transform: capitalize;
   }
@@ -169,8 +183,13 @@
 
 </div>
 
+<<<<<<< HEAD
 </div>
 </div>
+=======
+    </div>
+  <a href="{{ route('open_services',$slmenu_exlusive[0]->description) }}" class="uk-button btn-outline-web  uk-width-1-3@m  uk-width-1@s mx-auto my-2">Explore all exclusive</a>
+>>>>>>> df3a6c183f83309482233c513dd1b3f53b183a6b
 
 <a href="{{ route('open_services',$slmenu_exlusive[0]->description) }}" class="btn btn-outline-web btn-small mt-1 px-1 fw-bold">
   Explore Exculive
@@ -251,6 +270,10 @@
 <a href="{{ route('by_countries') }}" class="btn btn-outline-web btn-small mt-2 px-5 fw-bold">Explore International Destination</a>
 
     </div>
+<<<<<<< HEAD
+=======
+  <a href="{{ route('by_countries') }}" class="uk-button btn-outline-web  uk-width-1-3@m  uk-width-1@s mx-auto my-2">Explore all Countries</a>
+>>>>>>> df3a6c183f83309482233c513dd1b3f53b183a6b
   </div>
 </section>
 
@@ -398,6 +421,7 @@
 
       </li>
     </div>
+<<<<<<< HEAD
   </div>
   @endforeach
 
@@ -407,6 +431,9 @@
 <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
 
 </div>
+=======
+  <a href="{{ route('destination') }}" class="uk-button btn-outline-web  uk-width-1-3@m  uk-width-1@s mx-auto my-2">Explore all near by destination</a>
+>>>>>>> df3a6c183f83309482233c513dd1b3f53b183a6b
 
 </div>
 </div>
@@ -553,6 +580,7 @@
     </div>
 
   </div>
+<<<<<<< HEAD
 
 </div>
 </li>
@@ -569,6 +597,10 @@
 </div>
 
 </div>
+=======
+  <a href="{{ route('tour_operator') }}" class="uk-button btn-outline-web  uk-width-1-3@m  uk-width-1@s mx-auto my-2">Explore All Hotels & Rooms</a>
+  
+>>>>>>> df3a6c183f83309482233c513dd1b3f53b183a6b
 </div>
 </section>
 
@@ -617,7 +649,7 @@
       <!-- /.col -->
     </div>
     <!-- /.row -->
-    <a href="#" class="btn btn-outline-web btn-small mt-2 px-5 fw-bold">Explore All Partners</a>
+  <a href="{{ route('destination') }}" class="uk-button btn-outline-web  uk-width-1-3@m  uk-width-1@s mx-auto my-2">Explore all Partners</a>
 
   </div>
   <!-- /.container -->
@@ -690,7 +722,7 @@
       </div>
     </div>
     <!-- /.row -->
-    <a href="#" class="btn btn-outline-web btn-small mt-2 px-5 fw-bold">Explore All News & Public Affairs</a>
+  <a href="#" class="uk-button btn-outline-web  uk-width-1-3@m  uk-width-1@s mx-auto my-2">Explore News & Public Affairs</a>
 
   </div>
   <!-- /.container -->

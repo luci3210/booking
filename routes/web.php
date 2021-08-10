@@ -181,6 +181,9 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant_das
         Route::post('/merchant/service/upload_photos/{id}', 'Merchant\ServiceListingController@service_upload_photos')
         ->name('service_upload_photos');
 
+        Route::post('/editor_upload_photos', 'Merchant\ServiceListingController@editor_upload_photo')
+        ->name('editor_upload_photo');
+
         Route::post('create_post_hotel/{id}','Merchant\ServiceListingController@service_save_hotel')
         ->name('service_listing_save_hotel');
 
@@ -189,6 +192,8 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant_das
 
         Route::get('finance/income','Merchant\FinanceController@incomeIndex')
         ->name('income_index');
+
+
 
 });
 

@@ -1,18 +1,13 @@
 @extends('layouts.tourismo.ui_mobile')
 <link href="{{ asset('css/home_index.css') }}" rel="stylesheet">
 
-<!-- Add the slick-theme.css if you want default styling -->
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-<!-- Add the slick-theme.css if you want default styling -->
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
-
 @section('content')
 <style type="text/css">
   .text-price {
     color:#ff2f00 !important;
     font-size: 12px !important;
     font-weight: 700 !important;
-  }
+ }
   .text-price .currency-symbol {
     font-size: 14px;
     display: inline-block !important;
@@ -20,8 +15,6 @@
   }
   .list-group-item.active{
     color:white!important;
-    background-color: #4e2671!important;
-    border: solid 1px #4e2671 !important;
   }
   .mem-title {
     text-transform: capitalize;
@@ -47,27 +40,7 @@
     border-radius: 4px;
   }
   #main {
-    margin-top: 0px!important;
-  }
-/* slick css */
-.slider-nav , .slick-slide{
-   margin: 0 5px;
- }
- .slick-prev:before {
-  color: #4e2671 !important;
-  background-color: #eee;
-}
-.slick-prev, .slick-next{
-}
-.slick-next:before {
-  color: #4e2671 !important;
-  background-color: #eee;
-}
-.slick-prev {
-    left: -15px!important;
-}
-.slick-next {
-    right: -15px!important;
+  margin-top: 0px!important;
 }
 </style>
 
@@ -76,26 +49,24 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <div class="slider-for">
-          @foreach($byphotos as $list)
-          <div>
-            <img src="/image/tour/2021/{{ $list->photo == '' ? 'default.png' : $list->photo }}" alt="" >
-          </div>
-          @endforeach
+        <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="ratio: 5:3;animation: push">
+
+          <ul class="uk-slideshow-items">
+              @foreach($byphotos as $list)
+              <li>
+                  <div class="uk-position-cover uk-animation-kenburns uk-animation-reverse uk-transform-origin-center-left">
+                      <img src="/image/tour/2021/{{ $list->photo == '' ? 'default.png' : $list->photo }}" alt="" uk-cover>
+                  </div>
+              </li>
+              @endforeach
+          </ul>
+
+          <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+          <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
         </div>
-        <!-- slick js img  -->
+        <!-- /.slider -->
       </div>
-      <div class="col-12 mt-3 mb-0">
-        <div class="slider-nav px-2">
-          @foreach($byphotos as $list)
-          <div>
-            <img src="/image/tour/2021/{{ $list->photo == '' ? 'default.png' : $list->photo }}" alt="" >
-          </div>
-          @endforeach
-        </div>
-        <!-- slick js img  -->
-      </div>
-     
+      <!-- /.col -->
       <div class="col-6">
         <h3>{{ $byname[0]->tour_name }}</h3>
         <p style="margin-top: -19px;font-size: 12px;"><i class="fas fa-building"></i> 
@@ -210,7 +181,6 @@
                 <a class="list-group-item list-group-item-action " id="list-profile-list" data-bs-toggle="list" href="#list-reviews" role="tab" aria-controls="list-reviews">Reviews</a>
               </div>
             </div>
-            <!-- /.col -->
             <div class="col-12">
               <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
@@ -221,7 +191,6 @@
                 <div class="tab-pane fade" id="list-reviews" role="tabpanel" aria-labelledby="list-reviews-list">...</div>
               </div>
             </div>
-            <!-- /.col -->
           </div>
           <!-- /.row -->
         
@@ -242,28 +211,4 @@
 @endsection
 
 @section('js')
-<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-<script>
-  $(document).ready(function(){
-    $('.slider-for').slick({
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      arrows: false,
-      fade: true,
-      asNavFor: '.slider-nav'
-    });
-    $('.slider-nav').slick({
-      slidesToShow: 3,
-      slidesToScroll: 1,
-      asNavFor: '.slider-for',
-      dots: false,
-      centerMode: true,
-      focusOnSelect: true,
-      centerPadding: '60px',
-    });
-            
-
-
-  });
-</script>
 @endsection
