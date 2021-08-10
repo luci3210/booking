@@ -1,27 +1,7 @@
 @extends('layouts.tourismo.ui')
 <link href="{{ asset('css/home_index.css') }}" rel="stylesheet">
 <style type="text/css">
-.elips-3{
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-}
-.elips-2{
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-}
-.elips-1{
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-}
+
   .text-price {
     color:#ff2f00 !important;
     font-size: 12px !important;
@@ -120,7 +100,7 @@
             <div class="icon-box icon-box-pink">
 
               <div class="uk-panel">
-                <a href="{{ route('open_services',$slmenu_exlusive[0]->description) }}">
+                <a href="{{ route('by_name',[$list->description,$list->country,$list->district,$list->tour_name]) }}">
                   <img src="{{ asset('image/tour/2021')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}" alt=""  style="border-radius: 4px;">
                   <div class="uk-position-center uk-panel"> </div>
                 </a>
@@ -128,7 +108,7 @@
 
                 <div class="member-info">
 
-                  <p class="mem-title" title="{{ $list->tour_name }}">{{ substr($list->tour_name, 0, 15) }} ...</p>
+                  <p class="mem-title title-package" title="{{ $list->tour_name }}">{{ $list->tour_name }}</p>
 
                   <span>
                     <i class="fas fa-building"></i> {{ $list->company }}
@@ -141,7 +121,7 @@
                   <div class="row g-1 px-1 my-2">
                     <div class="col-6">
                       <div class="d-grid gap-2">
-                        <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('service_tour_view', $list->upload_id) }}">
+                        <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('by_name',[$list->description,$list->country,$list->district,$list->tour_name]) }}">
                           Explore
                         </a>
                       </div>
@@ -198,13 +178,15 @@
             <div class="icon-box icon-box-pink">
 
                 <div class="uk-panel">
+                  <a href="{{ route('by_district',[$icountry->country,$list->destination_info]) }}">
                     <img src="{{ asset('image/destination')}}/{{ $list->destination_image == '' ? 'default.png' : $list->destination_image }}" alt=""  style="border-radius: 4px;">
                     <div class="uk-position-center uk-panel"> </div>
+                  </a>
                 </div>
 
             <div class="member-info">
 
-                  <p class="mem-title"><i class="fas fa-map-marked-alt"></i>  {{ substr($list->destination_info, 0, 15) }}...</p>
+                  <p class="mem-title title-package" title="{{ $list->tour_name }}">{{ $list->destination_info }}</p>
 
                   <span>
                     <i class="fas fa-building"></i> No. of hotels : 150 {{ $list->country }}
@@ -267,13 +249,15 @@
 
 
               <div class="uk-panel">
+                  <a href="{{ route('by_country', $list->country) }}">
                   <img src="{{ asset('image/destination')}}/{{ $list->destination_image == '' ? 'default.png' : $list->destination_image }}" alt=""  style="border-radius: 4px;">
+                  </a>
                   <div class="uk-position-center uk-panel"> </div>
               </div>
 
               <div class="member-info">
 
-                <p class="mem-title"><i class="fas fa-map-marked-alt"></i>  {{ substr($list->destination_info,0,15) }}...</p>
+                  <p class="mem-title title-package" title="{{ $list->tour_name }}">{{ $list->destination_info }}</p>
 
                 <span>
                   <i class="fas fa-building"></i> No. of hotels : 150
@@ -349,8 +333,8 @@
         
       </div> -->
       
-      <div class="uk-position-relative uk-visible-toggle uk-light  d-none" id="nearby-slider" tabindex="-1" uk-slider>
-          <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid" id="">
+      <div class="uk-position-relative uk-visible-toggle uk-light " id="nearby-slider" tabindex="-1" uk-slider>
+          <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid" id="load-near">
           </ul>
 
           <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
@@ -396,7 +380,7 @@
       <div class="icon-box icon-box-pink">
 
       <div class="uk-panel">
-      <a href="{{ route('service_tour_view', $list->upload_id) }}">
+      <a href="{{ route('by_name',[$list->description,$list->country,$list->district,$list->tour_name]) }}">
         <img src="{{ asset('image/tour/2021')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}" alt=""  style="border-radius: 4px;">
       </a>
       <div class="uk-position-center uk-panel"> </div>
@@ -405,7 +389,7 @@
 
       <div class="member-info">
 
-      <p class="mem-title" title="{{ $list->tour_name }}">{{ $list->tour_name }}</p>
+      <p class="mem-title title-package" title="{{ $list->tour_name }}">{{ $list->tour_name }}</p>
 
       <span class="text-price">
         <div class="currency-symbol">₱</div> {{ $list->price }} / For {{ $list->nonight }} Night
@@ -427,7 +411,9 @@
       <div class="row g-1 px-1 my-2">
         <div class="col-6">
           <div class="d-grid gap-2">
-           <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('service_tour_view', $list->upload_id) }}">
+          
+
+           <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('by_name',[$list->description,$list->country,$list->district,$list->tour_name]) }}">
               Explore
             </a>
           </div>
@@ -531,7 +517,7 @@
               </div>
               <!-- /.panel -->
                 <div class="member-info">
-                  <p class="mem-title text-dark" title="">title{{ $x }}</p>
+                  <p class="mem-title title-package" title="">title{{ $x }}</p>
 
                   <span>
                     <i class="fas fa-calendar"></i> 08/2{{ $x}}/2021

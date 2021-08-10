@@ -41,6 +41,7 @@
   .uk-modal-body {
     border-radius: 4px;
   }
+  
 </style>
 
 <section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500" style="margin-top: 35px !important;">
@@ -55,28 +56,42 @@
 <div class="col-md-6 col-lg-2 d-flex align-items-stretch aos-init aos-animate" data-aos="fade-up">
   <div class="icon-box icon-box-pink">
   
-    <div class="member">
+    <div class="member mb-0">
 
       <div class="member-img">
+        <a  href="{{ route('by_name',[$list->description,$list->country,$list->district,$list->tour_name]) }}">
         <img src="/image/cover/2021/{{ $list->cover == '' ? 'default.png' : $list->cover }}" class="img-fluid" alt="">
+        </a>
       </div>
 
       <div class="member-info">
-        
-<div style="height:70px;">
-    <span>
-    <a href="{{ route('by_name',[$list->description,$list->country,$list->district,$list->tour_name]) }}" style="font-size:13px;font-weight:510;">{{ substr($list->tour_name,0,39) }}..</a>
-    </span>
-    <span style="margin-top: -8px;font-size: 12px;color:#5f5e5e"><i class="fas fa-star"></i> | 0 Reviews</span>
-</div>
-        <span>          
-            <div class="row" style="padding-left: 7px; padding-right: 11px;">          
-                <span class="col-sm text-left" style="color:#f6412d;font-size: 14px;font-weight: 650">₱ {{ $list->price }}</span>
-                <span class="col-sm text-center" style="color:#36235a;font-size: 14px;font-weight: 600 ">share</span>
-            </div>
-        </span>
-
+        <div style="height:70px;">
+            <span>
+            <a href="{{ route('by_name',[$list->description,$list->country,$list->district,$list->tour_name]) }}" class="mem-title title-package" >{{ $list->tour_name }}</a>
+            </span>
+            <span style="margin-top: -8px;font-size: 12px;color:#5f5e5e"><i class="fas fa-star"></i> | 0 Reviews</span>
+            <span class="col-sm text-left" style="color:#f6412d;font-size: 14px;font-weight: 650">₱ {{ $list->price }}</span>
+        </div>
       </div>
+      <div class="row g-1 px-1 my-2">
+        <div class="col-6">
+          <div class="d-grid gap-2">
+            <a class="uk-button uk-button-small btn-room-details-m mb-sm-1 theme-btn" href="{{ route('by_name',[$list->description,$list->country,$list->district,$list->tour_name]) }}">
+              Explore
+            </a>
+          </div>
+        </div>
+        <!-- /.col -->
+        <div class="col-6">
+          <div class="d-grid gap-2">
+            <a class="uk-button uk-button-small mb-sm-1 theme-btn" href="javascript:void(0)"uk-toggle="target: #prov-{{$list->upload_id}}">
+            Share
+            </a>
+          </div>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- row -->
 
     </div>
   </div>

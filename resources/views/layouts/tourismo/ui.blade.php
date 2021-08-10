@@ -51,6 +51,45 @@
   @yield('merchant')
   @yield('css')
   <style>
+    .theme-btn{
+      background-color: #502672 !important;
+      border-radius: 3px  !important;
+      border: solid 1px #502672 !important
+    }
+    .elips-3{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+    .elips-2{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+    .elips-1{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+    }
+    .title-package{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      font-weight:600;
+      font-size:.9rem
+
+    }
+    #main{
+      min-height: 100vh;
+    }
     @-webkit-keyframes placeHolderShimmer {
             0% {
               background-position: -468px 0;
@@ -619,9 +658,11 @@ function getNearBy(position){
 
             for (let i = 0; i < countData; i++) {
               console.log(data[i]['tour_name'])
+              const img = data[i]['photo'] == '' || data[i]['photo'] == null ? 'default.png' : data[i]['photo']
+            
               output += `<li> <div class="icon-box icon-box-pink"><div class="uk-panel">
-              <img src="image/cover/2021/default.png" style="border-radius: 4px;"> <div class="uk-position-center uk-panel"> </div></div>
-              <div class="member-info"><p class="mem-title"><i class="fas fa-map-marked-alt"></i> ${data[i]['tour_name']}...</p>
+              <img src="{{asset('image/tour/2021')}}/${img}" style="border-radius: 4px;"> <div class="uk-position-center uk-panel"> </div></div>
+              <div class="member-info"><p class="mem-title title-package"><i class="fas fa-map-marked-alt"></i> ${data[i]['tour_name']}</p>
               <span><i class="fas fa-building"></i> No. of hotels : 150 {{ $list->country }}</span><br>
               <span><i class="fas fa-directions"></i> No. of Tour Operators : 251</span><br>
               <div class="row g-1 px-1 my-2">
@@ -640,33 +681,10 @@ function getNearBy(position){
                   </div>
               </div>
               </div></div></div></li>`
-              // output += '<li> <div class="icon-box icon-box-pink"><div class="uk-panel">';
-              // output += '<img src="#" style="border-radius: 4px;"> <div class="uk-position-center uk-panel"> </div></div>';
-              // output += `<div class="member-info"><p class="mem-title"><i class="fas fa-map-marked-alt"></i> ${data[i]['tour_name']}...</p>`;
-              // output += `<span><i class="fas fa-building"></i> No. of hotels : 150 {{ $list->country }}</span><br>`;
-              // output += `<span>
-              //              <i class="fas fa-directions"></i> No. of Tour Operators : 251
-              //            </span><br>
-              //            <div class="row g-1 px-1 my-2">
-              //             <div class="col-6">
-              //               <div class="d-grid gap-2">
-              //                 <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="#" }}">
-              //                   Explore
-              //                 </a>
-              //               </div>
-              //             </div>`;
-              // output += `<div class="col-6">
-              //               <div class="d-grid gap-2">
-              //                 <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="#">
-              //                  share
-              //                  </a>
-              //                </div>
-              //             </div>`;
-              // output += '</div></div></div></li>';
             }
 
           }
-          $('#load-near').html(output)
+          $('#load-near').append(output)
 
 
       
@@ -681,20 +699,29 @@ function getNearBy(position){
 }
 
 function showError(error) {
+  $('#loaders').hide('slow')
+  let msg
   switch(error.code) {
     case error.PERMISSION_DENIED:
-      x.innerHTML = "User denied the request for Geolocation."
+      msg = `<h3 class="text-dark">User denied the request for Geolocation.</h3>`
+
       break;
     case error.POSITION_UNAVAILABLE:
-      x.innerHTML = "Location information is unavailable."
+      msg = `<h3 class="text-dark">Location information is unavailable.</h3>`
+
+      $('#load-near').append(msg)
+
       break;
     case error.TIMEOUT:
-      x.innerHTML = "The request to get user location timed out."
+      msg = `<h3 class="text-dark">The request to get user location timed out.</h3>`
+      $('#load-near').append(msg)
       break;
     case error.UNKNOWN_ERROR:
-      x.innerHTML = "An unknown error occurred."
+      msg = `<h3 class="text-dark">An unknown error occurred.</h3>`
       break;
   }
+  $('#load-near').append(msg)
+
 }
 </script>
 

@@ -78,6 +78,9 @@ class HomeController extends Controller
         $tourModel = new TourModel();
         $tourModel = $tourModel->join('service_tour_photos','service_tour_photos.upload_id', 'service_tour.id');
         $tourModel = $tourModel->join('profiles','profiles.id', 'service_tour.profid');
+        $tourModel = $tourModel->join('locations_district','locations_district.id', 'service_tour.district');
+        $tourModel = $tourModel->join('location_country','location_country.id', 'locations_district.country_id');
+        $tourModel = $tourModel->join('products','service_tour.service_id', 'products.id');
         $tourModel = $tourModel->where('service_tour.service_id', $service_id);
         $tourModel = $tourModel->where('service_tour.temp_status', 1);
         $tourModel = $tourModel->where('service_tour_photos.temp_status', 1);
@@ -113,6 +116,7 @@ class HomeController extends Controller
     	$exclusive_packages 	= $this->getServiceTourData('100113',10); // new from service_tour tbl
         $banner            = $this->banner();
         $icountry = $this->get_country($country = "Philippines");
+
 
 
         // return $hotel_packages;

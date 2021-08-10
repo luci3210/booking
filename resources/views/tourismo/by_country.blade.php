@@ -41,6 +41,12 @@
   .uk-modal-body {
     border-radius: 4px;
   }
+  .desc{
+    font-size: .8rem!important;
+    color: black;
+    font-weight: 400;
+    padding: .2rem;
+  }
 </style>
 
 <section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500" style="margin-top: 35px !important;">
@@ -48,45 +54,55 @@
     <div class="row">
 
 <div class="section-title">
-<h2><b><a href="{{ route('destination') }}" class="uk-link"> </a>Internationl  </b> </h2>
+<h2><b><a href="{{ route('destination') }}" class="uk-link"> </a>International  </b> </h2>
 </div>
 
 @foreach($country as $list)
 <div class="col-md-6 col-lg-2 d-flex align-items-stretch aos-init aos-animate" data-aos="fade-up">
   <div class="icon-box icon-box-pink">
   
-    <div class="member">
+    <div class="">
 
       <div class="member-img">
         <img src="/image/destination/{{ $list->destination_image == '' ? 'default.png' : $list->destination_image }}" class="img-fluid" alt="">
-      </div>
+      </div>                
+      <div style="height:80px;">
+          <a href="" class="mem-title title-package px-1">
+              @if(strlen($list->destination_info) <= 39 )
+                {{ $list->destination_info }}
+              @else
+                {{ $list->destination_info}}
+              @endif
+          </a>
+          <p class="elips-3 desc my-0">
+            @if(strlen($list->destination_desc) <= 70 )
+              {{ substr($list->destination_desc,0,70) }}
+            @else
+              {{ substr($list->destination_desc,0,70) }}...
+            @endif
 
-      <div class="member-info">
-        
-<div style="height:80px;">
-    <span>
-    <a href="" style="font-size:13px;font-weight:510;">
-        @if(strlen($list->destination_info) <= 39 )
-          {{ substr($list->destination_info,0,39) }}
-        @else
-          {{ substr($list->destination_info,0,39) }}...
-        @endif
-    </a>
-    </span>
-    <span style="margin-top: -2px;font-size: 12px;color:#5f5e5e">
-      
-      @if(strlen($list->destination_desc) <= 70 )
-        {{ substr($list->destination_desc,0,70) }}
-      @else
-        {{ substr($list->destination_desc,0,70) }}...
-      @endif
-
-    </span>
-
-</div>
+          </p>
 
       </div>
-
+      <div class="row g-1 px-1 my-2">
+        <div class="col-6">
+          <div class="d-grid gap-2">
+            <a class="uk-button uk-button-small btn-room-details-m mb-sm-1 theme-btn" href="#">
+              Explore
+            </a>
+          </div>
+        </div>
+        <!-- /.col -->
+        <div class="col-6">
+          <div class="d-grid gap-2">
+            <a class="uk-button uk-button-small mb-sm-1 theme-btn" href="javascript:void(0)"uk-toggle="target: #">
+            Share
+            </a>
+          </div>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- row -->
     </div>
   </div>
 </div>
