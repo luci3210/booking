@@ -8,7 +8,7 @@
 
 @section('content')
 <style type="text/css">
-.mobile-nav-icon{
+  .mobile-nav-icon{
     display: none!important;
   }
   #fix-bottom{

@@ -6,7 +6,10 @@
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
 <style>
     #main {
-        margin-top: -40px!important;
+        margin-top: -10px!important;
+    }
+    .mobile-nav-icon{
+      display: none!important;
     }
     .list-group-item.active{
         color:white!important;
