@@ -85,7 +85,6 @@
       -webkit-box-orient: vertical;
       font-weight:600;
       font-size:.9rem
-
     }
     #main{
       min-height: 100vh;
@@ -657,18 +656,24 @@ function getNearBy(position){
             $('#loaders').hide('slow')
 
             for (let i = 0; i < countData; i++) {
-              console.log(data[i]['tour_name'])
               const img = data[i]['photo'] == '' || data[i]['photo'] == null ? 'default.png' : data[i]['photo']
+              let url = '{{ route("by_name", [":description" ,":country", ":district", ":tour_name"]) }}'
+              const paramsData =  [data[i]['description'],data[i]['country'],data[i]['district'],data[i]['tour_name']]
+              url = url.replace(':description', data[i]['description']);
+              url = url.replace(':country', data[i]['country']);
+              url = url.replace(':district', data[i]['district']);
+              url = url.replace(':tour_name', data[i]['tour_name']);
             
               output += `<li> <div class="icon-box icon-box-pink"><div class="uk-panel">
-              <img src="{{asset('image/tour/2021')}}/${img}" style="border-radius: 4px;"> <div class="uk-position-center uk-panel"> </div></div>
+              <a href="${url}">
+              <img src="{{asset('image/tour/2021')}}/${img}" style="border-radius: 4px;"></a> <div class="uk-position-center uk-panel"> </div></div>
               <div class="member-info"><p class="mem-title title-package"><i class="fas fa-map-marked-alt"></i> ${data[i]['tour_name']}</p>
               <span><i class="fas fa-building"></i> No. of hotels : 150 {{ $list->country }}</span><br>
               <span><i class="fas fa-directions"></i> No. of Tour Operators : 251</span><br>
               <div class="row g-1 px-1 my-2">
               <div class="col-6">
                 <div class="d-grid gap-2">
-                  <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="#" }}">
+                  <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="${url}" }}">
                     Explore
                   </a>
                 </div>

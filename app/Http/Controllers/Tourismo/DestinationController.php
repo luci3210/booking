@@ -211,15 +211,24 @@ class DestinationController extends Controller
     public function by_country($country) {
 
         $country = $this->country($country);  
-
+        $Agent = new Agent();
+        if ($Agent->isMobile()) {
+            return view('tourismo.mobile.by_country_mobile', compact('country'));
+        }else{
         return view('tourismo.by_country', compact('country'));   
+        }
+
     }
 
     public function by_district($country=null,$district=null) {
 
         $bydistrict = $this->district($country,$district);
-
+        $Agent = new Agent();
+        if ($Agent->isMobile()) {
+            return view('tourismo.mobile.by_district_mobile', compact('bydistrict'));
+        }else{
         return view('tourismo.by_district', compact('bydistrict'));
+        }
 
     }
 

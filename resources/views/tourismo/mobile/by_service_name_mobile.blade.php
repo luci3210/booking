@@ -8,11 +8,21 @@
 
 @section('content')
 <style type="text/css">
+.mobile-nav-icon{
+    display: none!important;
+  }
+  #fix-bottom{
+    z-index: 999;
+    position: fixed;
+    width: 100%;
+    bottom: 5px;
+  }
   .text-price {
     color:#ff2f00 !important;
     font-size: 12px !important;
     font-weight: 700 !important;
   }
+  
   .text-price .currency-symbol {
     font-size: 14px;
     display: inline-block !important;
@@ -153,15 +163,7 @@
         <p class="my-1" style="font-size:.7rem;">
           {{ $byname[0]->name }} » {{ $byname[0]->country }} » {{ $byname[0]->district }}
         </p>
-        <div class="d-grid gap-2">
-        @if(Auth::check())
-        @auth
-          <a href="{{ route('book',[$byname[0]->description,$byname[0]->country,$byname[0]->district,$byname[0]->tour_name]) }}" class="btn btn-block btn-warning btn-flat">Book Now</a>
-          @endauth
-        @else
-        <a href="javascript:void(0)" uk-toggle="target: #login" class="btn btn-block btn-warning btn-flat">Book Now</a>
-        @endif
-        <button type="button" class="btn btn-block btn-primary btn-flat" disabled="disabled">Share</button>
+        
         </div>
       </div>
       <!-- /.col -->
@@ -235,6 +237,33 @@
 </section>
 <!-- /.section -->
 
+
+<div class="postion-relative">
+  <div id="fix-bottom">
+    <div class="row g-1 mx-2">
+      <div class="col-6">
+        <div class="d-grid gap-2">
+          @if(Auth::check())
+          @auth
+            <a href="{{ route('book',[$byname[0]->description,$byname[0]->country,$byname[0]->district,$byname[0]->tour_name]) }}" class="btn btn-block btn-warning btn-flat">Book Now</a>
+            @endauth
+          @else
+          <a href="javascript:void(0)" uk-toggle="target: #login" class="btn btn-block btn-warning btn-flat">Book Now</a>
+          @endif
+        </div>
+      </div>
+      <!-- /.col -->
+      <div class="col-6">
+        <div class="d-grid gap-2">
+            <button type="button" class="btn btn-block btn-primary btn-flat" disabled="disabled">Share</button>
+        </div>
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- row relative -->
+  </div>
+</div>
+<!-- relative -->
 
 
 

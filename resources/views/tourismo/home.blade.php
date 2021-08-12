@@ -98,7 +98,6 @@
         @foreach($exclusive_packages as $list)
         <li>
             <div class="icon-box icon-box-pink">
-
               <div class="uk-panel">
                 <a href="{{ route('by_name',[$list->description,$list->country,$list->district,$list->tour_name]) }}">
                   <img src="{{ asset('image/tour/2021')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}" alt=""  style="border-radius: 4px;">
@@ -494,6 +493,7 @@
 
 
 <!-- news and public section start -->
+@if($news)
 <section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
   <div class="container text-center">
     <div class="row text-start">
@@ -508,7 +508,7 @@
       <div class="col-12">
         <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider>
           <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid">
-            @for($x=0; $x <= 6; $x++)
+            @foreach($news as $data)
             <li>
               <div class="icon-box icon-box-pink">
               <div class="uk-panel">
@@ -517,10 +517,10 @@
               </div>
               <!-- /.panel -->
                 <div class="member-info">
-                  <p class="mem-title title-package" title="">title{{ $x }}</p>
+                  <p class="mem-title title-package" title="">{{ $data->news_title }}</p>
 
                   <span>
-                    <i class="fas fa-calendar"></i> 08/2{{ $x}}/2021
+                    <i class="fas fa-calendar"></i> {{date("F j, Y, g:i a",strtotime($data->news_created_at))}}
                   </span><br>
                 </div>
               </div>
@@ -528,7 +528,7 @@
               
             </li>
             <!-- /.li -->
-            @endfor
+            @endforeach
           </ul>
           <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
           <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
@@ -544,6 +544,7 @@
   <!-- /.container -->
 </section>
 <!-- news and public section end  -->
+@endif
 
 
 

@@ -9,6 +9,7 @@ use App\Model\Merchant\TourModel;
 use App\Model\Admin\DestinationModel;
 use App\Model\Admin\ExclusiveModel;
 use App\Model\Admin\BannerModel;
+use App\Model\Tourismo\NewsModel;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -116,26 +117,38 @@ class HomeController extends Controller
     	$exclusive_packages 	= $this->getServiceTourData('100113',10); // new from service_tour tbl
         $banner            = $this->banner();
         $icountry = $this->get_country($country = "Philippines");
+        $news  = $this->getNews();
 
 
-
-        // return $hotel_packages;
 
         $Agent = new Agent();
         if ($Agent->isMobile()) {
-            return view('tourismo.mobile.home_mobile', compact(['icountry', 'banner','tourismo_exlusive','international','home_hotel','destination','hotels','tour_package','tour_packages', 'hotel_packages', 'exclusive_packages','loginAuth']));
+            return view('tourismo.mobile.home_mobile', compact(['news','icountry', 'banner','tourismo_exlusive','international','home_hotel','destination','hotels','tour_package','tour_packages', 'hotel_packages', 'exclusive_packages','loginAuth']));
 
         } else {
-            return view('tourismo.home', compact(['icountry','banner','tourismo_exlusive','international','home_hotel','destination','hotels','tour_package','tour_packages', 'hotel_packages', 'exclusive_packages','loginAuth']));
+            return view('tourismo.home', compact(['news','icountry','banner','tourismo_exlusive','international','home_hotel','destination','hotels','tour_package','tour_packages', 'hotel_packages', 'exclusive_packages','loginAuth']));
 
         }
         
-
-
-
-        
-
     }
+
+    public function getNews()
+    {
+        $news = new NewsModel();
+        $news = $news->limit(10);
+        $news = $news->orderByDesc('news_created_at');
+        $news = $news->where('news_temp_status',1);
+        $news = $news->get();
+
+        if(count($news) >= 1){
+            return $news;
+        }
+        return  null;
+
+
+       
+    }
+
     public function get_near_by(Request $req)
     {
 
@@ -145,10 +158,18 @@ class HomeController extends Controller
         $nearest = DB::select(DB::raw("SELECT * , (3956 * 2 * ASIN(SQRT( POWER(SIN(( $userLat - `lat`) *  pi()/180 / 2), 2) +COS( $userLat * pi()/180) * COS(`lat` * pi()/180) * POWER(SIN(( $userLng - `lng`) * pi()/180 / 2), 2) ))) as distance  
         from `service_tour` 
         INNER JOIN `service_tour_photos` on service_tour.id =  service_tour_photos.upload_id
+        INNER JOIN `profiles` on service_tour.profid =  profiles.id
+        INNER JOIN `locations_district` on service_tour.district = locations_district.id 
+        INNER JOIN `location_country` on locations_district.country_id = location_country.id
+        INNER JOIN `products` on products.id = service_tour.service_id
         group by service_tour_photos.upload_id
         having  distance <= 10 
         order by distance
         ") );
+
+        
+
+        
         return $nearest;
     }
 
@@ -171,18 +192,7 @@ class HomeController extends Controller
        
     }
 
-    public function getIp(){
-        foreach (array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR') as $key){
-            if (array_key_exists($key, $_SERVER) === true){
-                foreach (explode(',', $_SERVER[$key]) as $ip){
-                    $ip = trim($ip); // just to be safe
-                    if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false){
-                        return $ip;
-                    }
-                }
-            }
-        }
-    }
+
     
     
     
