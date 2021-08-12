@@ -111,10 +111,19 @@
               <td>{{ $post->noguest }}</td>
               <td>{{ $post->qty }}</td>
               <td class="text-center">
-                      <div class="btn-group btn-group-sm">
-                        <a href="{{ route('act_upload_photos',[$post->id,$service_name->description]) }}" class="btn btn-info"><i class="fas fa-eye"></i> Edit</a>
-                        <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</a>
-                      </div>
+<div class="btn-group">
+  <a href="{{ route('act_upload_photos',[$post->id,$service_name->description]) }}" class="btn btn-sm btn-info"> Edit</a>
+
+<a href="" onclick="if(confirm('Do you want to delete this product?'))event.preventDefault(); document.getElementById('delete-{{$post->id}}').submit();" class="btn btn-sm btn-danger">Delete</a>
+                  <form id="delete-{{$post->id}}" method="get" action="{{route('delete_post',[$service_name->description,$post->id])}}" style="display: none;">
+                  @csrf
+                </form>
+
+
+                       </div>
+
+
+
                     </td>
             </tr>
             @endforeach

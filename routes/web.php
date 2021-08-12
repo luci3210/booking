@@ -158,10 +158,13 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant/pro
 
 
 Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant_dashboard/service'], function() {
-
-        #services---
+        
+        #post services and exclusive
         Route::get('/{destination}/','Merchant\ServiceListingController@index')
         ->name('service_listing');
+
+        Route::get('/{destination}/{id}/delete','Merchant\ServiceListingController@delete_post')
+        ->name('delete_post');
 
         Route::get('{destination}/{id}/create_cover/','Merchant\ServiceListingController@create_cover')
         ->name('add_cover');

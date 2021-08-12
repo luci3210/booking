@@ -41,7 +41,7 @@ class ServiceListingController extends Controller
     }
 
 
-    public function desc_name($desc)  {
+    protected function desc_name($desc)  {
 
         return ProductModel::where('temp_status',1)->where('description',$desc)->get(['id','name','description'])->first();
 
@@ -50,7 +50,7 @@ class ServiceListingController extends Controller
     public function service_post($desc) {
 
 
-        return TourModel::where('service_id',$this->desc_name($desc)->id)->where('profid',$this->profile->profile_check()->id)->get();    
+        return TourModel::where([['service_id',$this->desc_name($desc)->id],['profid',$this->profile->profile_check()->id]])->whereIn('temp_status',[1,2])->get();    
         
     }
 
@@ -93,6 +93,22 @@ class ServiceListingController extends Controller
 
         return view('merchant_dashboard.service.index',compact('service_name','service_post'));
     }
+
+    public function delete_post($desc=null,$id=null) {
+
+        $listings = TourModel::join('products','products.id','service_tour.service_id')
+            ->where([
+                ['products.description',$desc],
+                    ['service_tour.id',$id],
+                        ['profid',$this->profile->profile_check()->id]
+                    ])->update(['service_tour.temp_status'=> 4]);
+
+        //AdminLogModel::create(['user_id'=>Auth::user()->id,'page_id'=>$id,'action'=>"delete"]);
+
+                return back()->withSuccess('Successfully deleted!');
+
+}
+
 
     public function service_create_post($desc) {
 

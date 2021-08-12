@@ -77,7 +77,7 @@
       
       <div class="card-header">
         <h3 class="card-title">
-          <i class="fas fa-box-open"></i> Service » @if($service_name) {{ $service_name->name }}  @endif » 
+          <i class="fas fa-box-open"></i> Service zz» @if($service_name) {{ $service_name->name }}  @endif » 
           @if($service_name)<a href="{{ route('service_listing_create_post',$service_name->description) }}" class="py-0">Create Post</a> @endif
         </h3>
       </div>
