@@ -339,16 +339,14 @@
     var notifications =  await UIkit.notification('Embed Copied', 'success');
   }
   var creds = '{{$loginAuth ?? null }}'
-    if(creds){
+  if(creds){
       $('#log-email').val(creds);
       $('#pass-email').val(creds);
       setTimeout(()=> {
         $('#btn-log').click()
       },500)
 
-
-     
-  }
+  } // login gsp token
   $('#login-form').submit(function(e) {
     e.preventDefault();
   }).validate({
@@ -663,6 +661,7 @@ function getNearBy(position){
               url = url.replace(':country', data[i]['country']);
               url = url.replace(':district', data[i]['district']);
               url = url.replace(':tour_name', data[i]['tour_name']);
+              console.log(url)
             
               output += `<li> <div class="icon-box icon-box-pink"><div class="uk-panel">
               <a href="${url}">

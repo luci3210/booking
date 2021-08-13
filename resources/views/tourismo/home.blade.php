@@ -458,17 +458,17 @@
       <div class="col-12">
         <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider>
           <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid">
-            @for($x=0; $x <= 6; $x++)
+            @for($x=1; $x <= 4; $x++)
             <li>
               <div class=" icon-box-pink">
               <div class="uk-panel">
-                <img src="{{ asset('/image/cover/2021/default.png') }}" alt=""  style="border-radius: 4px;">
+              
+                <img src="{{ asset('/image/partner/').'/'.$x }}.jpg" alt=""  style="border-radius: 4px;">
                 <div class="uk-position-center uk-panel"> </div>
               </div>
               <!-- /.panel -->
               </div>
               <!-- /.box -->
-              
             </li>
             <!-- /.li -->
             @endfor
@@ -483,7 +483,6 @@
       <!-- /.col -->
     </div>
     <!-- /.row -->
-  <a href="{{ route('destination') }}" class="uk-button btn-outline-web  uk-width-1-4@m  uk-width-1@s mx-auto my-2">Explore all Partners</a>
 
   </div>
   <!-- /.container -->
@@ -508,7 +507,7 @@
       <div class="col-12">
         <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider>
           <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid">
-            @foreach($news as $data)
+            @foreach($news as $list)
             <li>
               <div class="icon-box icon-box-pink">
               <div class="uk-panel">
@@ -517,10 +516,10 @@
               </div>
               <!-- /.panel -->
                 <div class="member-info">
-                  <p class="mem-title title-package" title="">{{ $data->news_title }}</p>
+                  <p class="mem-title title-package" title="">{{ $list->news_title }}</p>
 
                   <span>
-                    <i class="fas fa-calendar"></i> {{date("F j, Y, g:i a",strtotime($data->news_created_at))}}
+                    <i class="fas fa-calendar"></i> {{date("F j, Y, g:i a",strtotime($list->news_created_at))}}
                   </span><br>
                 </div>
               </div>

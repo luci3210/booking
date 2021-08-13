@@ -48,9 +48,93 @@
   <link href="{{ asset('public/css/style.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
   <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.2/css/uikit.css'>
+  <style>
+    .theme-btn{
+      background-color: #502672 !important;
+      border-radius: 3px  !important;
+      border: solid 1px #502672 !important
+    }
+    .elips-3{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+    .elips-2{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+    .elips-1{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+    }
+    .title-package{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      font-weight:600;
+      font-size:.9rem
+    }
+    #main{
+      min-height: 100vh;
+    }
+    @-webkit-keyframes placeHolderShimmer {
+            0% {
+              background-position: -468px 0;
+            }
+            100% {
+              background-position: 468px 0;
+            }
+          }
+          
+          @keyframes placeHolderShimmer {
+            0% {
+              background-position: -468px 0;
+            }
+            100% {
+              background-position: 468px 0;
+            }
+          }
+          
+          .content-placeholder {
+            display: inline-block;
+            -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+            -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+            -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+            -webkit-animation-name: placeHolderShimmer;
+            animation-name: placeHolderShimmer;
+            -webkit-animation-timing-function: linear;
+            animation-timing-function: linear;
+            background: #f6f7f8;
+            background: -webkit-gradient(linear, left top, right top, color-stop(8%, #eeeeee), color-stop(18%, #dddddd), color-stop(33%, #eeeeee));
+            background: -webkit-linear-gradient(left, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+            background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+            -webkit-background-size: 800px 104px;
+            background-size: 800px 104px;
+            height: inherit;
+            position: relative;
+            height: 250px;
+            width: 100%;
+          }
+	
+
+  </style>
   @yield('merchant')
 </head>
 <body>
+
 @include('sweetalert::alert')
 @include('layouts.tourismo.ui-header_mobile')
 
@@ -255,7 +339,7 @@
       setTimeout(()=> {
         $('#btn-log').click()
       },500)
-  }
+  } // login gsp token
 
   $('#login-form').submit(function(e) {
     e.preventDefault();
@@ -517,6 +601,127 @@
 
     }
     })
+</script>
+
+<script>
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(getNearBy, showError);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  const coords = position.coords
+  console.log(coords)
+  $('#lat').val(position.coords.latitude)
+  $('#lng').val(position.coords.longitude)
+  // x.innerHTML = "Latitude: " + position.coords.latitude + 
+  // "<br>Longitude: " + position.coords.longitude;
+}
+
+function getNearBy(position){
+  console.log(position)
+
+  const lat = position.coords.latitude
+  const lng = position.coords.longitude
+  
+  $.ajaxSetup({
+        // url: '{{ route("nearByDestinations",["lat"=> "'+position.coords.latitude+'", "lng"=> "'+position.coords.longitude+'",]) }}',
+        url: '{{ route("nearByDestinations",["lat"=> "lat", "lng"=> "lng",]) }}',
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            'Accept': 'application/json',
+            '_token': '{{ Session::token()  }}',
+            'Authorization': '{{ Session::token()  }}',
+        },
+        method:"get",
+        success:function(data)
+        {
+          console.log(data)
+          let countData = data.length
+          var output = '';
+          if(countData >= 1){
+            $('.loaders').hide('slow')
+
+            for (let i = 0; i < countData; i++) {
+              const img = data[i]['photo'] == '' || data[i]['photo'] == null ? 'default.png' : data[i]['photo']
+              const assUrl = '{{asset('image/tour/2021')}}/'
+              let url = '{{ route("by_name", [":description" ,":country", ":district", ":tour_name"]) }}'
+              const paramsData =  [data[i]['description'],data[i]['country'],data[i]['district'],data[i]['tour_name']]
+              url = url.replace(':description', data[i]['description']);
+              url = url.replace(':country', data[i]['country']);
+              url = url.replace(':district', data[i]['district']);
+              url = url.replace(':tour_name', data[i]['tour_name']);
+              output +=`
+              <li>
+              <a href="${url}">
+                  <div class=" shadow-cards">
+                      <div class="uk-card-media-top">
+                          <div style="width: 100%; 
+                          background-size: cover;
+                          background-position: center;
+                          background-repeat: no-repeat;
+                          height: 15rem;
+                          background-image: url('${assUrl}${img}');
+                          border-top-left-radius: 10px!important;
+                          border-top-right-radius: 10px!important;
+                          border-bottom-left-radius: 10px!important;
+                          border-bottom-right-radius: 10px!important;
+                          ">
+                          <div class="position-relative elips">
+                              <span class="badge badge-pill badge-light bg-light text-dark badge-floats elips">${data[i]['tour_name']}</span>
+                          </div>    
+                      </div>
+                      </div>
+                  </div>
+              </a>
+              </li>
+              `
+            }
+
+          }
+          $('#load-near').append(output)
+
+
+      
+        },
+        error:function(data){
+          console.log('error',data)
+        }
+    });
+    $.ajax();
+  
+
+}
+
+function showError(error) {
+  $('#loaders').hide('slow')
+  let msg
+  switch(error.code) {
+    case error.PERMISSION_DENIED:
+      msg = `<h3 class="text-dark">User denied the request for Geolocation.</h3>`
+
+      break;
+    case error.POSITION_UNAVAILABLE:
+      msg = `<h3 class="text-dark">Location information is unavailable.</h3>`
+
+      $('#load-near').append(msg)
+
+      break;
+    case error.TIMEOUT:
+      msg = `<h3 class="text-dark">The request to get user location timed out.</h3>`
+      $('#load-near').append(msg)
+      break;
+    case error.UNKNOWN_ERROR:
+      msg = `<h3 class="text-dark">An unknown error occurred.</h3>`
+      break;
+  }
+  $('#load-near').append(msg)
+
+}
 </script>
 
   @yield('merchantjs')

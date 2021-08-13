@@ -189,7 +189,8 @@
                 <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1">
                         <ul class="uk-slider-items uk-child-width-1-2 ">
                             @foreach($exclusive_packages as $list)
-                            <li onclick="goToNextPage('{{ route('service_tour_view', $list->upload_id) }}')">
+                            <li>
+                            <a href="{{ route('by_name',[$list->description,$list->country,$list->district,$list->tour_name]) }}">
                                 <div class=" shadow-cards">
                                     <div class="uk-card-media-top">
                                         <div class="ex-holder" style="width: 100%; 
@@ -206,6 +207,7 @@
                                         <h3 class="book-tour text-nowrap  mt-0 text-dark">800k+ Booked</h3>
                                     </div>
                                 </div>
+                            </a>
                             </li>
                              @endforeach
                         </ul>
@@ -229,6 +231,7 @@
                         <ul class="uk-slider-items uk-child-width-1-2 ">
                             @foreach($destination as $list)
                             <li>
+                            <a href="{{ route('by_district',[$icountry->country,$list->destination_info]) }}">
                                 <div class=" shadow-cards">
                                     <div class="uk-card-media-top">
                                         <div style="width: 100%; 
@@ -248,6 +251,7 @@
                                     </div>
                                     </div>
                                 </div>
+                            </a>
                             </li>
                              @endforeach
                         </ul>
@@ -273,6 +277,7 @@
                         <ul class="uk-slider-items uk-child-width-1-2 ">
                             @foreach($international as $list)
                             <li>
+                            <a href="{{ route('by_country', $list->country) }}">
                                 <div class=" shadow-cards">
                                     <div class="uk-card-media-top">
                                         <div style="width: 100%; 
@@ -292,6 +297,7 @@
                                     </div>
                                     </div>
                                 </div>
+                            </a>
                             </li>
                              @endforeach
                         </ul>
@@ -304,37 +310,45 @@
 </section>
 <!-- /.international -->
 
-
-<section id="rooms" class="">
+<section id="nears" class="">
     <div class="row g-0 px-3">
         <div class="col-12">
-            <h6 class="title-sections px-2">Rooms</h6>
+            <h6 class="title-sections px-2">Near By Destinations</h6>
             <div class="uk-slider-container-offset" uk-slider>
                 <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1">
-                        <ul class="uk-slider-items uk-child-width-1-2 ">
-                            @foreach($hotel_packages as $list)
-                            <li onclick="goToNextPage('{{ route('service_tour_view', $list->upload_id) }}')">
+                        <ul class="uk-slider-items uk-child-width-1-2 " id="load-near">
+                            <li class="loaders">
+                            <a href="#">
                                 <div class=" shadow-cards">
                                     <div class="uk-card-media-top">
-                                        <div style="width: 100%; 
-                                        background-size: cover;
-                                        background-position: center;
-                                        background-repeat: no-repeat;
+                                        <div class="content-placeholder" style="width: 100%; 
                                         height: 15rem;
-                                        background-image: url('{{ asset('image/tour/2021')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}');
                                         border-top-left-radius: 10px!important;
                                         border-top-right-radius: 10px!important;
                                         border-bottom-left-radius: 10px!important;
                                         border-bottom-right-radius: 10px!important;
                                         ">
-                                        <div class="position-relative elips">
-                                            <span class="badge badge-pill badge-light bg-light text-dark badge-floats elips">{{ $list->tour_name }}</span>
-                                        </div>    
                                     </div>
                                     </div>
                                 </div>
+                            </a>
                             </li>
-                             @endforeach
+                            <li class="loaders">
+                            <a href="#">
+                                <div class=" shadow-cards">
+                                    <div class="uk-card-media-top">
+                                        <div class="content-placeholder" style="width: 100%; 
+                                        height: 15rem;
+                                        border-top-left-radius: 10px!important;
+                                        border-top-right-radius: 10px!important;
+                                        border-bottom-left-radius: 10px!important;
+                                        border-bottom-right-radius: 10px!important;
+                                        ">
+                                    </div>
+                                    </div>
+                                </div>
+                            </a>
+                            </li>
                         </ul>
                         <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
                         <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
@@ -346,32 +360,62 @@
 <!-- /.rooms -->
 
 
-<section id="tours" class="">
+
+<section id="rooms" class="">
     <div class="row g-0 px-3">
         <div class="col-12">
-            <h6 class="title-sections px-2">Tours and Packages</h6>
+            <h6 class="title-sections px-2">Partners</h6>
             <div class="uk-slider-container-offset" uk-slider>
                 <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1">
                         <ul class="uk-slider-items uk-child-width-1-2 ">
-                            @foreach($tour_packages as $list)
-                            <li onclick="goToNextPage('{{ route('service_tour_view', $list->upload_id) }}')">
-                                <div class=" shadow-cards">
+                            @for($x=1; $x <= 4; $x++)
+                            <li>
+                                <div class="mx-2">
                                     <div class="uk-card-media-top">
                                         <div style="width: 100%; 
-                                        background-size: cover;
+                                        background-size: contain;
                                         background-position: center;
                                         background-repeat: no-repeat;
                                         height: 15rem;
-                                        background-image: url('{{ asset('image/tour/2021')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}');
+                                        background-image: url('{{ asset('image/partner')}}/{{$x}}.jpg');
                                         border-top-left-radius: 10px!important;
                                         border-top-right-radius: 10px!important;
                                         border-bottom-left-radius: 10px!important;
                                         border-bottom-right-radius: 10px!important;
                                         ">
-                                        <div class="position-relative elips">
-                                            <span class="badge badge-pill badge-light bg-light text-dark badge-floats elips">{{ $list->tour_name }}</span>
-                                        </div>    
                                     </div>
+                                    </div>
+                                </div>
+                            </li>
+                            @endfor
+                        </ul>
+                        <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+                        <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
+                    </div>
+                </div>
+        </div>
+    </div>
+</section>
+<!-- /.rooms -->
+
+<section id="exclusives" class="">
+    <div class="row g-0 px-3">
+        <div class="col-12">
+            <h6 class="title-sections px-2">Partners </h6>
+            <div class="uk-slider-container-offset" uk-slider>
+                <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1">
+                        <ul class="uk-slider-items uk-child-width-1-2 ">
+                            @foreach($news as $list)
+                            <li>
+                                <div class="m-2">
+                                    <div class="uk-card-media-top">
+                                        <div class="ex-holder" style="width: 100%; 
+                                        background-size: cover;
+                                        background-position: center;
+                                        background-repeat: no-repeat;
+                                        background-image: url('{{ asset('/image/cover/2021/default.png') }}');
+                                        border-top-left-radius: 10px!important;
+                                        border-top-right-radius: 10px!important;"></div>
                                     </div>
                                 </div>
                             </li>
@@ -384,16 +428,23 @@
         </div>
     </div>
 </section>
-<!-- /.tours -->
+<!-- /.news -->
+
+
 
 
 @endsection
 
 @section('js')
+<script>
+getLocation()
+</script>
+
 @endsection
 
 
 <script>
+
 function goToNextPage(url){
     window.location.href=url;
 }
