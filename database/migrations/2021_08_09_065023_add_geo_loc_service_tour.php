@@ -15,8 +15,8 @@ class AddGeoLocServiceTour extends Migration
     {
         Schema::table('service_tour', function (Blueprint $table) {
             //
-            $table->decimal('lat',12,9,)->nullable();
-            $table->decimal('lng',12,9,)->nullable();
+            $table->decimal('lat',12,9)->nullable();
+            $table->decimal('lng',12,9)->nullable();
         });
     }
 
