@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+// get near by
+Route::get('/get/nearby/{lat}/{lng}', 'Tourismo\HomeController@get_near_by')->name('nearByDestinations');
+
+
 Route::post('traxion/pay', 'Payment\TraxionController@generate_link')->name('generate_link');
 
 Route::post('search', 'Tourismo\HeaderSearchController@Search')->name('search');

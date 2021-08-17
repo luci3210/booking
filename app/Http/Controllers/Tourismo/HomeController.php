@@ -23,6 +23,7 @@ use App\Services\GspService;
 
 use Jenssegers\Agent\Agent;
 
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -137,6 +138,54 @@ class HomeController extends Controller
         
 
     }
+    public function get_near_by(Request $req)
+    {
+
+        $userLat = $req->lat;
+        $userLng = $req->lng;
+
+        $nearest = DB::select(DB::raw("SELECT * , (3956 * 2 * ASIN(SQRT( POWER(SIN(( $userLat - `lat`) *  pi()/180 / 2), 2) +COS( $userLat * pi()/180) * COS(`lat` * pi()/180) * POWER(SIN(( $userLng - `lng`) * pi()/180 / 2), 2) ))) as distance  
+        from `service_tour` 
+        INNER JOIN `service_tour_photos` on service_tour.id =  service_tour_photos.upload_id
+        group by service_tour_photos.upload_id
+        having  distance <= 10 
+        order by distance
+        ") );
+        return $nearest;
+    }
+
+    public function checkgeo(Request $req)
+    {
+        # code...
+        // $ips = $this->getIp();
+        // $ip = Request()->ip(); //Dynamic IP address get
+        // $data = \Location::get($ip);  
+
+        $userLat = $req->lat;
+        $userLng = $req->lng;
+
+        $nearest = DB::select(DB::raw("SELECT * , (3956 * 2 * ASIN(SQRT( POWER(SIN(( $userLat - `lat`) *  pi()/180 / 2), 2) +COS( $userLat * pi()/180) * COS(`lat` * pi()/180) * POWER(SIN(( $userLng - `lng`) * pi()/180 / 2), 2) ))) as distance  
+        from `service_tour`  
+        having  distance <= 10 
+        order by distance") );
+        return $nearest;
+          
+       
+    }
+
+    public function getIp(){
+        foreach (array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR') as $key){
+            if (array_key_exists($key, $_SERVER) === true){
+                foreach (explode(',', $_SERVER[$key]) as $ip){
+                    $ip = trim($ip); // just to be safe
+                    if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false){
+                        return $ip;
+                    }
+                }
+            }
+        }
+    }
+    
     
     
 

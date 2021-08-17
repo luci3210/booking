@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 // testing
 Route::get('/check/me/', 'PaymentController@getUser')->middleware('checkUserData');
+Route::get('/check/geo/{lat}/{lng}', 'Tourismo\HomeController@checkgeo');
 
 
 // email verfication
@@ -216,6 +217,12 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant_das
 
         Route::get('/booking/{service}/{payment}/{status}/{refid}','Merchant\BookingController@index')
         ->name('booking-index');
+
+        Route::get('/search','Merchant\BookingController@search_status_date')
+        ->name('bookingserach');
+
+        Route::get('/{product_name}/getdetails/{pm_id}','Merchant\BookingController@getdetails')
+        ->name('booking_getdetails');
 
 });
 

@@ -50,8 +50,57 @@
   <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.2/css/uikit.css'>
   @yield('merchant')
   @yield('css')
+  <style>
+    @-webkit-keyframes placeHolderShimmer {
+            0% {
+              background-position: -468px 0;
+            }
+            100% {
+              background-position: 468px 0;
+            }
+          }
+          
+          @keyframes placeHolderShimmer {
+            0% {
+              background-position: -468px 0;
+            }
+            100% {
+              background-position: 468px 0;
+            }
+          }
+          
+          .content-placeholder {
+            display: inline-block;
+            -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+            -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+            -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+            -webkit-animation-name: placeHolderShimmer;
+            animation-name: placeHolderShimmer;
+            -webkit-animation-timing-function: linear;
+            animation-timing-function: linear;
+            background: #f6f7f8;
+            background: -webkit-gradient(linear, left top, right top, color-stop(8%, #eeeeee), color-stop(18%, #dddddd), color-stop(33%, #eeeeee));
+            background: -webkit-linear-gradient(left, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+            background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+            -webkit-background-size: 800px 104px;
+            background-size: 800px 104px;
+            height: inherit;
+            position: relative;
+            height: 250px;
+            width: 100%;
+          }
+	
+
+  </style>
 </head>
 <body>
+<input  id="lat" hidden>
+<input  id="lng" hidden>
+
+
 @include('sweetalert::alert')
 @include('layouts.tourismo.ui-header')
 
@@ -168,6 +217,7 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script>
   async function openApp(routeDestination,openLink) {
     var TempText = document.createElement("input");
@@ -524,10 +574,133 @@
     }
     })
 </script>
+<script>
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(getNearBy, showError);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  const coords = position.coords
+  console.log(coords)
+  $('#lat').val(position.coords.latitude)
+  $('#lng').val(position.coords.longitude)
+  // x.innerHTML = "Latitude: " + position.coords.latitude + 
+  // "<br>Longitude: " + position.coords.longitude;
+}
+
+function getNearBy(position){
+  console.log(position)
+
+  const lat = position.coords.latitude
+  const lng = position.coords.longitude
+  
+  $.ajaxSetup({
+        // url: '{{ route("nearByDestinations",["lat"=> "'+position.coords.latitude+'", "lng"=> "'+position.coords.longitude+'",]) }}',
+        url: '{{ route("nearByDestinations",["lat"=> "lat", "lng"=> "lng",]) }}',
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            'Accept': 'application/json',
+            '_token': '{{ Session::token()  }}',
+            'Authorization': '{{ Session::token()  }}',
+        },
+        method:"get",
+        success:function(data)
+        {
+          console.log(data)
+          let countData = data.length
+          var output = '';
+          if(countData >= 1){
+            $('#loaders').hide('slow')
+
+            for (let i = 0; i < countData; i++) {
+              console.log(data[i]['tour_name'])
+              output += `<li> <div class="icon-box icon-box-pink"><div class="uk-panel">
+              <img src="image/cover/2021/default.png" style="border-radius: 4px;"> <div class="uk-position-center uk-panel"> </div></div>
+              <div class="member-info"><p class="mem-title"><i class="fas fa-map-marked-alt"></i> ${data[i]['tour_name']}...</p>
+              <span><i class="fas fa-building"></i> No. of hotels : 150 {{ $list->country }}</span><br>
+              <span><i class="fas fa-directions"></i> No. of Tour Operators : 251</span><br>
+              <div class="row g-1 px-1 my-2">
+              <div class="col-6">
+                <div class="d-grid gap-2">
+                  <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="#" }}">
+                    Explore
+                  </a>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="d-grid gap-2">
+                  <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="#">
+                    share
+                    </a>
+                  </div>
+              </div>
+              </div></div></div></li>`
+              // output += '<li> <div class="icon-box icon-box-pink"><div class="uk-panel">';
+              // output += '<img src="#" style="border-radius: 4px;"> <div class="uk-position-center uk-panel"> </div></div>';
+              // output += `<div class="member-info"><p class="mem-title"><i class="fas fa-map-marked-alt"></i> ${data[i]['tour_name']}...</p>`;
+              // output += `<span><i class="fas fa-building"></i> No. of hotels : 150 {{ $list->country }}</span><br>`;
+              // output += `<span>
+              //              <i class="fas fa-directions"></i> No. of Tour Operators : 251
+              //            </span><br>
+              //            <div class="row g-1 px-1 my-2">
+              //             <div class="col-6">
+              //               <div class="d-grid gap-2">
+              //                 <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="#" }}">
+              //                   Explore
+              //                 </a>
+              //               </div>
+              //             </div>`;
+              // output += `<div class="col-6">
+              //               <div class="d-grid gap-2">
+              //                 <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="#">
+              //                  share
+              //                  </a>
+              //                </div>
+              //             </div>`;
+              // output += '</div></div></div></li>';
+            }
+
+          }
+          $('#load-near').html(output)
+
+
+      
+        },
+        error:function(data){
+          console.log('error',data)
+        }
+    });
+    $.ajax();
+  
+
+}
+
+function showError(error) {
+  switch(error.code) {
+    case error.PERMISSION_DENIED:
+      x.innerHTML = "User denied the request for Geolocation."
+      break;
+    case error.POSITION_UNAVAILABLE:
+      x.innerHTML = "Location information is unavailable."
+      break;
+    case error.TIMEOUT:
+      x.innerHTML = "The request to get user location timed out."
+      break;
+    case error.UNKNOWN_ERROR:
+      x.innerHTML = "An unknown error occurred."
+      break;
+  }
+}
+</script>
 
   @yield('merchantjs')
   @yield('js')
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 
 
 </body>

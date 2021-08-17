@@ -7,6 +7,7 @@
 @section('curUrl', url()->current())
 <!-- /. meta tags -->
 @section('css')
+
 <link href="{{ asset('public/vendor/bootstrap/daterangepicker/daterangepicker.css') }}" rel="stylesheet">
 <style type="text/css">
   .text-price {
