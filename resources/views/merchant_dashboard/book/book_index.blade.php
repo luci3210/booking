@@ -77,12 +77,36 @@
       
       <div class="card-header">
         <h3 class="card-title">
-          <i class="fas fa-box-open"></i> Service » @if($service_name) {{ $service_name->name }}  @endif » 
-          @if($service_name)<a href="{{ route('service_listing_create_post',$service_name->description) }}" class="py-0">Create Post</a> @endif
+          <i class="nav-icon fas fa-book-reader"></i> Booking list
         </h3>
       </div>
 
-    <div class="card-body">
+<div class="card-body">
+
+
+    <form method="GET" action="{{ route('bookingserach') }}">
+  <div class="row">
+    <div class="col-3">
+     <select class="form-control" name="status">
+        <option value="">-Option-</option>
+        <option value="success">Success</option>
+        <option value="pending">Pending</option>
+        <option value="cancelled">Cancelled</option>
+      </select>
+    </div>
+    <div class="col-3">
+      <input type="text" name="dfrom" class="form-control" placeholder="Date From">
+    </div>
+    <div class="col-3">
+      <input type="text" name="dto" class="form-control" placeholder="Date To">
+    </div>
+    <div class="col-3">
+      <button type="submit" class="btn btn-block btn-info">Search</button>
+    </div>
+  </div>
+
+  </form>
+<br>
         <table class="table table-bordered">
         <thead>                  
             <tr>

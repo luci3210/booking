@@ -159,10 +159,13 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant/pro
 
 
 Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant_dashboard/service'], function() {
-
-        #services---
+        
+        #post services and exclusive
         Route::get('/{destination}/','Merchant\ServiceListingController@index')
         ->name('service_listing');
+
+        Route::get('/{destination}/{id}/delete','Merchant\ServiceListingController@delete_post')
+        ->name('delete_post');
 
         Route::get('{destination}/{id}/create_cover/','Merchant\ServiceListingController@create_cover')
         ->name('add_cover');
@@ -182,6 +185,9 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant_das
         Route::post('/merchant/service/upload_photos/{id}', 'Merchant\ServiceListingController@service_upload_photos')
         ->name('service_upload_photos');
 
+        Route::post('/editor_upload_photos', 'Merchant\ServiceListingController@editor_upload_photo')
+        ->name('editor_upload_photo');
+
         Route::post('create_post_hotel/{id}','Merchant\ServiceListingController@service_save_hotel')
         ->name('service_listing_save_hotel');
 
@@ -191,8 +197,9 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant_das
         Route::get('finance/income','Merchant\FinanceController@incomeIndex')
         ->name('income_index');
 
-});
 
+
+});
 Route::group(['middleware'=>'password.confirm','jobs','jobs'=>['merchant'], 'prefix'=>'merchant_dashboard/finance'], function() {
         
         Route::get('/bank','Merchant\FinanceController@bank')->name('bank');
@@ -209,6 +216,12 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant_das
 
         Route::get('/booking/{service}/{payment}/{status}/{refid}','Merchant\BookingController@index')
         ->name('booking-index');
+
+        Route::get('/search','Merchant\BookingController@search_status_date')
+        ->name('bookingserach');
+
+        Route::get('/{product_name}/getdetails/{pm_id}','Merchant\BookingController@getdetails')
+        ->name('booking_getdetails');
 
 });
 
