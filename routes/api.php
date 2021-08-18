@@ -16,6 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('auth/login/user', 'mobile\UserAuthController@login_user')->name('login_auth');
+Route::group(['middleware' => 'auth:sanctum'], function(){
+    //All secure URL's
+
+});
+
+
 // get near by
 Route::get('/get/nearby/{lat}/{lng}', 'Tourismo\HomeController@get_near_by')->name('nearByDestinations');
 
