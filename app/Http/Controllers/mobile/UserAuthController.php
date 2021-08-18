@@ -53,8 +53,8 @@ class UserAuthController extends Controller
     {   
         $response = [
             'success_flag'=>false,
+            'message'=>null,
             'data'=> null,
-            'message'=>null
 
         ];
         $email = $this->clean_input($req->email);
@@ -70,10 +70,10 @@ class UserAuthController extends Controller
 
         $user= UsersModel::where('email', $req->email)->first();
         $token = $user->createToken('my-app-token')->plainTextToken;
-        $response = [
-            'user' => $user,
-            'token' => $token
-        ];
+        $response['success_flag'] = true;
+        $response['data']['info'] = $user;
+        $response['data']['token'] = $token;
+       
         return response($response, 201);
     }
 }
