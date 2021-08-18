@@ -80,6 +80,7 @@ class BookingController extends Controller
                     ->whereBetween('payments.pm_created_at',[$request->dfrom,$request->dto]);
         })->get();
 
+            
         return view('merchant_dashboard.book.booking',compact('data'));
 
     }

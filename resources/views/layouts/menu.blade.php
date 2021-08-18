@@ -154,6 +154,43 @@
 
 
 
+
+
+
+<li class="nav-item has-treeview">
+  <a href="#" class="nav-link">
+    <i class="nav-icon fa fa-get-pocket" aria-hidden="true"></i>
+    <!-- <i class="fa fa-get-pocket" aria-hidden="true"></i> -->
+    <p>
+      Manage Charages  
+      <i class="fas fa-angle-left right"></i>
+    </p>
+  </a>
+<ul class="nav nav-treeview">
+
+  @foreach($service_list as $service)
+
+  <li class="nav-item">
+    <a href="{{ route('adm_charges',$service->description) }}" class="nav-link">
+      <i class="far fa fa-circle-o nav-icon" aria-hidden="true"></i>
+      <p>{{ $service->name }}</p>
+    </a>
+  </li>
+
+  @endforeach
+
+</ul>
+</li>
+
+
+
+
+
+
+
+
+
+
 <li class="nav-item">
   <a href="{{ route('product') }}" class="nav-link">
     <i class="nav-icon fa fa-database" aria-hidden="true"></i>
