@@ -503,6 +503,9 @@ Route::post(
     Route::post('/manage_bank/update/{id}/{url}/','Admin\ManageBankController@update')->name('bank_update'); 
     Route::post('/manage_bank/delete/{id}/','Admin\ManageBankController@deleted')->name('bank_deleted'); 
 
+    Route::get('/manage_charges/selected/{description}','Admin\ChargesController@index')->name('adm_charges'); 
+
+
 
 
 });
