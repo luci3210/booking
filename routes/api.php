@@ -33,8 +33,8 @@ Route::post('search', 'Tourismo\HeaderSearchController@Search')->name('search');
 Route::post('/auth/check-login', 'Auth\UserLoginController@checkLogin')->name('check_auth');
 
 Route::prefix('service-tour')->group(function () {
-    Route::get('get/tours/{service}/{limit}/{offset}/', 'mobile\ServiceTourController@getTours')->name('get_tours');
-    Route::get('get/tour/{id}', 'mobile\ServiceTourController@getTour')->name('get_tour');
+    Route::get('get/tours/{service_id}/{tour_limit}', 'mobile\ServiceTourMobController@getTours')->name('get_tours');
+    Route::get('get/tour/{tour_id}', 'mobile\ServiceTourMobController@getTourOne')->name('get_tour');
 });
 
 
