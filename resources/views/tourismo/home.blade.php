@@ -52,7 +52,7 @@
 @section('banner')
 <!-- <div class="row ">
   <div class="col-12"> -->
-    <div class="container-fluid uk-position-relative uk-visible-toggle uk-light mt-sm-slider d-none d-sm-none d-lg-block d-md-block d-xl-block " tabindex="-1" uk-slideshow="ratio: 10:3; animation: push">
+    <div class="uk-position-relative uk-visible-toggle uk-light mt-sm-slider d-none d-sm-none d-lg-block d-md-block d-xl-block " tabindex="-1" uk-slideshow="ratio: 10:3; animation: push">
         <ul class="uk-slideshow-items min-vh-30">
           @foreach($banner as $list)
             <li>
@@ -84,11 +84,11 @@
     <div class="section-title">
       <h2>
         <b>Tourismo Exclusive  </b> 
-          <span style="font-size: 15px;padding-left: 25px;">
+          <!-- <span style="font-size: 15px;padding-left: 25px;">
             <a href="{{ route('open_services',$slmenu_exlusive[0]->description) }}" class="uk-link"><i class="fas fa-chevron-right"></i> 
                 Explore {{  $exclusive_packages->count() }} exclusive
             </a>
-          </span>
+          </span> -->
       </h2>
     </div>
 
@@ -162,10 +162,10 @@
 
       <div class="section-title">
         <h2><b>Local Destination</b> 
-          <span style="font-size: 15px;padding-left: 25px;">
+          <!-- <span style="font-size: 15px;padding-left: 25px;">
             <a href="{{ route('destination') }}" class="uk-link">
               <i class="fas fa-chevron-right"></i> Explore {{ $number_of_distination->count() }} {{ $icountry->country }} Destination
-            </a></span>
+            </a></span> -->
         </h2>
       </div>
 
@@ -234,7 +234,9 @@
     <div class="row text-start">
 
 <div class="section-title">
-  <h2><b>International Destination </b> <span style="font-size: 15px;padding-left: 25px;"><a href="{{ route('by_countries') }}" class="uk-link"><i class="fas fa-chevron-right"></i> Explore {{ $international[0]->count() }} countries</a></span></h2>
+  <h2><b>International Destination </b> 
+    <!-- <span style="font-size: 15px;padding-left: 25px;"><a href="{{ route('by_countries') }}" class="uk-link"><i class="fas fa-chevron-right"></i> Explore {{ $international[0]->count() }} countries</a></span> -->
+  </h2>
 </div>
 
 <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider>
@@ -306,10 +308,10 @@
 
       <div class="section-title">
         <h2><b>Near By Destination </b> 
-          <span style="font-size: 15px;padding-left: 25px;">
+          <!-- <span style="font-size: 15px;padding-left: 25px;">
             <a href="{{ route('destination') }}" class="uk-link">
               <i class="fas fa-chevron-right"></i> Explore {{ $number_of_distination->count() }} {{ $icountry->country }} Destination
-            </a></span>
+            </a></span> -->
         </h2>
       </div>
       <div class="row" id="loaders">
@@ -363,11 +365,11 @@
     <div class="section-title">
       
       <h2><b>Hotels & Rooms </b> 
-        <span style="font-size: 15px;padding-left: 25px;">
+        <!-- <span style="font-size: 15px;padding-left: 25px;">
           <a href="{{ route('tour_operator') }}" class="uk-link"><i class="fas fa-chevron-right"></i> 
             Explore {{ $hotel_packages->count() }} Hotels & Rooms
           </a>
-        </span>
+        </span> -->
       </h2>
 
     </div>
