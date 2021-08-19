@@ -9,7 +9,7 @@ use App\Services\UserAuthService;
 use App\Http\Requests\user\CreateUserRequest;
 
 // tools
-use Illuminate\Support\Faceds\DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -94,7 +94,7 @@ class UserAuthController extends Controller
 
         $token = $usedata->createToken('my-app-token')->plainTextToken;
         $response['success_flag'] = true;
-        $response['data']['info'] = $usedata;
+        $response['data']['user'] = $usedata;
         $response['data']['token'] = $token;
        
         return response($response, 201);

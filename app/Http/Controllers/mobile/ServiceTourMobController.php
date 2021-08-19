@@ -7,6 +7,14 @@ use Illuminate\Http\Request;
 
 use App\Model\Merchant\TourModel;
 use App\Model\Tourismo\ServiceTourPhotosModel;
+use App\Model\Tourismo\FavoritesModel;
+use App\user\PageReviewsModel;
+
+// tools
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+
 
 
 class ServiceTourMobController extends Controller
@@ -52,7 +60,7 @@ class ServiceTourMobController extends Controller
 
             
             $response['success_flag'] = true;
-            $response['data'] = $tourModel;
+            $response['data']['tour'] = $tourModel;
             return response($response, 201);
 
         }catch (\Exception $e) {
@@ -99,7 +107,7 @@ class ServiceTourMobController extends Controller
 
 
             $response['success_flag'] = true;
-            $response['data']['info'] = $tourModel;
+            $response['data']['tour'] = $tourModel;
             $response['data']['img'] = $photos;
             return response($response, 201);
 
@@ -112,4 +120,124 @@ class ServiceTourMobController extends Controller
 
         
     }
+
+    public function getNearBy(Request $req)
+    {
+        try{
+            $response = [
+                'success_flag'=>false,
+                'message' => null,
+                'data'=> null,
+            ];
+
+            $userLat = $req->lat;
+            $userLng = $req->lng;
+
+            $nearest = DB::select(DB::raw("SELECT * , (3956 * 2 * ASIN(SQRT( POWER(SIN(( $userLat - `lat`) *  pi()/180 / 2), 2) +COS( $userLat * pi()/180) * COS(`lat` * pi()/180) * POWER(SIN(( $userLng - `lng`) * pi()/180 / 2), 2) ))) as distance  
+            from `service_tour` 
+            INNER JOIN `service_tour_photos` on service_tour.id =  service_tour_photos.upload_id
+            INNER JOIN `profiles` on service_tour.profid =  profiles.id
+            INNER JOIN `locations_district` on service_tour.district = locations_district.id 
+            INNER JOIN `location_country` on locations_district.country_id = location_country.id
+            INNER JOIN `products` on products.id = service_tour.service_id
+            group by service_tour_photos.upload_id
+            having  distance <= 10 
+            order by distance
+            ") );
+            if(count($nearest) <= 0){
+                $response['message']['error'] = 'no data found';
+                return response($response, 403);
+            }
+
+          
+
+            $response['success_flag'] = true;
+            $response['data']['tour'] = $nearest;
+            return response($response, 201);
+
+        }catch (\Exception $e) {
+
+            return response('not authorized', 401);
+
+
+        }
+        
+    }
+
+
+    public function toggle_favorites(Request $req)
+    {
+        try{
+            $response = [
+                'success_flag'=>false,
+                'message' => null,
+                'data'=> null,
+            ];
+
+            $tour_id = $req->tour_id;
+            $user_id = $req->user_id;
+            $checkList = FavoritesModel::where('fv_tour_id', $tour_id);
+            $checkList = $checkList->where('fv_user_id', $user_id);
+            $checkList = $checkList->where('fv_temp_status', 1);
+            $checkList = $checkList->first();
+
+            if($checkList != null){
+                $response['message']['success'] = 'removed';
+                $checkList->fv_temp_status = 4;
+                $checkList->update();
+                $response['success_flag'] = true;
+            }
+
+            if($checkList == null){
+                $response['success_flag'] = true;
+                $response['message']['success'] = 'added';
+                $addToWishList = new FavoritesModel();
+                $addToWishList->fv_tour_id =$tour_id;
+                $addToWishList->fv_user_id = $user_id;
+                $addToWishList->save();
+            }
+
+            return response($response, 201);
+
+        }catch (\Exception $e) {
+
+            return response('not authorized', 401);
+
+        }
+    }
+
+    // public function toggle_wishlist(Request $req) {
+        
+    //     $data['error'] = [];
+    //     $data['data'] = [];
+    //     $data['success'] = false;
+    //     $data['msg'] = [];
+    //     $wishlist_id = $req->data_id;
+    //     $checkList = WishlistHotelsRoom::where('wh_hotel_id', $wishlist_id);
+    //     $checkList = $checkList->where('wh_user_id', Auth::user()->id);
+    //     $checkList = $checkList->where('wh_temp_status', 1);
+    //     $checkList = $checkList->first();
+    //     if($checkList != null){
+    //         $data['msg'] = 'removed';
+    //         $checkList->wh_temp_status = 4;
+    //         $checkList->update();
+    //         $data['success'] = true;
+
+    //     }
+    //     if($checkList == null){
+    //         $data['msg'] = 'added';
+    //         $data['success'] = true;
+    //         $addToWishList = new WishlistHotelsRoom();
+    //         $addToWishList->wh_hotel_id =$wishlist_id;
+    //         $addToWishList->wh_user_id = Auth::user()->id;
+    //         $addToWishList->save();
+    //     }
+
+    //     // $data['data'] = $wishlist_id;
+    //     return $data;
+
+    // }
+
+
+
 }

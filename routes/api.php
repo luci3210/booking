@@ -18,14 +18,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('auth/login/user', 'mobile\UserAuthController@login_user')->name('login_auth');
 Route::post('auth/register/user', 'mobile\UserAuthController@register_user')->name('reg_user');
+
 Route::group(['middleware' => 'auth:sanctum'], function(){
     //All secure URL's
+    Route::post('toggle/favorite/tour', 'mobile\ServiceTourMobController@toggle_favorites')->name('toggle_favs');
+
 
 });
-
-
 // get near by
 Route::get('/get/nearby/{lat}/{lng}', 'Tourismo\HomeController@get_near_by')->name('nearByDestinations');
+
+
+
 
 
 Route::post('traxion/pay', 'Payment\TraxionController@generate_link')->name('generate_link');
@@ -33,9 +37,12 @@ Route::post('traxion/pay', 'Payment\TraxionController@generate_link')->name('gen
 Route::post('search', 'Tourismo\HeaderSearchController@Search')->name('search');
 Route::post('/auth/check-login', 'Auth\UserLoginController@checkLogin')->name('check_auth');
 
+// standard api response
 Route::prefix('service-tour')->group(function () {
     Route::get('get/tours/{service_id}/{tour_limit}', 'mobile\ServiceTourMobController@getTours')->name('get_tours');
     Route::get('get/tour/{tour_id}', 'mobile\ServiceTourMobController@getTourOne')->name('get_tour');
+    Route::get('get/tour/nearby/{lat}/{lng}', 'mobile\ServiceTourMobController@getNearBy')->name('get_near');
+
 });
 
 
