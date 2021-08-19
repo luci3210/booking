@@ -47,6 +47,16 @@ class UserAuthController extends Controller
     }
     public function update_password(Request $req){
     }
+    
+
+    public function register_user(Request $req)
+    {
+
+        $userService = new UserAuthService();
+        $result = $userService->user_reg($req->input());
+        return $result;
+
+    }
 
 
     public function login_user(Request $req)
@@ -68,10 +78,23 @@ class UserAuthController extends Controller
             return response($response, 403);
         }
 
-        $user= UsersModel::where('email', $req->email)->first();
-        $token = $user->createToken('my-app-token')->plainTextToken;
+        $usedata = $this->check_credentials($email);
+
+        if(is_string($usedata)){
+            $response['message']['errors'] = $usedata;
+            return response($response, 403);
+        }
+
+        $checkPass = $this->check_hash($usedata,$password);
+
+        if(!$checkPass){
+            $response['message']['errors'] = 'credentials error';
+            return response($response, 403);
+        }
+
+        $token = $usedata->createToken('my-app-token')->plainTextToken;
         $response['success_flag'] = true;
-        $response['data']['info'] = $user;
+        $response['data']['info'] = $usedata;
         $response['data']['token'] = $token;
        
         return response($response, 201);

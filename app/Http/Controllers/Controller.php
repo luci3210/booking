@@ -6,7 +6,15 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+
+
+// tools
+use Illuminate\Support\Faceds\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+
+use App\Model\Api\UsersModel;
+
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
@@ -47,4 +55,23 @@ class Controller extends BaseController
         }
         return false;
     }
+
+    public function check_credentials($email){
+        $data['email'] = $email;
+        if(!empty($email) ){
+            $user_data = UsersModel::Where('email', $email)
+            ->first();
+            $user_data = !empty($user_data) ? $user_data : "no user found!";
+            return $user_data;
+            // if both exists
+        }
+
+        if(empty($email)){
+            return "email is missing!!";
+        }
+        
+        return "something went wrong!!";
+    }
+
+    
 }
