@@ -47,6 +47,16 @@ class UserAuthController extends Controller
     }
     public function update_password(Request $req){
     }
+    
+
+    public function register_user(Request $req)
+    {
+
+        $userService = new UserAuthService();
+        $result = $userService->user_reg($req->input());
+        return $result;
+
+    }
 
 
     public function login_user(Request $req)

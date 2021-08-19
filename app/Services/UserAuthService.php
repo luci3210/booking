@@ -128,4 +128,40 @@ Class UserAuthService extends SecurityServices{
 
 
 
+
+
+    public function user_reg($userData){
+        $data['success_flag'] = false;
+        $data['message'] = null;
+        $data['data'] = null;
+        $validator = Validator::make($userData, [ 
+            'email' => ['required', 'email', 'unique:users'],
+            'name' => ['required', 'min:5','string', 'unique:users'],
+            'pnumber'=> ['required','min:11', 'string', 'unique:users'],
+            'password'=> ['required','min:7', 'string'],
+        ]);
+
+        if($validator->fails()){
+            $data['message']['errors'] = $validator->errors();
+            return $data;
+        }
+
+
+        $userInfo['pnumber'] =  $this->clean_input($userData['pnumber']);
+        $userInfo['email'] =  $this->clean_input($userData['email']);
+        $userInfo['name'] =  $this->clean_input($userData['name']);
+        $userInfo['password'] = Hash::make($userData['pnumber']); // hash
+        $userId = UserModel::insertGetId($userInfo); // save dynamic key  value pairs, key must exist as cols in db
+        $data['success_flag'] = true;
+
+        // $userInfo['user_id'] = $userId;
+        $success = 'successfully registered!';
+        $data['message']['success'] = $success;
+        $data['data'] = $userInfo;
+        // $data['token'] = base64_encode(json_encode($userInfo));
+        return $data;
+    }
+
+
+
 }

@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('auth/login/user', 'mobile\UserAuthController@login_user')->name('login_auth');
+Route::post('auth/register/user', 'mobile\UserAuthController@register_user')->name('reg_user');
 Route::group(['middleware' => 'auth:sanctum'], function(){
     //All secure URL's
 
