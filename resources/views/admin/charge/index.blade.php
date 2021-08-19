@@ -119,7 +119,9 @@
               <td>{{ $product->name }}</td>
               <td>%</td>
                 <td class="text-center">
-                  <button type="button" class="btn btn-block btn-sm btn-danger" data-toggle="modal" data-target="#modal-sm">Edit</button>
+<a href="#" class="btn btn-outline-info" data-id="{{ $product->id }}" data-toggle="modal" data-target="#modal-sm">Detail</a>
+
+                  <!-- <button type="button" class="btn btn-block btn-sm btn-danger" data-toggle="modal" data-target="#modal-sm">Edit</button> -->
                 </td>
             </tr>
           @empty
@@ -151,3 +153,5 @@
 </section>
 
 @endsection
+@section('third_party_scripts')
+@end

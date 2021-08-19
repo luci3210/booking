@@ -33,4 +33,15 @@ class ChargesController extends Controller
 
         return view('admin.charge.index',compact('products'));
     }
+
+    public function get_charges($id) {
+
+        $products = ProductModel::where( function($query) use($id) {
+        $query->from('products')->where('products.id',$id);  
+            })->get();
+
+                return view('admin.charge.index',compact(['products']));
+
+        
+    }
 }
