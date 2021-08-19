@@ -171,7 +171,7 @@
   @foreach($service_list as $service)
 
   <li class="nav-item">
-    <a href="{{ route('adm_charges',$service->description) }}" class="nav-link">
+    <a href="{{ route('adm_charges') }}" class="nav-link">
       <i class="far fa fa-circle-o nav-icon" aria-hidden="true"></i>
       <p>{{ $service->name }}</p>
     </a>

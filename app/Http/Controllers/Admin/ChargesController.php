@@ -19,17 +19,18 @@ class ChargesController extends Controller
         $this->middleware('auth:admin');
     }
 
-    protected function call_description($description) {
+    protected function call_description() {
 
-        $call_query = ProductModel::where( function($query) use($description) {
-            $query->from('products')->where([['products.description',$description]]);  
+        return $call_query = ProductModel::where( function($query) {
+            $query->from('products')->whereIn('products.temp_status',[1,2,3]);  
                 })->get();
     
     }
 
-    public function index($description=null) {
+    public function index() {
 
-        $this->call_description($description)
-        return dd('sdsdsd');
+        $products = $this->call_description();
+
+        return view('admin.charge.index',compact('products'));
     }
 }
