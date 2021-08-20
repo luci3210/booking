@@ -33,7 +33,7 @@ class ServicesController extends Controller
         } else {
             $Agent = new Agent();
             if ($Agent->isMobile()) {
-                return view('tourismo.services.index_mobile',compact('data'));
+                return view('tourismo.services.services_index_mobile',compact('data'));
             }else{
                 return view('tourismo.services.services_index',compact('data'));
             }
