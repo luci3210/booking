@@ -66,7 +66,7 @@ Class UserAuthService extends SecurityServices{
         $userInfo['pnumber'] =  $this->clean_input($userData['pnumber']);
         $userInfo['email'] =  $this->clean_input($userData['email']);
         $userInfo['name'] =  $this->clean_input($userData['name']);
-        $userInfo['password'] = Hash::make($userData['pnumber']); // hash
+        $userInfo['password'] = Hash::make($userData['password']); // hash
         $userId = UserModel::insertGetId($userInfo); // save dynamic key  value pairs, key must exist as cols in db
         $userInfo['user_id'] = $userId;
         $success = 'successfully registered!';

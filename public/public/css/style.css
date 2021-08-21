@@ -2535,6 +2535,11 @@ section {
   font-weight: 800 !important;
   font-size: 12px !important;
 }
+.theme-btn
+{
+  background-color: #502672 !important;
+  border-radius: 3px !important;
+}
 
 .uk-button-small:hover
 {

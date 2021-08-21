@@ -206,37 +206,27 @@ class ServiceTourMobController extends Controller
         }
     }
 
-    // public function toggle_wishlist(Request $req) {
-        
-    //     $data['error'] = [];
-    //     $data['data'] = [];
-    //     $data['success'] = false;
-    //     $data['msg'] = [];
-    //     $wishlist_id = $req->data_id;
-    //     $checkList = WishlistHotelsRoom::where('wh_hotel_id', $wishlist_id);
-    //     $checkList = $checkList->where('wh_user_id', Auth::user()->id);
-    //     $checkList = $checkList->where('wh_temp_status', 1);
-    //     $checkList = $checkList->first();
-    //     if($checkList != null){
-    //         $data['msg'] = 'removed';
-    //         $checkList->wh_temp_status = 4;
-    //         $checkList->update();
-    //         $data['success'] = true;
+    public function submit_tour_review(Request $req)
+    {
 
-    //     }
-    //     if($checkList == null){
-    //         $data['msg'] = 'added';
-    //         $data['success'] = true;
-    //         $addToWishList = new WishlistHotelsRoom();
-    //         $addToWishList->wh_hotel_id =$wishlist_id;
-    //         $addToWishList->wh_user_id = Auth::user()->id;
-    //         $addToWishList->save();
-    //     }
+    }
 
-    //     // $data['data'] = $wishlist_id;
-    //     return $data;
+    public function get_tour_review(Request $req)
+    {
 
-    // }
+    }
+
+    public function submit_booking(Request $req)
+    {
+
+    }
+
+    public function get_booking_record(Request $req)
+    {
+
+    }
+
+   
 
 
 
