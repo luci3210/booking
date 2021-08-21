@@ -504,7 +504,10 @@ Route::post(
     Route::post('/manage_bank/delete/{id}/','Admin\ManageBankController@deleted')->name('bank_deleted'); 
 
     Route::get('/manage_charges/selected','Admin\ChargesController@index')->name('adm_charges'); 
-    Route::get('/manage_charges/selected/{id}','Admin\ChargesController@get_charges')->name('adm_get_charges'); 
+    // Route::get('/manage_charges/selected/{id}','Admin\ChargesController@get_charges')->name('adm_get_charges'); 
+
+    Route::get('/manage_charges/color/{id}/edit', 'Admin\ChargesController@get_charges')->name('color.update');
+    Route::post('/manage_charges/color', 'Admin\ChargesController@edit')->name('adm_update_charge');
 
 
 

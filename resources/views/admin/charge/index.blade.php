@@ -3,25 +3,41 @@
 <style type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css"></style>
 @endsection
 @section('content')
- <div class="modal fade" id="modal-sm">
-  <div class="modal-dialog modal-sm">
+
+ <div class="modal fade" id="charge_modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Small Modal</h4>
+        <h4 class="modal-title" id="charge_name"></h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+
+      <form id="companydata" method="post" action="{{ route('adm_update_charge') }}">
+      @csrf
+
       <div class="modal-body">
-        <p>One fine body&hellip;</p>
+        <input type="hidden" name="charge_id" id="charge_id" class="form-control">
+
+        <div class="input-group mb-3">
+          <input type="text" name="charge_value" id="charge_value" class="form-control">
+          <div class="input-group-append">
+            <span class="input-group-text"> % </span>
+          </div>
+        </div>
       </div>
       <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="submit" id="submit" class="btn btn-primary">Save changes</button>
       </div>
+
+      </form>
+
     </div>
   </div>
 </div>
+
 
 <section class="content">
       <div class="container-fluid">
@@ -101,13 +117,14 @@
       </div>
 
     <div class="card-body">
-        <table class="table table-bordered">
+        <table class="table table-bordered" id="datatable">
         
         <thead>                  
             <tr>
-              <th style="width: 10px">#</th>
+              <th style="width: 25px">#</th>
               <th>Name</th>
-              <th>% Charge</th>
+              <th class="text-center">Charge</th>
+              <th class="text-center">Status</th>
               <th style="width: 180px" class="text-center">Action</th>
             </tr>
         </thead>
@@ -117,11 +134,16 @@
             <tr>
               <td>{{ $loop->index + 1 }}</td>
               <td>{{ $product->name }}</td>
-              <td>%</td>
+              <td class="text-center">
+                @if($product->chrg_value >= 1)
+                <span class="text-danger"> {{ $product->chrg_value }} % </span>
+                @else
+                {{ $product->chrg_value }} %
+                @endif
+              </td>
+              <td class="text-center" style="text-transform: capitalize;">{{ $product->status }} </td>
                 <td class="text-center">
-<a href="#" class="btn btn-outline-info" data-id="{{ $product->id }}" data-toggle="modal" data-target="#modal-sm">Detail</a>
-
-                  <!-- <button type="button" class="btn btn-block btn-sm btn-danger" data-toggle="modal" data-target="#modal-sm">Edit</button> -->
+<a href="#" class="btn btn-sm btn-primary" id="target_btn" data-toggle="modal" data-id="{{ $product->chrg_id }}">Update</a>
                 </td>
             </tr>
           @empty
@@ -131,20 +153,6 @@
         
         </table>
     </div>
-        
-      <div class="card-footer clearfix">
-        <ul class="pagination pagination-sm m-0 float-left">
-        </ul>
-        <!-- 
-        <ul class="pagination pagination-sm m-0 float-right">
-          <li class="page-item"><a class="page-link" href="#">«</a></li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item"><a class="page-link" href="#">»</a></li>
-        </ul> -->
-      </div>
-
     </div>
   </div>
 </div>
@@ -154,4 +162,57 @@
 
 @endsection
 @section('third_party_scripts')
-@end
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script>
+
+$(document).ready(function () {
+
+// $.ajaxSetup({
+//     headers: {
+//             'X-CSRF-TOKEN': $('meta[name="{{ csrf_token() }}"]').attr('content')
+
+//         }
+// });
+
+// $('body').on('click', '#submit', function (event) {
+//     event.preventDefault()
+//     var id = $("#color_id").val();
+//     var name = $("#name").val();
+   
+//     $.ajax({
+//       url: 'color/' + id,
+//       type: "POST",
+//       data: {
+//         id: id,
+//         name: name,
+//       },
+//       dataType: 'json',
+//       success: function (data) {
+          
+//           $('#companydata').trigger("reset");
+//           $('#practice_modal').modal('hide');
+//           window.location.reload(true);
+//       }
+//   });
+// });
+
+$('body').on('click', '#target_btn', function (event) {
+
+    event.preventDefault();
+    var id = $(this).data('id');
+    //console.log(id)
+    $.get('color/' + id + '/edit', function (data) {
+         $('#userCrudModal').html("Update");
+         $('#submit').val("Update");
+         $('#charge_id').val(data.data.chrg_id);
+         $('#charge_value').val(data.data.chrg_value);
+         $('#charge_name').text(data.data.name);
+         $('#charge_modal').modal('show');
+     })
+});
+
+}); 
+</script>
+@endsection

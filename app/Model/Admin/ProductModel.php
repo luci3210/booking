@@ -9,5 +9,5 @@ class ProductModel extends Model
 	protected $table = 'products';
 	protected $primaryKey = 'id';
 	protected $guarded = [];
-    protected $fillable = ['id','name','description','temp_status','user_id','icon_id'];
+    // protected $fillable = ['id','name','description','temp_status','user_id','icon_id'];
 }

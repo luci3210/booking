@@ -105,6 +105,7 @@ class BookingController extends Controller
             ->join('products','service_tour.service_id','products.id')
                  ->join('users','users.id','payments.pm_user_id')
                       ->join('location_country','location_country.location_id','users.country')
+                        ->join('charges','charges.chrg_product_id','service_tour.service_id')
              
                 ->where( function($query) use($pm_id,$product_name) {
                     $query->from('payments')->where([

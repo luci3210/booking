@@ -131,7 +131,7 @@
                   <div class="table-responsive">
                     <table class="table">
                       <tbody><tr>
-                        <th style="width:30%">Quantity:</th>
+                        <th style="width:30%">Quantity</th>
                         <td>
                           Price (₱{{ $data[0]->pm_book_amount }}) <b>x</b> Quantity ({{$data[0]->pm_book_qty}})
                         </td>
@@ -149,14 +149,36 @@
                           = <b>₱</b> {{ $numberofdays = $data[0]->pm_book_amount * ($days-$data[0]->nonight) }}.00
                         </td>
                       </tr>
+
                       <tr style="font-size:20px;font-weight: 600">
-                        <th>Total:</th>
+                        <th>Total</th>
                         <td>
                         </td>
                         <td>
                           &nbsp;&nbsp;&nbsp;<b>₱</b> {{ $quantity + $numberofdays }}.00
                         </td>
                       </tr>
+
+                      <tr class="text-muted">
+                        <th>Tourismo Charge</th>
+                        <td>
+                          {{ $data[0]->chrg_value }} % <b>x</b> Total (₱ {{ $quantity + $numberofdays }}.00)
+                        </td>
+                        <td>
+                          &nbsp;&nbsp;&nbsp;<b>= ₱</b> {{ $charge = ($quantity + $numberofdays) * ($data[0]->chrg_value / 100) }}
+
+                        </td>
+                      </tr>
+
+                      <tr style="font-size:20px;font-weight: 600" class="text-danger">
+                        <th>Income</th>
+                        <td>
+                        </td>
+                        <td>
+                          &nbsp;&nbsp;&nbsp;<b>₱</b> {{ $income = ($quantity + $numberofdays) - $charge  }}
+                        </td>
+                      </tr>
+
                     </tbody></table>
                   </div>
                 </div>
@@ -168,12 +190,12 @@
               <div class="row no-print">
                 <div class="col-12">
                   <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
-                  <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
+                  <!-- <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
                     Payment
                   </button>
                   <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
                     <i class="fas fa-download"></i> Generate PDF
-                  </button>
+                  </button> -->
                 </div>
               </div>
             </div>
