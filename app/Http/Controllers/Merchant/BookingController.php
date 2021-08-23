@@ -42,6 +42,7 @@ class BookingController extends Controller
         $bookingDetails = $bookingDetails->where('service_tour.profid', $id);
         $bookingDetails = $bookingDetails->join('payments', 'payments.pm_page_id' , 'service_tour.id');
         $bookingDetails = $bookingDetails->join('status_payment', 'status_payment.ps_id', '=', 'payments.pm_ps_id');
+        
         if($service != 'service'){
             $bookingDetails = $bookingDetails->where('service_tour.service_id', $service);
         }
