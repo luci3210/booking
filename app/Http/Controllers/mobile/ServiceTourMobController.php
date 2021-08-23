@@ -9,11 +9,16 @@ use App\Model\Merchant\TourModel;
 use App\Model\Tourismo\ServiceTourPhotosModel;
 use App\Model\Tourismo\FavoritesModel;
 use App\user\PageReviewsModel;
+use App\Model\Api\UsersModel;
 
 // tools
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+
+use App\Services\ServiceTour;
+
 
 
 
@@ -174,10 +179,13 @@ class ServiceTourMobController extends Controller
                 'data'=> null,
             ];
 
+            $user = Auth::user();
+            
+
             $tour_id = $req->tour_id;
             $user_id = $req->user_id;
             $checkList = FavoritesModel::where('fv_tour_id', $tour_id);
-            $checkList = $checkList->where('fv_user_id', $user_id);
+            $checkList = $checkList->where('fv_user_id', $user->id);
             $checkList = $checkList->where('fv_temp_status', 1);
             $checkList = $checkList->first();
 
@@ -193,7 +201,7 @@ class ServiceTourMobController extends Controller
                 $response['message']['success'] = 'added';
                 $addToWishList = new FavoritesModel();
                 $addToWishList->fv_tour_id =$tour_id;
-                $addToWishList->fv_user_id = $user_id;
+                $addToWishList->fv_user_id = $user->id;
                 $addToWishList->save();
             }
 
@@ -204,6 +212,28 @@ class ServiceTourMobController extends Controller
             return response('not authorized', 401);
 
         }
+    }
+
+    public function get_myfavorite(Request $req)
+    {
+        try{
+            $response = [
+                'success_flag'=>false,
+                'message' => null,
+                'data'=> null,
+            ];
+
+            $user = Auth::user();
+            
+
+            $tour_id = $req->tour_id;
+            $user_id = $req->user_id;
+        }catch (\Exception $e) {
+
+            return response('not authorized', 401);
+
+        }
+
     }
 
     public function submit_tour_review(Request $req)
@@ -218,11 +248,66 @@ class ServiceTourMobController extends Controller
 
     public function submit_booking(Request $req)
     {
+        try{
+            $response = [
+                'success_flag'=>false,
+                'message' => null,
+                'data'=> null,
+            ];
+
+
+            $serviceTour = new ServiceTour();
+
+            $bookdata = [
+                'tour_id' => $req->tour_id,
+                'from' => $req->from,
+                'to' => $req->to,
+                'amount' => $req->amount,
+                'childrenCount' => $req->childrenCount,
+                'adultCount' => $req->adultCount,
+                'qty' => $req->qty,
+                
+            ];
+
+            $serviceTour = $serviceTour->addBooking($bookdata);
+            
+
+            $tour_id = $req->tour_id;
+            $user_id = $req->user_id;
+            $response['success_flag'] = true;
+            $response['data']['tour'] = $serviceTour;
+            return response($response, 201);
+        }catch (\Exception $e) {
+
+            return response('not authorized', 401);
+
+        }
 
     }
 
     public function get_booking_record(Request $req)
     {
+
+        try{
+            $response = [
+                'success_flag'=>false,
+                'message' => null,
+                'data'=> null,
+            ];
+
+
+            $serviceTour = new ServiceTour();
+
+            $serviceTour = $serviceTour->getBooking();
+            
+            $response['success_flag'] = true;
+            $response['data']['tour'] = $serviceTour;
+            return response($response, 201);
+        }catch (\Exception $e) {
+
+            return response('not authorized', 401);
+
+        }
 
     }
 

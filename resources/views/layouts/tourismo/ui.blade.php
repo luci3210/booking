@@ -616,13 +616,12 @@ function getNearBy(position){
           var output = '';
           if(countData >= 1){
             $('#loaders').hide('slow')
-
             for (let i = 0; i < countData; i++) {
               console.log(data[i]['tour_name'])
               output += `<li> <div class="icon-box icon-box-pink"><div class="uk-panel">
               <img src="image/cover/2021/default.png" style="border-radius: 4px;"> <div class="uk-position-center uk-panel"> </div></div>
               <div class="member-info"><p class="mem-title"><i class="fas fa-map-marked-alt"></i> ${data[i]['tour_name']}...</p>
-              <span><i class="fas fa-building"></i> No. of hotels : 150 {{ $list->country }}</span><br>
+              <span><i class="fas fa-building"></i> No. of hotels : 150 </span><br>
               <span><i class="fas fa-directions"></i> No. of Tour Operators : 251</span><br>
               <div class="row g-1 px-1 my-2">
               <div class="col-6">
@@ -640,29 +639,7 @@ function getNearBy(position){
                   </div>
               </div>
               </div></div></div></li>`
-              // output += '<li> <div class="icon-box icon-box-pink"><div class="uk-panel">';
-              // output += '<img src="#" style="border-radius: 4px;"> <div class="uk-position-center uk-panel"> </div></div>';
-              // output += `<div class="member-info"><p class="mem-title"><i class="fas fa-map-marked-alt"></i> ${data[i]['tour_name']}...</p>`;
-              // output += `<span><i class="fas fa-building"></i> No. of hotels : 150 {{ $list->country }}</span><br>`;
-              // output += `<span>
-              //              <i class="fas fa-directions"></i> No. of Tour Operators : 251
-              //            </span><br>
-              //            <div class="row g-1 px-1 my-2">
-              //             <div class="col-6">
-              //               <div class="d-grid gap-2">
-              //                 <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="#" }}">
-              //                   Explore
-              //                 </a>
-              //               </div>
-              //             </div>`;
-              // output += `<div class="col-6">
-              //               <div class="d-grid gap-2">
-              //                 <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="#">
-              //                  share
-              //                  </a>
-              //                </div>
-              //             </div>`;
-              // output += '</div></div></div></li>';
+              
             }
 
           }

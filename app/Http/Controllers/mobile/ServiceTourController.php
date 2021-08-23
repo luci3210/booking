@@ -32,4 +32,6 @@ class ServiceTourController extends Controller
         $result =  $serviceTour->findTour($id);
         return $result;
     }
+
+    
 }

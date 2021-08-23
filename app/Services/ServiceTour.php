@@ -14,8 +14,9 @@ use App\user\WishlistHotelsRoom;
 use App\Model\Admin\LocationCountyModel;
 use App\user\PageReviewsModel;
 use App\Model\Merchant\ProfileModel;
-use App\User;
+use App\user\PaymentModel;
 
+use App\User;
 
 
 Class ServiceTour extends SecurityServices{
@@ -137,7 +138,45 @@ Class ServiceTour extends SecurityServices{
         'pr_id'
         ]));
         return $reviewsData;
-    }//  get reviews of selected service tour
+    } //  get reviews of selected service tour
+
+
+    public function getMyFavorites($userid)
+    {
+
+
+
+    }
+
+    public function addBooking($bookdata)
+    {
+        $user = Auth::user();
+
+        $data['pm_user_id'] = $user->id;
+        $data['pm_page_id'] = $this->clean_input((int)$bookdata['tour_id']);
+        $data['pm_payment_status'] = 'pending';
+        $data['pm_book_date'] = $bookdata['from'];
+        $data['pm_book_date_to'] = $bookdata['to'];
+        $data['pm_book_amount'] = $bookdata['amount'];
+        $data['pm_child_count'] = $bookdata['childrenCount'];
+        $data['pm_adult_count'] = $bookdata['adultCount'];
+        $data['pm_book_qty'] = $bookdata['qty'];
+        $data['pm_created_at'] = $this->getDatetimeNow();
+        $data['pm_id'] = PaymentModel::insertGetId($data); // save return
+        return $data;
+    }
+
+    public function getBooking()
+    {
+        $user = Auth::user();
+
+        $data = new PaymentModel();
+        $data = $data->where('pm_user_id',$user->id);
+        $data = $data->join('status_payment', 'status_payment.ps_id', '=', 'payments.pm_ps_id');
+        $data = $data->join('service_tour', 'service_tour.id', '=', 'payments.pm_page_id');
+        return $data->get();
+
+    }
 
 
 

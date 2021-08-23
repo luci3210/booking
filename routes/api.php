@@ -22,8 +22,9 @@ Route::post('auth/register/user', 'mobile\UserAuthController@register_user')->na
 Route::group(['middleware' => 'auth:sanctum'], function(){
     //All secure URL's
     Route::post('toggle/favorite/tour', 'mobile\ServiceTourMobController@toggle_favorites')->name('toggle_favs');
-
-
+    Route::post('add/booking', 'mobile\ServiceTourMobController@submit_booking')->name('submit_booking');
+    Route::get('my/booking', 'mobile\ServiceTourMobController@get_booking_record')->name('my_booking');
+    Route::get('get/me', 'mobile\UserProfileController@get_myinfo')->name('get_my_profile');
 });
 // get near by
 Route::get('/get/nearby/{lat}/{lng}', 'Tourismo\HomeController@get_near_by')->name('nearByDestinations');
