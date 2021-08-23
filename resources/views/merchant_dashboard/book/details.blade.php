@@ -104,6 +104,10 @@
                       <th>About Package</th>
                       <td colspan="7">{{ $data[0]->tour_desc}}</td>
                     </tr>
+                    <tr>
+                      <th>Check-In Date</th>
+                      <td colspan="7"><b>From : </b>{{ $data[0]->pm_book_date}} - <b>To : </b>{{ $data[0]->pm_book_date_to}}</td>
+                    </tr>
                     </tbody>
                   </table>
                 </div>
