@@ -15,6 +15,7 @@ use App\Model\Admin\LocationCountyModel;
 use App\user\PageReviewsModel;
 use App\Model\Merchant\ProfileModel;
 use App\user\PaymentModel;
+use App\Model\Tourismo\FavoritesModel;
 
 use App\User;
 
@@ -141,9 +142,20 @@ Class ServiceTour extends SecurityServices{
     } //  get reviews of selected service tour
 
 
-    public function getMyFavorites($userid)
+    public function getMyFavorites($limit)
     {
 
+        $user = Auth::user();
+        $checkList = FavoritesModel::where('fv_user_id', $user->id);
+        $checkList = $checkList->where('fv_temp_status', 1);
+        $checkList = $checkList->join('service_tour', 'service_tour.id', '=', 'favorites.fv_tour_id');
+      
+        if($limit != 'all'){
+            $checkList = $checkList->take($limit);
+        }
+
+        $checkList = $checkList->get();
+        return $checkList;
 
 
     }
@@ -166,7 +178,7 @@ Class ServiceTour extends SecurityServices{
         return $data;
     }
 
-    public function getBooking()
+    public function getBooking($limit)
     {
         $user = Auth::user();
 
@@ -174,7 +186,14 @@ Class ServiceTour extends SecurityServices{
         $data = $data->where('pm_user_id',$user->id);
         $data = $data->join('status_payment', 'status_payment.ps_id', '=', 'payments.pm_ps_id');
         $data = $data->join('service_tour', 'service_tour.id', '=', 'payments.pm_page_id');
-        return $data->get();
+
+        if($limit != 'all'){
+            $data = $data->take($limit);
+        }
+
+        $data = $data->get();
+
+        return $data;
 
     }
 

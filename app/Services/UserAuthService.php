@@ -163,5 +163,22 @@ Class UserAuthService extends SecurityServices{
     }
 
 
+    public function change_myPass($newPass)
+    {
+        # code...
+        $userID = Auth::user()->id;
+        $user = UserModel::where('id',$userID); 
+        $user = $user->first();
+        if(empty($user)){
+            return false;
+        }
+        $newPass = Hash::make($newPass); // hash
+        $user->password = $newPass;
+        $user->update();
+        return true;
+
+    }
+
+
 
 }

@@ -223,11 +223,15 @@ class ServiceTourMobController extends Controller
                 'data'=> null,
             ];
 
-            $user = Auth::user();
-            
+            $limit = $req->query('limit');
+            $serviceTour = new ServiceTour();
+            $serviceTour = $serviceTour->getMyFavorites($limit);
 
-            $tour_id = $req->tour_id;
-            $user_id = $req->user_id;
+            
+            $response['success_flag'] = true;
+            $response['data']['tour'] = $serviceTour;
+
+            return response($response, 201);
         }catch (\Exception $e) {
 
             return response('not authorized', 401);
@@ -243,6 +247,8 @@ class ServiceTourMobController extends Controller
 
     public function get_tour_review(Request $req)
     {
+
+        $extra = $req->query('limit');
 
     }
 
@@ -266,6 +272,7 @@ class ServiceTourMobController extends Controller
                 'childrenCount' => $req->childrenCount,
                 'adultCount' => $req->adultCount,
                 'qty' => $req->qty,
+                'limit' => $req->limit,
                 
             ];
 
@@ -298,7 +305,9 @@ class ServiceTourMobController extends Controller
 
             $serviceTour = new ServiceTour();
 
-            $serviceTour = $serviceTour->getBooking();
+            $limit = $req->query('limit');
+
+            $serviceTour = $serviceTour->getBooking($limit);
             
             $response['success_flag'] = true;
             $response['data']['tour'] = $serviceTour;
