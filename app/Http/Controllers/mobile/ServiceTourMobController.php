@@ -29,43 +29,24 @@ class ServiceTourMobController extends Controller
     public function getTours(Request $req)
     {   
         try{
-            $service_id = $req->service_id;
-            $limit = $req->tour_limit;
+            $service_type = $req->query('type');
+            $limit = $req->query('limit');
+            $page = $req->query('page');
 
             $response = [
                 'success_flag'=>false,
                 'message' => null,
                 'data'=> null,
             ];
-            
-            $tourModel = new TourModel();
-            $tourModel = $tourModel->join('service_tour_photos','service_tour_photos.upload_id', 'service_tour.id');
-            $tourModel = $tourModel->join('profiles','profiles.id', 'service_tour.profid');
-            $tourModel = $tourModel->join('locations_district','locations_district.id', 'service_tour.district');
-            $tourModel = $tourModel->join('location_country','location_country.id', 'locations_district.country_id');
-            $tourModel = $tourModel->join('products','service_tour.service_id', 'products.id');
-            if($service_id != 'service_id') {
-                $tourModel = $tourModel->where('service_tour.service_id', $service_id);
-            }
-
-            $tourModel = $tourModel->where('service_tour.temp_status', 1);
-            $tourModel = $tourModel->where('service_tour_photos.temp_status', 1);
-            $tourModel = $tourModel->groupBy('service_tour.id');
-            $tourModel = $tourModel->inRandomOrder();
-            if($limit != 'limit'){
-                $tourModel = $tourModel->limit($limit)->get();
-            }else{
-                $tourModel = $tourModel->get();
-            }
-            if(count($tourModel) <= 0){
-                $response['success_flag'] = false;
-                $response['message']['error'] = 'no data found';
-                return response($response, 403);
-            }
-
+            $serviceTour = new ServiceTour();
+            $serviceTour = $serviceTour->getToursv2($service_type,$limit,$page);
+            $response['data']['servce_type'] = $service_type;
+            $response['data']['limit'] = $limit;
+            $response['data']['page'] = $page;
+            $response['data']['tour'] = $serviceTour;
             
             $response['success_flag'] = true;
-            $response['data']['tour'] = $tourModel;
+            // $response['data']['tour'] = $tourModel;
             return response($response, 201);
 
         }catch (\Exception $e) {
@@ -125,6 +106,40 @@ class ServiceTourMobController extends Controller
 
         
     }
+    public function getNearByv2(Request $req)
+    {
+        try{
+            $response = [
+                'success_flag'=>false,
+                'message' => null,
+                'data'=> null,
+            ];
+            $userLat = $req->query('lat');
+            $userLng = $req->query('lng');
+
+            $serviceTour = new ServiceTour();
+            $nearest = $serviceTour->getNearBy($userLat,$userLng);
+            $response['data']['coords'] = [ 'lat'=> $userLat, 'lng'=> $userLng];
+
+            if(count($nearest) <= 0){
+                $response['message']['error'] = 'no data found';
+                $response['data']['tour'] = [];
+                return response($response, 403);
+            }
+
+
+            $response['success_flag'] = true;
+            $response['data']['tour'] = $nearest;
+            return response($response, 201);
+
+        }catch (\Exception $e) {
+
+            return response('not authorized', 401);
+
+
+        }
+        
+    }
 
     public function getNearBy(Request $req)
     {
@@ -134,30 +149,35 @@ class ServiceTourMobController extends Controller
                 'message' => null,
                 'data'=> null,
             ];
+            // $userLat = $req->query('lat');
+            // $userLng = $req->query('lng');
+            
+            // $userLat = $req->lat;
+            // $userLng = $req->lng;
 
-            $userLat = $req->lat;
-            $userLng = $req->lng;
-
-            $nearest = DB::select(DB::raw("SELECT * , (3956 * 2 * ASIN(SQRT( POWER(SIN(( $userLat - `lat`) *  pi()/180 / 2), 2) +COS( $userLat * pi()/180) * COS(`lat` * pi()/180) * POWER(SIN(( $userLng - `lng`) * pi()/180 / 2), 2) ))) as distance  
-            from `service_tour` 
-            INNER JOIN `service_tour_photos` on service_tour.id =  service_tour_photos.upload_id
-            INNER JOIN `profiles` on service_tour.profid =  profiles.id
-            INNER JOIN `locations_district` on service_tour.district = locations_district.id 
-            INNER JOIN `location_country` on locations_district.country_id = location_country.id
-            INNER JOIN `products` on products.id = service_tour.service_id
-            group by service_tour_photos.upload_id
-            having  distance <= 10 
-            order by distance
-            ") );
-            if(count($nearest) <= 0){
-                $response['message']['error'] = 'no data found';
-                return response($response, 403);
-            }
+            // $nearest = DB::select(DB::raw("SELECT * , (3956 * 2 * ASIN(SQRT( POWER(SIN(( $userLat - `lat`) *  pi()/180 / 2), 2) +COS( $userLat * pi()/180) * COS(`lat` * pi()/180) * POWER(SIN(( $userLng - `lng`) * pi()/180 / 2), 2) ))) as distance  
+            // from `service_tour` 
+            // INNER JOIN `service_tour_photos` on service_tour.id =  service_tour_photos.upload_id
+            // INNER JOIN `profiles` on service_tour.profid =  profiles.id
+            // INNER JOIN `locations_district` on service_tour.district = locations_district.id 
+            // INNER JOIN `location_country` on locations_district.country_id = location_country.id
+            // INNER JOIN `products` on products.id = service_tour.service_id
+            // group by service_tour_photos.upload_id
+            // having  distance <= 10 
+            // order by distance
+            // ") );
+            // if(count($nearest) <= 0){
+            //     $response['message']['error'] = 'no data found';
+            //     return response($response, 403);
+            // }
 
           
 
-            $response['success_flag'] = true;
-            $response['data']['tour'] = $nearest;
+            // $response['success_flag'] = true;
+            // $response['data']['tour'] = $nearest;
+            // $response['data']['lng'] = $userLat;
+            // $response['data']['lat'] = $userLng;
+            // return response($response, 201);
             return response($response, 201);
 
         }catch (\Exception $e) {
@@ -224,8 +244,9 @@ class ServiceTourMobController extends Controller
             ];
 
             $limit = $req->query('limit');
+            $page = $req->query('page');
             $serviceTour = new ServiceTour();
-            $serviceTour = $serviceTour->getMyFavorites($limit);
+            $serviceTour = $serviceTour->getMyFavorites($limit,$page);
 
             
             $response['success_flag'] = true;
@@ -306,8 +327,9 @@ class ServiceTourMobController extends Controller
             $serviceTour = new ServiceTour();
 
             $limit = $req->query('limit');
+            $page = $req->query('page');
 
-            $serviceTour = $serviceTour->getBooking($limit);
+            $serviceTour = $serviceTour->getBooking($limit,$page);
             
             $response['success_flag'] = true;
             $response['data']['tour'] = $serviceTour;

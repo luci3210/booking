@@ -22,7 +22,7 @@ Route::post('auth/register/user', 'mobile\UserAuthController@register_user')->na
 Route::group(['middleware' => 'auth:sanctum'], function(){
     //All secure URL's
     Route::post('toggle/favorite/tour', 'mobile\ServiceTourMobController@toggle_favorites')->name('toggle_favs');
-    Route::get('get/my/favorite/tour', 'mobile\ServiceTourMobController@get_myfavorite')->name('get_favs');
+    Route::get('get/my/favorites', 'mobile\ServiceTourMobController@get_myfavorite')->name('get_favs');
     // favorites
 
     Route::post('add/booking', 'mobile\ServiceTourMobController@submit_booking')->name('submit_booking');
@@ -31,6 +31,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     Route::get('get/me', 'mobile\UserProfileController@get_myinfo')->name('get_my_profile');
     Route::post('change/pass', 'mobile\UserProfileController@change_pass')->name('change_mypass');
+    Route::post('update/myprofile', 'mobile\UserProfileController@update_profile')->name('update_profile');
     // user profile
     
 });
@@ -48,9 +49,10 @@ Route::post('/auth/check-login', 'Auth\UserLoginController@checkLogin')->name('c
 
 // standard api response
 Route::prefix('service-tour')->group(function () {
-    Route::get('get/tours/{service_id}/{tour_limit}', 'mobile\ServiceTourMobController@getTours')->name('get_tours');
+    Route::get('get/tours', 'mobile\ServiceTourMobController@getTours')->name('get_tours');
     Route::get('get/tour/{tour_id}', 'mobile\ServiceTourMobController@getTourOne')->name('get_tour');
-    Route::get('get/tour/nearby/{lat}/{lng}', 'mobile\ServiceTourMobController@getNearBy')->name('get_near');
+    Route::get('get/tour/nearby', 'mobile\ServiceTourMobController@getNearBy')->name('get_near');
+    Route::get('get/tours/nearby', 'mobile\ServiceTourMobController@getNearByv2')->name('get_near2');
 
 });
 

@@ -45,6 +45,46 @@ class UserProfileController extends Controller
         }
     }
 
+    function update_profile(Request $req)
+    {
+
+        try{
+            $response = [
+                'success_flag'=>false,
+                'message' => null,
+                'data'=> null,
+            ];
+            $user = Auth::user();
+            if(!$user){
+                return response('not authorized', 401);
+            }
+
+            $userData = [
+                "fname" => $this->clean_input($req->fname),
+                "lname" => $this->clean_input($req->lname),
+                "mname" => $this->clean_input($req->mname),
+                "gender" => $this->clean_input($req->gender),
+                "pnumber" => $this->clean_input($req->pnumber),
+                "address" => $req->address,
+                "bdate" => $req->bdate,
+            ];
+
+            $userService = new UserAuthService();
+            $userService = $userService->updateMyProfile($userData);
+
+            $response['success_flag'] = true;
+            $response['message']['success'] = 'user found';
+            $response['message']['success'] = $userService ?'change password success': 'failed to change password';
+            $response['data']['user'] = $user;
+            return $response;
+
+        }catch (\Exception $e) {
+
+            return response('not authorized', 401);
+
+        }
+    }
+
     public function change_pass(Request $req)
     {
         try{
