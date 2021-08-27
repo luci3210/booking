@@ -76,27 +76,85 @@
         </ul>
     </nav>
 
-    <!-- Left side column. contains the logo and sidebar -->
 @include('layouts.merchant-sidebar')
 
-<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 
 <div class="content-header">
   <div class="container-fluid">
-    <div class="row mb-2">
-      <div class="col-sm-6">
-        <h1 class="m-0 text-dark">Dashboard</h1>
-      </div><!-- /.col -->
-      <div class="col-sm-6">
-        <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard v1</li>
-        </ol>
-      </div><!-- /.col -->
-    </div><!-- /.row -->
-  </div><!-- /.container-fluid -->
+   
+  </div>
 </div>
+
+
+
+<section class="content">
+<div class="container-fluid">
+
+<div class="row">
+<div class="col-lg-3 col-6">
+
+<div class="small-box bg-info">
+  <div class="inner">
+    <h4>150</h4>
+
+    <a href="{{ route('poster_new_booking') }}" class="text-light">New Booking</a>
+  </div>
+  <div class="icon">
+    <i class="ion ion-bag"></i>
+  </div>
+</div>
+</div>
+
+<div class="col-lg-3 col-6">
+
+<div class="small-box bg-success">
+  <div class="inner">
+    <h4>53<sup style="font-size: 20px">%</sup></h4>
+
+    <a href="" class="text-light">Confirm Booking</a>
+  </div>
+  <div class="icon">
+    <i class="ion ion-stats-bars"></i>
+  </div>
+</div>
+</div>
+<!-- ./col -->
+<div class="col-lg-3 col-6">
+<!-- small box -->
+<div class="small-box bg-warning">
+  <div class="inner">
+    <h4>44</h4>
+
+    <a href="" class="text-light">Today Reserved</a>
+  </div>
+  <div class="icon">
+    <i class="ion ion-person-add"></i>
+  </div>
+  <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+</div>
+</div>
+<!-- ./col -->
+<div class="col-lg-3 col-6">
+<!-- small box -->
+<div class="small-box bg-danger">
+  <div class="inner">
+    <h4>65</h4>
+    <a href="" class="text-light">Unique Visitors</a>
+  </div>
+  <div class="icon">
+    <i class="ion ion-pie-graph"></i>
+  </div>
+  <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+</div>
+</div>
+<!-- ./col -->
+</div>
+</div>
+</section>
+        
+
+
 
 <section class="content">
     @yield('content')

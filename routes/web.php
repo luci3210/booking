@@ -17,7 +17,17 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 
-// testing
+// testing 
+// Route::get('/cc', function() {
+//     Artisan::call('cache:clear');
+//     return "Cache is cleared";
+// });
+
+// Route::get('/oc', function() {
+// Artisan::call('optimize:clear');
+// return Artisan::output();
+// });
+
 Route::get('/check/me/', 'PaymentController@getUser')->middleware('checkUserData');
 Route::get('/check/geo/{lat}/{lng}', 'Tourismo\HomeController@checkgeo');
 
@@ -214,14 +224,17 @@ Route::group(['middleware'=>'password.confirm','jobs','jobs'=>['merchant'], 'pre
 
 Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant_dashboard/manage_booking'], function() {
 
-        Route::get('/booking/{service}/{payment}/{status}/{refid}','Merchant\BookingController@index')
-        ->name('booking-index');
+    Route::get('/booking/{service}/{payment}/{status}/{refid}','Merchant\BookingController@index')
+    ->name('booking-index');
 
-        Route::get('/search','Merchant\BookingController@search_status_date')
-        ->name('bookingserach');
+    Route::get('/search','Merchant\BookingController@search_status_date')
+    ->name('bookingserach');
 
-        Route::get('/{product_name}/getdetails/{pm_id}','Merchant\BookingController@getdetails')
-        ->name('booking_getdetails');
+    Route::get('/{product_name}/getdetails/{pm_id}','Merchant\BookingController@getdetails')
+    ->name('booking_getdetails');
+
+    Route::get('/new_booking','Merchant\BookingController@newbooking')->name('poster_new_booking');
+
 
 });
 
@@ -359,7 +372,7 @@ Route::prefix('account')->middleware('auth')->group(function () {
 
 // --------------------------------------ADMIN---------------------------------------
 
-Route::prefix('admin')->group(function () {
+Route::prefix('administrator/tph')->group(function () {
 
     Route::get('/tourismo/ph/page/1/product', 'Admin\ProductController@index')->name('product');
     Route::get('/tourismo/ph/page/1/product/www/create', 'Admin\ProductController@create')->name('product-create');
@@ -508,6 +521,12 @@ Route::post(
 
     Route::get('/manage_charges/color/{id}/edit', 'Admin\ChargesController@get_charges')->name('color.update');
     Route::post('/manage_charges/color', 'Admin\ChargesController@edit')->name('adm_update_charge');
+    
+
+// ----------------booking---------------
+Route::get('/booking', 'Admin\BookingController@index')->name('show_booking');
+Route::get('/booking/between', 'Admin\BookingController@show_data_search_booking')->name('show_search_booking');
+Route::get('/booking/{id}/booking', 'Admin\BookingController@execute_date')->name('execute_date');
 
 
 

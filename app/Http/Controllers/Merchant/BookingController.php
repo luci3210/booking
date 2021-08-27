@@ -12,6 +12,9 @@ use App\Model\Merchant\TourPhoModel;
 use App\Model\Merchant\TourModel;
 use App\Model\Merchant\Profile;
 use App\Model\PaymentModel;
+use App\Model\PaymentStatusModel;
+use App\user\StatusPaymentModel;
+
 use DateTime;
 
 
@@ -123,6 +126,23 @@ class BookingController extends Controller
         return view('merchant_dashboard.book.details',compact(['data','days']));
 
     }
+
+public function newbooking() {
+
+    $data = StatusPaymentModel::join('payments','payments.pm_ps_id','status_payment.ps_id')
+        ->join('service_tour','service_tour.id','payments.pm_page_id')
+            ->join('products','service_tour.service_id','products.id')
+                 ->join('users','users.id','payments.pm_user_id')
+             
+        ->where( function($query) {
+            $query->from('status_payment')
+                 ->where('service_tour.profid',$this->profile->profile_check()->id)
+                   ->whereDate('payments.pm_created_at',date('Y-m-d'));
+;
+        })->get();
+
+        return view('merchant_dashboard.book.newbooking',compact('data'));
+}
  
 
 

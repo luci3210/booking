@@ -12,6 +12,8 @@ use App\Services\merchant\FinanceService;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests\MerchantPostBank;
+use App\Model\PaymentStatusModel;
+use App\Model\PaymentModel;
 
 
 class FinanceController extends Controller
@@ -42,6 +44,22 @@ class FinanceController extends Controller
 
         // return $merchantProfile->id;
         // return $totalData;
+
+        // $data = PaymentStatusModel::join('payments','payments.pm_ps_id','status_payment.ps_id')
+
+        //  $data = PaymentModel::join('service_tour','service_tour.id','payments.pm_page_id')
+        //     ->join('products','service_tour.service_id','products.id')
+        //          ->join('users','users.id','payments.pm_user_id')
+        //               ->join('location_country','location_country.location_id','users.country')
+        //                 ->join('charges','charges.chrg_product_id','service_tour.service_id')
+             
+        //         ->where( function($query) use($pm_id,$product_name) {
+        //             $query->from('payments')->where([
+        //             ['payments.pm_id',$pm_id],
+        //                 ['service_tour.profid',$this->profile->profile_check()->id],
+        //                     ['products.description',$product_name]]);
+        // })->get();
+
 
         return view('merchant_dashboard.finance.finance_income_index', compact('incomeData'));
     }
