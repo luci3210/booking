@@ -233,7 +233,11 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant_das
     Route::get('/{product_name}/getdetails/{pm_id}','Merchant\BookingController@getdetails')
     ->name('booking_getdetails');
 
+
     Route::get('/new_booking','Merchant\BookingController@newbooking')->name('poster_new_booking');
+    Route::get('/new_booking/{id}/to_confirm', 'Merchant\BookingController@to_confirm')->name('poster_to_confirm');
+    Route::post('/new_booking/confirmed', 'Merchant\BookingController@to_confirmed')->name('poster_confirmed');
+
 
 
 });

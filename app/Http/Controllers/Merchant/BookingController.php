@@ -12,8 +12,11 @@ use App\Model\Merchant\TourPhoModel;
 use App\Model\Merchant\TourModel;
 use App\Model\Merchant\Profile;
 use App\Model\PaymentModel;
-use App\Model\PaymentStatusModel;
+use App\Model\ConfirmBookingModel;
 use App\user\StatusPaymentModel;
+
+use App\Http\Requests\MerchantPostConfirm;
+
 
 use DateTime;
 
@@ -131,19 +134,42 @@ public function newbooking() {
 
     $data = StatusPaymentModel::join('payments','payments.pm_ps_id','status_payment.ps_id')
         ->join('service_tour','service_tour.id','payments.pm_page_id')
-            ->join('products','service_tour.service_id','products.id')
-                 ->join('users','users.id','payments.pm_user_id')
+                    ->leftJoin('charges_date','charges_date.chg_ps_id','status_payment.ps_id')
+
              
         ->where( function($query) {
             $query->from('status_payment')
                  ->where('service_tour.profid',$this->profile->profile_check()->id)
                    ->whereDate('payments.pm_created_at',date('Y-m-d'));
-;
         })->get();
 
         return view('merchant_dashboard.book.newbooking',compact('data'));
-}
- 
+    }
 
+public function to_confirm($id) {
+
+$data = StatusPaymentModel::join('payments','payments.pm_ps_id','status_payment.ps_id')
+        ->join('service_tour','service_tour.id','payments.pm_page_id')
+                 ->join('users','users.id','payments.pm_user_id')
+             
+        ->where( function($query) use($id) {
+            $query->from('status_payment')
+                ->where('payments.pm_id', $id)
+                    ->where('service_tour.profid',$this->profile->profile_check()->id)
+                        ->whereDate('payments.pm_created_at',date('Y-m-d'));
+        })->first();
+ 
+        return response()->json(['data' => $data]);
+
+    }
+
+public function to_confirmed(MerchantPostConfirm $request) {
+
+    ConfirmBookingModel::create(['chg_ps_id' => $request->ps,'chg_prf_id' => $this->profile->profile_check()->id,'chg_date' => $request->chg_date]);
+    
+    return redirect()->back()->withSuccess('Booking successfully confirm.');
+
+
+}
 
 }
