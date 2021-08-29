@@ -112,7 +112,7 @@
   <div class="inner">
     <h4>53<sup style="font-size: 20px">%</sup></h4>
 
-    <a href="" class="text-light">Confirm Booking</a>
+    <a href="{{ route('poster_confirmbooking') }}" class="text-light">Confirm Booking</a>
   </div>
   <div class="icon">
     <i class="ion ion-stats-bars"></i>
@@ -126,7 +126,7 @@
   <div class="inner">
     <h4>44</h4>
 
-    <a href="" class="text-light">Today Reserved</a>
+    <a href="{{ route('poster_todayreserved') }}" class="text-light">Today Reserved</a>
   </div>
   <div class="icon">
     <i class="ion ion-person-add"></i>

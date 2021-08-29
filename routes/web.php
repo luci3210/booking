@@ -222,7 +222,7 @@ Route::group(['middleware'=>'password.confirm','jobs','jobs'=>['merchant'], 'pre
 
 
 
-Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant_dashboard/manage_booking'], function() {
+Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant_dashboard/booking'], function() {
 
     Route::get('/booking/{service}/{payment}/{status}/{refid}','Merchant\BookingController@index')
     ->name('booking-index');
@@ -237,6 +237,14 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant_das
     Route::get('/new_booking','Merchant\BookingController@newbooking')->name('poster_new_booking');
     Route::get('/new_booking/{id}/to_confirm', 'Merchant\BookingController@to_confirm')->name('poster_to_confirm');
     Route::post('/new_booking/confirmed', 'Merchant\BookingController@to_confirmed')->name('poster_confirmed');
+    
+    Route::get('/confirm_booking', 'Merchant\BookingController@confirmbooking')->name('poster_confirmbooking');
+    Route::get('/confirm_booking/{id}/details', 'Merchant\BookingController@confirmbooking_detail');
+
+    Route::get('/today_reserved', 'Merchant\BookingController@todaybookingreserved')->name('poster_todayreserved');
+
+
+
 
 
 

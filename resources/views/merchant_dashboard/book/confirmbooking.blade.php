@@ -6,7 +6,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="charge_name">New Booking</h4><br>
+        <h4 class="modal-title" id="charge_name">Confirm Booking</h4><br>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -22,6 +22,11 @@
     <tr>
       <td><b>Reference No.</b></td>
       <td id="refrence_no" colspan="2"></td>
+    </tr>
+
+    <tr>
+      <td><b>Reference No.</b></td>
+      <td colspan="2">{{ str_pad($data[0]->chg_id,11,'0', STR_PAD_LEFT) }}</td>
     </tr>
 
     <tr>
@@ -53,8 +58,7 @@
    
     <tr>
       <td><b>Income reflict after</b></td>
-      <td colspan="2">
-        <b>{{ Carbon\Carbon::parse($data[0]->pm_book_date_to)->addDays(3) }}</b>
+      <td id="confirmation_date" colspan="2">{{ $data[0]->chg_date}}
       </td>
     </tr>
    
@@ -63,16 +67,10 @@
 
       </div>
 
-      <form id="companydata" method="post" action="{{ route('poster_confirmed') }}">
-        @csrf
-        <input type="hidden" name="ps" value="{{ $data[0]->ps_id }}">
-        <input type="hidden" name="chg_date" value="{{ Carbon\Carbon::parse($data[0]->pm_book_date_to)->addDays(3) }}">
       <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" id="submit" class="btn btn-primary">Confirm Booking</button>
       </div>
 
-      </form>
 
     </div>
   </div>
@@ -108,7 +106,7 @@
       <th>Confirm No.</th>
       <th class="text-center">Action</th>
     </tr>
-    @forelse($data as $post)
+    @foreach($data as $post)
     <tr style="font-size:14px">
       <td class="text-center">{{ $loop->index + 1 }}</td>
       <td>{{ $post->ps_ref_no }}</td>
@@ -126,17 +124,11 @@
       </td>
       <td class="text-center">
           <a href="#" class="text-primary" id="target_btn" data-toggle="modal" data-id="{{ $post->pm_id }}">  
-            Update
+            Details
           </a>
       </td>
     </tr>
-    @empty
-    <tr style="font-size:14px">
-      <td class="text-center" colspan="11">
-            <p class="text-center mt-3"> No booking found</p>
-      </td>
-    </tr>
-    @endforelse 
+    @endforeach
 </thead>
 
 <tbody>
@@ -167,17 +159,18 @@ $('body').on('click', '#target_btn', function (event) {
     event.preventDefault();
     var id = $(this).data('id');
 
-    $.get('new_booking/' + id + '/to_confirm', function (data) {
+    $.get('confirm_booking/' + id + '/details', function (data) {
 
         $('#charge_id').val(data.data.pm_id);
         $('#refrence_no').text(data.data.ps_ref_no);
-        $('#service_name').text(data.data.tour_name);
+        $('#service_name').text(data.data.ps_description);
         $('#service').text(data.data.name);
         $('#amount_paid').text(data.data.pm_book_amount);
         $('#date_from').text(data.data.pm_book_date);
         $('#date_to').text(data.data.pm_book_date_to);
         $('#date_at').text(data.data.pm_created_at);
         $('#charge').text(data.data.chrg_value);
+        $('#confirmation_date').text(data.data.chg_date);
         $('#charge_modal').modal('show');
      
        })
