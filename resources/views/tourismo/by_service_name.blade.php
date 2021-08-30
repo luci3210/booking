@@ -41,6 +41,62 @@
   .uk-modal-body {
     border-radius: 4px;
   }
+
+  .rating {
+   width: 180px;
+}
+
+.rating__star-comment {
+   cursor: pointer;
+   color: #dabd18b2;
+}
+.rating__star {
+   cursor: pointer;
+   color: #dabd18b2;
+}
+
+
+a.page-link {
+    color: black!important;
+}
+
+
+.error-msg{
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  right: 0;
+}
+
+
+.uk-button-small
+{
+  background-color: #502672 !important;
+  border-radius: 3px !important;
+  color: #fff !important;
+  border:none !important;
+  text-transform: capitalize !important;
+  font-weight: 800 !important;
+  font-size: 12px !important;
+}
+
+.uk-button-small:hover
+{
+  background-color: #2c0d45 !important;
+  border-radius: 3px !important;
+  border:none;
+  color: #fff !important;
+  text-transform: capitalize !important;
+  font-weight: 800 !important;
+  font-size: 12px !important;
+}
+.comment-text{
+  font-size: .9em;
+}
+
+.avatar-border-round{
+  border-radius: 50%;
+}
 </style>
 
 <section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500" style="margin-top: 35px !important;">
@@ -131,7 +187,7 @@
 @else
 <a href="javascript:void(0)" uk-toggle="target: #login" class="btn btn-block btn-warning btn-flat">Book Now</a>
 @endif
-<button type="button" class="btn btn-block btn-primary btn-flat" disabled="disabled">Share</button>
+<button type="button" class="btn btn-block btn-primary btn-flat" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#global-share"  onclick="openShare('{{$byname[0]}}')" >Share</button>
 
 </div>
 
@@ -282,10 +338,13 @@
           </div>
             @auth
             <button type="button" onclick="submitReview() " class="comment-btn uk-button uk-button-small">Submit</button>
-                        <button type="submit" id="btn-review" class="comment-btn uk-button uk-button-small" hidden>Submit</button>
+            <button type="submit" id="btn-review" class="comment-btn d-none uk-button uk-button-small" hidden>Submit</button>
 
             @endauth
+            <!-- @if(!Auth::check())
           <a href="javascript:void(0)" uk-toggle="target: #checklogin" class="comment-btn uk-button uk-button-small">Submit</a>
+            @endif -->
+
 
           <p>Comments</p>
         </fieldset>
