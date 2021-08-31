@@ -128,7 +128,7 @@
                     <!-- /.col -->
                     <div class="col-6">
                       <div class="d-grid gap-2">
-                        <a class="uk-button uk-button-small mb-sm-1" href="javascript:void(0)"uk-toggle="target: #prov-{{$list->upload_id}}">
+                        <a class="uk-button uk-button-small mb-sm-1" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#global-share"  onclick="openShare('{{$list}}')"  >
                         Share
                         </a>
                       </div>
@@ -422,7 +422,7 @@
         <!-- /.col -->
         <div class="col-6">
           <div class="d-grid gap-2">
-            <a class="uk-button uk-button-small mb-sm-1" href="javascript:void(0)"uk-toggle="target: #prov-{{$list->upload_id}}" >
+            <a class="uk-button uk-button-small mb-sm-1"  href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#global-share"  onclick="openShare('{{$list}}')"  >
               share
             </a>
           </div>
@@ -547,195 +547,6 @@
 <!-- news and public section end  -->
 @endif
 
-
-
-
-
-
-
-@foreach($tour_packages as $list)
-
-<div id="prov-{{$list->upload_id}}" class="uk-flex-top"  uk-modal>
-  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
-
-      <div uk-grid class="uk-flex-center mx-auto">
-
-      <div class="uk-position-relative uk-visible-toggle uk-light social-slider-div" tabindex="-1" uk-slider>
-
-          <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-6@m">
-
-          <!-- /.embed -->
-          <li class="pointer social-media-share" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('service_tour_view', $list->upload_id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )">
-              <img src="{{ asset('image/socialmedia/fb.png')}}"  alt="fb">
-          </li>
-          <!-- /. fb -->
-          <li class="pointer social-media-share" onclick="sendMessenger('{{ route('service_tour_view', $list->upload_id) }}')">
-              <img src="{{ asset('image/socialmedia/msg.png')}}" alt="">
-          </li>
-          <!-- /.messenger -->
-          <li class="pointer social-media-share" onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->tour_name }}&url={{ route('service_tour_view', $list->upload_id) }}')">
-              <img src="{{ asset('image/socialmedia/tw.png')}}" alt="">
-          </li>
-          <!-- /.tw -->
-          <li class="pointer social-media-share" onclick="openApp('{{ route('service_tour_view', $list->upload_id) }}', 'wazap')" >
-              <img src="{{ asset('image/socialmedia/wazap.png')}}" alt="">
-          </li>
-          <li class="pointer social-media-share" onclick="openApp('{{ route('service_tour_view', $list->upload_id) }}', 'viber')">
-              <img src="{{ asset('image/socialmedia/vb.png')}}" alt="">
-          </li>
-          <!-- /.viber -->
-          <li class="pointer social-media-share">
-              <a  href="mailto:yourfriendsemail@sample.com?subject={{ $list->tour_name }}&body=No. of hotels : 150  visit the link {{ route('service_tour_view', $list->upload_id)}}"><img src="{{ asset('image/socialmedia/gm.png')}}" alt=""></a>
-          </li>
-          <!-- /.gm -->
-          <li class="pointer social-media-share">
-              <img src="{{ asset('image/socialmedia/we.png')}}" alt="">
-              <!-- <div class="uk-position-center uk-panel"><h1>6</h1></div> -->
-          </li>
-
-          <li class="pointer social-media-share" onclick="copyLink('{{ route('service_tour_view', $list->upload_id) }}')">
-              <img src="{{ asset('image/socialmedia/cc.png')}}"  alt="cc">
-          </li>
-          <!-- /.cc -->
-          <li class="pointer social-media-share" onclick="copyEmbed('{{ route('service_tour_view', $list->upload_id) }}', '{{ $list->tour_name }}')">
-              <img src="{{ asset('image/socialmedia/em.png')}}"  alt="fb">
-          </li>
-          <!-- /.we -->
-          </ul>
-          <a class="uk-position-center-left uk-position-small  bg-circle" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-          <a class="uk-position-center-right uk-position-small bg-circle" href="#" uk-slidenav-next uk-slider-item="next"></a>
-      </div>
-      <div class="copy-link-div">
-          <p>{{ route('service_tour_view', $list->upload_id) }} <a class="copy-link" onclick="copyLink('{{ route('service_tour_view', $list->upload_id) }}')"> Copy Link</a></p>
-      </div>
-      </div>
-  </div>
-</div>
-
-@endforeach
-
-
-@foreach($hotel_packages as $list)
-
-<div id="prov-{{$list->upload_id}}" class="uk-flex-top"  uk-modal>
-  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
-
-      <div uk-grid class="uk-flex-center mx-auto">
-
-      <div class="uk-position-relative uk-visible-toggle uk-light social-slider-div" tabindex="-1" uk-slider>
-
-          <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-6@m">
-
-          <!-- /.embed -->
-          <li class="pointer social-media-share" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('service_tour_view', $list->upload_id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )">
-              <img src="{{ asset('image/socialmedia/fb.png')}}"  alt="fb">
-          </li>
-          <!-- /. fb -->
-          <li class="pointer social-media-share" onclick="sendMessenger('{{ route('service_tour_view', $list->upload_id) }}')">
-              <img src="{{ asset('image/socialmedia/msg.png')}}" alt="">
-          </li>
-          <!-- /.messenger -->
-          <li class="pointer social-media-share" onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->tour_name }}&url={{ route('service_tour_view', $list->upload_id) }}')">
-              <img src="{{ asset('image/socialmedia/tw.png')}}" alt="">
-          </li>
-          <!-- /.tw -->
-          <li class="pointer social-media-share" onclick="openApp('{{ route('service_tour_view', $list->upload_id) }}', 'wazap')" >
-              <img src="{{ asset('image/socialmedia/wazap.png')}}" alt="">
-          </li>
-          <li class="pointer social-media-share" onclick="openApp('{{ route('service_tour_view', $list->upload_id) }}', 'viber')">
-              <img src="{{ asset('image/socialmedia/vb.png')}}" alt="">
-          </li>
-          <!-- /.viber -->
-          <li class="pointer social-media-share">
-              <a  href="mailto:yourfriendsemail@sample.com?subject={{ $list->tour_name }}&body=No. of hotels : 150  visit the link {{ route('service_tour_view', $list->upload_id)}}"><img src="{{ asset('image/socialmedia/gm.png')}}" alt=""></a>
-          </li>
-          <!-- /.gm -->
-          <li class="pointer social-media-share">
-              <img src="{{ asset('image/socialmedia/we.png')}}" alt="">
-              <!-- <div class="uk-position-center uk-panel"><h1>6</h1></div> -->
-          </li>
-
-          <li class="pointer social-media-share" onclick="copyLink('{{ route('service_tour_view', $list->upload_id) }}')">
-              <img src="{{ asset('image/socialmedia/cc.png')}}"  alt="cc">
-          </li>
-          <!-- /.cc -->
-          <li class="pointer social-media-share" onclick="copyEmbed('{{ route('service_tour_view', $list->upload_id) }}', '{{ $list->tour_name }}')">
-              <img src="{{ asset('image/socialmedia/em.png')}}"  alt="fb">
-          </li>
-          <!-- /.we -->
-          </ul>
-          <a class="uk-position-center-left uk-position-small  bg-circle" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-          <a class="uk-position-center-right uk-position-small bg-circle" href="#" uk-slidenav-next uk-slider-item="next"></a>
-      </div>
-      <div class="copy-link-div">
-          <p>{{ route('service_tour_view', $list->upload_id) }} <a class="copy-link" onclick="copyLink('{{ route('service_tour_view', $list->upload_id) }}')"> Copy Link</a></p>
-      </div>
-      </div>
-  </div>
-</div>
-
-@endforeach
-
-
-@foreach($exclusive_packages as $list)
-
-<div id="prov-{{$list->upload_id}}" class="uk-flex-top"  uk-modal>
-  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
-
-      <div uk-grid class="uk-flex-center mx-auto">
-
-      <div class="uk-position-relative uk-visible-toggle uk-light social-slider-div" tabindex="-1" uk-slider>
-
-          <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-6@m">
-          <!-- /.embed -->
-          <li class="pointer social-media-share" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('service_tour_view', $list->upload_id) }}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes' )">
-              <img src="{{ asset('image/socialmedia/fb.png')}}"  alt="fb">
-          </li>
-          <!-- /. fb -->
-          <li class="pointer social-media-share" onclick="sendMessenger('{{ route('service_tour_view', $list->upload_id) }}')">
-              <img src="{{ asset('image/socialmedia/msg.png')}}" alt="">
-          </li>
-          <!-- /.messenger -->
-          <li class="pointer social-media-share" onclick="window.open('https://twitter.com/intent/tweet?text={{ $list->tour_name }}&url={{ route('service_tour_view', $list->upload_id) }}')">
-              <img src="{{ asset('image/socialmedia/tw.png')}}" alt="">
-          </li>
-          <!-- /.tw -->
-          <li class="pointer social-media-share" onclick="openApp('{{ route('service_tour_view', $list->upload_id) }}', 'wazap')" >
-              <img src="{{ asset('image/socialmedia/wazap.png')}}" alt="">
-          </li>
-          <li class="pointer social-media-share" onclick="openApp('{{ route('service_tour_view', $list->upload_id) }}', 'viber')">
-              <img src="{{ asset('image/socialmedia/vb.png')}}" alt="">
-          </li>
-          <!-- /.viber -->
-          <li class="pointer social-media-share">
-              <a  href="mailto:yourfriendsemail@sample.com?subject={{ $list->tour_name }}&body=No. of hotels : 150  visit the link {{ route('service_tour_view', $list->upload_id)}}"><img src="{{ asset('image/socialmedia/gm.png')}}" alt=""></a>
-          </li>
-          <!-- /.gm -->
-          <li class="pointer social-media-share">
-              <img src="{{ asset('image/socialmedia/we.png')}}" alt="">
-              <!-- <div class="uk-position-center uk-panel"><h1>6</h1></div> -->
-          </li>
-
-          <li class="pointer social-media-share" onclick="copyLink('{{ route('service_tour_view', $list->upload_id) }}')">
-              <img src="{{ asset('image/socialmedia/cc.png')}}"  alt="cc">
-          </li>
-          <!-- /.cc -->
-          <li class="pointer social-media-share" onclick="copyEmbed('{{ route('service_tour_view', $list->upload_id) }}', '{{ $list->tour_name }}')">
-              <img src="{{ asset('image/socialmedia/em.png')}}"  alt="fb">
-          </li>
-          <!-- /.we -->
-          </ul>
-          <a class="uk-position-center-left uk-position-small  bg-circle" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-          <a class="uk-position-center-right uk-position-small bg-circle" href="#" uk-slidenav-next uk-slider-item="next"></a>
-      </div>
-      <div class="copy-link-div">
-          <p>{{ route('service_tour_view', $list->upload_id) }} <a class="copy-link" onclick="copyLink('{{ route('service_tour_view', $list->upload_id) }}')"> Copy Link</a></p>
-      </div>
-      </div>
-  </div>
-</div>
-
-@endforeach
 
 
 

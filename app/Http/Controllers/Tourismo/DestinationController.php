@@ -138,6 +138,8 @@ class DestinationController extends Controller
 
     }
 
+    
+
     protected function by_get_photos($name=null) {
 
         $get_photos = TourModel::join('service_tour_photos','service_tour.id', 'service_tour_photos.upload_id')
@@ -180,6 +182,7 @@ class DestinationController extends Controller
         'email_verified_at',
         'job',
         ]));
+        return $reviewsData;
 
     }
 

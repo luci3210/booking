@@ -79,6 +79,10 @@
 a.page-link {
     color: black!important;
 }
+.page-item .active > .page-link{
+    background: #502672!important;
+    border-color: #502672!important;
+}
 
 
 .error-msg{

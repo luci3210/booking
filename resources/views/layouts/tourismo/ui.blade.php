@@ -51,6 +51,27 @@
   @yield('merchant')
   @yield('css')
   <style>
+    .elips-3{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+    .elips-2{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+    .elips-1{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+    }
     @-webkit-keyframes placeHolderShimmer {
             0% {
               background-position: -468px 0;
@@ -617,16 +638,25 @@ function getNearBy(position){
           if(countData >= 1){
             $('#loaders').hide('slow')
             for (let i = 0; i < countData; i++) {
-              console.log(data[i]['tour_name'])
+              const img = data[i]['photo'] == '' || data[i]['photo'] == null ? 'default.png' : data[i]['photo']
+              const assUrl = '{{asset('image/tour/2021')}}/'
+              let url = '{{ route("by_name", [":description" ,":country", ":district", ":tour_name"]) }}'
+              const paramsData =  [data[i]['description'],data[i]['country'],data[i]['district'],data[i]['tour_name']]
+              url = url.replace(':description', data[i]['description']);
+              url = url.replace(':country', data[i]['country']);
+              url = url.replace(':district', data[i]['district']);
+              url = url.replace(':tour_name', data[i]['tour_name']);
+
               output += `<li> <div class="icon-box icon-box-pink"><div class="uk-panel">
-              <img src="image/cover/2021/default.png" style="border-radius: 4px;"> <div class="uk-position-center uk-panel"> </div></div>
+              <a href="${url}">
+              <img src="image/cover/2021/default.png" style="border-radius: 4px;"> </a><div class="uk-position-center uk-panel"> </div></div>
               <div class="member-info"><p class="mem-title"><i class="fas fa-map-marked-alt"></i> ${data[i]['tour_name']}...</p>
               <span><i class="fas fa-building"></i> No. of hotels : 150 </span><br>
               <span><i class="fas fa-directions"></i> No. of Tour Operators : 251</span><br>
               <div class="row g-1 px-1 my-2">
               <div class="col-6">
                 <div class="d-grid gap-2">
-                  <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="#" }}">
+                  <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="${url}" }}">
                     Explore
                   </a>
                 </div>
@@ -677,6 +707,8 @@ function showError(error) {
 
   @yield('merchantjs')
   @yield('js')
+  @include('layouts.tourismo.ui_global_share')
+
 
 
 
