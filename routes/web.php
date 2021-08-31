@@ -243,10 +243,7 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant_das
 
     Route::get('/today_reserved', 'Merchant\BookingController@todaybookingreserved')->name('poster_todayreserved');
 
-
-
-
-
+    Route::get('/complete_booking', 'Merchant\BookingController@completebooking')->name('poster_completebooking');
 
 });
 

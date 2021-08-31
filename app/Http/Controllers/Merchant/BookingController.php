@@ -171,12 +171,13 @@ public function confirmbooking() {
 
     $data = StatusPaymentModel::join('payments','payments.pm_ps_id','status_payment.ps_id')
         ->join('service_tour','service_tour.id','payments.pm_page_id')
-                    ->Join('charges_date','charges_date.chg_ps_id','status_payment.ps_id')
+            ->join('users','users.id','payments.pm_user_id')
+                ->join('charges_date','charges_date.chg_ps_id','status_payment.ps_id')
 
         ->where( function($query) {
             $query->from('status_payment')
                  ->where('service_tour.profid',$this->profile->profile_check()->id)
-                   ->whereDate('payments.pm_created_at',date('Y-m-d'));
+                   ->where('charges_date.chg_id','!=','');
         })->get();
 
     if(count($data) > 0) {
@@ -195,8 +196,8 @@ $data = StatusPaymentModel::join('payments','payments.pm_ps_id','status_payment.
         ->where( function($query) use($id) {
             $query->from('status_payment')
                 ->where('payments.pm_id', $id)
-                    ->where('service_tour.profid',$this->profile->profile_check()->id)
-                        ->whereDate('payments.pm_created_at',date('Y-m-d'));
+                    ->where('service_tour.profid',$this->profile->profile_check()->id);
+                        // ->whereDate('payments.pm_created_at',date('Y-m-d'));
         })->first();
  
         return response()->json(['data' => $data]);
@@ -211,17 +212,42 @@ public function todaybookingreserved() {
     $data = StatusPaymentModel::join('payments','payments.pm_ps_id','status_payment.ps_id')
         ->join('service_tour','service_tour.id','payments.pm_page_id')
                     ->Join('charges_date','charges_date.chg_ps_id','status_payment.ps_id')
+                        ->join('users','users.id','payments.pm_user_id')
 
         ->where( function($query) {
             $query->from('status_payment')
                  ->where('service_tour.profid',$this->profile->profile_check()->id)
-                   ->whereDate('payments.pm_book_date_to',date('Y-m-d'));
+                   ->whereDate('payments.pm_book_date',date('Y-m-d'));
         })->get();
 
     if(count($data) > 0) {
         return view('merchant_dashboard.book.todaybookingreserved',compact(['data']));
     } else {
         return view('merchant_dashboard.book.todaybookingreservedNotfound');
+    }
+}
+
+
+// -------------------------------------- complete booking ---------------
+
+
+public function completebooking() {
+
+    $data = StatusPaymentModel::join('payments','payments.pm_ps_id','status_payment.ps_id')
+        ->join('service_tour','service_tour.id','payments.pm_page_id')
+                    ->Join('charges_date','charges_date.chg_ps_id','status_payment.ps_id')
+                        ->join('users','users.id','payments.pm_user_id')
+
+        ->where( function($query) {
+            $query->from('status_payment')
+                 ->where('service_tour.profid',$this->profile->profile_check()->id)
+                   ->whereDate('payments.pm_book_date',date('Y-m-d'));
+        })->get();
+
+    if(count($data) > 0) {
+        return view('merchant_dashboard.book.completebooking',compact(['data']));
+    } else {
+        return view('merchant_dashboard.book.completebookingNotfound');
     }
 }
 

@@ -10,7 +10,7 @@
       
       <div class="card-header">
         <h3 class="card-title">
-          Today guest list reeserved
+          Complete booking
         </h3>
       </div>
 

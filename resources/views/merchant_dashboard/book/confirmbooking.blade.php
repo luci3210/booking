@@ -6,7 +6,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="charge_name">Confirm Booking</h4><br>
+        <h4 class="modal-title" id="charge_name">Confirmation basic  details</h4><br>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -15,55 +15,62 @@
 
 <div class="modal-body">
 
-<table class="table table-bordered">
-
-  <tbody>
-    
-    <tr>
-      <td><b>Reference No.</b></td>
-      <td id="refrence_no" colspan="2"></td>
-    </tr>
-
-    <tr>
-      <td><b>Reference No.</b></td>
-      <td colspan="2">{{ str_pad($data[0]->chg_id,11,'0', STR_PAD_LEFT) }}</td>
-    </tr>
-
-    <tr>
-      <td><b>Service Description</b></td>
-      <td colspan="2"><a href="#" id="service_name"></a></td>
-    </tr>
-   
-    <tr>
-      <td><b>Booked By</b></td>
-      <td id="service" colspan="2"></td>
-    </tr>
-   
-    <tr>
-      <td><b>Price & Amount Paid</b></td>
-      <td>Php {{ $data[0]->price }}</td>
-      <td>Php {{ $data[0]->pm_book_amount }}</td>
-    </tr>
-   
-    <tr>
-      <td><b>Book Date</b></td>
-      <td id="date_at" colspan="2"></td>
-    </tr>
-   
-    <tr>
-      <td><b>Reserved Date</td>
-      <td>From : {{ $data[0]->pm_book_date }}</td>
-      <td colspan="2">To : {{ $data[0]->pm_book_date_to}}</td>
-    </tr>
-   
-    <tr>
-      <td><b>Income reflict after</b></td>
-      <td id="confirmation_date" colspan="2">{{ $data[0]->chg_date}}
-      </td>
-    </tr>
-   
-  </tbody>
+<!-- ---------------------1st row------------------ -->
+<table class="table table-bordered table-sm">
+<tbody>
+  <tr style="font-size:14px;">
+    <th>Service Name / Description</th>
+  </tr>
+  <tr style="font-size:14px;">
+    <td><a href="">{{ $data[0]->ps_description }}</a><br>
+      <small class="text-muted">Free Nights {{ $data[0]->nonight }}</small></td>
+  </tr>
+</tbody>
 </table>
+
+<!-- ---------------------2nd row------------------ -->
+<table class="table table-bordered table-sm mt-4">
+<tbody>
+  <tr style="font-size:14px;">
+    <th>Reference</th>
+    <th>Confirmation</th>
+    <th>Date Confirm</th>
+    <th>Booked Date</th>
+    <th colspan="2" class="text-center">Booked Reserved</th>
+  </tr>
+  <tr style="font-size:14px;">
+    <td>{{ $data[0]->ps_ref_no }}</td>
+    <td>{{ str_pad($data[0]->chg_id,11,'0', STR_PAD_LEFT) }}</td>
+    <td>{{ $data[0]->chg_created_at }}</td>
+    <td>{{ $data[0]->pm_created_at }}</td>
+    <td>{{ $data[0]->pm_book_date }}</td>
+    <td>{{ $data[0]->pm_book_date_to }}</td>
+  </tr>
+</tbody>
+</table>
+
+
+<!-- ---------------------3nd row------------------ -->
+<table class="table table-bordered table-sm mt-4">
+<tbody>
+  <tr style="font-size:14px;">
+    <th>Book Name</th>
+    <th>Amount</th>
+    <th>Amount Paind</th>
+    <th>Tourismo Charge</th>
+  </tr>
+  <tr style="font-size:14px;">
+    <td>{{ $data[0]->fname }} {{ $data[0]->mname }}. {{ $data[0]->lname }} </td>
+    <td>{{ $data[0]->price }}</td>
+    <td>{{ $data[0]->pm_book_amount }}</td>
+    <td>7% </td>
+  </tr>
+</tbody>
+</table>
+
+<p>
+Poster Income and Tourismo charge will be reflict after date : <b>{{ $data[0]->chg_created_at }}</b>
+</p>
 
       </div>
 
@@ -87,7 +94,7 @@
       
       <div class="card-header">
         <h3 class="card-title">
-          New Booking
+          Confirm Booking
         </h3>
       </div>
 

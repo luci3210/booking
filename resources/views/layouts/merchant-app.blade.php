@@ -96,7 +96,7 @@
 
 <div class="small-box bg-info">
   <div class="inner">
-    <h4>150</h4>
+    <h4>#</h4>
 
     <a href="{{ route('poster_new_booking') }}" class="text-light">New Booking</a>
   </div>
@@ -108,9 +108,9 @@
 
 <div class="col-lg-3 col-6">
 
-<div class="small-box bg-success">
+<div class="small-box bg-warning">
   <div class="inner">
-    <h4>53<sup style="font-size: 20px">%</sup></h4>
+    <h4>#</h4>
 
     <a href="{{ route('poster_confirmbooking') }}" class="text-light">Confirm Booking</a>
   </div>
@@ -122,11 +122,11 @@
 <!-- ./col -->
 <div class="col-lg-3 col-6">
 <!-- small box -->
-<div class="small-box bg-warning">
+<div class="small-box bg-danger">
   <div class="inner">
-    <h4>44</h4>
+    <h4>#</h4>
 
-    <a href="{{ route('poster_todayreserved') }}" class="text-light">Today Reserved</a>
+    <a href="{{ route('poster_todayreserved') }}" class="text-light">Today Registered Guest</a>
   </div>
   <div class="icon">
     <i class="ion ion-person-add"></i>
@@ -137,10 +137,10 @@
 <!-- ./col -->
 <div class="col-lg-3 col-6">
 <!-- small box -->
-<div class="small-box bg-danger">
+<div class="small-box bg-success">
   <div class="inner">
-    <h4>65</h4>
-    <a href="" class="text-light">Unique Visitors</a>
+    <h4>#</h4>
+    <a href="{{ route('poster_completebooking') }}" class="text-light">Complete Booking</a>
   </div>
   <div class="icon">
     <i class="ion ion-pie-graph"></i>
