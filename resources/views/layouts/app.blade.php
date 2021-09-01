@@ -132,12 +132,12 @@
   <div class="inner">
     <h4>44</h4>
 
-    <p>Complete Booking</p>
+    <p>Confirm Booking</p>
   </div>
   <div class="icon">
     <i class="ion ion-person-add"></i>
   </div>
-  <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+  <a href="{{ route('adm_confirm_booking') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 </div>
 </div>
 

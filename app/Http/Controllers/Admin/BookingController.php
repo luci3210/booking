@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use Carbon\Carbon;
 
+use App\user\StatusPaymentModel;
 
 use App\Model\PaymentModel;
 use App\Model\Admin\ProductModel;
@@ -20,26 +21,52 @@ class BookingController extends Controller
 
     protected function data_booking() {
 
-        return $data = PaymentModel::join('service_tour','service_tour.id','payments.pm_page_id')
-            ->join('products','service_tour.service_id','products.id')
-                        ->join('status_payment','status_payment.ps_id','payments.pm_ps_id')
+        return $data = StatusPaymentModel::join('payments','payments.pm_ps_id','status_payment.ps_id')
+            ->join('service_tour','service_tour.id','payments.pm_page_id')
+                ->join('products','products.id','service_tour.service_id')
 
-            ->where( function($query) {
-                $query->from('payments')
-                    ->whereIn('payments.pm_payment_status',['success','pending'])
-                        ->whereDate('payments.pm_created_at',date('Y-m-d')); })
-
-            ->select('products.name AS pname',
-                'service_tour.tour_name',
-                    'payments.pm_created_at','payments.pm_book_date','payments.pm_book_date_to',
-                        'payments.pm_book_amount','status_payment.ps_ref_no','payments.pm_id')
-                ->get();      
+        ->where( function($query) {
+            $query->from('status_payment');
+                   // ->whereDate('payments.pm_created_at',date('Y-m-d'));
+        })->get();
 
     }
     public function index() {
+
         $data = $this->data_booking();
-        return view('admin.booking.show_booking',compact('data'));
+
+        if(count($data) > 0) {
+            return view('admin.booking.show_booking',compact('data'));
+        } else {
+            return view('admin.booking.show_bookingNotFount');
+        }
     }
+
+
+
+protected function data_confirm_booking() {
+
+    return $data = StatusPaymentModel::join('payments','payments.pm_ps_id','status_payment.ps_id')
+        ->join('service_tour','service_tour.id','payments.pm_page_id')
+            ->join('products','products.id','service_tour.service_id')
+
+    ->where( function($query) {
+        $query->from('status_payment')
+               ->whereDate('payments.pm_created_at',date('Y-m-d'));
+    })->get();
+
+}
+
+public function confirm_booking() {
+
+    $data = $this->data_booking();
+
+    if(count($data) > 0) {
+        return view('admin.booking.confirm_booking',compact('data'));
+    } else {
+        return view('admin.booking.confirm_bookingNotFount');
+    }
+}
 
 
     public function show_data_search_booking(Request $request) {

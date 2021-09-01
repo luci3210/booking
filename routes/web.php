@@ -533,7 +533,10 @@ Route::post(
     
 
 // ----------------booking---------------
-Route::get('/booking', 'Admin\BookingController@index')->name('show_booking');
+Route::get('/new-booking', 'Admin\BookingController@index')->name('show_booking');
+Route::get('/confirm-booking', 'Admin\BookingController@confirm_booking')->name('adm_confirm_booking');
+
+
 Route::get('/booking/between', 'Admin\BookingController@show_data_search_booking')->name('show_search_booking');
 Route::get('/booking/{id}/booking', 'Admin\BookingController@execute_date')->name('execute_date');
 

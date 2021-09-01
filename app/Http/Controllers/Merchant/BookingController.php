@@ -16,8 +16,6 @@ use App\Model\ConfirmBookingModel;
 use App\user\StatusPaymentModel;
 
 use App\Http\Requests\MerchantPostConfirm;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\Eloquent\Collection;
 
 
 use DateTime;
@@ -159,7 +157,12 @@ $data = StatusPaymentModel::join('payments','payments.pm_ps_id','status_payment.
 public function to_confirmed(MerchantPostConfirm $request) {
 
     ConfirmBookingModel::create(['chg_ps_id' => $request->ps,'chg_prf_id' => $this->profile->profile_check()->id,'chg_date' => $request->chg_date]);
-    
+
+    PaymentModel::where( function($query) {
+        $query->from('payments')
+            ->where('payments.pm_id',$request->ps)->update(['payments.pm_temp_status' => 6]);
+    });
+
     return redirect()->back()->withSuccess('Booking successfully confirm.');
 
 }
@@ -241,7 +244,7 @@ public function completebooking() {
         ->where( function($query) {
             $query->from('status_payment')
                  ->where('service_tour.profid',$this->profile->profile_check()->id)
-                   ->whereDate('payments.pm_book_date',date('Y-m-d'));
+                   ->whereDate('charges_date.chg_date',date('Y-m-d'));
         })->get();
 
     if(count($data) > 0) {

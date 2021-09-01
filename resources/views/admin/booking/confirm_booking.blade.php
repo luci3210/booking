@@ -1,12 +1,9 @@
 @extends('layouts.app')
 
 @section('third_party_stylesheets')
-  <style type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css"></style>
 @endsection
 
 @section('content')
-
-
 <section class="content">
 <div class="container-fluid">
 
@@ -41,7 +38,7 @@
 @forelse($data as $list)
 <tr style="font-size:14px">
   <td>{{ $loop->index + 1 }}</td>
-  <td>{{ $list->ps_ref_no }}-{{ $list->pm_id }}</td>
+  <td>{{ $list->ps_ref_no }}</td>
   <td>{{ substr($list->ps_description,0,29) }}</td>
   <td>{{ $list->name }}</td>
   <td>Php {{ $list->price }}</td>
