@@ -18,15 +18,11 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 
 // testing 
-// Route::get('/cc', function() {
-//     Artisan::call('cache:clear');
-//     return "Cache is cleared";
-// });
+Route::get('/cc', function() {
+    Artisan::call('cache:clear');
+    return "Cache is cleared";
+});
 
-// Route::get('/oc', function() {
-// Artisan::call('optimize:clear');
-// return Artisan::output();
-// });
 
 Route::get('/check/me/', 'PaymentController@getUser')->middleware('checkUserData');
 Route::get('/check/geo/{lat}/{lng}', 'Tourismo\HomeController@checkgeo');
@@ -494,7 +490,7 @@ Route::post(
     // Route::get('/tourismo/ph/page/4/inclusion/{id}/www/facilities/edit/{idt}', 'Admin\InclusionController@roomfacilities_edit')->name('facilities_edit');
 
     // Dashboard route
-    Route::get('/', 'AdminController@index')->name('admin.dashboard');
+
 
     // Login routes
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
@@ -532,11 +528,6 @@ Route::post(
     Route::post('/manage_charges/color', 'Admin\ChargesController@edit')->name('adm_update_charge');
     
 
-// ----------------booking---------------
-Route::get('/new-booking', 'Admin\BookingController@index')->name('show_booking');
-Route::get('/confirm-booking', 'Admin\BookingController@confirm_booking')->name('adm_confirm_booking');
-
-
 Route::get('/booking/between', 'Admin\BookingController@show_data_search_booking')->name('show_search_booking');
 Route::get('/booking/{id}/booking', 'Admin\BookingController@execute_date')->name('execute_date');
 
@@ -544,6 +535,22 @@ Route::get('/booking/{id}/booking', 'Admin\BookingController@execute_date')->nam
 
 
 });
+
+
+Route::prefix('=administrator/tph.dashboard')->group(function () { 
+
+    Route::get('/', 'AdminController@index')->name('admin.dashboard');
+
+    });
+
+Route::prefix('=administrator/tph.booking')->group(function () { 
+
+    Route::get('/new-booking', 'Admin\BookingController@index')->name('show_booking');
+    Route::get('/confirm-booking', 'Admin\BookingController@confirm_booking')->name('adm_confirm_booking');
+    Route::get('/execute-booking', 'Admin\BookingController@execute_booking')->name('adm_execute_booking');
+    Route::get('/execute-this/{pm_id}/', 'Admin\BookingController@execute_this_booking')->name('adm_execute_this');
+
+    });
 
 
 // Route::group(['middleware'=>'jobs','jobs'=>['admin'], 'prefix'=>'admin321?/posting_request'], function() {
