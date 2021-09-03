@@ -548,7 +548,9 @@ Route::prefix('=administrator/tph.booking')->group(function () {
     Route::get('/new-booking', 'Admin\BookingController@index')->name('show_booking');
     Route::get('/confirm-booking', 'Admin\BookingController@confirm_booking')->name('adm_confirm_booking');
     Route::get('/execute-booking', 'Admin\BookingController@execute_booking')->name('adm_execute_booking');
-    Route::get('/execute-this/{pm_id}/', 'Admin\BookingController@execute_this_booking')->name('adm_execute_this');
+    Route::get('/execute-this/{pm_id}', 'Admin\BookingController@execute_this_booking')->name('adm_execute_this');
+    Route::get('/execute_confirm/{id}/details', 'Admin\BookingController@execute_confirm')->name('adm-execute_confirm');
+
 
     });
 

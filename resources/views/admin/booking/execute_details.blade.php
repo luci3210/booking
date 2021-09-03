@@ -5,6 +5,100 @@
 
 @section('content')
 
+<!-- ------------------------------ modal ------------------------ -->    
+
+ <div class="modal fade" id="modal_execute_confirm" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="charge_name">Please confirm</h4><br>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+     
+
+<div class="modal-body">
+
+<!-- --------------------- details ------------------ -->
+
+<div class="row">
+                
+<div class="col-12">
+<br>
+<br>
+  <div class="table-responsive">
+    <table class="table">
+      <tbody>
+
+<tr>
+
+<th style="width:30%">Total Paid Amount</th>
+  <td class="text-center">
+    ₱{{ $data[0]->pm_book_amount }}
+  </td>
+  <td>
+  </td>
+</tr>
+
+<tr class="text-muted">
+  <th>Tourismo % Charge</th>
+  <td class="text-center">
+    % {{ $data[0]->chrg_value }}
+  </td>
+  <td>
+  </td>
+</tr>
+
+<tr>
+  <th>Tourismo</th>
+  <td class="text-center">
+    &nbsp;&nbsp;&nbsp; {{ $charge =  ($data[0]->pm_book_amount / 100) * $data[0]->chrg_value}}
+  </td>
+  <td>
+     <b>+</b> Income
+  </td>
+</tr>
+
+
+<tr>
+  <th>{{ $data[0]->company }}</th>
+  <td class="text-center">
+    &nbsp;&nbsp;&nbsp; {{ $data[0]->pm_book_amount - $charge }}
+  </td>
+  <td>
+    <b>+</b> Income
+  </td>
+</tr>
+
+    </tbody></table>
+  </div>
+</div>
+</div>
+
+
+<!-- ------------------------end details--------------->
+
+</div>
+
+      <div class="modal-footer justify-content-between">
+        
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        
+        <button type="button" class="btn btn-success float-right">
+          <i class="fa fa-check" aria-hidden="true"></i> Confirm
+        </button>
+      
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ---------------------------- end modal --------------------- -->
+
 
 <section class="content">
   <div class="container-fluid">
@@ -82,59 +176,8 @@
 
 <!-- ------------------- CALCULATION ----------------------- -->
 <div class="row">
-
- <div class="col-6">
-<p class="lead">Merchant</p>
-
-<div class="table-responsive">
-  <table class="table">
-    <tbody><tr>
-      <th style="width:30%">Quantity</th>
-      <td>
-        Price (₱{{ $data[0]->pm_book_amount }}) <b>x</b> Quantity ({{$data[0]->pm_book_qty}})
-      </td>
-      <td>
-        = <b>₱</b> {{ $quantity = $data[0]->pm_book_qty * $data[0]->pm_book_amount }}.00
-      </td>
-    </tr>
-    <tr>
-      <th>No. of Day's</th>
-      <td>
-        Price (₱{{ $data[0]->pm_book_amount }}) <b>x</b> Day 2<br>
-        <small class="text-muted">Free Nights {{ $data[0]->nonight }}</small>
-      </td>
-      <td>
-        = <b>₱</b> {{ $numberofdays = $data[0]->pm_book_amount * (2-1) }}.00
-      </td>
-    </tr>
-
-    <tr style="font-size:20px;font-weight: 600">
-      <th>Total</th>
-      <td>
-      </td>
-      <td>
-        &nbsp;&nbsp;&nbsp;<b>₱</b> {{ $quantity + $numberofdays }}.00
-      </td>
-    </tr>
-
-    <tr>
-      <th>Discount</th>
-      <td>
-        Coupon ID : XXX-X
-      </td>
-      <td>
-        &nbsp;&nbsp;&nbsp;Amount : 0.00
-      </td>
-    </tr>
-
-
-  </tbody></table>
-</div>
-</div>
-
                 
-<div class="col-6">
-  <p class="lead">Tourismo + eXecute Charges</p>
+<div class="col-12">
 
   <div class="table-responsive">
     <table class="table">
@@ -143,53 +186,42 @@
 <tr>
 
 <th style="width:30%">Total Paid Amount</th>
+  <td class="text-center">
+    ₱{{ $data[0]->pm_book_amount }}
+  </td>
+  <td>
+  </td>
+</tr>
 
-<td>
-  Price (₱{{ $data[0]->pm_book_amount }}) <b>x</b> Quantity ({{$data[0]->pm_book_qty}})
-</td>
+<tr class="text-muted">
+  <th>Tourismo Charge</th>
+  <td class="text-center">
+    % {{ $data[0]->chrg_value }}
+  </td>
+  <td>
+  </td>
+</tr>
 
+<tr>
+  <th>Tourismo</th>
+  <td class="text-center">
+    <b>+</b>&nbsp;&nbsp;&nbsp; {{ $charge =  ($data[0]->pm_book_amount / 100) * $data[0]->chrg_value}}
+  </td>
+  <td>
+    New Income
+  </td>
 </tr>
 
 
-      <tr>
-        <th>No. of Day's</th>
-        <td>
-          Price (₱{{ $data[0]->pm_book_amount }}) <b>x</b> Day 2<br>
-          <small class="text-muted">Free Nights {{ $data[0]->nonight }}</small>
-        </td>
-        <td>
-          = <b>₱</b> {{ $numberofdays = $data[0]->pm_book_amount * (2-1) }}.00
-        </td>
-      </tr>
-
-      <tr style="font-size:20px;font-weight: 600">
-        <th>Total</th>
-        <td>
-        </td>
-        <td>
-          &nbsp;&nbsp;&nbsp;<b>₱</b> {{ $quantity + $numberofdays }}.00
-        </td>
-      </tr>
-
-      <tr class="text-muted">
-        <th>Tourismo Charge</th>
-        <td>
-          {{ $data[0]->chrg_value }} % <b>x</b> Total (₱ {{ $quantity + $numberofdays }}.00)
-        </td>
-        <td>
-          &nbsp;&nbsp;&nbsp;<b>= ₱</b> {{ $charge = ($quantity + $numberofdays) * ($data[0]->chrg_value / 100) }}
-
-        </td>
-      </tr>
-
-      <tr style="font-size:20px;font-weight: 600" class="text-danger">
-        <th>Income</th>
-        <td>
-        </td>
-        <td>
-          &nbsp;&nbsp;&nbsp;<b>₱</b> {{ $income = ($quantity + $numberofdays) - $charge  }}
-        </td>
-      </tr>
+<tr>
+  <th>Merchant</th>
+  <td class="text-center">
+    <b>+</b>&nbsp;&nbsp;&nbsp; {{ $data[0]->pm_book_amount - $charge }}
+  </td>
+  <td>
+    New Income
+  </td>
+</tr>
 
     </tbody></table>
   </div>
@@ -199,12 +231,12 @@
 <!-- ---------------------------BUTTON-------------------------- -->
 <div class="row no-print">
   <div class="col-12">
-    <button type="button" class="btn btn-success float-right">
-      <i class="far fa-credit-card"></i> View History
+
+    <button type="button" class="btn btn-success float-right" id="target_btn" data-toggle="modal" style="margin-right: 5px;">
+      <i class="fa fa-check" aria-hidden="true"></i> Execute
     </button>
-    <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-      <i class="fas fa-download"></i> Execute
-    </button>
+
+
   </div>
 </div>
 </div>
@@ -217,4 +249,18 @@
 @endsection
 
 @section('third_party_scripts')
+
+<script>
+
+$(document).ready(function () {
+
+$('body').on('click', '#target_btn', function (event) {
+
+    event.preventDefault();
+    $('#modal_execute_confirm').modal('show');
+  
+  });
+});
+
+</script>
 @endsection

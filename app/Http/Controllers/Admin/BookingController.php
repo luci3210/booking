@@ -88,7 +88,7 @@ protected function execute_booking() {
     }
 }
 
-public function execute_this_booking($pm_id) {
+protected function execute_this_booking($pm_id) {
 
     $data = StatusPaymentModel::join('payments','payments.pm_ps_id','status_payment.ps_id')
         ->join('service_tour','service_tour.id','payments.pm_page_id')
@@ -96,6 +96,7 @@ public function execute_this_booking($pm_id) {
                 ->join('charges_date','charges_date.chg_ps_id','payments.pm_ps_id')
                     ->join('users','users.id','payments.pm_user_id')
                         ->join('profiles','profiles.id','charges_date.chg_prf_id')
+                            ->join('charges','charges.chrg_product_id','service_tour.service_id')
 
     ->where( function($query) use($pm_id) {
         $query->from('status_payment')
@@ -104,10 +105,34 @@ public function execute_this_booking($pm_id) {
                 ->whereDate('charges_date.chg_date','>=',date('Y-m-d'));
     })->get();
 
-        return view('admin.booking.execute_details',compact('data'));
 
+    if(count($data) > 0) {
+        return view('admin.booking.execute_details',compact('data'));
+    } else {
+        return view('admin.booking.execute_bookingNotFound');
+    }
 }
 
+public function execute_confirm($id) {
+
+$data = StatusPaymentModel::join('payments','payments.pm_ps_id','status_payment.ps_id')
+        ->join('service_tour','service_tour.id','payments.pm_page_id')
+            ->join('products','products.id','service_tour.service_id')
+                ->join('charges_date','charges_date.chg_ps_id','payments.pm_ps_id')
+                    ->join('users','users.id','payments.pm_user_id')
+                        ->join('profiles','profiles.id','charges_date.chg_prf_id')
+                            ->join('charges','charges.chrg_product_id','service_tour.service_id')
+
+    ->where( function($query) use($id) {
+        $query->from('status_payment')
+            ->where('payments.pm_id',$id)
+                ->where('charges_date.chg_temp',6);
+                    // ->whereDate('charges_date.chg_date','>=',date('Y-m-d'));
+    })->first();
+
+        return response()->json(['data' => $data]);
+
+    }
 
 
 
