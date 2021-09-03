@@ -163,10 +163,9 @@ public function to_confirmed(MerchantPostConfirm $request) {
             ->where('payments.pm_id',$request->ps)->update(['payments.pm_temp_status' => 6]);
     });
 
-    return redirect()->back()->withSuccess('Booking successfully confirm.');
+return redirect()->back()->withSuccess('Booking successfully confirm.');
 
 }
-
 
 // -------------------------------------- confirm booking ---------------
 

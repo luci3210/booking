@@ -8,9 +8,14 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 
 use App\user\StatusPaymentModel;
+//use App\user\PaymentModel;
 
 use App\Model\PaymentModel;
+use App\Model\IncomeModel;
+use App\Model\ChargesModel;
 use App\Model\Admin\ProductModel;
+
+use App\Http\Requests\AdminPostConfirm;
 
 
 class BookingController extends Controller
@@ -76,7 +81,7 @@ protected function execute_booking() {
 
     ->where( function($query) {
         $query->from('status_payment')
-            ->where('charges_date.chg_temp',6)
+            ->where('payments.pm_temp_status',6)
                 ->whereDate('charges_date.chg_date','>=',date('Y-m-d'));
     })->get();
 
@@ -101,7 +106,7 @@ protected function execute_this_booking($pm_id) {
     ->where( function($query) use($pm_id) {
         $query->from('status_payment')
             ->where('payments.pm_id',$pm_id)
-            ->where('charges_date.chg_temp',6)
+            ->where('payments.pm_temp_status',6)
                 ->whereDate('charges_date.chg_date','>=',date('Y-m-d'));
     })->get();
 
@@ -113,9 +118,9 @@ protected function execute_this_booking($pm_id) {
     }
 }
 
-public function execute_confirm($id) {
+public function execute_confirm(AdminPostConfirm $request, $pm_id) {
 
-$data = StatusPaymentModel::join('payments','payments.pm_ps_id','status_payment.ps_id')
+     $data = StatusPaymentModel::join('payments','payments.pm_ps_id','status_payment.ps_id')
         ->join('service_tour','service_tour.id','payments.pm_page_id')
             ->join('products','products.id','service_tour.service_id')
                 ->join('charges_date','charges_date.chg_ps_id','payments.pm_ps_id')
@@ -123,14 +128,42 @@ $data = StatusPaymentModel::join('payments','payments.pm_ps_id','status_payment.
                         ->join('profiles','profiles.id','charges_date.chg_prf_id')
                             ->join('charges','charges.chrg_product_id','service_tour.service_id')
 
-    ->where( function($query) use($id) {
+    ->where( function($query) use($pm_id) {
         $query->from('status_payment')
-            ->where('payments.pm_id',$id)
-                ->where('charges_date.chg_temp',6);
-                    // ->whereDate('charges_date.chg_date','>=',date('Y-m-d'));
-    })->first();
+            ->where('payments.pm_id',$pm_id)
+            ->where('charges_date.chg_temp',6)
+                ->whereDate('charges_date.chg_date','>=',date('Y-m-d'));
+    })->get();
 
-        return response()->json(['data' => $data]);
+        if($data[0]->pm_id == $pm_id) {
+
+            $tourismo_income = ($data[0]->pm_book_amount / 100) * $data[0]->chrg_value;
+            
+            $income =IncomeModel::firstOrCreate([
+            
+                'mi_paid_amount' =>$data[0]->pm_book_amount,
+                'mi_tourismo_charge' => $data[0]->chrg_value,
+                'mi_tourismo_income' => $tourismo_income,
+                'mi_merchant_income' => $data[0]->pm_book_amount - $tourismo_income,
+                'mi_payment_id' => $data[0]->pm_id,
+                'mi_payment_status_id' => $data[0]->ps_id
+            
+            ]);
+
+            $income->save();
+
+            PaymentModel::where( function($query) use($pm_id) {
+                $query->from('payments')
+            ->where('payments.pm_id',$pm_id)->update(['payments.pm_temp_status' => 7]);
+    });
+
+            return redirect()->back()->withSuccess('Execute charges successfully confirm.');
+
+        } else {
+
+            return redirect()->back()->withSuccess('Execute faild.');
+        }
+
 
     }
 

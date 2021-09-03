@@ -549,14 +549,12 @@ Route::prefix('=administrator/tph.booking')->group(function () {
     Route::get('/confirm-booking', 'Admin\BookingController@confirm_booking')->name('adm_confirm_booking');
     Route::get('/execute-booking', 'Admin\BookingController@execute_booking')->name('adm_execute_booking');
     Route::get('/execute-this/{pm_id}', 'Admin\BookingController@execute_this_booking')->name('adm_execute_this');
-    Route::get('/execute_confirm/{id}/details', 'Admin\BookingController@execute_confirm')->name('adm-execute_confirm');
+    Route::post('/execute-confirm/{pm_id}', 'Admin\BookingController@execute_confirm')->name('adm_execute_confirm');
 
-
-    });
+});
 
 
 // Route::group(['middleware'=>'jobs','jobs'=>['admin'], 'prefix'=>'admin321?/posting_request'], function() {
-
 //    Route::get('/view_request','Admin\PostRequestController@index')->name('view_posting_request');  
 // });
 

@@ -80,18 +80,25 @@
 <!-- ------------------------end details--------------->
 
 </div>
+<form name="confirm" action="{{ route('adm_execute_confirm',$data[0]->pm_id) }}" method="post">
+  @csrf
+<div class="modal-footer justify-content-between">
 
-      <div class="modal-footer justify-content-between">
-        
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        
-        <button type="button" class="btn btn-success float-right">
-          <i class="fa fa-check" aria-hidden="true"></i> Confirm
-        </button>
-      
-      </div>
+  <input type="hidden" name="amount_paid" value="{{ $data[0]->pm_book_amount }}" readonly="readonly">
+  <input type="hidden" name="tourismo_charge" value="{{ $data[0]->chrg_value }}" readonly="readonly">
+  <input type="hidden" name="tourismo_income" value="{{ $charge = ($data[0]->pm_book_amount / 100) * $data[0]->chrg_value}}" readonly="readonly">
+  <input type="hidden" name="merchant_income" value="{{ $data[0]->pm_book_amount - $charge }}" readonly="readonly">
+  <input type="hidden" name="payment_id" value="{{ $data[0]->pm_id }}" readonly="readonly">
+  <input type="hidden" name="payment_status_id" value="{{ $data[0]->ps_id }}" readonly="readonly">
+  
+  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  
+  <button type="submit" class="btn btn-success float-right">
+    <i class="fa fa-check" aria-hidden="true"></i> Confirm
+  </button>
 
-
+</div>
+</form>
     </div>
   </div>
 </div>
