@@ -83,7 +83,7 @@
         <!-- /.col -->
         <div class="col-6">
           <div class="d-grid gap-2">
-            <a class="uk-button uk-button-small mb-sm-1 theme-btn" href="javascript:void(0)"uk-toggle="target: #prov-{{$list->upload_id}}">
+            <a class="uk-button uk-button-small mb-sm-1 theme-btn" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#global-share"  onclick="openShare('{{$list}}')" >
             Share
             </a>
           </div>

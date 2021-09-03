@@ -73,7 +73,7 @@ class HomeController extends Controller
 
     }
 
-    protected function getServiceTourData($service_id,$limit)
+    protected function getServiceTourData($service_id = null,$limit)
     {
 
         $tourModel = new TourModel();
@@ -82,7 +82,9 @@ class HomeController extends Controller
         $tourModel = $tourModel->join('locations_district','locations_district.id', 'service_tour.district');
         $tourModel = $tourModel->join('location_country','location_country.id', 'locations_district.country_id');
         $tourModel = $tourModel->join('products','service_tour.service_id', 'products.id');
-        $tourModel = $tourModel->where('service_tour.service_id', $service_id);
+        if($service_id != null){
+            $tourModel = $tourModel->where('service_tour.service_id', $service_id);
+        }
         $tourModel = $tourModel->where('service_tour.temp_status', 1);
         $tourModel = $tourModel->where('service_tour_photos.temp_status', 1);
         // $tourModel = $tourModel->random();
@@ -167,10 +169,16 @@ class HomeController extends Controller
         order by distance
         ") );
 
+        if(count($nearest) >= 1){
+            return $nearest;
+        }
+
+        $randomTour = $this->getServiceTourData(null,10);
+        return $randomTour;
+
         
 
         
-        return $nearest;
     }
 
     public function checkgeo(Request $req)
