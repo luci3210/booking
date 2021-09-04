@@ -47,6 +47,9 @@
   .uk-modal-body {
     border-radius: 4px;
   }
+  .partner-img{
+    height: 100%!important;
+  }
 </style>
 
 @section('banner')
@@ -463,9 +466,9 @@
             @for($x=1; $x <= 4; $x++)
             <li>
               <div class=" icon-box-pink">
-              <div class="uk-panel">
+              <div class="uk-panel" style="height: 150px;">
               
-                <img src="{{ asset('/image/partner/').'/'.$x }}.jpg" alt=""  style="border-radius: 4px;">
+                <img class="partner-img" src="{{ asset('/image/partner/').'/'.$x }}.jpg" alt=""  style="border-radius: 4px;">
                 <div class="uk-position-center uk-panel"> </div>
               </div>
               <!-- /.panel -->

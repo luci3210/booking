@@ -96,9 +96,10 @@ class TraxionApiController extends Controller
     public function invoice_copy2(Request $req)
     {
  
-        $pdf = PDF::loadView('invoice.invoice_test');
-        return $pdf->download('invoice.pdf');
-        // return view('invoice.invoice_test');
+        // $pdf = PDF::loadView('invoice.invoice_test');
+        // $pdf = PDF::loadView('invoice.invoice_test')->setPaper('a4', 'portait')->setWarnings(true)->save('myfile.pdf');
+        // return $pdf->download('invoice.pdf');
+        return view('invoice.invoice_test');
     }
     
 

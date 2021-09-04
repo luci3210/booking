@@ -33,19 +33,105 @@
         background: #ffffffa6;
         border: 1px solid #CCC;
         font-size: 14px;
-        padding: 48px;
-        margin: 20px 0;
+        padding: 10px;
+        margin: 0 0;
+    }
+    .flex-d{
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+    .w-1{
+        width: 10%;
+        display: block;
+        flex: 0 0 auto;
+    }
+    .w-2{
+        width: 20%;
+        display: block;
+        flex: 0 0 auto;
+    }
+    .w-3{
+        width: 30%;
+        display: block;
+        flex: 0 0 auto;
+    }
+    .w-4{
+        width: 40%;
+        display: block;
+        flex: 0 0 auto;
+    }
+    .w-5{
+        width: 50%;
+        display: block;
+        flex: 0 0 auto;
+    }
+    .w-6{
+        width: 60%;
+        display: block;
+        flex: 0 0 auto;
+    }
+    .w-7{
+        width: 70%;
+        display: block;
+        flex: 0 0 auto;
+    }
+    .w-8{
+        width: 80%;
+        display: block;
+        flex: 0 0 auto;
+    }
+    .w-9{
+        width: 90%;
+        display: block;
+        flex: 0 0 auto;
+    }
+    .w-10{
+        width: 100%;
+        display: block;
+        flex: 0 0 auto;
+    }
+    .tbl-col{
+        display: table-column;
+    }
+    .mbt-0{
+        margin-bottom: 0;
+    }
+    .mtp-1{
+        margin-top: 1rem;
+    }
+    .ptp-1{
+        padding-top: 1rem;
+    }
+    .mtp-1{
+        margin-top: 2rem;
     }
     </style>
 </head>
 <body class="bg-main">
 
-<div class=" ">
-<div class="row">
-    <div class="col-lg-12 ">
-        <div class="invoice">
-        <div class="row">
-            <div class="col-sm-4">
+<div class="">
+    <style type="text/css">
+    .tg  {border-collapse:collapse;border-spacing:0;}
+    /* .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+    overflow:hidden;padding:10px 5px;word-break:normal;} */
+    .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+    font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+    .tg .tg-73oq{border-color:#000000;text-align:left;vertical-align:top}
+    .tg .tg-0lax{text-align:left;vertical-align:top}
+    table{
+        width: 100%; 
+        padding: 5px;
+        background-image:url('{{asset("image/logo/logoa.png")}}');
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position:center center ;
+    }
+    </style>
+    <table class="tg invoice">
+    <thead>
+    <tr>
+        <td class="tg-73oq">
             <h4>From:</h4>
             <address>
                 <strong>test company</strong><br>
@@ -55,120 +141,57 @@
                 Email: test@gmail.com <br>
                 Website: myexampledomain.com
             </address>
+        </td>
+        <td class="tg-0lax" >
+            <div>
+            <img  style="float:right; padding-top:30px " src="{{asset('image/logo/logov2.jpg')}}" alt="logo">
             </div>
-
-
-            <div class="col-sm-4 text-right">
-            <img class="float-right" src="https://testruntourismoph.wanderlustmusicfestival.com/public/image/logo/logoab.png" alt="logo">
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-sm-7">
+        </td>
+    </tr>
+    <tr>
+        <td class="tg-73oq"style="text-align: left;" >
             <address>
-                <strong>To:</strong>
-                <!-- name -->
+            <strong>To:</strong>
+            <!-- name -->
             <span>to mr/mrs/ms first name last name</span><br>
             <span>customeremail@gmail.com</span>
             </address>
-            </div>
-
-            <div class="col-sm-5 text-right">
-            <table class="w-full">
-                <tbody>
-                <tr>
-                    <th>Invoice Number:</th>
-                    <td>#124206932632658</td>
-                </tr>
-                <tr>
-                    <th> Book Date: </th>
-                    <!-- date -->
-                    <td>sept 18, 2021 10:00am TO sept 20, 2021 10:00am  </td>
-
-                </tr>
-                </tbody>
-            </table>
-
-            <div style="margin-bottom: 0px">&nbsp;</div>
-
-            <table class="w-full">
-                <tbody>
-                <tr class="well" style="padding: 5px">
-                    <th style="padding: 5px"><div> Payment Thru gcash/onlinebanking </div></th>
-                    Php 10,000.00<td> <td style="padding: 5px"></td>
-
-                </tr>
-                </tbody>
-            </table>
-            </div>
-        </div>
-
-        <div class="table-responsive">
-            <table class="table invoice-table">
-            <thead style="background: #F5F5F5;">
-                <tr>
-                <th>Item List</th>
-                <th></th>
-                <th class="text-right">Price</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                <td>
-                    <strong>paid/rejected/pending</strong>
-                </td>
-                <td></td>
-                <!-- amount -->
-               <td class="text-right small-width">Php 10,000.00</td>
-                </tr>
-
-                <tr>
-                <td>
-                    <strong>Service</strong>
-                    <!-- bookdate -->
-                    <p>Adult Count - 2</p>
-                    <p>Children/Child Count - 4</p>
-                    <p>Nights no. 3 </p>
-                    <p>Guest no. 5</p>
-                    <p>ROOM: A-101</p>
-                    <p>TOUR: description of tour</p>
-                    <p>EXPECT: expectation of tour</p>
-                </td>
-                <td></td>
-                <td class="text-right"></td> 
-                <!-- payment charge -->
-                </tr>
-
-                </tbody>
-            </table>
-            </div><!-- /table-responsive -->
-
-            <table class="table invoice-total">
-            <tbody>
-                <tr>
-                <td class="text-right"><strong>Total:</strong></td>
-                <td class="text-right small-width">Php 15,000.00 </td>
-                </tr>
-            </tbody>
-            </table>
-
-            <hr>
-
-            <div class="row">
-            <div class="col-lg-8">
-                <div class="invbody-terms">
-                Thank you for your business. <br>
-                <br>
-                <h4>Payment Terms and Methods</h4>
-                <p>cancel lation policy and terms condition</p>
-
-                </div>
-            </div>
-            </div>
-        </div>
-    </div>
-    </div>
+        </td>
+        <td class="tg-0lax text-right" style="text-align: right;">
+            <h6 style="margin-bottom: 5px ;font-size: 16px;">Invoice Number:#124206932632658 </h6>
+            <p style="font-size: 12px;">Book Date: sept 18, 2021 10:00am TO sept 20, 2021 10:00am </p>
+        </td>
+    </tr>
+    <tr>
+        <td class="tg-73oq"style="text-align: left;" >
+        <div> Payment Thru gcash/onlinebanking </div>
+        Php 10,000.00
+        </td>
+    </tr>
+    <tr>
+        <td>
+        &nbsp;
+        </td>
+    </tr>
+    <tr class="mtp-2">
+        <td class="tg-73oq"style="text-align: left;" >
+            <strong>Service </strong>
+            <!-- bookdate -->
+            <p class="mbt-0">Adult Count - 2</p>
+            <p class="mbt-0">Children/Child Count - 4</p>
+            <p class="mbt-0">Nights no. 3 </p>
+            <p class="mbt-0">Guest no. 5</p>
+            <p class="mbt-0">ROOM: A-101</p>
+            <p class="mbt-0">TOUR: description of tour</p>
+            <p class="mbt-0">EXPECT: expectation of tour</p>
+        </td>
+    </tr>
+    </thead>
+    </table>
+    
+ 
 </div>
+
 
 </body>
 </html>
