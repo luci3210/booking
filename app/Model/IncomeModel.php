@@ -9,4 +9,5 @@ class IncomeModel extends Model
     protected $table = 'income';
     protected $primaryKey = 'mi_id';
     protected $guarded = [];
+
 }

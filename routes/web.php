@@ -531,17 +531,15 @@ Route::post(
 Route::get('/booking/between', 'Admin\BookingController@show_data_search_booking')->name('show_search_booking');
 Route::get('/booking/{id}/booking', 'Admin\BookingController@execute_date')->name('execute_date');
 
-
-
-
 });
-
 
 Route::prefix('=administrator/tph.dashboard')->group(function () { 
 
     Route::get('/', 'AdminController@index')->name('admin.dashboard');
 
     });
+
+// -------------------------------BOOKING--------------------------
 
 Route::prefix('=administrator/tph.booking')->group(function () { 
 
@@ -551,6 +549,13 @@ Route::prefix('=administrator/tph.booking')->group(function () {
     Route::get('/execute-this/{pm_id}', 'Admin\BookingController@execute_this_booking')->name('adm_execute_this');
     Route::post('/execute-confirm/{pm_id}', 'Admin\BookingController@execute_confirm')->name('adm_execute_confirm');
 
+});
+
+// -------------------------------FINANCE--------------------------
+
+Route::prefix('=administrator/tph.finance')->group(function () { 
+
+    Route::get('/index', 'Admin\FinanceController@income')->name('adm_income');
 });
 
 

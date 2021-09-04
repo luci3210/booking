@@ -81,8 +81,8 @@ protected function execute_booking() {
 
     ->where( function($query) {
         $query->from('status_payment')
-            ->where('payments.pm_temp_status',6)
-                ->whereDate('charges_date.chg_date','>=',date('Y-m-d'));
+            ->where('payments.pm_temp_status',6);
+                // ->whereDate('charges_date.chg_date','>=',date('Y-m-d'));
     })->get();
 
 
@@ -106,8 +106,8 @@ protected function execute_this_booking($pm_id) {
     ->where( function($query) use($pm_id) {
         $query->from('status_payment')
             ->where('payments.pm_id',$pm_id)
-            ->where('payments.pm_temp_status',6)
-                ->whereDate('charges_date.chg_date','>=',date('Y-m-d'));
+            ->where('payments.pm_temp_status',6);
+                // ->whereDate('charges_date.chg_date','>=',date('Y-m-d'));
     })->get();
 
 
@@ -131,8 +131,8 @@ public function execute_confirm(AdminPostConfirm $request, $pm_id) {
     ->where( function($query) use($pm_id) {
         $query->from('status_payment')
             ->where('payments.pm_id',$pm_id)
-            ->where('charges_date.chg_temp',6)
-                ->whereDate('charges_date.chg_date','>=',date('Y-m-d'));
+            ->where('charges_date.chg_temp',6);
+                // ->whereDate('charges_date.chg_date','>=',date('Y-m-d'));
     })->get();
 
         if($data[0]->pm_id == $pm_id) {
@@ -146,7 +146,8 @@ public function execute_confirm(AdminPostConfirm $request, $pm_id) {
                 'mi_tourismo_income' => $tourismo_income,
                 'mi_merchant_income' => $data[0]->pm_book_amount - $tourismo_income,
                 'mi_payment_id' => $data[0]->pm_id,
-                'mi_payment_status_id' => $data[0]->ps_id
+                'mi_payment_status_id' => $data[0]->ps_id,
+                'mi_merchant_prof_id' => $data[0]->id
             
             ]);
 
@@ -156,7 +157,6 @@ public function execute_confirm(AdminPostConfirm $request, $pm_id) {
                 $query->from('payments')
             ->where('payments.pm_id',$pm_id)->update(['payments.pm_temp_status' => 7]);
     });
-
             return redirect()->back()->withSuccess('Execute charges successfully confirm.');
 
         } else {
@@ -166,15 +166,6 @@ public function execute_confirm(AdminPostConfirm $request, $pm_id) {
 
 
     }
-
-
-
-
-
-
-
-
-
 
 
 

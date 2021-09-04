@@ -147,13 +147,30 @@
   <a href="{{ route('manage_bank',$url) }}" class="nav-link">
     <i class="nav-icon fas fa-university" aria-hidden=true></i>
       <p>
-        Manage Bank  
+        Bank Names  
       </p>
   </a>
 </li>
 
 
+<li class="nav-item">
+  <a href="{{ route('adm_income') }}" class="nav-link">
+    <i class="nav-icon fas fa-university" aria-hidden=true></i>
+      <p>
+        Finance  
+      </p>
+  </a>
+</li>
 
+
+<li class="nav-item">
+  <a href="{{ route('adm_charges') }}" class="nav-link">
+    <i class="nav-icon fas fa-university" aria-hidden=true></i>
+      <p>
+        Charges
+      </p>
+  </a>
+</li>
 
 
 
@@ -162,20 +179,20 @@
     <i class="nav-icon fa fa-get-pocket" aria-hidden="true"></i>
     <!-- <i class="fa fa-get-pocket" aria-hidden="true"></i> -->
     <p>
-      Manage Charages  
+        Manage Bank & Income
       <i class="fas fa-angle-left right"></i>
     </p>
   </a>
 <ul class="nav nav-treeview">
 
-  @foreach($service_list as $service)
+@foreach($service_list as $service)
 
-  <li class="nav-item">
-    <a href="{{ route('adm_charges') }}" class="nav-link">
-      <i class="far fa fa-circle-o nav-icon" aria-hidden="true"></i>
-      <p>{{ $service->name }}</p>
-    </a>
-  </li>
+<li class="nav-item">
+  <a href="{{ route('adm_charges') }}" class="nav-link">
+    <i class="far fa fa-circle-o nav-icon" aria-hidden="true"></i>
+    <p>{{ $service->name }}</p>
+  </a>
+</li>
 
   @endforeach
 
