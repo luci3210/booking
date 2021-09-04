@@ -73,7 +73,7 @@ class HomeController extends Controller
 
     }
 
-    protected function getServiceTourData($service_id = null,$limit)
+    protected function getServiceTourData($service_id,$limit)
     {
 
         $tourModel = new TourModel();
@@ -82,7 +82,7 @@ class HomeController extends Controller
         $tourModel = $tourModel->join('locations_district','locations_district.id', 'service_tour.district');
         $tourModel = $tourModel->join('location_country','location_country.id', 'locations_district.country_id');
         $tourModel = $tourModel->join('products','service_tour.service_id', 'products.id');
-        if($service_id != null){
+        if($service_id != 'service_id'){
             $tourModel = $tourModel->where('service_tour.service_id', $service_id);
         }
         $tourModel = $tourModel->where('service_tour.temp_status', 1);
@@ -173,7 +173,7 @@ class HomeController extends Controller
             return $nearest;
         }
 
-        $randomTour = $this->getServiceTourData(null,10);
+        $randomTour = $this->getServiceTourData('service_id',10);
         return $randomTour;
 
         
