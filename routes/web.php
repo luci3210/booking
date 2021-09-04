@@ -96,6 +96,7 @@ Route::POST('payment/hotels/xxxaaa', 'PaymentController@traxion')->name('traxion
 Route::get('/tourismoph/hotel/{id}', 'Tourismo\HomeController@hotel_details')->name('tourismo-hotel-details');
 
 Route::get('/invoice/download','user\TraxionApiController@invoice_copy')->name('invoice_payment');
+Route::get('/invoice/download-test','user\TraxionApiController@invoice_copy2')->name('invoice_payment_test');
 
 
 //});
