@@ -1,4 +1,10 @@
-@extends('layouts.tourismo.ui')
+@extends('layouts.tourismo.ui', 
+['keywords'=> $byname[0]->tour_name,
+'img' => asset( 'image/tour/2021/'.$byphotos[0]->photo),
+'description' => $byname[0]->tour_expect. ' ' . $byname[0]->tour_desc. ' ' . $byname[0]->roomdesc 
+])
+<!--  -->
+
 @section('content')
 <!-- meta tags  -->
 {{-- @section('description', 'Explore '.$province->count().' Rooms and Convention') --}}

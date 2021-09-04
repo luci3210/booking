@@ -92,6 +92,17 @@ class TraxionApiController extends Controller
         return $pdf->download('invoice.pdf');
     }
 
+
+    public function invoice_copy2(Request $req)
+    {
+ 
+        // $pdf = PDF::loadView('invoice.invoice_test');
+        // $pdf = PDF::loadView('invoice.invoice_test')->setPaper('a4', 'portait')->setWarnings(true)->save('myfile.pdf');
+        // return $pdf->download('invoice.pdf');
+        return view('invoice.invoice_test');
+    }
+    
+
     protected function getProfile($id){
         $profile = new ProfileModel();
         $profile = $profile->where('id', $id);

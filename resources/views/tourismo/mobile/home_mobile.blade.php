@@ -370,13 +370,13 @@
                         <ul class="uk-slider-items uk-child-width-1-2 ">
                             @for($x=1; $x <= 4; $x++)
                             <li>
-                                <div class="mx-2">
-                                    <div class="uk-card-media-top">
+                                <div class="mx-2" >
+                                    <div class="uk-card-media-top" style="height:100px">
                                         <div style="width: 100%; 
                                         background-size: contain;
                                         background-position: center;
                                         background-repeat: no-repeat;
-                                        height: 15rem;
+                                        height: 100%;
                                         background-image: url('{{ asset('image/partner')}}/{{$x}}.jpg');
                                         border-top-left-radius: 10px!important;
                                         border-top-right-radius: 10px!important;

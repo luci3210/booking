@@ -74,7 +74,7 @@ class UserProfileController extends Controller
 
             $response['success_flag'] = true;
             $response['message']['success'] = 'user found';
-            $response['message']['success'] = $userService ?'change password success': 'failed to change password';
+            $response['message']['success'] = $userService ?'update profile success': 'failed to update profile';
             $response['data']['user'] = $user;
             return $response;
 
