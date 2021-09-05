@@ -223,7 +223,7 @@
   </div>
 
     </div>
-  <a href="{{ route('destination') }}" class="uk-button btn-outline-web  uk-width-1-4@m  uk-width-1@s mx-auto my-2">Explore all Local destination</a>
+  <a href="{{ route('explore_by_country','Philippines') }}" class="uk-button btn-outline-web  uk-width-1-4@m  uk-width-1@s mx-auto my-2">Explore all Local destination</a>
 
   </div>
 </section>

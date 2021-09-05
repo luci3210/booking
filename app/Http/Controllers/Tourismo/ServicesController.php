@@ -26,6 +26,7 @@ class ServicesController extends Controller
 
         // $data = ProductModel::join('service_tour','products.id','service_tour.service_id')->join('service_tour_photos','service_tour.id','service_tour_photos.upload_id')->where('service_tour.temp_status',1)->where('products.description',$req)->groupBy('service_tour.id')->paginate(25);
         $data = $this->getTourType($req);
+        // return $data;
         if($data->isEmpty()) {
         
             abort(404,'404 Error - the requested page does not exist.');
@@ -51,8 +52,11 @@ class ServicesController extends Controller
                 join('locations_district','locations_district.id', 'service_tour.district')
                 ->join('location_country','location_country.id', 'locations_district.country_id')
                 ->join('products','service_tour.service_id', 'products.id')
+                ->join('profiles','profiles.id', 'service_tour.profid')
+                ->join('service_tour_photos','service_tour_photos.upload_id', 'service_tour.id')
                 ->where([['products.description',$tour_type]])
-                ->get(['service_tour.cover','service_tour.tour_name','service_tour.price','service_tour.nonight','service_tour.noguest','location_country.*','locations_district.*','products.description','products.name']);
+                ->groupBy('service_tour.id')
+                ->get(['service_tour_photos.*','service_tour.cover','service_tour.tour_name','service_tour.price','service_tour.nonight','service_tour.noguest','location_country.*','locations_district.*','products.description','products.name']);
         return $data;
 
     }

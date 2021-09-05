@@ -271,4 +271,32 @@ class DestinationController extends Controller
             abort(404,'Data not found.!');
         }
     }
+
+    public function exploreByCountry(Request $req)
+    {
+        $country = $req->country;
+        $limit = 60;
+        $exploreData = $this->getDestinationCountry($req->country,$limit);
+
+        // return $exploreData;
+
+        $Agent = new Agent();
+        if ($Agent->isMobile()) {
+            return view('tourismo.mobile.explore_all_by_countries_mobile', compact('exploreData','country'));
+
+        }else{
+            return view('tourismo.explore_all_by_countries', compact('exploreData','country'));
+        }
+    }
+    
+    protected function getDestinationCountry($country,$limit)
+    {
+        $destnationModel = new DestinationModel();
+        $destnationModel = $destnationModel->join('location_country','location_country.location_id','destinations.country_id');
+        $destnationModel = $destnationModel->where([ ['destinations.temp_status','=',1],['location_country.country','=',$country] ]);
+        $destnationModel = $destnationModel->inRandomOrder()->limit($limit)->get(['location_country.*','destinations.*']);
+
+        return $destnationModel;
+      
+    }
 }

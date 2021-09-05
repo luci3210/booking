@@ -687,19 +687,89 @@ function getNearBy(position){
 
 }
 
+
+function randomNear(lat,lng){
+  
+  $.ajaxSetup({
+        // url: '{{ route("nearByDestinations",["lat"=> "'+position.coords.latitude+'", "lng"=> "'+position.coords.longitude+'",]) }}',
+        url: '{{ route("nearByDestinations",["lat"=> "lat", "lng"=> "lng",]) }}',
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            'Accept': 'application/json',
+            '_token': '{{ Session::token()  }}',
+            'Authorization': '{{ Session::token()  }}',
+        },
+        method:"get",
+        success:function(data)
+        {
+          console.log(data)
+          let countData = data.length
+          var output = '';
+          if(countData >= 1){
+            $('#loaders').hide('slow')
+            for (let i = 0; i < countData; i++) {
+              const img = data[i]['photo'] == '' || data[i]['photo'] == null ? 'default.png' : data[i]['photo']
+              const assUrl = '{{asset('image/tour/2021')}}/'
+              let url = '{{ route("by_name", [":description" ,":country", ":district", ":tour_name"]) }}'
+              const paramsData =  [data[i]['description'],data[i]['country'],data[i]['district'],data[i]['tour_name']]
+              url = url.replace(':description', data[i]['description']);
+              url = url.replace(':country', data[i]['country']);
+              url = url.replace(':district', data[i]['district']);
+              url = url.replace(':tour_name', data[i]['tour_name']);
+
+              output += `<li> <div class="icon-box icon-box-pink"><div class="uk-panel">
+              <a href="${url}">
+              <img src="image/cover/2021/default.png" style="border-radius: 4px;"> </a><div class="uk-position-center uk-panel"> </div></div>
+              <div class="member-info"><p class="mem-title"><i class="fas fa-map-marked-alt"></i> ${data[i]['tour_name']}...</p>
+              <span><i class="fas fa-building"></i> No. of hotels : 150 </span><br>
+              <span><i class="fas fa-directions"></i> No. of Tour Operators : 251</span><br>
+              <div class="row g-1 px-1 my-2">
+              <div class="col-6">
+                <div class="d-grid gap-2">
+                  <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="${url}" }}">
+                    Explore
+                  </a>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="d-grid gap-2">
+                  <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="#">
+                    share
+                    </a>
+                  </div>
+              </div>
+              </div></div></div></li>`
+              
+            }
+
+          }
+          $('#load-near').html(output)
+
+
+      
+        },
+        error:function(data){
+          console.log('error',data)
+        }
+    });
+    $.ajax();
+  
+
+}
+
 function showError(error) {
   switch(error.code) {
     case error.PERMISSION_DENIED:
-      x.innerHTML = "User denied the request for Geolocation."
+      randomNear(0.0,0.0)
       break;
     case error.POSITION_UNAVAILABLE:
-      x.innerHTML = "Location information is unavailable."
+      randomNear(0.0,0.0)
       break;
     case error.TIMEOUT:
-      x.innerHTML = "The request to get user location timed out."
+      randomNear(0.0,0.0)
       break;
     case error.UNKNOWN_ERROR:
-      x.innerHTML = "An unknown error occurred."
+      randomNear(0.0,0.0)
       break;
   }
 }

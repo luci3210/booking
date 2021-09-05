@@ -2,7 +2,7 @@
 @section('content')
 <!-- meta tags  -->
 {{-- @section('description', 'Explore '.$province->count().' Rooms and Convention') --}}
-{{--  @section('keywords', $data[0]->country.' '.$data[0]->provice_name) --}}
+{{--  @section('keywords', $bydistrict[0]->country.' '.$bydistrict[0]->provice_name) --}}
 @section('img', asset( 'upload/merchant/profilepic/default.png'))
 @section('curUrl', url()->current())
 <!-- /. meta tags -->
@@ -48,62 +48,52 @@
     max-width: 100%;
     width: 100%;
     height: 200px;
+    position: center;
   }
   .title-name{
       font-weight: 700;
       font-size: 15px;
   }
-  .member-img{
-    min-width: 500px;
-  }
   
 </style>
-
-
-
 
 <section class="services team aos-init aos-animate vh-100" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500" style="margin-top: 35px !important;">
   <div class="container">
     <div class="row">
 
 <div class="section-title">
+<h2><b><a href="#" class="uk-link"> </a>{{$country}}</b> </h2>
 </div>
 
-@foreach($data as $list)
+@foreach($exploreData as $list)
 <div class="col-md-6 col-lg-2 d-flex align-items-stretch aos-init aos-animate" data-aos="fade-up">
   <div class="icon-box icon-box-pink">
   
     <div class="member mb-0">
 
         <div class="member-img">
-            <a  href="{{ route('by_name',[$list->description,$list->country,$list->district,$list->tour_name]) }}">
-            <img src="{{ asset('image/tour/2021')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}" class="img-fluid" alt="">
+            <a  href="{{ route('by_district',[$list->country,$list->destination_info]) }}">
+            <img src="{{ asset('image/destination')}}/{{ $list->destination_image == '' ? 'default.png' : $list->destination_image }}" class="img-fluid" alt="">
             </a>
         </div>
 
         <div class="member-info">
 
-            <h6 class="my-1 title-name" >{{ $list->tour_name }}</h6>
+            <h6 class="my-1 title-name" >{{ $list->destination_info }}</h6>
 
-            <!-- <h6 class="my-1">
-              <i class="fas fa-building"></i>
-            </h6> -->
+            <h6 class="my-1">
+            <i class="fas fa-building"></i> No. of hotels : 150 {{ $list->country }}
+            </h6>
 
-            <h6 class="my-1" style="color:#f6412d;font-size: 14px;font-weight: 650">₱ {{ $list->price }}</h6>
+            <h6 class="my-1">
+            <i class="fas fa-directions"></i> No. of Tour Operators : 251
+            </h6>
 
             <div class="row g-1 px-1 my-2">
-            <div class="col-6">
+            <div class="col-12">
                 <div class="d-grid gap-2">
-                <a class="uk-button uk-button-small theme-btn mb-sm-1" href="{{ route('by_name',[$list->description,$list->country,$list->district,$list->tour_name]) }}">
+                <a class="uk-button uk-button-small theme-btn mb-sm-1" href="{{ route('by_district',[$list->country,$list->destination_info]) }}">
                     Explore
-                </a>
-                </div>
-            </div>
-            <!-- /.col -->
-            <div class="col-6">
-                <div class="d-grid gap-2">
-                <a class="uk-button uk-button-small theme-btn mb-sm-1" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#global-share"  onclick="openShare('{{$list}}')">
-                    Share
                 </a>
                 </div>
             </div>

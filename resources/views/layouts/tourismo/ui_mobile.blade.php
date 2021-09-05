@@ -697,31 +697,120 @@ function getNearBy(position){
 
 }
 
-function showError(error) {
-  $('#loaders').hide('slow')
-  let msg
-  switch(error.code) {
-    case error.PERMISSION_DENIED:
-      msg = `<h3 class="text-dark">User denied the request for Geolocation.</h3>`
 
-      break;
-    case error.POSITION_UNAVAILABLE:
-      msg = `<h3 class="text-dark">Location information is unavailable.</h3>`
 
-      $('#load-near').append(msg)
+function randomNear(lat,lng){
+  
+  $.ajaxSetup({
+        // url: '{{ route("nearByDestinations",["lat"=> "'+position.coords.latitude+'", "lng"=> "'+position.coords.longitude+'",]) }}',
+        url: '{{ route("nearByDestinations",["lat"=> "lat", "lng"=> "lng",]) }}',
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            'Accept': 'application/json',
+            '_token': '{{ Session::token()  }}',
+            'Authorization': '{{ Session::token()  }}',
+        },
+        method:"get",
+        success:function(data)
+        {
+          console.log(data)
+          let countData = data.length
+          var output = '';
+          if(countData >= 1){
+            $('#loaders').hide('slow')
+            for (let i = 0; i < countData; i++) {
+              const img = data[i]['photo'] == '' || data[i]['photo'] == null ? 'default.png' : data[i]['photo']
+              const assUrl = '{{asset('image/tour/2021')}}/'
+              let url = '{{ route("by_name", [":description" ,":country", ":district", ":tour_name"]) }}'
+              const paramsData =  [data[i]['description'],data[i]['country'],data[i]['district'],data[i]['tour_name']]
+              url = url.replace(':description', data[i]['description']);
+              url = url.replace(':country', data[i]['country']);
+              url = url.replace(':district', data[i]['district']);
+              url = url.replace(':tour_name', data[i]['tour_name']);
+              output +=`
+              <li>
+              <a href="${url}">
+                  <div class=" shadow-cards">
+                      <div class="uk-card-media-top">
+                          <div style="width: 100%; 
+                          background-size: cover;
+                          background-position: center;
+                          background-repeat: no-repeat;
+                          height: 15rem;
+                          background-image: url('${assUrl}${img}');
+                          border-top-left-radius: 10px!important;
+                          border-top-right-radius: 10px!important;
+                          border-bottom-left-radius: 10px!important;
+                          border-bottom-right-radius: 10px!important;
+                          ">
+                          <div class="position-relative elips">
+                              <span class="badge badge-pill badge-light bg-light text-dark badge-floats elips">${data[i]['tour_name']}</span>
+                          </div>    
+                      </div>
+                      </div>
+                  </div>
+              </a>
+              </li>
+              `
+            }
+          }
+          $('#load-near').html(output)
 
-      break;
-    case error.TIMEOUT:
-      msg = `<h3 class="text-dark">The request to get user location timed out.</h3>`
-      $('#load-near').append(msg)
-      break;
-    case error.UNKNOWN_ERROR:
-      msg = `<h3 class="text-dark">An unknown error occurred.</h3>`
-      break;
-  }
-  $('#load-near').append(msg)
+
+      
+        },
+        error:function(data){
+          console.log('error',data)
+        }
+    });
+    $.ajax();
+  
 
 }
+
+function showError(error) {
+  // $('#loaders').hide('slow')
+  switch(error.code) {
+    case error.PERMISSION_DENIED:
+      randomNear(0.0,0.0)
+      break;
+    case error.POSITION_UNAVAILABLE:
+      randomNear(0.0,0.0)
+      break;
+    case error.TIMEOUT:
+      randomNear(0.0,0.0)
+      break;
+    case error.UNKNOWN_ERROR:
+      randomNear(0.0,0.0)
+      break;
+  }
+}
+
+// function showError(error) {
+//   $('#loaders').hide('slow')
+//   let msg
+//   switch(error.code) {
+//     case error.PERMISSION_DENIED:
+//       msg = `<h3 class="text-dark">User denied the request for Geolocation.</h3>`
+
+//       break;
+//     case error.POSITION_UNAVAILABLE:
+//       msg = `<h3 class="text-dark">Location information is unavailable.</h3>`
+
+//       $('#load-near').append(msg)
+
+//       break;
+//     case error.TIMEOUT:
+//       msg = `<h3 class="text-dark">The request to get user location timed out.</h3>`
+//       $('#load-near').append(msg)
+//       break;
+//     case error.UNKNOWN_ERROR:
+//       msg = `<h3 class="text-dark">An unknown error occurred.</h3>`
+//       break;
+//   }
+//   $('#load-near').append(msg)
+
+// }
 </script>
 
   @yield('merchantjs')
