@@ -23,7 +23,6 @@
 <thead>                  
     <tr>
       <th>This Day</th>
-      <th>This Week</th>
       <th>This Month</th>
       <th>Total</th>
       <th>Balance</th>
@@ -33,17 +32,15 @@
 <tbody>
   
   <tr>
-      <td>Php 0.00</td>
-      <td>Php 0.00</td>
-      <td>Php 0.00</td>
+      <td>Php {{ $thisday }}</td>
+      <td>Php {{ $thismonth }}</td>
       <td>Php  {{ \App\Model\IncomeModel::sum('mi_tourismo_income') }} </td>
       <td>Php  {{ \App\Model\IncomeModel::sum('mi_tourismo_income') }} </td>
   </tr>
 
 </tbody>
+
 </table>
-
-
 
 <table class="table table-bordered table-sm mt-4">
 <thead>                  

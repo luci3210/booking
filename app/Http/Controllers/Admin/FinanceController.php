@@ -19,8 +19,9 @@ public function __construct() {
 
 protected function income() {
 
-    // $byday = $this->thisday();
-
+    $thisday = $this->thisday();
+    $thismonth = $this->thismonth();
+    
     $data = IncomeModel::join('status_payment','status_payment.ps_id','income.mi_payment_status_id')
         ->where( function($query) {
             
@@ -28,16 +29,28 @@ protected function income() {
 
         })->get();
 
-    return view('admin.finance.index',compact('data'));
+    return view('admin.finance.index',compact('data','thisday','thismonth'));
 } 
 
-// protected function thisday() {
+protected function thisday() {
 
-//     return $ss = IncomeModel::where( function($query) {
-//         $query->from('status_payment')
-//             ->whereDate('created_at',data('d'));
-//     })->get()->sum('mi_tourismo_income');
+    return IncomeModel::where( function($query) {
+        $query->from('income')
+            ->whereDay('created_at','=',date('d'))
+            ->whereYear('created_at','=',date('Y'))
+            ->whereMonth('created_at','=',date('m'));
+    })->get()->sum('mi_tourismo_income');
 
-// }
+}
+
+protected function thismonth() {
+
+    return IncomeModel::where( function($query) {
+        $query->from('income')
+            ->whereYear('created_at','=',date('Y'))
+            ->whereMonth('created_at','=',date('m'));
+    })->get()->sum('mi_tourismo_income');
+
+}
 
 }
