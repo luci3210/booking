@@ -47,9 +47,12 @@
     font-weight: 400;
     padding: .2rem;
   }
+  .vh-95{
+    min-height: 95vh;
+  }
 </style>
 
-<section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500" style="margin-top: 35px !important;">
+<section class="services team aos-init aos-animate vh-95" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500" style="margin-top: 35px !important;">
   <div class="container">
     <div class="row">
 
@@ -85,18 +88,10 @@
 
       </div>
       <div class="row g-1 px-1 my-2">
-        <div class="col-6">
+        <div class="col-12">
           <div class="d-grid gap-2">
             <a class="uk-button uk-button-small btn-room-details-m mb-sm-1 theme-btn" href="#">
               Explore
-            </a>
-          </div>
-        </div>
-        <!-- /.col -->
-        <div class="col-6">
-          <div class="d-grid gap-2">
-            <a class="uk-button uk-button-small mb-sm-1 theme-btn" href="javascript:void(0)"uk-toggle="target: #">
-            Share
             </a>
           </div>
         </div>
