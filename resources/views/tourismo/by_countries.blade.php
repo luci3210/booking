@@ -41,9 +41,12 @@
   .uk-modal-body {
     border-radius: 4px;
   }
+  .vh-95{
+    min-height: 95vh;
+  }
 </style>
 
-<section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500" style="margin-top: 35px !important;">
+<section class="services team aos-init aos-animate vh-95" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500" style="margin-top: 35px !important;">
   <div class="container">
     <div class="row">
 
@@ -63,27 +66,38 @@
 
       <div class="member-info">
         
-<div style="height:80px;">
-    <span>
-    <a href="" style="font-size:13px;font-weight:510;">
-        @if(strlen($list->destination_info) <= 39 )
-          {{ substr($list->destination_info,0,39) }}
-        @else
-          {{ substr($list->destination_info,0,39) }}...
-        @endif
-    </a>
-    </span>
-    <span style="margin-top: -2px;font-size: 12px;color:#5f5e5e">
-      
-      @if(strlen($list->destination_desc) <= 70 )
-        {{ substr($list->destination_desc,0,70) }}
-      @else
-        {{ substr($list->destination_desc,0,70) }}...
-      @endif
+      <div style="height:80px;">
+          <span>
+          <a href="" style="font-size:13px;font-weight:510;">
+              @if(strlen($list->destination_info) <= 39 )
+                {{ substr($list->destination_info,0,39) }}
+              @else
+                {{ substr($list->destination_info,0,39) }}...
+              @endif
+          </a>
+          </span>
+          <span style="margin-top: -2px;font-size: 12px;color:#5f5e5e">
+            
+            @if(strlen($list->destination_desc) <= 70 )
+              {{ substr($list->destination_desc,0,70) }}
+            @else
+              {{ substr($list->destination_desc,0,70) }}...
+            @endif
 
-    </span>
+          </span>
 
-</div>
+      </div>
+      <div class="row g-1 px-1 my-2">
+        <div class="col-12">
+          <div class="d-grid gap-2">
+            <a class="uk-button uk-button-small btn-room-details-m mb-sm-1 theme-btn" href="#">
+              Explore
+            </a>
+          </div>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- row -->
 
       </div>
 
