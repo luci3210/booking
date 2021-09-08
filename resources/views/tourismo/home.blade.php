@@ -110,7 +110,7 @@
 
                 <div class="member-info">
 
-                  <p class="mem-title title-package" title="{{ $list->tour_name }}">{{ $list->tour_name }}</p>
+                  <p class="mem-title title-package elips-1" uk-tooltip="title: {{ $list->tour_name }}; pos: top-left" title="{{ $list->tour_name }}"title="{{ $list->tour_name }}">{{ $list->tour_name }}</p>
 
                   <span>
                     <i class="fas fa-building"></i> {{ $list->company }}
@@ -157,6 +157,71 @@
   </div>
 </section>
 
+<section class="services team aos-init aos-animate " data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+  <div class="container text-center">
+    <div class="row text-start">
+
+      <div class="section-title">
+        <h2><b>Top Destination</b> 
+        </h2>
+      </div>
+
+      <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider>
+      <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid">
+
+          @foreach($destination as $list)
+          <li>
+            <div class="icon-box icon-box-pink">
+
+                <div class="uk-panel">
+                  <a href="{{ route('by_district',[$icountry->country,$list->destination_info]) }}">
+                    <img src="{{ asset('image/destination')}}/{{ $list->destination_image == '' ? 'default.png' : $list->destination_image }}" alt=""  style="border-radius: 4px;">
+                    <div class="uk-position-center uk-panel"> </div>
+                  </a>
+                </div>
+
+            <div class="member-info">
+
+                  <p class="mem-title title-package elips-1" uk-tooltip="title: {{ $list->destination_info }}; pos: top-left"  title="{{ $list->destination_info }}">{{ $list->destination_info }}</p>
+
+                  <span>
+                    <i class="fas fa-building"></i> No. of hotels : 150 {{ $list->country }}
+                  </span><br>
+
+                  <span>
+                    <i class="fas fa-directions"></i> No. of Tour Operators : 251
+                  </span><br>
+
+                  <div class="row g-1 px-1 my-2">
+                    <div class="col-12">
+                      <div class="d-grid gap-2">
+                        <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('by_district',[$icountry->country,$list->destination_info]) }}">
+                          Explore
+                        </a>
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <!-- row -->
+            </div>
+
+          </div>
+          </li>
+          @endforeach
+          
+      </ul>
+
+      <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+      <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
+
+  </div>
+
+    </div>
+  <a href="{{ route('explore_by_country','Philippines') }}" class="uk-button btn-outline-web  uk-width-1-4@m  uk-width-1@s mx-auto my-2">Explore all Local destination</a>
+
+  </div>
+</section>
+
 
 
 <section class="services team aos-init aos-animate " data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
@@ -188,7 +253,7 @@
 
             <div class="member-info">
 
-                  <p class="mem-title title-package" title="{{ $list->tour_name }}">{{ $list->destination_info }}</p>
+                  <p class="mem-title title-package elips-1" uk-tooltip="title: {{ $list->destination_info }}; pos: top-left"  title="{{ $list->destination_info }}">{{ $list->destination_info }}</p>
 
                   <span>
                     <i class="fas fa-building"></i> No. of hotels : 150 {{ $list->country }}
@@ -253,7 +318,7 @@
 
 
               <div class="uk-panel">
-                  <a href="{{ route('by_country', $list->country) }}">
+                  <a href="{{ route('explore_by_country', $list->country) }}">
                   <img src="{{ asset('image/destination')}}/{{ $list->destination_image == '' ? 'default.png' : $list->destination_image }}" alt=""  style="border-radius: 4px;">
                   </a>
                   <div class="uk-position-center uk-panel"> </div>
@@ -261,7 +326,7 @@
 
               <div class="member-info">
 
-                  <p class="mem-title title-package" title="{{ $list->tour_name }}">{{ $list->destination_info }}</p>
+                  <p class="mem-title title-package elips-1" uk-tooltip="title: {{ $list->destination_info }}; pos: top-left" title="{{ $list->destination_info }}">{{ $list->destination_info }}</p>
 
                 <span>
                   <i class="fas fa-building"></i> No. of hotels : 150
@@ -273,7 +338,7 @@
                 <div class="row g-1 px-1 my-2">
                   <div class="col-12">
                     <div class="d-grid gap-2">
-                      <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('by_country', $list->country) }}">
+                      <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="{{ route('explore_by_country', $list->country) }}">
                         Explore
                       </a>
                     </div>
@@ -393,7 +458,7 @@
 
       <div class="member-info">
 
-      <p class="mem-title title-package" title="{{ $list->tour_name }}">{{ $list->tour_name }}</p>
+      <p class="mem-title title-package elips-1" uk-tooltip="title: {{ $list->tour_name }}; pos: top-left" title="{{ $list->tour_name }}">{{ $list->tour_name }}</p>
 
       <span class="text-price">
         <div class="currency-symbol">₱</div> {{ $list->price }} / For {{ $list->nonight }} Night
@@ -521,7 +586,7 @@
               </div>
               <!-- /.panel -->
                 <div class="member-info">
-                  <p class="mem-title title-package" title="">{{ $list->news_title }}</p>
+                  <p class="mem-title title-package elips-1" uk-tooltip="title: {{ $list->news_title }}; pos: top-left"  title="">{{ $list->news_title }}</p>
 
                   <span>
                     <i class="fas fa-calendar"></i> {{date("F j, Y, g:i a",strtotime($list->news_created_at))}}
