@@ -180,7 +180,7 @@
 
             };
         },
-        allowedFileExtensions: ['jpg', 'png', 'gif'],
+        allowedFileExtensions: ['jpg', 'png','jpeg'],
         overwriteInitial: false,
         maxFileSize:2000,
         maxFilesNum: 10,

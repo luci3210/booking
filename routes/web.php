@@ -168,7 +168,7 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant/pro
 });
 
 
-Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant_dashboard/service'], function() {
+Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant.dashboard/service'], function() {
         
         #post services and exclusive
         Route::get('/{destination}/','Merchant\ServiceListingController@index')
@@ -204,19 +204,26 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant_das
         Route::post('exlusive_save_post/{id}','Merchant\ServiceListingController@exlusive_create_post')
         ->name('exlusive_save_post');
 
-        Route::get('finance/income','Merchant\FinanceController@incomeIndex')
-        ->name('income_index');
-
-
-
 });
-Route::group(['middleware'=>'password.confirm','jobs','jobs'=>['merchant'], 'prefix'=>'merchant_dashboard/finance'], function() {
-        
-        Route::get('/bank','Merchant\FinanceController@bank')->name('bank');
 
-        Route::post('/bank/create','Merchant\FinanceController@merchant_bank_create')->name('merchant_bank_create');
+Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 
+    'prefix'=>'merchant.dashboard/tph/finance/u/0/'], function() {
         
-        Route::get('/mybalance/','Merchant\FinanceController@mybalance')->name('mybalance');
+    // Route::get('/incomex','Merchant\FinanceController@incomeIndex')
+        // ->name('income_index');
+
+    Route::get('/income','Merchant\FinanceController@income')
+        ->name('income_index');
+});
+
+Route::group(['middleware'=>'password.confirm','jobs','jobs'=>['merchant'], 
+    'prefix'=>'merchant.dashboard/tph/finance'], function() {
+
+    Route::get('/bank','Merchant\FinanceController@bank')->name('bank');
+
+    Route::post('/bank/create','Merchant\FinanceController@merchant_bank_create')->name('merchant_bank_create');
+    
+    Route::get('/mybalance/','Merchant\FinanceController@mybalance')->name('mybalance');
 
 });
 
