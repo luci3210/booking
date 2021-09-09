@@ -50,7 +50,10 @@ protected function thismonth() {
             ->whereYear('created_at','=',date('Y'))
             ->whereMonth('created_at','=',date('m'));
     })->get()->sum('mi_tourismo_income');
-
 }
+
+// protected function json_manual(Request $request) {
+    
+// }
 
 }

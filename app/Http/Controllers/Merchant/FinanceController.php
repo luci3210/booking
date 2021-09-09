@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\MerchantPostBank;
 use App\Model\PaymentStatusModel;
 use App\Model\PaymentModel;
+use App\Model\IncomeModel;
 
 
 class FinanceController extends Controller
@@ -27,6 +28,42 @@ class FinanceController extends Controller
 
         $this->profile = $profile;
     }
+
+    protected function income() {
+
+        $thisday = $this->thisday();
+        $thismonth = $this->thismonth();
+
+        return view('merchant_dashboard.finance.income',compact('thisday','thismonth'));        
+    } 
+
+    protected function thisday() {
+
+    return IncomeModel::where( function($query) {
+        $query->from('income')
+            ->where('mi_merchant_prof_id',$this->profile->profile_check()->id)
+            ->whereDay('created_at','=',date('d'))
+            ->whereYear('created_at','=',date('Y'))
+            ->whereMonth('created_at','=',date('m'));
+    })->get()->sum('mi_tourismo_income');
+
+    }
+
+    protected function thismonth() {
+
+    return IncomeModel::where( function($query) {
+        $query->from('income')
+            ->where('mi_merchant_prof_id',$this->profile->profile_check()->id)
+            ->whereYear('created_at','=',date('Y'))
+            ->whereMonth('created_at','=',date('m'));
+    })->get()->sum('mi_tourismo_income');
+
+    }
+
+
+
+
+
 
     public function incomeIndex(Request $req)
     {
