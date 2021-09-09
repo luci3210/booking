@@ -815,6 +815,8 @@ function showError(error) {
 
   @yield('merchantjs')
   @yield('js')
+  @include('layouts.tourismo.ui_global_share')
+
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 

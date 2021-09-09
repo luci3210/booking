@@ -16,7 +16,12 @@
   .text-price .currency-symbol {
     font-size: 14px;
     display: inline-block !important;
-
+  }
+  .text-descs {
+    font-size: 14px!important;
+    color: grey;
+    margin: 0;
+    font-weight: 500!important;
   }
   .mem-title {
     text-transform: capitalize;
@@ -44,67 +49,66 @@
   .vh-95{
     min-height: 95vh;
   }
+  @media (min-width: 200px) { 
+    .wd-5{
+      width: 50%;
+      flex: none;
+    }
+
+  }
+  @media (min-width: 768px) { 
+    .wd-5{
+      width: 20%;
+      flex: none;
+    }
+
+  }
 </style>
 
 <section class="services team aos-init aos-animate vh-95" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500" style="margin-top: 35px !important;">
   <div class="container">
     <div class="row">
 
-<div class="section-title">
-<h2><b><a href="{{ route('destination') }}" class="uk-link"> </a>Internationl  </b> </h2>
-</div>
+    <div class="section-title">
+      <h2><b><a href="{{ route('destination') }}" class="uk-link"> </a>International  </b> </h2>
+    </div>
 
-@foreach($getcountry as $list)
-<div class="col-md-6 col-lg-2 d-flex align-items-stretch aos-init aos-animate" data-aos="fade-up">
-  <div class="icon-box icon-box-pink">
-  
-    <div class="member">
+    @foreach($getcountry as $list)
 
-      <div class="member-img">
-        <img src="/image/destination/{{ $list->destination_image == '' ? 'default.png' : $list->destination_image }}" class="img-fluid" alt="">
+    <div class="wd-5">
+    <div class="icon-box icon-box-pink">
+      <div class="uk-panel">
+        <a  href="{{route('explore_by_country',$list->destination_info)}}">
+            <img src="/image/destination/{{ $list->destination_image == '' ? 'default.png' : $list->destination_image }}" alt="">
+          <div class="uk-position-center uk-panel"> </div>
+        </a>
       </div>
 
-      <div class="member-info">
-        
-      <div style="height:80px;">
-          <span>
-          <a href="" style="font-size:13px;font-weight:510;">
-              @if(strlen($list->destination_info) <= 39 )
-                {{ substr($list->destination_info,0,39) }}
-              @else
-                {{ substr($list->destination_info,0,39) }}...
-              @endif
-          </a>
-          </span>
-          <span style="margin-top: -2px;font-size: 12px;color:#5f5e5e">
-            
-            @if(strlen($list->destination_desc) <= 70 )
-              {{ substr($list->destination_desc,0,70) }}
-            @else
-              {{ substr($list->destination_desc,0,70) }}...
-            @endif
+        <div class="member-info">
 
-          </span>
+          <p class="mem-title mb-0 title-package elips-1" uk-tooltip="title: {{ $list->destination_info }}; pos: top-left" title="{{ $list->destination_info }}">{{ $list->destination_info }}</p>
 
-      </div>
-      <div class="row g-1 px-1 my-2">
-        <div class="col-12">
-          <div class="d-grid gap-2">
-            <a class="uk-button uk-button-small btn-room-details-m mb-sm-1 theme-btn" href="#">
-              Explore
-            </a>
+          <p class="elips-2 text-descs">
+            {{ $list->destination_desc }}
+          </p>
+
+          <div class="row g-1 px-1 my-2">
+            <div class="col-12">
+              <div class="d-grid gap-2">
+                <a class="uk-button uk-button-small theme-btn mb-sm-1" href="{{route('explore_by_country',$list->destination_info)}}">
+                  Explore
+                </a>
+              </div>
+            </div>
+            <!-- /.col -->
           </div>
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- row -->
+          <!-- row -->
 
-      </div>
+        </div>
 
     </div>
-  </div>
-</div>
-@endforeach
+    </div>
+    @endforeach
 
     </div>
   </div>

@@ -59,13 +59,27 @@
       font-weight: 700;
       font-size: 15px;
   }
+
+  @media (min-width: 200px) { 
+    .wd-5{
+      width: 50%;
+      flex: none;
+    }
+
+  }
+  @media (min-width: 768px) { 
+    .wd-5{
+      width: 20%;
+      flex: none;
+    }
+  }
 </style>
 @section('content')
 
 
 <section class="services team aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500" >
   <div class="container">
-    <div class="row">
+    <div class="row justify-content-md-center">
         <div class="col-12">
             <div class="section-title">
             </div>
@@ -85,7 +99,7 @@
 
                     <div class="member-info">
 
-                        <h6 class="my-1 title-name" >{{ $list->tour_name }}</h6>
+                        <h6 class="my-1 title-name elips-1" uk-tooltip="title: {{ $list->tour_name }}; pos: top-left" title="{{ $list->tour_name }}">{{ $list->tour_name }}</h6>
 
                         <!-- <h6 class="my-1">
                             <i class="fas fa-building"></i>

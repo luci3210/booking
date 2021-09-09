@@ -1,4 +1,5 @@
 @extends('layouts.tourismo.ui')
+
 @section('content')
 <!-- meta tags  -->
 {{-- @section('description', 'Explore '.$province->count().' Rooms and Convention') --}}
@@ -57,6 +58,21 @@
     min-width: 500px;
   }
   
+  
+  @media (min-width: 200px) { 
+    .wd-5{
+      width: 50%;
+      flex: none;
+    }
+
+  }
+  @media (min-width: 768px) { 
+    .wd-5{
+      width: 20%;
+      flex: none;
+    }
+
+  }
 </style>
 
 
@@ -66,54 +82,52 @@
   <div class="container">
     <div class="row">
 
-<div class="section-title">
-</div>
+<!-- <div class="section-title">
+</div> -->
 
 @foreach($data as $list)
-<div class="col-md-6 col-lg-2 d-flex align-items-stretch aos-init aos-animate" data-aos="fade-up">
+  <div class="wd-5">
   <div class="icon-box icon-box-pink">
-  
-    <div class="member mb-0">
-
-        <div class="member-img">
-            <a  href="{{ route('by_name',[$list->description,$list->country,$list->district,$list->tour_name]) }}">
-            <img src="{{ asset('image/tour/2021')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}" class="img-fluid" alt="">
-            </a>
-        </div>
-
-        <div class="member-info">
-
-            <h6 class="my-1 title-name" >{{ $list->tour_name }}</h6>
-
-            <!-- <h6 class="my-1">
-              <i class="fas fa-building"></i>
-            </h6> -->
-
-            <h6 class="my-1" style="color:#f6412d;font-size: 14px;font-weight: 650">₱ {{ $list->price }}</h6>
-
-            <div class="row g-1 px-1 my-2">
-            <div class="col-6">
-                <div class="d-grid gap-2">
-                <a class="uk-button uk-button-small theme-btn mb-sm-1" href="{{ route('by_name',[$list->description,$list->country,$list->district,$list->tour_name]) }}">
-                    Explore
-                </a>
-                </div>
-            </div>
-            <!-- /.col -->
-            <div class="col-6">
-                <div class="d-grid gap-2">
-                <a class="uk-button uk-button-small theme-btn mb-sm-1" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#global-share"  onclick="openShare('{{$list}}')">
-                    Share
-                </a>
-                </div>
-            </div>
-            <!-- /.col -->
-            </div>
-            <!-- row -->
-        </div>
+    <div class="uk-panel">
+      <a  href="{{ route('by_name',[$list->description,$list->country,$list->district,$list->tour_name]) }}">
+        <img src="{{ asset('image/tour/2021')}}/{{ $list->photo == '' ? 'default.png' : $list->photo }}" class="" alt="">
+        <div class="uk-position-center uk-panel"> </div>
+      </a>
     </div>
+
+      <div class="member-info">
+
+        <p class="mem-title title-package elips-1" uk-tooltip="title: {{ $list->tour_name }}; pos: top-left" title="{{ $list->tour_name }}">{{ $list->tour_name }}</p>
+
+        <span class="text-price">
+          <div class="currency-symbol">₱</div> {{ $list->price }}
+        </span><br>
+
+        <div class="row g-1 px-1 my-2">
+          <div class="col-6">
+            <div class="d-grid gap-2">
+              <a class="uk-button uk-button-small theme-btn mb-sm-1" href="{{ route('by_name',[$list->description,$list->country,$list->district,$list->tour_name]) }}">
+                Explore
+              </a>
+            </div>
+          </div>
+          <!-- /.col -->
+          <div class="col-6">
+            <div class="d-grid gap-2">
+              <a class="uk-button uk-button-small theme-btn mb-sm-1" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#global-share"  onclick="openShare('{{$list}}')">
+              Share
+              </a>
+            </div>
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- row -->
+
+      </div>
+
   </div>
-</div>
+  </div>
+
 @endforeach
 
     </div>

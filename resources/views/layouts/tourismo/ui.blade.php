@@ -639,17 +639,18 @@ function getNearBy(position){
             $('#loaders').hide('slow')
             for (let i = 0; i < countData; i++) {
               const img = data[i]['photo'] == '' || data[i]['photo'] == null ? 'default.png' : data[i]['photo']
-              const assUrl = '{{asset('image/tour/2021')}}/'
+              const assUrl = '{{asset('image/tour/2021')}}/'+img
               let url = '{{ route("by_name", [":description" ,":country", ":district", ":tour_name"]) }}'
               const paramsData =  [data[i]['description'],data[i]['country'],data[i]['district'],data[i]['tour_name']]
               url = url.replace(':description', data[i]['description']);
               url = url.replace(':country', data[i]['country']);
               url = url.replace(':district', data[i]['district']);
               url = url.replace(':tour_name', data[i]['tour_name']);
+              const datas = `${String(JSON.stringify(data[i]))}`;
 
               output += `<li> <div class="icon-box icon-box-pink"><div class="uk-panel">
               <a href="${url}">
-              <img src="image/cover/2021/default.png" style="border-radius: 4px;"> </a><div class="uk-position-center uk-panel"> </div></div>
+              <img src="${assUrl}" style="border-radius: 4px;"> </a><div class="uk-position-center uk-panel"> </div></div>
               <div class="member-info"><p class="mem-title"><i class="fas fa-map-marked-alt"></i> ${data[i]['tour_name']}...</p>
               <span><i class="fas fa-building"></i> No. of hotels : 150 </span><br>
               <span><i class="fas fa-directions"></i> No. of Tour Operators : 251</span><br>
@@ -663,7 +664,7 @@ function getNearBy(position){
               </div>
               <div class="col-6">
                 <div class="d-grid gap-2">
-                  <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="#">
+                  <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#global-share" onclick="${openShare(`${datas}`)}">
                     share
                     </a>
                   </div>
@@ -708,18 +709,20 @@ function randomNear(lat,lng){
           if(countData >= 1){
             $('#loaders').hide('slow')
             for (let i = 0; i < countData; i++) {
+              console.log(data[i])
               const img = data[i]['photo'] == '' || data[i]['photo'] == null ? 'default.png' : data[i]['photo']
-              const assUrl = '{{asset('image/tour/2021')}}/'
+              const assUrl = '{{asset('image/tour/2021')}}/'+img
               let url = '{{ route("by_name", [":description" ,":country", ":district", ":tour_name"]) }}'
               const paramsData =  [data[i]['description'],data[i]['country'],data[i]['district'],data[i]['tour_name']]
               url = url.replace(':description', data[i]['description']);
               url = url.replace(':country', data[i]['country']);
               url = url.replace(':district', data[i]['district']);
               url = url.replace(':tour_name', data[i]['tour_name']);
-
+              const datas = `${String(JSON.stringify(data[i]))}`;
+              // console.log(datas,'stringnify')
               output += `<li> <div class="icon-box icon-box-pink"><div class="uk-panel">
               <a href="${url}">
-              <img src="image/cover/2021/default.png" style="border-radius: 4px;"> </a><div class="uk-position-center uk-panel"> </div></div>
+              <img src="${assUrl}" style="border-radius: 4px;"> </a><div class="uk-position-center uk-panel"> </div></div>
               <div class="member-info"><p class="mem-title"><i class="fas fa-map-marked-alt"></i> ${data[i]['tour_name']}...</p>
               <span><i class="fas fa-building"></i> No. of hotels : 150 </span><br>
               <span><i class="fas fa-directions"></i> No. of Tour Operators : 251</span><br>
@@ -733,7 +736,7 @@ function randomNear(lat,lng){
               </div>
               <div class="col-6">
                 <div class="d-grid gap-2">
-                  <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="#">
+                  <a class="uk-button uk-button-small btn-room-details-m mb-sm-1" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#global-share" onclick="${openShare(`${datas}`)}">
                     share
                     </a>
                   </div>

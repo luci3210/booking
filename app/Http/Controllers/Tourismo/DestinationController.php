@@ -69,13 +69,15 @@ class DestinationController extends Controller
     protected function district($country=null,$district=null) {
 
         $districts = TourModel::join('locations_district','locations_district.id', 'service_tour.district')
+                ->join('service_tour_photos','service_tour_photos.upload_id', 'service_tour.id')
                 ->join('location_country','location_country.id', 'locations_district.country_id')
                 ->join('products','service_tour.service_id', 'products.id')
-                    ->where([
+                ->where([
                         ['location_country.country', $country],
                                 ['locations_district.district',$district]
                             ])
-                         ->get(['service_tour.cover','service_tour.tour_name','service_tour.price','service_tour.nonight','service_tour.noguest','location_country.*','locations_district.*','products.description','products.name']);
+                ->groupBy('service_tour.id')
+                ->get(['service_tour_photos.*','service_tour.cover','service_tour.tour_name','service_tour.price','service_tour.nonight','service_tour.noguest','location_country.*','locations_district.*','products.description','products.name']);
 
         if(empty($districts[0])) {
 

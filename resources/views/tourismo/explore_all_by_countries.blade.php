@@ -54,10 +54,26 @@
       font-weight: 700;
       font-size: 15px;
   }
-  
+  .vh-95{
+    min-height: 95vh;
+  }
+  @media (min-width: 200px) { 
+    .wd-5{
+      width: 50%;
+      flex: none;
+    }
+
+  }
+  @media (min-width: 768px) { 
+    .wd-5{
+      width: 20%;
+      flex: none;
+    }
+
+  }
 </style>
 
-<section class="services team aos-init aos-animate vh-100" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500" style="margin-top: 35px !important;">
+<section class="services team aos-init aos-animate vh-95" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500" style="margin-top: 35px !important;">
   <div class="container">
     <div class="row">
 
@@ -66,20 +82,20 @@
 </div>
 
 @foreach($exploreData as $list)
-<div class="col-md-6 col-lg-2 d-flex align-items-stretch aos-init aos-animate" data-aos="fade-up">
-  <div class="icon-box icon-box-pink">
-  
-    <div class="member mb-0">
 
-        <div class="member-img">
-            <a  href="{{ route('by_district',[$list->country,$list->destination_info]) }}">
+    <div class="wd-5">
+    <div class="icon-box icon-box-pink">
+      <div class="uk-panel">
+          <a  href="{{ route('by_district',[$list->country,$list->destination_info]) }}">
             <img src="{{ asset('image/destination')}}/{{ $list->destination_image == '' ? 'default.png' : $list->destination_image }}" class="img-fluid" alt="">
-            </a>
-        </div>
+          <div class="uk-position-center uk-panel"> </div>
+        </a>
+      </div>
 
         <div class="member-info">
 
-            <h6 class="my-1 title-name" >{{ $list->destination_info }}</h6>
+
+          <h6 class="my-1 title-name elips-1" uk-tooltip="title: {{ $list->destination_info }}; pos: top-left"  >{{ $list->destination_info }}</h6>
 
             <h6 class="my-1">
             <i class="fas fa-building"></i> No. of hotels : 150 {{ $list->country }}
@@ -89,21 +105,24 @@
             <i class="fas fa-directions"></i> No. of Tour Operators : 251
             </h6>
 
-            <div class="row g-1 px-1 my-2">
+          <div class="row g-1 px-1 my-2">
             <div class="col-12">
-                <div class="d-grid gap-2">
+              <div class="d-grid gap-2">
                 <a class="uk-button uk-button-small theme-btn mb-sm-1" href="{{ route('by_district',[$list->country,$list->destination_info]) }}">
-                    Explore
+                  Explore
                 </a>
-                </div>
+              </div>
             </div>
             <!-- /.col -->
-            </div>
-            <!-- row -->
+          </div>
+          <!-- row -->
+
         </div>
+
     </div>
-  </div>
-</div>
+    </div>
+
+
 @endforeach
 
     </div>
