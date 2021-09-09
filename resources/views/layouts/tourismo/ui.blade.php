@@ -651,7 +651,7 @@ function getNearBy(position){
               output += `<li> <div class="icon-box icon-box-pink"><div class="uk-panel">
               <a href="${url}">
               <img src="${assUrl}" style="border-radius: 4px;"> </a><div class="uk-position-center uk-panel"> </div></div>
-              <div class="member-info"><p class="mem-title"><i class="fas fa-map-marked-alt"></i> ${data[i]['tour_name']}...</p>
+              <div class="member-info"><p class="mem-title elips-1" uk-tooltip="title:${data[i]['tour_name']}; pos: top-left" ><i class="fas fa-map-marked-alt"></i> ${data[i]['tour_name']}...</p>
               <span><i class="fas fa-building"></i> No. of hotels : 150 </span><br>
               <span><i class="fas fa-directions"></i> No. of Tour Operators : 251</span><br>
               <div class="row g-1 px-1 my-2">
@@ -723,7 +723,7 @@ function randomNear(lat,lng){
               output += `<li> <div class="icon-box icon-box-pink"><div class="uk-panel">
               <a href="${url}">
               <img src="${assUrl}" style="border-radius: 4px;"> </a><div class="uk-position-center uk-panel"> </div></div>
-              <div class="member-info"><p class="mem-title"><i class="fas fa-map-marked-alt"></i> ${data[i]['tour_name']}...</p>
+              <div class="member-info"><p class="mem-title elips-1" uk-tooltip="title:${data[i]['tour_name']}; pos: top-left"><i class="fas fa-map-marked-alt"></i> ${data[i]['tour_name']}...</p>
               <span><i class="fas fa-building"></i> No. of hotels : 150 </span><br>
               <span><i class="fas fa-directions"></i> No. of Tour Operators : 251</span><br>
               <div class="row g-1 px-1 my-2">
