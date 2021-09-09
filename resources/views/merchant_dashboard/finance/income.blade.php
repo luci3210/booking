@@ -11,7 +11,7 @@
       
       <div class="card-header">
         <h3 class="card-title">
-          <i class="fas fa-box-open"></i> Income
+          Finance / My Income / <small>withdraw</small>
         </h3>
       </div>
 
@@ -23,21 +23,23 @@
               <th>This Day</th>
               <th>This Month</th>
               <th>Total</th>
-              <th>Balance</th>
-              <th colspan="2"  class="text-center">Action</th>
+              <th colspan="2" class="text-center">Balance</th>
             </tr>
             <tr>
               <td>
-                {{ $thisday }}
+                Php {{ $thisday }}
               </td>
               <td>
-                {{ $thismonth }}
+                Php {{ $thismonth }}
               </td>
               <td>
-                {{ $thismonth }}
+                Php {{ $thismonth }}
               </td>
               <td>
-                {{ $thismonth }}
+                Php {{ $thismonth }}
+              </td>
+              <td class="text-center">
+                <a href="{{ route('mch_withdraw') }}" class="text-muted">Withdraw</a>
               </td>
             </tr>
         </thead>

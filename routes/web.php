@@ -214,6 +214,9 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'],
 
     Route::get('/income','Merchant\FinanceController@income')
         ->name('income_index');
+
+    Route::get('merchant.withdraw','Merchant\FinanceController@withdraw')
+        ->name('mch_withdraw');
 });
 
 Route::group(['middleware'=>'password.confirm','jobs','jobs'=>['merchant'], 

@@ -61,6 +61,15 @@ class FinanceController extends Controller
     }
 
 
+    protected function withdraw() {
+
+        $thisday = $this->thisday();
+        $thismonth = $this->thismonth();
+
+        return view('merchant_dashboard.finance.withdraw',compact('thisday','thismonth'));     
+    }
+
+
 
 
 
