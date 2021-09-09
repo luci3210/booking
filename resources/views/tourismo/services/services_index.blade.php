@@ -57,6 +57,9 @@
   .member-img{
     min-width: 500px;
   }
+  .vh-95{
+    min-height: 95vh;
+  }
   
   
   @media (min-width: 200px) { 
@@ -78,7 +81,7 @@
 
 
 
-<section class="services team aos-init aos-animate vh-100" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500" style="margin-top: 35px !important;">
+<section class="services team aos-init aos-animate vh-95" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500" style="margin-top: 35px !important;">
   <div class="container">
     <div class="row">
 
@@ -97,7 +100,7 @@
 
       <div class="member-info">
 
-        <p class="mem-title title-package elips-1" uk-tooltip="title: {{ $list->tour_name }}; pos: top-left" title="{{ $list->tour_name }}">{{ $list->tour_name }}</p>
+        <p class="mem-title title-package elips-1 mb-0" uk-tooltip="title: {{ $list->tour_name }}; pos: top-left" title="{{ $list->tour_name }}">{{ $list->tour_name }}</p>
 
         <span class="text-price">
           <div class="currency-symbol">₱</div> {{ $list->price }}
