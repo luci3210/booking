@@ -1,4 +1,10 @@
-@extends('layouts.tourismo.ui_mobile')
+@extends('layouts.tourismo.ui_mobile',
+['keywords'=> $byname[0]->tour_name,
+'img' => asset( 'image/tour/2021/'.$byphotos[0]->photo),
+'description' => trim($byname[0]->tour_expect. ' ' . $byname[0]->tour_desc. ' ' . $byname[0]->roomdesc ),
+'curUrl'=> route('by_name',[$byname[0]->description,$byname[0]->country,$byname[0]->district,$byname[0]->tour_name])
+])
+<!-- meta tags  -->
 <link href="{{ asset('css/home_index.css') }}" rel="stylesheet">
 
 <!-- Add the slick-theme.css if you want default styling -->

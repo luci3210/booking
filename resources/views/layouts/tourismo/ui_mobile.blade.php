@@ -17,7 +17,7 @@
       
   <!-- /.google -->
   <!-- fb tags -->
-      <meta property="og:url" content="@yield('curUrl')" />
+      <meta property="og:url" content="{{ $curUrl ?? ''}}" />
       <meta property="og:type" content="website" />
       <meta property="og:title" content="{{ $keywords ?? 'tourismo ph'}}" />
       <meta property="og:description" content="{{$description ?? 'TOURSIMO PH'}}" />
@@ -31,8 +31,6 @@
   <!-- /. Twitter Meta Tags -->
 
 
-  <!-- /. meta tags SEO -->
-  <meta content="" name="Tourismo">
   <link href="{{ asset('image/logo/favicon.png') }}" rel="icon">
   <link href="{{ asset('image/logo/favicon.png') }}" rel="apple-touch-icon">
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />

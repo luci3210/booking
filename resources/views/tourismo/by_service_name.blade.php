@@ -1,17 +1,12 @@
 @extends('layouts.tourismo.ui', 
 ['keywords'=> $byname[0]->tour_name,
 'img' => asset( 'image/tour/2021/'.$byphotos[0]->photo),
-'description' => $byname[0]->tour_expect. ' ' . $byname[0]->tour_desc. ' ' . $byname[0]->roomdesc 
+'description' => trim( $byname[0]->tour_expect. ' ' . $byname[0]->tour_desc. ' ' . $byname[0]->roomdesc),
+'curUrl'=> route('by_name',[$byname[0]->description,$byname[0]->country,$byname[0]->district,$byname[0]->tour_name])
 ])
-<!--  -->
+<!-- meta tags  -->
 
 @section('content')
-<!-- meta tags  -->
-{{-- @section('description', 'Explore '.$province->count().' Rooms and Convention') --}}
-{{--  @section('keywords', $byname[0]->country.' '.$byname[0]->provice_name) --}}
-@section('img', asset( 'upload/merchant/profilepic/default.png'))
-@section('curUrl', url()->current())
-<!-- /. meta tags -->
 
 <style type="text/css">
   .text-price {
