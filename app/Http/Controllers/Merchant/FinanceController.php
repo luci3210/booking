@@ -63,16 +63,39 @@ class FinanceController extends Controller
 
     }
 
+protected function income_total_balance() {
 
-    protected function withdraw() {
+    return $data = IncomeModel::where(function($query) {
+                $query->from('income')
+                    ->where('mi_merchant_prof_id',$this->profile->profile_check()->id);
+        })->get()->sum('mi_merchant_income');
 
-        $thisday = $this->thisday();
-        $thismonth = $this->thismonth();
-        $banklist = $this->banklist();
+}
 
-        return view('merchant_dashboard.finance.withdraw',compact('thisday','thismonth','banklist'));     
-    
-    }
+protected function income_total_withdrawals() {
+
+    return $data = IncomeWithdrawModel::where(function($query) {
+                $query->from('income_withdrawals')
+                    ->where('iw_withdraw_profid',$this->profile->profile_check()->id)
+                        ->where('iw_temp',9);
+        })->get()->sum('iw_withdraw_amount');
+}
+
+protected function withdraw() {
+
+    $thisday = $this->thisday();
+    $thismonth = $this->thismonth();
+    $banklist = $this->banklist();
+    $transaction = $this->transaction();
+
+    $income_total_withdraw = $this->income_total_withdrawals();
+    $income_total_balance = $this->income_total_balance();
+
+    $new_balance = $income_total_balance - $income_total_withdraw;
+
+    return view('merchant_dashboard.finance.withdraw',compact('income_total_balance','new_balance','thisday','thismonth','banklist','transaction'));     
+
+}
 
 protected function withdraw_submit(MerchantPostWithdrawRequest $request) {
 
@@ -87,6 +110,20 @@ protected function withdraw_submit(MerchantPostWithdrawRequest $request) {
 
 }
 
+protected function transaction() {
+
+    return $data = IncomeWithdrawModel::Join('bank_accounts','bank_accounts.id','income_withdrawals.iw_withdraw_bank_account_id')
+            ->join('bank_names','bank_names.id','bank_accounts.account_bank_id')
+            ->join('profiles','profiles.id','income_withdrawals.iw_withdraw_profid')
+            ->join('temp_status','temp_status.id','income_withdrawals.iw_temp')
+
+            ->where(function($query) {
+                $query->from('income_withdrawals')
+                    ->where('income_withdrawals.iw_withdraw_profid',$this->profile->profile_check()->id)
+                        ->whereIn('income_withdrawals.iw_temp',[8,9]);
+        })->get();
+}
+
     protected function banklist() {
 
         return BankAccountModel::join('bank_names','bank_names.id','bank_accounts.account_bank_id')
@@ -94,7 +131,9 @@ protected function withdraw_submit(MerchantPostWithdrawRequest $request) {
                 $query->from('bank_accounts')
                     ->where('bank_accounts.profid',$this->profile->profile_check()->id)
                         ->whereIn('bank_accounts.status',[1,2]);
-        })->get();
+                    
+        })->select('bank_accounts.id as ba_id','bank_accounts.account_name','bank_names.bank')
+                ->get();
 
     }
 

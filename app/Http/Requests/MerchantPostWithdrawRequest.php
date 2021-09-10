@@ -31,8 +31,8 @@ class MerchantPostWithdrawRequest extends FormRequest
 
     public function messages() {
         return [
-            'amount.required' => 'Amount withdraw is required',
-            'bank_account.required' => 'Date for charge is required',
+            'amount.required' => 'Amount is required',
+            'bank_account.required' => 'Bank account is required',
             'amount.numeric' => 'Amount should be number.',
         ];
     }
