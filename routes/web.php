@@ -212,11 +212,11 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'],
     // Route::get('/incomex','Merchant\FinanceController@incomeIndex')
         // ->name('income_index');
 
-    Route::get('/income','Merchant\FinanceController@income')
-        ->name('income_index');
+    Route::get('/income','Merchant\FinanceController@income')->name('income_index');
 
-    Route::get('merchant.withdraw','Merchant\FinanceController@withdraw')
-        ->name('mch_withdraw');
+    Route::get('merchant.withdraw','Merchant\FinanceController@withdraw')->name('mch_withdraw');
+    Route::post('merchant.withdraw','Merchant\FinanceController@withdraw_submit')->name('mch_withdraw_submit');
+        
 });
 
 Route::group(['middleware'=>'password.confirm','jobs','jobs'=>['merchant'], 

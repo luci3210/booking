@@ -12,7 +12,10 @@ use App\Services\merchant\FinanceService;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests\MerchantPostBank;
+use App\Http\Requests\MerchantPostWithdrawRequest;
+
 use App\Model\PaymentStatusModel;
+use App\Model\IncomeWithdrawModel;
 use App\Model\PaymentModel;
 use App\Model\IncomeModel;
 
@@ -65,8 +68,34 @@ class FinanceController extends Controller
 
         $thisday = $this->thisday();
         $thismonth = $this->thismonth();
+        $banklist = $this->banklist();
 
-        return view('merchant_dashboard.finance.withdraw',compact('thisday','thismonth'));     
+        return view('merchant_dashboard.finance.withdraw',compact('thisday','thismonth','banklist'));     
+    
+    }
+
+protected function withdraw_submit(MerchantPostWithdrawRequest $request) {
+
+    IncomeWithdrawModel::firstOrCreate(['iw_withdraw_amount' => $request->amount,
+            'iw_withdraw_bank_account_id' => $request->bank_account,
+                'iw_withdraw_balane' => $request->balance,
+                    'iw_withdraw_profid' => $this->profile->profile_check()->id,
+                        'iw_temp' => 8,
+                            'iw_created_at' => now()]);
+
+    return redirect()->back()->withSuccess('Successfully submitted request');
+
+}
+
+    protected function banklist() {
+
+        return BankAccountModel::join('bank_names','bank_names.id','bank_accounts.account_bank_id')
+            ->where(function($query) {
+                $query->from('bank_accounts')
+                    ->where('bank_accounts.profid',$this->profile->profile_check()->id)
+                        ->whereIn('bank_accounts.status',[1,2]);
+        })->get();
+
     }
 
 
