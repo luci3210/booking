@@ -207,7 +207,7 @@ class DestinationController extends Controller
     }
 
     public function by_countries() {
-
+        
         $getcountry = $this->countries();
 
         return view('tourismo.by_countries', compact('getcountry'));
@@ -229,6 +229,7 @@ class DestinationController extends Controller
 
         $bydistrict = $this->district($country,$district);
         $Agent = new Agent();
+
         if ($Agent->isMobile()) {
             return view('tourismo.mobile.by_district_mobile', compact('bydistrict'));
         }else{
@@ -283,6 +284,10 @@ class DestinationController extends Controller
         // return $exploreData;
 
         $Agent = new Agent();
+        if(count($exploreData) <= 0 ) {
+
+            abort(404,'Data not found.!');
+        } 
         if ($Agent->isMobile()) {
             return view('tourismo.mobile.explore_all_by_countries_mobile', compact('exploreData','country'));
 
@@ -294,7 +299,7 @@ class DestinationController extends Controller
     protected function getDestinationCountry($country,$limit)
     {
         $destnationModel = new DestinationModel();
-        $destnationModel = $destnationModel->join('location_country','location_country.location_id','destinations.country_id');
+        $destnationModel = $destnationModel->join('location_country','location_country.id','destinations.country_id');
         $destnationModel = $destnationModel->where([ ['destinations.temp_status','=',1],['location_country.country','=',$country] ]);
         $destnationModel = $destnationModel->inRandomOrder()->limit($limit)->get(['location_country.*','destinations.*']);
 
