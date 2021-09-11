@@ -97,6 +97,90 @@
 <section class="content">
 <div class="container-fluid">
 
+
+
+<div class="row">
+
+<div class="col-md-2 col-sm-6 col-12">
+<div class="info-box">
+  <span class="info-box-icon bg-warning"><i class="far fa-envelope"></i></span>
+  <div class="info-box-content">
+    <span class="info-box-text">V-Request</span>
+    <span class="info-box-number">1,410</span>
+  </div>
+</div>
+</div>
+
+
+<div class="col-md-2 col-sm-6 col-12">
+<div class="info-box">
+  <span class="info-box-icon bg-info"><i class="far fa-envelope"></i></span>
+  <div class="info-box-content">
+    <span class="info-box-text">P-Request</span>
+    <span class="info-box-number">1,410</span>
+  </div>
+</div>
+</div>
+
+
+<div class="col-md-2 col-sm-6 col-12">
+<div class="info-box">
+  <span class="info-box-icon bg-warning"><i class="far fa-envelope"></i></span>
+  <div class="info-box-content">
+    <span class="info-box-text"><a href="{{ route('adm_withdrawal_request') }}" class="lead text-muted" style="font-size: .90em;">W-Request</a></span>
+    <span class="info-box-number">1,410</span>
+  </div>
+</div>
+</div>
+
+
+<div class="col-md-2 col-sm-6 col-12">
+<div class="info-box">
+  <span class="info-box-icon bg-info"><i class="far fa-envelope"></i></span>
+  <div class="info-box-content">
+    <span class="info-box-text">N-Booking</span>
+    <span class="info-box-number">1,410</span>
+  </div>
+</div>
+</div>
+
+
+<div class="col-md-2 col-sm-6 col-12">
+<div class="info-box">
+  <span class="info-box-icon bg-success"><i class="far fa-envelope"></i></span>
+  <div class="info-box-content">
+    <span class="info-box-text">C-Booking</span>
+    <span class="info-box-number">1,410</span>
+  </div>
+</div>
+</div>
+
+
+<div class="col-md-2 col-sm-6 col-12">
+<div class="info-box">
+  <span class="info-box-icon bg-danger"><i class="far fa-envelope"></i></span>
+  <div class="info-box-content">
+    <span class="info-box-text">E-Booking</span>
+    <span class="info-box-number">1,410</span>
+  </div>
+</div>
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="row">
 <div class="col-lg-3 col-6">
 
@@ -138,6 +222,19 @@
     <i class="ion ion-person-add"></i>
   </div>
   <a href="{{ route('adm_confirm_booking') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+</div>
+</div>
+
+<div class="col-lg-3 col-6">
+<div class="small-box bg-danger">
+  <div class="inner">
+    <h4>#</h4>
+    <p>Execute Booking</p>
+  </div>
+  <div class="icon">
+    <i class="ion ion-pie-graph"></i>
+  </div>
+  <a href="{{ route('adm_execute_booking') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 </div>
 </div>
 

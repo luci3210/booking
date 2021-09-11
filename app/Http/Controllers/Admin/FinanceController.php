@@ -52,6 +52,10 @@ protected function thismonth() {
     })->get()->sum('mi_tourismo_income');
 }
 
+protected function withdrawal() {
+
+    dd('asas');
+}
 // protected function json_manual(Request $request) {
     
 // }

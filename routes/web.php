@@ -570,6 +570,7 @@ Route::prefix('=administrator/tph.booking')->group(function () {
 Route::prefix('=administrator/tph.finance')->group(function () { 
 
     Route::get('/index', 'Admin\FinanceController@income')->name('adm_income');
+    Route::get('/index.withdrawal/request', 'Admin\FinanceController@withdrawal')->name('adm_withdrawal_request');
 });
 
 
