@@ -72,9 +72,4 @@ class DestinationController extends Controller
         return back()->withSuccess('Successfully added!');
 
     }
-
-    public function destination_list() {
-
-    	
-    }
 }

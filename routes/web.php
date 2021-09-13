@@ -547,7 +547,7 @@ Route::get('/booking/{id}/booking', 'Admin\BookingController@execute_date')->nam
 
 });
 
-Route::prefix('=administrator/tph.dashboard')->group(function () { 
+Route::prefix('administrator/tph.dashboard')->group(function () { 
 
     Route::get('/', 'AdminController@index')->name('admin.dashboard');
 
@@ -555,7 +555,7 @@ Route::prefix('=administrator/tph.dashboard')->group(function () {
 
 // -------------------------------BOOKING--------------------------
 
-Route::prefix('=administrator/tph.booking')->group(function () { 
+Route::prefix('booking.administrator/tph.booking')->group(function () { 
 
     Route::get('/new-booking', 'Admin\BookingController@index')->name('show_booking');
     Route::get('/confirm-booking', 'Admin\BookingController@confirm_booking')->name('adm_confirm_booking');
@@ -567,10 +567,14 @@ Route::prefix('=administrator/tph.booking')->group(function () {
 
 // -------------------------------FINANCE--------------------------
 
-Route::prefix('=administrator/tph.finance')->group(function () { 
+Route::prefix('finance.administrator/tph.finance')->group(function () { 
 
     Route::get('/index', 'Admin\FinanceController@income')->name('adm_income');
-    Route::get('/index.withdrawal/request', 'Admin\FinanceController@withdrawal')->name('adm_withdrawal_request');
+    Route::get('/index.withdrawal/request', 'Admin\FinanceController@withdrawals')->name('adm_withdrawal_request');
+    Route::get('/index.withdrawal/{id}/request/get', 'Admin\FinanceController@withdrawal_get_request')->name('adm_withdrawal_get_request');
+    Route::post('/index.withdrawal/validate/request', 'Admin\FinanceController@withdrawal_validate')->name('adm_withdrawal_validate_request');
+    Route::post('/index.withdrawal/validated/post/request', 'Admin\FinanceController@withdrawal_validate_update')->name('adm_withdrawal_validated_post_request');
+
 });
 
 

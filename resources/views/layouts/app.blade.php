@@ -13,7 +13,7 @@
 
 
   <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-alpha1/css/bootstrap.min.css"> -->
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
@@ -102,10 +102,9 @@
 <div class="row">
 
 <div class="col-md-2 col-sm-6 col-12">
-<div class="info-box">
-  <span class="info-box-icon bg-warning"><i class="far fa-envelope"></i></span>
+<div class="info-box bg-info">
   <div class="info-box-content">
-    <span class="info-box-text">V-Request</span>
+    <span class="info-box-text">Verification Request</span>
     <span class="info-box-number">1,410</span>
   </div>
 </div>
@@ -113,10 +112,9 @@
 
 
 <div class="col-md-2 col-sm-6 col-12">
-<div class="info-box">
-  <span class="info-box-icon bg-info"><i class="far fa-envelope"></i></span>
+<div class="info-box bg-primary">
   <div class="info-box-content">
-    <span class="info-box-text">P-Request</span>
+    <span class="info-box-text">Post Request</span>
     <span class="info-box-number">1,410</span>
   </div>
 </div>
@@ -124,134 +122,57 @@
 
 
 <div class="col-md-2 col-sm-6 col-12">
-<div class="info-box">
-  <span class="info-box-icon bg-warning"><i class="far fa-envelope"></i></span>
+<a href="{{ route('show_booking') }}">
+<div class="info-box bg-danger">
   <div class="info-box-content">
-    <span class="info-box-text"><a href="{{ route('adm_withdrawal_request') }}" class="lead text-muted" style="font-size: .90em;">W-Request</a></span>
+    New Booking
     <span class="info-box-number">1,410</span>
   </div>
 </div>
+</a>
 </div>
 
 
 <div class="col-md-2 col-sm-6 col-12">
-<div class="info-box">
-  <span class="info-box-icon bg-info"><i class="far fa-envelope"></i></span>
+<a href="{{ route('adm_confirm_booking') }}">
+<div class="info-box bg-success">
   <div class="info-box-content">
-    <span class="info-box-text">N-Booking</span>
+    <span class="info-box-text">Confimr Booking</span>
     <span class="info-box-number">1,410</span>
   </div>
 </div>
+</a>
 </div>
 
 
 <div class="col-md-2 col-sm-6 col-12">
-<div class="info-box">
-  <span class="info-box-icon bg-success"><i class="far fa-envelope"></i></span>
+<a href="{{ route('adm_execute_booking') }}">
+<div class="info-box bg-warning">
   <div class="info-box-content">
-    <span class="info-box-text">C-Booking</span>
+    <span class="info-box-text">Execute Booking</span>
     <span class="info-box-number">1,410</span>
   </div>
 </div>
+</a>
 </div>
 
 
 <div class="col-md-2 col-sm-6 col-12">
-<div class="info-box">
-  <span class="info-box-icon bg-danger"><i class="far fa-envelope"></i></span>
+<a href="{{ route('adm_withdrawal_request') }}">
+<div class="info-box bg-light">
   <div class="info-box-content">
-    <span class="info-box-text">E-Booking</span>
+    <span class="info-box-text">
+            Withdrawals
+    </span>
     <span class="info-box-number">1,410</span>
   </div>
 </div>
+</a>
 </div>
 
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="row">
-<div class="col-lg-3 col-6">
-
-<div class="small-box bg-warning">
-  <div class="inner">
-    <h4>#</h4>
-
-    <p>Post Request</p>
-  </div>
-  <div class="icon">
-    <i class="ion ion-bag"></i>
-  </div>
-  <a href="#" class="small-box-footer">Load Details <i class="fas fa-arrow-circle-right"></i></a>
-</div>
-</div>
-
-<div class="col-lg-3 col-6">
-<div class="small-box bg-success">
-  <div class="inner">
-    <h4>#</h4>
-
-    <p>New Booking</p>
-  </div>
-  <div class="icon">
-    <i class="ion ion-stats-bars"></i>
-  </div>
-  <a href="{{ route('show_booking') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-</div>
-</div>
-
-<div class="col-lg-3 col-6">
-<div class="small-box bg-info">
-  <div class="inner">
-    <h4>#</h4>
-
-    <p>Confirm Booking</p>
-  </div>
-  <div class="icon">
-    <i class="ion ion-person-add"></i>
-  </div>
-  <a href="{{ route('adm_confirm_booking') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-</div>
-</div>
-
-<div class="col-lg-3 col-6">
-<div class="small-box bg-danger">
-  <div class="inner">
-    <h4>#</h4>
-    <p>Execute Booking</p>
-  </div>
-  <div class="icon">
-    <i class="ion ion-pie-graph"></i>
-  </div>
-  <a href="{{ route('adm_execute_booking') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-</div>
-</div>
-
-<div class="col-lg-3 col-6">
-<div class="small-box bg-danger">
-  <div class="inner">
-    <h4>#</h4>
-    <p>Execute Booking</p>
-  </div>
-  <div class="icon">
-    <i class="ion ion-pie-graph"></i>
-  </div>
-  <a href="{{ route('adm_execute_booking') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-</div>
-</div>
 
 </div>
+
 </div>
 </section>
 
