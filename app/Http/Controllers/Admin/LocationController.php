@@ -62,7 +62,7 @@ class LocationController extends Controller
     }
     public function find_district_id($id)
     {
-        return json_encode(LocationDistrictModel::select()->where('country_id',$id)->get());
+        return json_encode(LocationDistrictModel::select()->where('region_id',$id)->get());
     }
     public function find_city_id($id)
     {

@@ -201,8 +201,21 @@
 
 @endsection
 @section('third_party_scripts')
-<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
-<script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.0/js/fileinput.min.js" type="text/javascript"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/js/fileinput.js" type="text/javascript"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.4/themes/fa/theme.min.js" type="text/javascript"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" type="text/javascript"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" type="text/javascript"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<script type="text/javascript">
+
+$('.facilities').select2( {
+  allowClear:true
+});
       $(document).ready(function () {
       
       $('#countryid').on('change', function () {
@@ -213,7 +226,7 @@
         $('#regionid').append(`<option value="0" disabled selected>Searching . . .</option>`);
         $.ajax( {
            type: 'GET',
-           url: '/admin/location/region/select/' + id,
+           url: '/administrator/tph/location/region/select/' + id,
            
             success: function (response) {
             var response = JSON.parse(response);
@@ -238,7 +251,7 @@
         $('#districtid').append(`<option value="0" disabled selected>Searching . . .</option>`);
         $.ajax( {
            type: 'GET',
-           url: '/admin/location/district/select/' + id,
+           url: '/administrator/tph/location/district/select/' + id,
            
             success: function (response) {
             var response = JSON.parse(response);
@@ -263,7 +276,7 @@
         $('#cityid').append(`<option value="0" disabled selected>Searching . . .</option>`);
         $.ajax( {
            type: 'GET',
-           url: '/admin/location/city/select/' + id,
+           url: '/administrator/tph/location/city/select/' + id,
            
             success: function (response) {
             var response = JSON.parse(response);
@@ -289,7 +302,7 @@
         $('#municipalityid').append(`<option value="0" disabled selected>Searching . . .</option>`);
         $.ajax( {
            type: 'GET',
-           url: '/admin/location/municipality/select/' + id,
+           url: '/administrator/tph/location/municipality/select/' + id,
            
             success: function (response) {
             var response = JSON.parse(response);
