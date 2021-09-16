@@ -174,6 +174,8 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant.das
         Route::get('/{destination}/','Merchant\ServiceListingController@index')
         ->name('service_listing');
 
+        
+
         Route::get('/{destination}/{id}/delete','Merchant\ServiceListingController@delete_post')
         ->name('delete_post');
 

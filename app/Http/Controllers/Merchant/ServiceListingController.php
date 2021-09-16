@@ -86,12 +86,46 @@ class ServiceListingController extends Controller
     }
 
 
+protected function verify() {
+
+    $data = MerchantVerifyModel::join('profiles','profiles.id','merchant_verify.prof_id')
+
+            ->where(function($query) {
+                $query->from('merchant_verify')
+                    ->where('profiles.id',$this->profile->profile_check()->id)
+                    ->where('merchant_verify.verify_id',3);
+            })->get();
+
+        // return view('merchant_dashboard.service.createNotFound');
+    }
+
+
     public function index($desc) {
 
-        $service_name = $this->desc_name($desc);
-        $service_post = $this->service_post($desc);
+        $data = MerchantVerifyModel::join('profiles','profiles.id','merchant_verify.prof_id')
 
-        return view('merchant_dashboard.service.index',compact('service_name','service_post'));
+            ->where(function($query) {
+                $query->from('merchant_verify')
+                    ->where('profiles.id',$this->profile->profile_check()->id)
+                        ->where('merchant_verify.verify_id',3);
+            })->get();
+
+        if(count($data) == 1) {
+         
+            $service_name = $this->desc_name($desc);
+            $service_post = $this->service_post($desc);
+            
+            return view('merchant_dashboard.service.index',compact('service_name','service_post'));
+
+         }  elseif (count($data) >= 2) {
+             
+             abort(403, 'Unauthorized action. "Multiple verification ID"');
+         }
+
+            else {
+
+            abort(403, 'Unauthorized action.');
+        }
     }
 
     public function service_create_post($desc) {

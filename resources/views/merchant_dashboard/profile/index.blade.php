@@ -3,69 +3,7 @@
 @section('content')
 
 <section class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-lg-3 col-6">
-        
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h4>150</h4>
-
-                <p>New Orders</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-bag"></i>
-              </div>
-
-            </div>
-          </div>
-          
-          <div class="col-lg-3 col-6">
-            
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h4>53<sup style="font-size: 20px">%</sup></h4>
-
-                <p>Bounce Rate</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-              </div>
-
-            </div>
-          </div>
-          
-          <div class="col-lg-3 col-6">
-
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h4>44</h4>
-
-                <p>User Registrations</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-3 col-6">
-
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h4>65</h4>
-
-                <p>Unique Visitors</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-
-
+  <div class="container-fluid">
 <div class="row">
   <div class="col-md-12">
 
@@ -79,7 +17,7 @@
         @elseif($profile->id1 == 2)
           <span class="bg-yellow">&nbsp; Information : For compliance, {{ $verify_check->description }}</span>
         @elseif($profile->id1 == 3)
-          <span class="bg-green">&nbsp;{{ $verify_check->description }}&nbsp; </span>
+          <span class="bg-green">&nbsp;{{ $verify_check->description }}&nbsp;</span>
         @endif
       </div>
 
