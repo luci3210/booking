@@ -98,7 +98,7 @@
         @endauth
         @else 
 
-        <a class="uk-button uk-button-default" href="javascript:void(0)" uk-toggle="target:#checklogin">
+        <a class="uk-button uk-button-default" href="javascript:void(0)" uk-toggle="target:#register">
           Subscribe Now
         </a>
 

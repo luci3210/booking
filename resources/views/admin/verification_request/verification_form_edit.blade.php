@@ -13,10 +13,15 @@
       <div class="time-label">
         @if($profile_details->verify_id == 3)
           <span class="bg-green"> Account : Fully verified </span>
-        @elseif($profile_details->id1 == 2)
-          <span class="bg-red"> Information : For Compliance&nbsp;</span>
+        @elseif($profile_details->verify_id == 2)
+          <span class="bg-yellow"> 
+            Account : Need for compliance
+          </span>
+          <span class="bg-grey" style="border: 1px solid #ccc;"> 
+            <i class="fa fa-envelope-open-o" aria-hidden="true"></i> {{ $profile_details->description }}
+          </span>
         @else
-
+          <span class="bg-red" title="Please provide, tourismo requirement"> Account : For validation</span>
         @endif
       </div>
 
@@ -25,7 +30,7 @@
 <i class="fas fa-check bg-green"></i>
 <div class="timeline-item">
   
-  <h3 class="timeline-header">Merchant Profile</h3>
+  <h3 class="timeline-header">Profile</h3>
 
   <div class="timeline-body">
 
@@ -58,6 +63,132 @@
 
 
 
+<!-- --------------------------------------contact------------------------------------- -->
+@if(empty($contact[0]->cid))
+<div>
+<i class="fas fa-times bg-red"></i>
+<div class="timeline-item">
+  
+  <h3 class="timeline-header">Contact</h3>
+
+  <div class="timeline-body">
+
+
+
+  </div>
+
+</div>
+</div>
+@else
+<div>
+<i class="fas fa-check bg-green"></i>
+<div class="timeline-item">
+  <h3 class="timeline-header">Contact</h3>
+  <div class="timeline-body">
+<table class="table table-bordered table-sm">
+  <thead>                  
+    <tr>
+      <th style="width: 10px">No.</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phono</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach($contact as $contacts)
+    <tr>
+      <td>{{ $loop->index + 1 }}</td>
+      <td>{{ $contacts->fname }} {{ $contacts->lname }}</td>
+      <td>{{ $contacts->email }}</td>
+      <td>{{ $contacts->phonno }}</td>
+    </tr>
+    @endforeach
+  </tbody>
+</table>  
+  </div>
+</div>
+</div>
+@endif
+
+<!-- --------------------------------------address------------------------------------- -->
+@if(empty($address[0]->aid))
+<div>
+<i class="fas fa-times bg-red"></i>
+<div class="timeline-item">
+  
+  <h3 class="timeline-header">Address</h3>
+
+  <div class="timeline-body">
+
+
+
+  </div>
+
+</div>
+</div>
+@else
+<div>
+<i class="fas fa-check bg-green"></i>
+<div class="timeline-item">
+  <h3 class="timeline-header">Address</h3>
+  <div class="timeline-body">
+
+<table class="table table-bordered table-sm">
+  <thead>                  
+    <tr>
+      <th style="width: 10px">No.</th>
+      <th>Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach($address as $addresses)
+    <tr>
+      <td>{{ $loop->index + 1 }}</td>
+      <td>{{ $addresses->address }}</td>
+    </tr>
+    @endforeach
+  </tbody>
+</table>
+
+  </div>
+</div>
+</div>
+@endif
+
+<!-- ----------------------------------------permit------------------------------------- -->
+
+@if(empty($permit[0]->pid))
+<div>
+<i class="fas fa-times bg-red"></i>
+<div class="timeline-item">
+  
+  <h3 class="timeline-header">Permit</h3>
+
+  <div class="timeline-body">
+
+  </div>
+
+</div>
+</div>
+@else
+<div>
+<i class="fas fa-check bg-green"></i>
+<div class="timeline-item">
+  <h3 class="timeline-header">Permit</h3>
+  <div class="timeline-body">
+
+    @foreach($permit as $permits)
+
+        <img src="{{ asset('image/permit') }}/{{ $permits->permit }}" style="width: 140px; height: 150px;" alt="...">
+
+  @endforeach()
+
+  </div>
+</div>
+</div>
+@endif
+
+
 
 
 
@@ -70,7 +201,6 @@
 <div>
   <i class="fas fa-check bg-green"></i>
   <div class="timeline-item">
-    <span class="time"><i class="fas fa-clock"></i> xxx</span>
     <h3 class="timeline-header">Action</h3>
     <div class="timeline-body">
     
@@ -86,8 +216,8 @@
           </label>
         <select class="form-control" name="status">
           <option value="">-Select Update-</option>
-          <option value="3">Account Appproved</option>
-          <option value="2">For Compliance</option>
+          <option value="3">Fully Verified</option>
+          <option value="2">Need for compliance</option>
         </select>
       </div>
 

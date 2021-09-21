@@ -38,10 +38,22 @@ class VerificationRequestController extends Controller
 
         return MerchantAddress::where('prof_id', $this->profile_check()->id)->get('prof_id')->first();
     }
-
-      public function permit_check() {
+protected function contact($id) {
         
-        return MerchantPermit::join('profiles','merchant_permit.prof_id','profiles.id')->get('merchant_permit.prof_id as permit')->first();
+        return MerchantContact::leftJoin('profiles','merchant_contact.prof_id','profiles.id')
+            ->where([['profiles.id',$id],['merchant_contact.temp_status',1]])->select('profiles.id as cid','merchant_contact.fname','merchant_contact.lname','merchant_contact.email','merchant_contact.phonno')->get();
+    }
+
+protected function address($id) {
+        
+        return Profile::leftJoin('merchant_address','merchant_address.prof_id','profiles.id')
+            ->where([['merchant_address.prof_id',$id],['merchant_address.temp_status',1]])->select('profiles.id as aid','merchant_address.address')->get();
+    }
+
+protected function permit($id) {
+        
+        return MerchantPermit::leftJoin('profiles','merchant_permit.prof_id','profiles.id')
+            ->where([['profiles.id',$id],['merchant_permit.temp_status',1]])->select('profiles.id as pid','merchant_permit.permit')->get();
     }
 
     // public function profile() {
@@ -62,7 +74,7 @@ public function verify_check() {
     return Profile::join('merchant_verify','merchant_verify.prof_id','profiles.id')->orderBy('merchant_verify.id','desc')->first();
 }
 
-public function profile_details() {
+protected function profile_details() {
 
     return Profile::where('id',Auth::user()->id)->get()->first();
 }
@@ -80,19 +92,24 @@ public function index() {
     return view('admin.verification_request.index',compact('data'));
 }
 
-public function verification_edit_view($id) {
+protected function verification_edit_view($id) {
 
-    $profile_details = Profile::leftJoin('merchant_verify','merchant_verify.id','profiles.plan_id')
+    $profile_details = Profile::leftJoin('merchant_verify','merchant_verify.prof_id','profiles.id')
 
         ->where(function($query) use($id) {
    
         $query->from('profiles')->where('profiles.id',$id);
    
-    })->select('profiles.*','merchant_verify.id as vid','merchant_verify.verify_id')->first();
+    })->select('profiles.*','merchant_verify.id as vid','merchant_verify.verify_id','merchant_verify.description')->first();
+
 
     if($profile_details) {
+        
+        $permit = $this->permit($id);
+        $address = $this->address($id);
+        $contact = $this->contact($id);
 
-        return view('admin.verification_request.verification_form_edit',compact('profile_details'));
+        return view('admin.verification_request.verification_form_edit',compact('profile_details','permit','address','contact'));
 
     } else {
 
