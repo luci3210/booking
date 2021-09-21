@@ -422,15 +422,23 @@ a.text-primary:hover{
     position: relative;
  } 
 
+ @media (min-width: 1024px) {  
+    #header-navs{
+        height: 100%;
+    }
+    
+}
+
+
 
 
 </style>
 
 <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky" class="nav-main" id="header">
-<nav class="fixed-top uk-navbar-container nav-height uk-container" uk-navbar>
+<nav class="fixed-top uk-navbar-container nav-height uk-container" id="header-navs" uk-navbar>
     
     <div class="uk-navbar-left sm-m-view">
-        <div class="uk-grid" uk-grid>
+        <div class="row">
             <div class="col-lg-4 col-sm-12 icon-div">
                 <a href="{{ route('myhome') }}">
                     <!-- <span> -->
