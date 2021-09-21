@@ -45,28 +45,37 @@ class ProfileContactController extends Controller
 
     public function contact_create(MerchantCreateContact $request) {
 
-        MerchantContact::create(['fname' => $request->fname,'lname' => $request->lname,
-            'email' => $request->email,'phonno' => $request->contact,'temp_status' => 1, 'prof_id'=> $this->profile->profile_check()->id]);
+        $insert = MerchantContact::firstOrCreate(['fname' => $request->fname,'lname' => $request->lname,
+            'email' => $request->email,'phonno' => $request->contact,'temp_status' => 1, 'prof_id'=> $this->profile->profile_check()->id, 'created_at' => now()]);
 
-
-        if(empty($this->address_check()->prof_id) || empty($this->permit_check()->prof_id) || empty($this->profile->profile_check()->company)) {
-
-            return redirect('merchant/profile/profile')->withSuccess('Successfully Added!');
-
+        if($insert) {
+        
+            return redirect('merchant/profile/profile')->withSuccess('Successfully Updated!');
+        
         } else {
 
-            Profile::where('user_id',Auth::user()->id)->update(['request_at' => date('Ymd'), 'id1'=> 1]);  
-
-            return redirect('merchant/profile/profile')->withSuccess('Successfully Added!');
-
+            return view('errors.merchant.web.pageNotfound');
         }
+
     }
 
     public function contact_edit($id) {
 
-        $contact = MerchantContact::where('id',$id)->firstOrFail();
-        return view('merchant_dashboard.profile.profile_contact_form_edit',compact('contact'));
 
+        $contact = MerchantContact::where( function($query) use($id) {
+            $query->from('merchant_contact')->where([['id',$id],['prof_id',$this->profile->profile_check()->id],['temp_status',1]]);
+        })->first();
+
+        if($contact) {
+            
+            return view('merchant_dashboard.profile.profile_contact_form_edit',compact('contact'));
+
+        } else {
+
+            return view('errors.merchant.web.pageNotfound');
+
+        }
+        
     }
     public function contact_update(MerchantCreateContact $request, $id) {
 
@@ -77,9 +86,29 @@ class ProfileContactController extends Controller
 
     public function contact_delete($id) {
 
-        $contact_delete = MerchantContact::where('id',$id)->where('prof_id',$this->profile->profile_check()->id)->firstOrFail();
-        $contact_delete->update(['temp_status'=> 4]);
+        $check_delete = MerchantContact::where( function($query) {
+            $query->from('merchant_contact')->where([['prof_id',$this->profile->profile_check()->id],['temp_status',1]]);
+        })->get();
 
-        return redirect()->back()->withSuccess('Successfully deleted!');
+        if($check_delete) {
+
+            if(count($check_delete) <= 1) {
+
+                return redirect()->back()->withInfo('Contact, Cannot be deleted.');
+
+            } else {
+
+            $contact_delete = MerchantContact::where('id',$id)->where('prof_id',$this->profile->profile_check()->id)->firstOrFail();
+            $contact_delete->update(['temp_status'=> 4]);
+
+            return redirect()->back()->withSuccess('Successfully deleted.');
+            }
+        }
+        else
+        {
+            return view('errors.merchant.web.pageNotfound');
+        }
+
+
     }
 }

@@ -14,39 +14,40 @@
       </div>
 
     <div class="card-body">
-        <table class="table table-bordered">
+        <table class="table table-bordered table-sm">
         
         <thead>                  
             <tr>
-              <th style="width: 10px">#</th>
+              <th style="width: 10px">No. </th>
               <th>Merchant</th>
-              <th>Verify Date</th>
-              <th>Plan Type</th>
+              <th>Contact No.</th>
+              <th>E-mail</th>
+              <th>Website</th>
+              <th>Created</th>
               <th class="text-center">Status</th>
               <th class="text-center">Action</th>
             </tr>
         </thead>
         
         <tbody>
-            @foreach($profile as $list)
-            <tr>
-              <td>1.</td>
+            @foreach($data as $list)
+            <tr style="font-size: 14px;">
+              <td class="text-center">{{ $loop->index + 1}}</td>
               <td>{{ $list->company }}</td>
-              <td>{{ $list->request_at }}</td>
-              <td>{{ $list->plan_name }} - {{ $list->validity }}</td>
-
+              <td>{{ $list->telno }}</td>
+              <td>{{ $list->email }}</td>
+              <td>{{ $list->website }}</td>
+              <td>{{ $list->created_at }}</td>
               <td>
-                @if($list->id1 == 1)
+                @if($list->id)
                    For Verification level
-                @elseif($list->id1 == 2)
+                @else
                    <span class="text-danger">For Compliance </span>
-                @else 
-                   Wrong status
                 @endif
               </td>
               
               <td class="text-center">
-                <a class="btn btn-primary btn-xs" href="{{ route('merchant_verification_edit_view',$list->planid)}}"><i class="fas fa-eye"></i> View</a> 
+                <a class="btn btn-primary btn-xs" href="{{ route('merchant_verification_edit_view',$list->id)}}"><i class="fas fa-eye"></i> View</a> 
               </td>
             </tr>
             @endforeach

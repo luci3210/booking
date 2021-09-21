@@ -11,8 +11,8 @@
     <div class="timeline">
       
       <div class="time-label">
-        @if($profile_details->verify_id == 3)
-          <span class="bg-green"> Account : Fully verified </span>
+        @if($profile_details->id1 == 1)
+          <span class="bg-green"> Information : For Verification level </span>
         @elseif($profile_details->id1 == 2)
           <span class="bg-red"> Information : For Compliance&nbsp;</span>
         @else
@@ -61,8 +61,75 @@
 
 
 
+  <div>
+    <i class="fas fa-check bg-green"></i>
+    <div class="timeline-item">
+      
+      <h3 class="timeline-header">Contact</h3>
+
+      <div class="timeline-body">
+          <table class="table table-bordered">
+                  <thead>                  
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Contact No</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{{ $contact_details->fname }} {{ $contact_details->lname }}</td>
+                      <td>{{ $contact_details->email }}</td>
+                      <td>{{ $contact_details->phonno }}</td>
+                     
+                    </tr>
+                  </tbody>
+                </table>
+      </div>
+    </div>
+  </div>
 
 
+  <div>
+    <i class="fas fa-check bg-green"></i>
+    <div class="timeline-item">
+      
+      <h3 class="timeline-header">Addresses</h3>
+
+      <div class="timeline-body">
+        <table class="table table-bordered">
+                  <thead>                  
+                    <tr>
+                      <th>Address</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{{ $address_details->address }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+      </div>
+    </div>
+  </div>
+
+
+<div>
+  <i class="fas fa-check bg-green"></i>
+  <div class="timeline-item">
+    <span class="time"><i class="fas fa-clock"></i> xxx</span>
+    <h3 class="timeline-header">Permit and goverment Id.</h3>
+    <div class="timeline-body">
+
+@foreach($permit_pic as $permit)
+
+      <img src="{{ asset('image/permit') }}/{{ $permit->permit }}" style="width: 100px; height: 150px;" alt="...">
+
+@endforeach()
+
+</div>
+</div>
+</div>
 
 
 
@@ -93,7 +160,7 @@
 
       <div class="form-group">
         <label>
-          <span class="text-danger">*</span> Message
+            <span class="text-danger">*</span> Message
           <small class="text-danger has-error">
             {{ $errors->has('message') ?  $errors->first('message') : '' }}
           </small>

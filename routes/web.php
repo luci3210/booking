@@ -116,42 +116,37 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'tourismo/'],
 
 Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant/profile'], function() {
         
-        #profile---
-        Route::get('/profile','Merchant\ProfileController@index')
-        ->name('profile_index');
+    #profile---
+    Route::get('/profile','Merchant\ProfileController@index')
+    ->name('profile_index');
 
-        Route::get('/profile_form','Merchant\ProfileController@profile_form')
-        ->name('profile_form');
+    Route::get('/profile_form','Merchant\ProfileController@profile_form')
+    ->name('profile_form');
 
-        Route::post('/profile','Merchant\ProfileController@profile_form_submit')
-        ->name('profile_submit');
+    Route::post('/profile','Merchant\ProfileController@profile_form_submit')
+    ->name('profile_submit');
 
-        Route::post('/profile_update','Merchant\ProfileController@profile_form_update')
-        ->name('profile_update');
+    Route::post('/profile_update/{id}','Merchant\ProfileController@profile_form_update')
+    ->name('profile_update');
 
-        Route::post('/profile_update_permit','Merchant\ProfileController@merchant_permit')
-        ->name('merchant_permit_submit');
+    Route::post('/profile_update_permit','Merchant\ProfileController@merchant_permit')
+    ->name('merchant_permit_submit');
 
-        #contact---
+    #contact---
 
-        Route::get('/contact_form','Merchant\ProfileContactController@contact_form')
-        ->name('profile_contact_form');
+    Route::get('/contact_form','Merchant\ProfileContactController@contact_form')->name('profile_contact_form');
 
-        Route::post('/contact_form','Merchant\ProfileContactController@contact_create')
-        ->name('profile_contact_create');
+    Route::post('/contact_form','Merchant\ProfileContactController@contact_create')->name('profile_contact_create');
 
-        Route::get('/contact_edit/{id}','Merchant\ProfileContactController@contact_edit')
-        ->name('profile_contact_edit');
+    Route::get('/contact_edit/{id}','Merchant\ProfileContactController@contact_edit')->name('profile_contact_edit');
 
-        Route::post('/contact_update/{id}','Merchant\ProfileContactController@contact_update')
-        ->name('profile_contact_update');
+    Route::post('/contact_update/{id}','Merchant\ProfileContactController@contact_update')->name('profile_contact_update');
 
-        Route::get('/contact_delete/{id}','Merchant\ProfileContactController@contact_delete')
-        ->name('profile_contact_delete');
+    Route::get('/contact_delete/{id}','Merchant\ProfileContactController@contact_delete')->name('profile_contact_delete');
 
         #address--- 
 
-        Route::get('/address_form','Merchant\ProfileAddressController@address_form')
+    Route::get('/address_form','Merchant\ProfileAddressController@address_form')
         ->name('profile_address_form');
 
         Route::post('/address_form','Merchant\ProfileAddressController@address_create')
@@ -489,9 +484,7 @@ Route::post(
         
 Route::get('/tourismo/merchant/verification_list', 'Admin\VerificationRequestController@index')->name('merchant_verification');
 
-Route::get(
-        '/tourismo/merchant/verification/{id}', 
-        'Admin\VerificationRequestController@verification_edit_view')
+Route::get('/tourismo/merchant/verification/{id}','Admin\VerificationRequestController@verification_edit_view')
         ->name('merchant_verification_edit_view');
 
 

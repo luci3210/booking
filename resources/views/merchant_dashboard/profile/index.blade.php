@@ -9,24 +9,24 @@
 
     <div class="timeline">
       
-      <div class="time-label">
-        @if(empty($profile->user_id) || empty($profile_contact->prof_id) || empty($profile_address->prof_id) || empty($profile_permit->prof_id))
-          <span class="bg-red">Information :  Basic Level "Please complete required below."&nbsp;</span>
-        @elseif($profile->id1 == 1)
-          <span class="bg-green">&nbsp;Information : For Verification level&nbsp;</span>
-        @elseif($profile->id1 == 2)
-          <span class="bg-yellow">&nbsp; Information : For compliance, {{ $verify_check->description }}</span>
-        @elseif($profile->id1 == 3)
-          <span class="bg-green">&nbsp;{{ $verify_check->description }}&nbsp;</span>
-        @endif
-      </div>
+    <div class="time-label">
+      @if(empty($profile->user_id) || empty($profile_contact->prof_id) || empty($profile_address->prof_id) || empty($profile_permit->prof_id))
+
+        <span class="bg-red">Information :  Basic Level "Please complete required below."&nbsp;</span>
+
+      @else 
+
+
+      @endif
+
+    </div>
 
 @if(empty($profile_details->company))
   <div>
       <i class="fas fa-times bg-red"></i>
       <div class="timeline-item">
         
-        <h3 class="timeline-header">Merchant Profile</h3>
+        <h3 class="timeline-header">Profile</h3>
 
         <div class="timeline-body">
           Please update your merchant identity.
@@ -43,7 +43,7 @@
       <i class="fas fa-check bg-green"></i>
       <div class="timeline-item">
         
-        <h3 class="timeline-header">Merchant Profile</h3>
+        <h3 class="timeline-header">Profile</h3>
 
         <div class="timeline-body">
 
@@ -109,7 +109,7 @@
       <h3 class="timeline-header">Contact</h3>
 
       <div class="timeline-body">
-          <table class="table table-bordered">
+          <table class="table table-bordered table-sm">
                   <thead>                  
                     <tr>
                       <th style="width: 10px">#</th>
@@ -123,7 +123,7 @@
                     @foreach($profile_contact_details as $contacts)
                     <tr>
                       <td>{{ $loop->index + 1 }}</td>
-                      <td>{{ $contacts->fname }} {{ $contacts->lname }}</td>
+                      <td>{{ $contacts->prof_id }} {{ $contacts->lname }}</td>
                       <td>{{ $contacts->email }}</td>
                       <td>{{ $contacts->phonno }}</td>
                       <td style="width:130px;" class="text-center">
@@ -217,7 +217,6 @@
 <div>
   <i class="fas fa-times bg-red"></i>
   <div class="timeline-item">
-    <span class="time"><i class="fas fa-clock"></i> 2 days ago</span>
     <h3 class="timeline-header"><a href="#">Required Id's or Permit</a> Add at least one(1) business permit or goverment Id.</h3>
     <div class="timeline-body">
 
@@ -266,7 +265,6 @@ Upload Business Permit
 <div>
   <i class="fas fa-check bg-green"></i>
   <div class="timeline-item">
-    <span class="time"><i class="fas fa-clock"></i> 2 days ago</span>
     <h3 class="timeline-header"><a href="#">Required Id's or Permit</a> Add at least one(1) business permit or goverment Id.</h3>
     <div class="timeline-body">
 

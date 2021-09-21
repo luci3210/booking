@@ -85,7 +85,6 @@ class ServiceListingController extends Controller
 
     }
 
-
 protected function verify() {
 
     $data = MerchantVerifyModel::join('profiles','profiles.id','merchant_verify.prof_id')
@@ -95,8 +94,6 @@ protected function verify() {
                     ->where('profiles.id',$this->profile->profile_check()->id)
                     ->where('merchant_verify.verify_id',3);
             })->get();
-
-        // return view('merchant_dashboard.service.createNotFound');
     }
 
 
@@ -128,15 +125,28 @@ protected function verify() {
         }
     }
 
-    public function service_create_post($desc) {
+public function service_create_post($desc) {
 
-        $service_name = $this->desc_name($desc);
-        $room_facilities = $this->room_facilities();
-        $building_facilities = $this->building_facilities();
-        $packages_facilities = $this->packages_facilities();
-        $address = $this->address();
-        $verify = $this->account_verify();
-        $country = $this->country();
+$data = MerchantVerifyModel::join('profiles','profiles.id','merchant_verify.prof_id')
+
+->where(function($query) {
+    $query->from('merchant_verify')
+        ->where('profiles.id',$this->profile->profile_check()->id)
+            ->where('merchant_verify.verify_id',3);
+})->get();
+
+
+
+ if(count($data) == 1) {
+         
+    $service_name = $this->desc_name($desc);
+    $room_facilities = $this->room_facilities();
+    $building_facilities = $this->building_facilities();
+    $packages_facilities = $this->packages_facilities();
+    $address = $this->address();
+    $verify = $this->account_verify();
+    $country = $this->country();
+
 
         if($desc == 'exlcusive') {
 
@@ -145,10 +155,20 @@ protected function verify() {
         } else {
 
             return view('merchant_dashboard.service.create_form',compact('address','service_name','room_facilities','building_facilities','packages_facilities','country','verify'));   
-    
         }
 
+     }  elseif (count($data) >= 2) {
+         
+         abort(403, 'Unauthorized action. "Multiple verification ID"');
+     }
+
+        else {
+
+        abort(403, 'Unauthorized action.');
     }
+
+
+}
 
     public function account_verify() {
 

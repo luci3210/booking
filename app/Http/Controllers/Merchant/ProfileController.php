@@ -10,8 +10,12 @@ use App\Model\Merchant\HotelModel;
 use App\Model\Merchant\MerchantAddress;
 use App\Model\Merchant\MerchantContact;
 use App\Model\Merchant\MerchantPermit;
+use App\Model\ProfileUsersModel;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
+
+use App\Http\Requests\Merchant\UpdateProfile;
+
 use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
@@ -24,6 +28,13 @@ class ProfileController extends Controller
 
 		$this->myplan = $myplan;
 	}
+
+    public function profile_user_check() {
+
+        return ProfileUsersModel::where( function($query) {
+            $query->from('profile_users')->where('up_user_id',Auth::user()->id);
+        })->first();
+    }
 
 	public function profile_check() {
 
@@ -76,7 +87,7 @@ class ProfileController extends Controller
         return redirect('merchant/profile/profile');
     }
 
-    public function index() {
+public function index() {
 
     	$profile = $this->profile_check();
     	$profile_details = $this->profile_details();
@@ -95,7 +106,7 @@ class ProfileController extends Controller
     	return view('merchant_dashboard.profile.index',compact(['profile','profile_details','profile_address','profile_address_details','profile_contact','profile_contact_details','profile_permit','profile_permit_details','verify_check']));
     }
 
-    public function profile_form() {
+protected function profile_form() {
 
     	$profile = $this->profile_check();
     	$profile_details = $this->profile_details();
@@ -103,100 +114,66 @@ class ProfileController extends Controller
     	return view('merchant_dashboard.profile.profile',compact(['profile','profile_details']));
     }
 
-    public function profile_form_submit(Request $request) {
+protected function profile_form_update(UpdateProfile $request, $id) {
 
-    	$validate_input = ['merchant_name' => 'required',
-            'about' => 'required',
-            	'merchant_address' => 'required',
-            		'mail' => 'required',
-            			'website' => 'required',
-            				'telno' => 'required'];
+    if($this->profile_user_check('up_profile_id')) { 
 
-        $validate_message = ['required' => '* Enter your :attribute'];
-
-   		$this->validate($request, $validate_input, $validate_message);   
-
-        Profile::create(['company'      => $request->merchant_name,
-                        'address'       => $request->merchant_address,
-                        'plan_id'       => $this->myplan->getPlan()->planid,
-                        'about'         => $request->about,
-                        'email'         => $request->mail,
-                        'telno'         => $request->telno,
-                        'website'       => $request->website,
-                      	'user_id'       => Auth::user()->id]);
-
-        // HotelModel::create(['profid' => Auth::user()->id]);
-   		return redirect('merchant_dashboard/profile/profile')->withSuccess('Successfully updated!');
-    // return redirect()->back()->withSuccess('Successfully updated!');
-    }
-
-    public function profile_form_update(Request $request) {
-
-    $validate_input = ['merchant_name' => 'required',
-            'about' => 'required',
-            	'merchant_address' => 'required',
-            		'mail' => 'required',
-            			'website' => 'required',
-            				'telno' => 'required'];
-
-    $validate_message = ['required' => '* Enter your :attribute'];
-
-   	$this->validate($request, $validate_input, $validate_message); 
-
-    if(empty($this->contact_check()->prof_id) || empty($this->address_check()->prof_id) || empty($this->permit_check()->prof_id)) {
-
-        Profile::where('user_id',Auth::user()->id)->update(['company' => $request->merchant_name,
-            'address'       => $request->merchant_address,
+    Profile::where('id',$id)->update(['company' => $request->company,
+            'address'       => $request->address,
             'about'         => $request->about,
-            'email'         => $request->mail,
+            'email'         => $request->email,
             'telno'         => $request->telno,
-            'website'       => $request->website]);   
+            'website'       => $request->website]);  
 
-        return redirect('merchant/profile/profile')->withSuccess('Successfully updated!');
+    return redirect()->back()->withSuccess('Profile successfully updated.');
 
-    } else {
+    } 
 
-        Profile::where('user_id',Auth::user()->id)->update(['company' => $request->merchant_name,
-            'address'       => $request->merchant_address,
+    else 
+    
+    {
+
+    Profile::where('id',$id)->update(['company' => $request->company,
+            'address'       => $request->address,
             'about'         => $request->about,
-            'email'         => $request->mail,
+            'email'         => $request->email,
             'telno'         => $request->telno,
-            'website'       => $request->website,
-            'request_at' => date('Y/m/d'),
-            'id1'       => 1]);  
+            'website'       => $request->website]); 
 
-        return redirect('merchant/profile/profile')->withSuccess('Successfully updated!');
+    ProfileUsersModel::firstOrCreate(['up_profile_id' => $id,
+            'up_user_id' => Auth::user()->id,
+                'up_role_id' => 1,
+                    'pu_temp' => 1,
+                        'pu_created_at' => now()]);
+
+    return redirect('merchant/profile/profile')->withSuccess('Profile successfully updated.');
     }
+}
 
-    }
 
-    public function merchant_permit(Request $request) {
+public function merchant_permit(Request $request) {
 
-        // $validate = [
-        //     'file'       => 'required|mimes:jpeg,png,jpg',
-        // ];
+        $image_validate = $request->validate([
+          'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
         $file = $request->file('file');
         $new_image_name = 'permit'.'_'.$this->profile_check()->id.'_'.date('Ymd').uniqid().'.jpg';
         $file->move(public_path('image/permit'), $new_image_name);
 
-        // $errMessage = ['required' => '* Enter your :attribute'];
-        // $this->validate($request, $validate, $errMessage);   
+        
+        $insert = MerchantPermit::firstOrCreate(['permit'=>$new_image_name,'prof_id'=>$this->profile_check()->id,'temp_status'=> 1]);
 
-        MerchantPermit::create(['permit'=>$new_image_name,'prof_id'=>$this->profile_check()->id,'temp_status'=> 1]);
+        if($insert) {
 
-        if(empty($this->contact_check()->prof_id) || empty($this->address_check()->prof_id) || empty($this->profile_check()->company)) {
-
-        return back()->withSuccess('Successfully added!');
-
-        } else {
-
-        Profile::where('user_id',Auth::user()->id)->update(['request_at' => date('Y/m/d'),'id1'=> 1]);  
-        return back()->withSuccess('Successfully added!');
-
+            return redirect()->back()->withSuccess('Successfully added!');    
         }
 
-    }
+        else {
+        
+            return redirect()->back()->withInfo('Permit not uploaded, Please try again.');
+        }
 
+        }
 
 }

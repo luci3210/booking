@@ -47,34 +47,40 @@ class ProfileAddressController extends Controller
 
     public function address_form() {
 
-        $country = $this->country();
-
-        return view('merchant_dashboard.profile.profile_address',compact(['country']));
+        return view('merchant_dashboard.profile.profile_address');
     }
 
     public function address_create(MerchantPostCreateRequest $request) {
 
-        MerchantAddress::create(['address' => $request->address,'temp_status' => 1, 'prof_id'=> $this->profile->profile_check()->id]);
+        $insert = MerchantAddress::firstOrCreate(['address' => $request->address,'temp_status' => 1, 'prof_id'=> $this->profile->profile_check()->id,'created_at' => now()]);
 
-        if(empty($this->contact_check()->prof_id) || empty($this->permit_check()->prof_id) || empty($this->profile->profile_check()->company)) {
-
-            return redirect('merchant/profile/profile')->withSuccess('Successfully added!');
+        if($insert) {
+        
+            return redirect('merchant/profile/profile')->withSuccess('Successfully Updated!');
         
         } else {
 
-            Profile::where('user_id',Auth::user()->id)->update(['request_at' => date('Ymd'), 'id1'=> 1]);  
-
-            return redirect('merchant/profile/profile')->withSuccess('Successfully added!');
-        
+            return view('errors.merchant.web.pageNotfound');
         }
     }
 
     public function address_edit($id) {
 
-        $address = MerchantAddress::where('id',$id)->firstOrFail();
-        $country = $this->country();
+        $address = MerchantAddress::where( function($query) use($id) {
 
-        return view('merchant_dashboard.profile.profile_address_form_edit',compact(['address','country']));
+            $query->from('merchant_address')->where([['id',$id],['prof_id',$this->profile->profile_check()->id],['temp_status',1]]);
+        
+        })->first();
+
+        if($address) {
+            
+            return view('merchant_dashboard.profile.profile_address_form_edit',compact('address'));
+
+        } else {
+
+            return view('errors.merchant.web.pageNotfound');
+
+        }
 
     }
     public function address_update(MerchantUpdateAddress $request, $id) {
@@ -85,9 +91,28 @@ class ProfileAddressController extends Controller
 
     public function address_delete($id) {
 
-        $address_delete = MerchantAddress::where('id',$id)->where('prof_id',$this->profile->profile_check()->id)->firstOrFail();
-        $address_delete->update(['temp_status'=> 4]);
+        $check_delete = MerchantAddress::where( function($query) {
+            $query->from('merchant_address')->where([['prof_id',$this->profile->profile_check()->id],['temp_status',1]]);
+        })->get();
 
-        return redirect()->back()->withSuccess('Successfully deleted!');
-    }
+        if($check_delete) {
+
+            if(count($check_delete) <= 1) {
+
+                return redirect()->back()->withInfo('Address, Cannot be deleted.');
+
+            } else {
+
+            $address_delete = MerchantAddress::where('id',$id)->where('prof_id',$this->profile->profile_check()->id)->firstOrFail();
+            $address_delete->update(['temp_status'=> 4]);
+
+            return redirect()->back()->withSuccess('Successfully deleted.');
+
+            }
+        }
+        else
+        {
+            return view('errors.merchant.web.pageNotfound');
+        }
+}
 }

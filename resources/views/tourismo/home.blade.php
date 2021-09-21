@@ -162,7 +162,7 @@
     <div class="row text-start">
 
       <div class="section-title">
-        <h2><b>Top Destination</b> 
+        <h2><b>Top Destinations</b> 
         </h2>
       </div>
 
@@ -217,7 +217,7 @@
   </div>
 
     </div>
-  <a href="{{ route('explore_by_country','Philippines') }}" class="uk-button btn-outline-web  uk-width-1-4@m  uk-width-1@s mx-auto my-2">Explore all Local destination</a>
+  <a href="{{ route('explore_by_country','Philippines') }}" class="uk-button btn-outline-web  uk-width-1-4@m  uk-width-1@s mx-auto my-2">Explore all Local destinations</a>
 
   </div>
 </section>
@@ -229,7 +229,7 @@
     <div class="row text-start">
 
       <div class="section-title">
-        <h2><b>Local Destination</b> 
+        <h2><b>Local Destinations</b> 
           <!-- <span style="font-size: 15px;padding-left: 25px;">
             <a href="{{ route('destination') }}" class="uk-link">
               <i class="fas fa-chevron-right"></i> Explore {{ $number_of_distination->count() }} {{ $icountry->country }} Destination
@@ -288,7 +288,7 @@
   </div>
 
     </div>
-  <a href="{{ route('explore_by_country','Philippines') }}" class="uk-button btn-outline-web  uk-width-1-4@m  uk-width-1@s mx-auto my-2">Explore all Local destination</a>
+  <a href="{{ route('explore_by_country','Philippines') }}" class="uk-button btn-outline-web  uk-width-1-4@m  uk-width-1@s mx-auto my-2">Explore all Locals destinations</a>
 
   </div>
 </section>
@@ -302,7 +302,7 @@
     <div class="row text-start">
 
 <div class="section-title">
-  <h2><b>International Destination </b> 
+  <h2><b>International Destinations </b> 
     <!-- <span style="font-size: 15px;padding-left: 25px;"><a href="{{ route('by_countries') }}" class="uk-link"><i class="fas fa-chevron-right"></i> Explore {{ $international[0]->count() }} countries</a></span> -->
   </h2>
 </div>
@@ -375,7 +375,7 @@
     <div class="row text-start">
 
       <div class="section-title">
-        <h2><b>Near By Destination </b> 
+        <h2><b>Near By Destinations </b> 
           <!-- <span style="font-size: 15px;padding-left: 25px;">
             <a href="{{ route('destination') }}" class="uk-link">
               <i class="fas fa-chevron-right"></i> Explore {{ $number_of_distination->count() }} {{ $icountry->country }} Destination
@@ -414,7 +414,7 @@
 
 
     </div>
-  <a href="{{ route('destination') }}" class="uk-button btn-outline-web  uk-width-1-4@m  uk-width-1@s mx-auto my-2">Explore all near by destination</a>
+  <a href="{{ route('destination') }}" class="uk-button btn-outline-web  uk-width-1-4@m  uk-width-1@s mx-auto my-2">Explore all near by destinations</a>
 
   </div>
 </section>

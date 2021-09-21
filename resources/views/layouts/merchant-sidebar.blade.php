@@ -54,7 +54,7 @@
   <a href="{{ route('service_listing',$service_exlusive->description) }}" class="nav-link">
     <i class="nav-icon fas fa-border-all" aria-hidden="true"></i>
         <p>
-          Post Exlusive
+          Post Exclusive
         </p>
   </a>
 </li>

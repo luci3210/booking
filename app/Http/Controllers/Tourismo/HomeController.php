@@ -176,9 +176,6 @@ class HomeController extends Controller
         $randomTour = $this->getServiceTourData('service_id',10);
         return $randomTour;
 
-        
-
-        
     }
 
     public function checkgeo(Request $req)

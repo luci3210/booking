@@ -7,15 +7,15 @@
   <div class="lockscreen-wrapper">
     
     <div class="lockscreen-logo">
-      <a href="../../index2.html">403 <i class="fas fa-charging-station"></i></a>
+      <a href="#">Something went wrong <i class="fas fa-charging-station"></i></a>
     </div>
 
     <div class="help-block text-center">
-      {{ $exception->getMessage() }}
+      - Page not found.
     </div>
     
     <div class="text-center">
-      <a href="{{ route('profile_index') }}"></a>
+      <a href="#"></a>
     </div>
 
 </div>

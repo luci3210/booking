@@ -4,76 +4,17 @@
 
 <section class="content">
       <div class="container-fluid">
-        <div class="row">
-          <div class="col-lg-3 col-6">
-        
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h4>150</h4>
-
-                <p>New Orders</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-bag"></i>
-              </div>
-
-            </div>
-          </div>
-          
-          <div class="col-lg-3 col-6">
-            
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h4>53<sup style="font-size: 20px">%</sup></h4>
-
-                <p>Bounce Rate</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-              </div>
-
-            </div>
-          </div>
-          
-          <div class="col-lg-3 col-6">
-
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h4>44</h4>
-
-                <p>User Registrations</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-3 col-6">
-
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h4>65</h4>
-
-                <p>Unique Visitors</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-
-
 
 <div class="row">
   <div class="col-12">
 
-    <div class="card">
+    <div class="card card-outline card-info">
     
       <div class="card-header">
-        <h3 class="card-title">Merchant Address</h3>
+        <h4 class="card-title">
+          <a href="{{ route('profile_index') }}"><i class="nav-icon far fa-address-card aria-hidden="></i> Profile</a>  
+          / <small>Add new contact address</small>
+        </h4>
       </div>
 
 
@@ -81,8 +22,6 @@
   @csrf
 
 <div class="card-body"> 
-
-
 
 <div class="form-group">
   <label>

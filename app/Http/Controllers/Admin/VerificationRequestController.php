@@ -44,50 +44,67 @@ class VerificationRequestController extends Controller
         return MerchantPermit::join('profiles','merchant_permit.prof_id','profiles.id')->get('merchant_permit.prof_id as permit')->first();
     }
 
-    public function profile() {
+    // public function profile() {
 
-        return Profile::join('myplans','myplans.id','profiles.plan_id')
-            ->whereIn('profiles.id1',[1,2])
-        ->get(['profiles.request_at','profiles.id as planid','profiles.company','myplans.validity','myplans.plan_name','myplans.id','profiles.user_id','profiles.id1']);
+    //     return Profile::leftJoin('merchant_verify','merchant_verify.id','profiles.plan_id')
+            
+    //         ->where(function($query) {
+                
+    //             $query->from('profiles')
+    //                 ->where('profiles.company','<>','')
+    //                     ->whereIn('merchant_verify.verify_id',[1,2]);
+
+    //         })->get();
+    // }
+
+public function verify_check() {
+
+    return Profile::join('merchant_verify','merchant_verify.prof_id','profiles.id')->orderBy('merchant_verify.id','desc')->first();
+}
+
+public function profile_details() {
+
+    return Profile::where('id',Auth::user()->id)->get()->first();
+}
+
+public function index() {
+
+   $data = Profile::leftJoin('merchant_verify','merchant_verify.id','profiles.plan_id')
+        
+        ->where(function($query) {
+            
+            $query->from('profiles')->where('profiles.company','<>','');
+
+        })->select('profiles.*','merchant_verify.id as vid')->get(); 
+
+    return view('admin.verification_request.index',compact('data'));
+}
+
+public function verification_edit_view($id) {
+
+    $profile_details = Profile::leftJoin('merchant_verify','merchant_verify.id','profiles.plan_id')
+
+        ->where(function($query) use($id) {
+   
+        $query->from('profiles')->where('profiles.id',$id);
+   
+    })->select('profiles.*','merchant_verify.id as vid','merchant_verify.verify_id')->first();
+
+    if($profile_details) {
+
+        return view('admin.verification_request.verification_form_edit',compact('profile_details'));
+
+    } else {
+
+        return view('errors.admin.web.pageNotfound');
     }
+        
+}
 
-    public function verify_check() {
+public function verification_update(AdminUpdateVerify $request, $id) {
 
-        return Profile::join('merchant_verify','merchant_verify.prof_id','profiles.id')->orderBy('merchant_verify.id','desc')->first();
-    }
+        MerchantVerifyModel::create(['prof_id' =>$id, 'verify_id' => $request->status, 'description'=>$request->message]);
+        return redirect()->back()->withSuccess('Successfully Updated!');
+}
 
-
-    public function profile_details() {
-
-        return Profile::where('id',Auth::user()->id)->get()->first();
-    }
-
-    public function index()
-    {
-
-        $contact_check = $this->contact_check();
-        $address_check = $this->address_check();
-        $permit_check = $this->permit_check();
-        $profile = $this->profile();
-        $verify_check = $this->verify_check();  
-
-        return view('admin.verification_request.index',compact(['verify_check','profile','contact_check','address_check','permit_check']));
-    }
-
-    public function verification_edit_view($id) {
-
-        $profile_details = Profile::where('id', $id)->firstOrFail();
-        $contact_details = MerchantContact::where('prof_id', $id)->firstOrFail();
-        $address_details = MerchantAddress::where('prof_id', $id)->firstOrFail();
-        $permit_pic = MerchantPermit::where('prof_id', $id)->get();
-
-        return view('admin.verification_request.verification_form_edit',compact(['profile_details','contact_details','address_details','permit_pic']));        
-    }
-
-    public function verification_update(AdminUpdateVerify $request, $id) {
-
-            MerchantVerifyModel::create(['prof_id' =>$id, 'verify_id' => $request->status, 'description'=>$request->message]);
-            Profile::where('id',$id)->update(['id1' =>$request->status]);
-            return redirect()->back()->withSuccess('Successfully Updated!');
-    }
 }

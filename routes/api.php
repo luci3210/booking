@@ -53,7 +53,6 @@ Route::prefix('service-tour')->group(function () {
     Route::get('get/tour/{tour_id}', 'mobile\ServiceTourMobController@getTourOne')->name('get_tour');
     Route::get('get/tour/nearby', 'mobile\ServiceTourMobController@getNearBy')->name('get_near');
     Route::get('get/tours/nearby', 'mobile\ServiceTourMobController@getNearByv2')->name('get_near2');
-
 });
 
 
