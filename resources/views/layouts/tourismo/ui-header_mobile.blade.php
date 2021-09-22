@@ -282,7 +282,7 @@
             </ul>
         </div>
         </div>
-            <img class="mx-auto py-3" src="{{ asset('image/logo/logoabv2.png') }}">
+            <img class="mx-auto py-3" src="{{ asset('image/logo/logoabv3.png') }}">
         </div>
 
         @endauth
@@ -301,7 +301,7 @@
             </ul>
         </div>
         </div>
-            <img class="mx-auto py-3" src="{{ asset('image/logo/logoabv2.png') }}">
+            <img class="mx-auto py-3" src="{{ asset('image/logo/logoabv3.png') }}">
         </div>
 
 
