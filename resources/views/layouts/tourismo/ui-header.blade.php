@@ -455,7 +455,7 @@ a.text-primary:hover{
 
                 @foreach($slmenu as $data)
                 @if($data->status == 'active')
-                <a class="p-2 link-secondary-search " href="{{ route('open_services',$data->description) }}">{{$data->name}}</a>
+                <a class="p-2 link-secondary-search " href="{{ route($data->prod_route_name,$data->description) }}">{{$data->name}}</a>
                 @else
                 <a class="p-2 link-secondary-search link-disabled fade-disabled" href="#" onclick="return false;">{{$data->name}}</a>
                 @endif
