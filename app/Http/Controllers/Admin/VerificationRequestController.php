@@ -100,7 +100,7 @@ protected function verification_edit_view($id) {
    
         $query->from('profiles')->where('profiles.id',$id);
    
-    })->select('profiles.*','merchant_verify.id as vid','merchant_verify.verify_id','merchant_verify.description')->first();
+    })->select('profiles.*','merchant_verify.id as vid','merchant_verify.verify_id','merchant_verify.description')->orderBy('vid', 'desc')->first();
 
 
     if($profile_details) {
