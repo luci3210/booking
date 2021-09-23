@@ -81,7 +81,7 @@
           window.open(`https://twitter.com/intent/tweet?text=${globalTourName}&url=${globalUrl}`)
         }
         if(openLink == 'fb'){
-          window.open(`https://www.facebook.com/sharer/sharer.php?u=${globalUrl}', '_black', 'location=yes,height=570,width=520,scrollbars=yes,status=yes`)
+          window.open(`https://www.facebook.com/sharer/sharer.php?u=${globalUrl}`)
         }
         if(openLink == 'fbms'){
           window.open('https://www.messenger.com/t')

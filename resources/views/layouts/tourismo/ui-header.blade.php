@@ -421,20 +421,31 @@ a.text-primary:hover{
     padding: 0 10px 0;
     position: relative;
  } 
+ #header{
+    padding-bottom: 10px;
+ }
+
+ @media (min-width: 1024px) {  
+    #header-navs{
+        height: 100%;
+    }
+    
+}
+
 
 
 
 </style>
 
-<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky" class="nav-main" id="header">
-<nav class="fixed-top uk-navbar-container nav-height uk-container" uk-navbar>
+<div  uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky" class="nav-main" id="header">
+<nav class="fixed-top uk-navbar-container nav-height uk-container" id="header-navs" uk-navbar>
     
     <div class="uk-navbar-left sm-m-view">
-        <div class="uk-grid" uk-grid>
+        <div class="row w-100 g-0">
             <div class="col-lg-4 col-sm-12 icon-div">
                 <a href="{{ route('myhome') }}">
                     <!-- <span> -->
-                        <img src="{{ asset('image/logo/logo.png') }}"  style=" padding-right: 15px;">
+                        <img src="{{ asset('image/logo/newlogo22.png') }}"  style="height: 45px;">
                     <!-- </span> -->
                 </a>
             </div>
@@ -447,7 +458,7 @@ a.text-primary:hover{
 
                 @foreach($slmenu as $data)
                 @if($data->status == 'active')
-                <a class="p-2 link-secondary-search " href="{{ route('open_services',$data->description) }}">{{$data->name}}</a>
+                <a class="p-2 link-secondary-search " href="{{ route($data->prod_route_name,$data->description) }}">{{$data->name}}</a>
                 @else
                 <a class="p-2 link-secondary-search link-disabled fade-disabled" href="#" onclick="return false;">{{$data->name}}</a>
                 @endif
@@ -515,9 +526,9 @@ a.text-primary:hover{
         <nav class="nav d-flex " >
             @foreach($slmenu as $data)
                 @if($data->status == 'active')
-                <a class="p-3 link-secondary " href="{{ route('open_services',$data->description) }}" ><i class="{{$data->icon_id}}"></i> {{$data->name}}</a>
+                <a class="p-3 link-secondary " href="{{ route($data->prod_route_name,$data->description) }}" ><i class="{{$data->icon_id}}"></i> {{$data->name}} </a>
                 @else
-                <a class="p-3 link-disabled fade-disabled" href="#" onclick="return false;"><i class="{{$data->icon_id}}"></i> {{$data->name}}</a>
+                <a class="p-3 link-disabled fade-disabled" href="#" onclick="return false;"><i class="{{$data->icon_id}}"></i> {{$data->name}} </a>
                 @endif
             @endforeach
     
@@ -525,7 +536,7 @@ a.text-primary:hover{
     
               @foreach($slmenu_exlusive as $data)
                 @if($data->status == 'active')
-                <a class="p-3 link-secondary " href="{{ route('open_services',$data->description) }}" ><i class="{{$data->icon_id}}"></i> {{$data->name}}</a>
+                <a class="p-3 link-secondary " href="{{ route($data->prod_route_name,$data->description) }}" ><i class="{{$data->icon_id}}"></i> {{$data->name}}</a>
                 @else
                 <a class="p-3 link-disabled fade-disabled" href="" onclick="return false;"><i class="{{$data->icon_id}}"></i> {{$data->name}}</a>
                 @endif
@@ -622,7 +633,7 @@ a.text-primary:hover{
                     <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
                         <div class="uk-width-1-1@m">
                             <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-body">
-                                <div class="uk-text-center"><img src="{{ asset('image/logo/logoab.png') }}"></div><br>
+                                <div class="uk-text-center"><img src="{{ asset('image/logo/newlogo22.png') }}"></div><br>
 
                                 <form method="post" action="{{ route('register') }}" id="reg-form">
                                 @csrf
@@ -721,7 +732,7 @@ a.text-primary:hover{
                     <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
                         <div class="uk-width-1-1@m">
                             <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-body">
-                                <div class="uk-text-center"><img src="{{ asset('image/logo/logoab.png') }}"></div><br>
+                                <div class="uk-text-center"><img src="{{ asset('image/logo/newlogo22.png') }}"></div><br>
                                 <form method="POST" action="{{ route('login') }}" id="login-form">
                                 @csrf
                                     <div class="uk-margin err">
