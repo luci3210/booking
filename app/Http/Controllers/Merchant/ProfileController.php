@@ -103,7 +103,7 @@ public function index() {
 
         $verify_check = $this->verify_check();
 
-    	return view('merchant_dashboard.profile.index',compact(['profile','profile_details','profile_address','profile_address_details','profile_contact','profile_contact_details','profile_permit','profile_permit_details','verify_check']));
+    	return view('merchant_dashboard.profile.index',compact(['profile_details','profile_address','profile_address_details','profile_contact','profile_contact_details','profile_permit','profile_permit_details','verify_check']));
     }
 
 protected function profile_form() {

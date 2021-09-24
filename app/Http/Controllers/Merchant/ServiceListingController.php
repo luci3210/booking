@@ -183,7 +183,7 @@ $data = MerchantVerifyModel::join('profiles','profiles.id','merchant_verify.prof
 
     public function exlusive_create_post(MerchantPostExlusive $request, $id) {
 
-        $getLastData = TourModel::create([
+        $getLastData = TourModel::firstOrCreate([
             'tour_name' => $request->tour_package_name,
             'price' => $request->price,
             'nonight' => $request->no_night,
@@ -208,13 +208,13 @@ $data = MerchantVerifyModel::join('profiles','profiles.id','merchant_verify.prof
 
         $serviceName = ProductModel::where('id',$lastService)->get()->first();
 
-        return Redirect('merchant_dashboard/service/'.$lastId.'/upload_photos/'.$serviceName->description.'')->withSuccess('Successfully submit, Please continue adding photos.');
+        return Redirect('merchant.dashboard/service/'.$lastId.'/upload_photos/'.$serviceName->description.'')->withSuccess('Successfully submit, Please continue adding photos.');
 
     }
 
     public function service_save_post(MerchantPostTour $request, $id) {
 
-        $getLastData = TourModel::create([
+        $getLastData = TourModel::firstOrCreate([
             'tour_name' => $request->tour_package_name,
             'price' => $request->price,
             'nonight' => $request->no_night,
@@ -239,13 +239,13 @@ $data = MerchantVerifyModel::join('profiles','profiles.id','merchant_verify.prof
 
         $serviceName = ProductModel::where('id',$lastService)->get()->first();
 
-        return Redirect('merchant_dashboard/service/'.$lastId.'/upload_photos/'.$serviceName->description.'')->withSuccess('Successfully submit, Please continue adding photos.');
+        return Redirect('merchant.dashboard/service/'.$lastId.'/upload_photos/'.$serviceName->description.'')->withSuccess('Successfully submit, Please continue adding photos.');
 
     }
 
     public function service_save_hotel(MerchantPostHotel $request, $id) {
 
-        $getLastData = TourModel::create([
+        $getLastData = TourModel::firstOrCreate([
             'tour_name' => $request->room_name,
             'price' => $request->price,
             'nonight' => $request->no_night,
@@ -276,7 +276,7 @@ $data = MerchantVerifyModel::join('profiles','profiles.id','merchant_verify.prof
 
         $serviceName = ProductModel::where('id',$lastService)->get()->first();
 
-        return Redirect('merchant_dashboard/service/'.$lastId.'/upload_photos/'.$serviceName->description.'')->withSuccess('Successfully submit, Please continue adding photos.');
+        return Redirect('merchant.dashboard/service/'.$lastId.'/upload_photos/'.$serviceName->description.'')->withSuccess('Successfully submit, Please continue adding photos.');
 
     }
 

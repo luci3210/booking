@@ -9,17 +9,21 @@
 
     <div class="timeline">
       
-    <div class="time-label">
-      @if(empty($profile->user_id) || empty($profile_contact->prof_id) || empty($profile_address->prof_id) || empty($profile_permit->prof_id))
 
-        <span class="bg-red">Information :  Basic Level "Please complete required below."&nbsp;</span>
-
-      @else 
-
-
-      @endif
-
-    </div>
+      <div class="time-label">
+        @if($verify_check->verify_id == 3)
+          <span class="bg-green"> Account : Fully verified </span>
+        @elseif($verify_check->verify_id == 2)
+          <span class="bg-yellow"> 
+            Account : Need for compliance
+          </span>
+          <span class="bg-grey" style="border: 1px solid #ccc;"> 
+            <i class="fa fa-envelope-open-o" aria-hidden="true"></i> {{ $verify_check->description }}
+          </span>
+        @else
+          <span class="bg-red" title="Please provide, tourismo requirement"> Account : For validation</span>
+        @endif
+      </div>
 
 @if(empty($profile_details->company))
   <div>
