@@ -288,6 +288,32 @@
   </select>
 </div>
 
+
+<div class="row">
+  
+<div class="form-group col-6">
+  <label>
+    <span class="text-danger">*</span> Latitude
+    <small class="text-danger has-error">
+      {{ $errors->has('lat') ?  $errors->first('lat') : '' }}
+    </small>
+  </label>
+<input type="text" name="lat" value=""  class="form-control" placeholder="Latitude">
+</div>
+
+
+<div class="form-group col-6">
+  <label>
+    <span class="text-danger">*</span> Longitude
+    <small class="text-danger has-error">
+      {{ $errors->has('long') ?  $errors->first('long') : '' }}
+    </small>
+  </label>
+<input type="text" name="long" value=""  class="form-control" placeholder="Longitude">
+</div>
+</div>
+
+
 @else
 
 <div class="form-group">
@@ -300,11 +326,33 @@
   <textarea name="address" class="form-control" rows="2" placeholder="Address...."></textarea>
 </div>
 
+<div class="row">
+  
+<div class="form-group col-6">
+  <label>
+    <span class="text-danger">*</span> Latitude
+    <small class="text-danger has-error">
+      {{ $errors->has('lat') ?  $errors->first('lat') : '' }}
+    </small>
+  </label>
+<input type="text" name="lat" value=""  class="form-control" placeholder="Latitude">
+</div>
+
+
+<div class="form-group col-6">
+  <label>
+    <span class="text-danger">*</span> Longitude
+    <small class="text-danger has-error">
+      {{ $errors->has('long') ?  $errors->first('long') : '' }}
+    </small>
+  </label>
+<input type="text" name="long" value=""  class="form-control" placeholder="Longitude">
+</div>
+</div>
+
 @endif
 
 <div class="row">
-
-
 
 <div class="col-md-4 form-group">
   <label><span class="text-danger">*</span> Country

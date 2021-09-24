@@ -39,6 +39,8 @@ class MerchantPostHotel extends FormRequest
             'buiding_facilities'=>'required',
             'booking_package'=>'required',
             
+            'lat'=>'required',
+            'long'=>'required',
             'address'=>'required',
             'country'=>'required',
             'province'=>'required',

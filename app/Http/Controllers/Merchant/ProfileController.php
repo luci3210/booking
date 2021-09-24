@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Merchant;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Other\PlanContoller;
+use App\Http\Controllers\ServicesController;
 
 use App\Model\Merchant\Profile;
 use App\Model\Merchant\HotelModel;
@@ -21,12 +22,14 @@ use Illuminate\Support\Facades\Auth;
 class ProfileController extends Controller
 {
 	private $myplan;
+    private $services;
 
-	public function __construct(PlanContoller $myplan) {
+	public function __construct(PlanContoller $myplan, ServicesController $services) {
 
 		$this->middleware('auth:web');
 
-		$this->myplan = $myplan;
+        $this->myplan = $myplan;
+		$this->theServices = $services;
 	}
 
     public function profile_user_check() {
@@ -110,9 +113,11 @@ protected function profile_form() {
 
     	$profile = $this->profile_check();
     	$profile_details = $this->profile_details();
+        $services = $this->theServices->getServices();
 
-    	return view('merchant_dashboard.profile.profile',compact(['profile','profile_details']));
+    	return view('merchant_dashboard.profile.profile',compact(['profile','profile_details','services']));
     }
+
 
 protected function profile_form_update(UpdateProfile $request, $id) {
 
@@ -123,6 +128,7 @@ protected function profile_form_update(UpdateProfile $request, $id) {
             'about'         => $request->about,
             'email'         => $request->email,
             'telno'         => $request->telno,
+            'type' => implode(',',$request->services),
             'website'       => $request->website]);  
 
     return redirect()->back()->withSuccess('Profile successfully updated.');

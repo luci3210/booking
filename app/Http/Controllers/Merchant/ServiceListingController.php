@@ -197,6 +197,8 @@ $data = MerchantVerifyModel::join('profiles','profiles.id','merchant_verify.prof
             'serviceid' => $request->address,
             'country' => $request->country,
             'district' => $request->province,
+            'lat' => $request->lat,
+            'lng' => $request->long,
             'city' => $request->place,
             'profid' => $this->profile->profile_check()->id,
             'service_id' => $id,
@@ -228,6 +230,8 @@ $data = MerchantVerifyModel::join('profiles','profiles.id','merchant_verify.prof
             'serviceid' => $request->address,
             'country' => $request->country,
             'district' => $request->province,
+            'lat' => $request->lat,
+            'lng' => $request->long,
             'city' => $request->place,
             'profid' => $this->profile->profile_check()->id,
             'service_id' => $id,
@@ -266,6 +270,8 @@ $data = MerchantVerifyModel::join('profiles','profiles.id','merchant_verify.prof
             'country' => $request->country,
             'district' => $request->province,
             'city' => $request->place,
+            'lat' => $request->lat,
+            'lng' => $request->long,
             'profid' => $this->profile->profile_check()->id,
             'service_id' => $id,
             'temp_status' => 2
@@ -280,7 +286,6 @@ $data = MerchantVerifyModel::join('profiles','profiles.id','merchant_verify.prof
 
     }
 
-    
 
     public function service_update_photos($id,$desc) {
 

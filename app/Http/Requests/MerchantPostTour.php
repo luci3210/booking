@@ -36,6 +36,8 @@ class MerchantPostTour extends FormRequest
             'package'=>'required',
             'address'=>'required',
             'country'=>'required',
+            'lat'=>'required',
+            'long'=>'required',
             'province'=>'required',
             'place'=>'required',
         ];

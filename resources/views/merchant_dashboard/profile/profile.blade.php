@@ -56,7 +56,7 @@
 
 <div class="row">
 
-<div class="form-group col-6">
+<div class="form-group col-4">
   <label>
     <span class="text-danger">*</span> E-mail
     <small class="text-danger has-error">
@@ -66,7 +66,7 @@
 <input type="text" name="email" value="{{ old('email',$profile_details->email) }}" class="form-control" placeholder="E-mail">
 </div>
 
-<div class="form-group col-6">
+<div class="form-group col-4">
   <label>
     <span class="text-danger">*</span>  Telephone No. / Mobile No
     <small class="text-danger has-error">
@@ -76,10 +76,7 @@
 <input type="text" name="telno" value="{{ old('telno',$profile_details->telno) }}" class="form-control" placeholder="Telephone No. / Mobile No">
 </div>
 
-
-</div>
-
-<div class="form-group">
+<div class="form-group col-4">
   <label>
     Website
     <small class="text-danger has-error">
@@ -87,6 +84,22 @@
     </small>
   </label>
 <input type="text" name="website" value="{{ old('website',$profile_details->website) }}" class="form-control" placeholder="Website">
+</div>
+
+</div>
+
+
+<div class="form-group">
+  <label>
+    <span class="text-danger">*</span> Services
+    <small class="text-danger has-error">{{ $errors->has('services') ?  $errors->first('services') : '' }}</small>
+  </label>
+  <select class="custom-select selectservices" name="services[]" multiple="multiple" placehoder="">
+      <option value="" disabled="true">-Select Room Facilities-</option>
+        @foreach($services as $list)
+      <option value="{{ $list->id }}">{{ old('services',$list->name) }}</option>
+        @endforeach
+  </select>
 </div>
 
         
@@ -109,3 +122,13 @@
 </section>
 
 @endsection
+
+@section('merchantjs')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<script type="text/javascript">
+
+$('.selectservices').select2( {
+  allowClear:true
+});
+</script>
+@endsection()
