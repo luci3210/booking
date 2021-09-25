@@ -16,41 +16,45 @@
       </div>
 
     <div class="card-body">
-        <table class="table table-bordered">
+        <table class="table table-bordered table-sm">
         <thead>                  
             <tr>
-              <th style="width: 10px">#</th>
-              <th>Pic</th>
+              <th>No.</th>
+              <th>Cover</th>
               <th>Name</th>
               <th>Price</th>
-              <th>#Night</th>
-              <th>#Guest</th>
-              <th>Qty</th>
+              <th>Quantity</th>
+              <th>Status</th>
               <th style="width: 180px" class="text-center">Action</th>
             </tr>
             @foreach($service_post as $post)
-            <tr>
-              <td style="width: 10px">#</td>
-              <td>
+            <tr style="font-size:14px;">
+              <td style="width:40px" class="text-center">{{ $loop->index + 1}}</td>
+              <td  style="font-size:14px; width: 50px;" class="text-center">
                 
-              <div class="user-block">
-                <a href="{{ route('add_cover',[$service_name->description,$post->id]) }}">Create Cover</a>
-                <img class="img-circle img-bordered-sm" src="https://www.hotelnewsnow.com/Media/Default/Images2016/Locations/Westin-Wilmington-Front.jpg" alt="user image">
+              <div class="user-block text-center">
+                
+                <a href="{{ route('add_cover',[$service_name->description,$post->id]) }}">
+                  <img src="{{ asset('image/cover/2021')}}/{{ $post->cover == '' ? 'default.png' : $post->cover }}" alt=""  style="border-radius: 4px;">
+                </a>
                 
               </div>
 
               </td>
-              <td>{{ $post->tour_name }}</td>
-              <td>{{ $post->price }}</td>
-              <td>{{ $post->nonight }}</td>
-              <td>{{ $post->noguest }}</td>
+              <td>{{ $post->tour_name }} sddsd sd s dsdsdsdsd sdsdsd sdsdsdsd sdsdsd</td>
+              <td>Php {{ $post->price }}</td>
               <td>{{ $post->qty }}</td>
+              <td>public</td>
               <td class="text-center">
-                      <div class="btn-group btn-group-sm">
-                        <a href="{{ route('act_upload_photos',[$post->id,$service_name->description]) }}" class="btn btn-info"><i class="fas fa-eye"></i> Edit</a>
-                        <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</a>
-                      </div>
-                    </td>
+                <div class="btn-group btn-group-sm">
+                  <a href="{{ route('act_upload_photos',[$post->id,$service_name->description]) }}" class="btn btn-info">
+                    Edit
+                  </a>
+                  <a href="#" class="btn btn-danger">
+                    Delete
+                  </a>
+                </div>
+              </td>
             </tr>
             @endforeach
         </thead>

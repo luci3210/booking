@@ -20,6 +20,7 @@ use App\Model\Merchant\MerchantAddress;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Merchant\ProfileController;
+use App\Http\Controllers\MerchantProfileController;
 
 use App\Http\Requests\MerchantPostTour;
 use App\Http\Requests\MerchantPostHotel;
@@ -31,12 +32,14 @@ class ServiceListingController extends Controller
 {
 
     private $profile;
+    private $prof;
 
 
-    public function __construct(ProfileController $profile) {
+    public function __construct(ProfileController $profile, MerchantProfileController $prof) {
 
         $this->middleware('auth:web');
         $this->profile = $profile;
+        $this->getProfile = $prof;
     }
 
 
@@ -49,7 +52,8 @@ class ServiceListingController extends Controller
     public function service_post($desc) {
 
 
-        return TourModel::where('service_id',$this->desc_name($desc)->id)->where('profid',$this->profile->profile_check()->id)->get();    
+        return TourModel::where('service_id',$this->desc_name($desc)->id)
+            ->where('profid',$this->getProfile->getAuthUser()->profile)->get();    
         
     }
 

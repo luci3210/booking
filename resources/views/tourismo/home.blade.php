@@ -375,7 +375,7 @@
     <div class="row text-start">
 
       <div class="section-title">
-        <h2><b>Near By Destinations </b> 
+        <h2><b>Near By Destinations</b> 
           <!-- <span style="font-size: 15px;padding-left: 25px;">
             <a href="{{ route('destination') }}" class="uk-link">
               <i class="fas fa-chevron-right"></i> Explore {{ $number_of_distination->count() }} {{ $icountry->country }} Destination
