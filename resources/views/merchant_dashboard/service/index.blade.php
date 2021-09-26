@@ -41,7 +41,7 @@
               </div>
 
               </td>
-              <td>{{ $post->tour_name }} sddsd sd s dsdsdsdsd sdsdsd sdsdsdsd sdsdsd</td>
+              <td>{{ $post->tour_name }}</td>
               <td>Php {{ $post->price }}</td>
               <td>{{ $post->qty }}</td>
               <td>public</td>

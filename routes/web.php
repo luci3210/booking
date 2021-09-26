@@ -388,6 +388,13 @@ Route::prefix('account')->middleware('auth')->group(function () {
 
 // --------------------------------------ADMIN---------------------------------------
 
+// location
+Route::prefix('administrator/tph.dashboard')->group(function () { 
+    Route::get('ml/country/{id}', 'Admin\LocationController@index')->name('locations');
+    Route::post('ml/country/deleted/{id}', 'Admin\LocationController@deleted_country')->name('delete_country');
+});
+
+
 Route::prefix('administrator/tph')->group(function () {
 
     Route::get('/tourismo/ph/page/1/product', 'Admin\ProductController@index')->name('product');
@@ -420,7 +427,7 @@ Route::prefix('administrator/tph')->group(function () {
     Route::post('/tourismo/ph/page/4/inclusion/package/www/submit', 'Admin\InclusionController@package_save')->name('package_save');
 
     //location
-    Route::get('/tourismo/ph/page/5/location/{id}', 'Admin\LocationController@index')->name('locations');
+
 
     Route::post('/tourismo/ph/page/5/location/submit/{id}', 'Admin\LocationController@store_country_state')->name('store_country_state');
     Route::post('/tourismo/ph/page/5/location/submit/region/{id}', 'Admin\LocationController@store_region')->name('submit_region');

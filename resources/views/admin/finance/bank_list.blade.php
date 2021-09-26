@@ -60,24 +60,23 @@
             </tr>
         </thead>
         
-        <tbody>
-          @foreach($bank_list as $list)
-          <tr>
-              <td>{{ $loop->index + 1 }}</td>
-              <td>{{ $list->bank }}</td>
-              <td>{{ $list->tstatus }}</td>
-              <td class="text-center">
-                <a href="{{ route('bank_edit',[$list->bid,$url]) }}" class="btn btn-sm btn-primary py-0">Edit »</a>
-                <a href="" onclick="if(confirm('Do you want to delete this Bank Name?'))event.preventDefault(); document.getElementById('delete-{{$list->bid}}').submit();" class="btn btn-sm btn-danger py-0">» Delete</a>
-                  <form id="delete-{{$list->bid}}" method="post" action="{{ route('bank_deleted',$list->bid) }}" style="display: none;">
-                  @csrf             
-                  </form>
-              </td>
-          </tr>
-          @endforeach
-                     
-                  </tbody>
-        
+<tbody>
+@foreach($bank_list as $list)
+<tr>
+    <td>{{ $loop->index + 1 }}</td>
+    <td>{{ $list->bank }}</td>
+    <td>{{ $list->tstatus }}</td>
+    <td class="text-center">
+      <a href="{{ route('bank_edit',[$list->bid,$url]) }}" class="btn btn-sm btn-primary py-0">Edit »</a>
+      <a href="" onclick="if(confirm('Do you want to delete this Bank Name?'))event.preventDefault(); document.getElementById('delete-{{$list->bid}}').submit();" class="btn btn-sm btn-danger py-0">» Delete</a>
+        <form id="delete-{{$list->bid}}" method="post" action="{{ route('bank_deleted',$list->bid) }}" style="display: none;">
+        @csrf             
+        </form>
+    </td>
+</tr>
+@endforeach
+</tbody>
+
         </table>
 
   </div>

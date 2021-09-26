@@ -26,7 +26,7 @@
 
 <br>
 
-<form name="search_country" method="GET" action="{{ route('search_country',$getcountry[0]->id) }}">
+<form name="search_country" method="GET" action="{{ route('search_country',$countries[0]->cid) }}">
   @csrf
 
 <div class="input-group mb-3">
@@ -44,7 +44,7 @@
 
 
     
-    <table class="table table-bordered">
+    <table class="table table-bordered table-sm table-hover">
         <thead>                  
             <tr>
               <th style="width: 10px">#</th>
@@ -57,34 +57,32 @@
               <th style="width: 180px" class="text-center">Action</th>
             </tr>
         </thead>
-        <tbody>
-            @forelse($getcountry as $country)
-            <tr>
-              <td>{{ $loop->index + 1 }}</td>
-              <td><b>{{ $country->country }}</b></td>
-              <td>null</td>
-              <td>null</td>
-              <td>null</td>
-              <td>null</td>
-              <td>null</td>
+<tbody>
+    @forelse($countries as $country)
+    <tr>
+      <td>{{ $loop->index + 1 }}</td>
+      <td>{{ $country->country }}</td>
+      <td>null</td>
+      <td>null</td>
+      <td>null</td>
+      <td>null</td>
+      <td>null</td>
+      <td class="text-center">
+        <div class="uk-button-group">
+          
+        <a href="http://127.0.0.1:8000/admin/tourismo/ph/page/4/inclusion/14" class="btn btn-sm btn-primary py-0">Edit »</a>
+        <a href="" onclick="if(confirm('Do you want to delete this country?'))event.preventDefault(); document.getElementById('delete-{{$country->cid}}').submit();" class="btn btn-sm btn-danger py-0">» Delete</a>
+        <form id="delete-{{$country->cid}}" method="post" action="{{ route('delete_country',$country->cid) }}" style="display: none;">
 
-              
-              <td class="text-center">
-                <div class="uk-button-group">
-                  
-                <a href="http://127.0.0.1:8000/admin/tourismo/ph/page/4/inclusion/14" class="btn btn-sm btn-primary py-0">Edit »</a>
-                <a href="" onclick="if(confirm('Do you want to delete this product?'))event.preventDefault(); document.getElementById('delete-14').submit();" class="btn btn-sm btn-danger py-0">» Delete</a>
-                <form id="delete-{{$country->id}}" method="get" action="" style="display: none;">
-
-              @csrf
-              </form>
-                  </div>
-              </td>
-            </tr>
-            @empty
-            <p> No data  found!</p> 
-            @endforelse
-        </tbody>
+      @csrf
+      </form>
+          </div>
+      </td>
+    </tr>
+    @empty
+    <p> No data  found!</p> 
+    @endforelse
+</tbody>
 
         <tbody>
         </tbody>
@@ -127,7 +125,7 @@
       
 
         <ul class="pagination pagination-sm m-0 float-left">
-            {{ $getcountry->links() }}
+            {{ $countries->links() }}
         </ul>
       </div>
     </div>

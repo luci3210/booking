@@ -157,55 +157,65 @@ class LocationController extends Controller
             $getcountry                     = $this->get_location_country();
 
 
-            switch ($locations->locid) {
-                case '1':
-                    return view('admin.location.index',compact(['locations','getcountry','get_location_id']));
-                        break;
+    switch ($locations->locid) {
+        case '1':
 
-                case '2':
-                    return view('admin.location.region',compact(
-                        ['locations',
-                            'get_location_id',
-                                'get_country',
-                                    'in_region_and_country']));
-                        break;
+            $countries = LocationCountyModel::join('locations','locations.id','location_country.location_id')
 
-                case '3':
-                    return view('admin.location.district',compact(
-                        ['locations',
-                            'get_location_id',
-                                'get_country',
-                                    'in_distric_region_and_country']));
-                        break;
+                ->where(function ($query) use($id) {
+                    $query->from('location_country')
+                        ->where('location_country.temp_status',1);
+                    $query->from('locations')
+                        ->where('locations.id',$id);
+                })->select('location_country.country','location_country.id as cid')->orderBy('location_country.country','asc')->paginate(10);
 
-                case '4':
-                    return view('admin.location.city',compact(
-                        ['locations',
-                            'get_location_id',
-                                'get_country',
-                                    'in_city']));
-                        break;
+            return view('admin.location.index',compact(['locations','countries','get_location_id']));
+                break;
 
-                case '5':
-                    return view('admin.location.municipality',compact(
-                        ['locations',
-                            'get_location_id',
-                                'get_country',
-                                    'in_municipality']));
-                        break;
+        case '2':
+            return view('admin.location.region',compact(
+                ['locations',
+                    'get_location_id',
+                        'get_country',
+                            'in_region_and_country']));
+                break;
 
-                case '6':
-                    return view('admin.location.barangay',compact(
-                        ['locations',
-                            'get_location_id',
-                                'get_country',
-                                    'in_barangay']));
-                        break;
+        case '3':
+            return view('admin.location.district',compact(
+                ['locations',
+                    'get_location_id',
+                        'get_country',
+                            'in_distric_region_and_country']));
+                break;
 
-                default:
-                     abort(404, '404 Error - the requested page does not exist.');
-                    break;
-            }
+        case '4':
+            return view('admin.location.city',compact(
+                ['locations',
+                    'get_location_id',
+                        'get_country',
+                            'in_city']));
+                break;
+
+        case '5':
+            return view('admin.location.municipality',compact(
+                ['locations',
+                    'get_location_id',
+                        'get_country',
+                            'in_municipality']));
+                break;
+
+        case '6':
+            return view('admin.location.barangay',compact(
+                ['locations',
+                    'get_location_id',
+                        'get_country',
+                            'in_barangay']));
+                break;
+
+        default:
+             abort(404, '404 Error - the requested page does not exist.');
+            break;
+    }
     }
     public function store_country_state(Request $request, $id)
     {
@@ -319,6 +329,19 @@ class LocationController extends Controller
                                         'temp_status' => $request->status]);
         return back()->withSuccess('Successfully added!');
     }
+
+
+public function deleted_country(Request $request, $id) {
+
+$update = LocationCountyModel::find($id);
+$update->update(['temp_status' => 4]);
+
+AdminLogModel::create(['user_id'=>Auth::user()->id,'page_id'=>$id,'action'=>"deleted",'page_name'=>"Country"]);
+
+return back()->withSuccess('Country Successfully deleted!');
+
+}
+
 
     // public function roomfacilities_save(Request $request)
     // {
