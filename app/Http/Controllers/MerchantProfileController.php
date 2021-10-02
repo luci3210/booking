@@ -13,6 +13,8 @@ class MerchantProfileController extends Controller
 
 public function __construct() {
 
+        $this->middleware('auth:web');
+
     }
 
 public function getAuthUser() {
@@ -23,7 +25,7 @@ public function getAuthUser() {
 
             $query->from('profile_users')->where([['profile_users.up_user_id',Auth::user()->id],['profile_users.pu_temp',1]]);
             
-        })->get('profile_users.up_profile_id as profile')->first();
+        })->select('profile_users.up_profile_id as profile','profile_users.up_user_id')->firstOrFail();
 
     if(!$authUser) {
 

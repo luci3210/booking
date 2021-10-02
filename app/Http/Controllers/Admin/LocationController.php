@@ -334,7 +334,7 @@ class LocationController extends Controller
 public function deleted_country(Request $request, $id) {
 
 $update = LocationCountyModel::find($id);
-$update->update(['temp_status' => 4]);
+$update->update(['temp_status' => 4, 'updared_at' => now()]);
 
 AdminLogModel::create(['user_id'=>Auth::user()->id,'page_id'=>$id,'action'=>"deleted",'page_name'=>"Country"]);
 
@@ -343,7 +343,7 @@ return back()->withSuccess('Country Successfully deleted!');
 }
 
 
-    // public function roomfacilities_save(Request $request)
+// public function roomfacilities_save(Request $request)
     // {
     // 	$rules = [
     //         'facilities' => 'required',

@@ -8,7 +8,7 @@
 
 
 <div class="text-center"><br>
-<h1>Whoops!</h1>
+<h1>Whoossssssssps!</h1>
 <h2 class="text-danger">{{ $exception->getMessage() }}</h2>
 </div>
 

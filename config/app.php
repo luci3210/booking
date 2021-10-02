@@ -185,6 +185,12 @@ return [
         App\Providers\MerchantGate::class,
         App\Providers\ProviderSLMenu::class,
         App\Providers\MerchantSideBar::class,
+
+        // tourismo global call data
+        App\Providers\service\TourismoServicesProvider::class,
+        // -------- end ------------
+
+
         App\Providers\AccUrlToken::class,
 
         // pdf

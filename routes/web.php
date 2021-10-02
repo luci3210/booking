@@ -70,6 +70,7 @@ Route::get('/explore/destination/{country}', 'Tourismo\DestinationController@exp
 Route::get('/destination/{country}', 'Tourismo\DestinationController@by_country')->name('by_country');
 
 Route::get('/destination/{country}/{district}', 'Tourismo\DestinationController@by_district')->name('by_district');
+
 Route::get('{category}/destination/{country}/{district}/service/{name}', 'Tourismo\DestinationController@by_name')->name('by_name');
 
         Route::get('{category}/destination/{country}/{district}/service/{name}/book','Tourismo\DestinationController@book')
@@ -119,6 +120,12 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant/pro
     #profile---
     Route::get('/profile','Merchant\ProfileController@index')
     ->name('profile_index');
+
+    #service profile---
+    Route::get('/selected/services/{id}','Merchant\ProfileServicesController@index')->name('sp_select');
+    Route::post('/selected/service/create/{id}','Merchant\ProfileServicesController@create_service')->name('sp_m_create');
+    Route::get('/selected/service/{id}/edit','Merchant\ProfileServicesController@edit_service')->name('sp_m_edit');
+    Route::post('/selected/service/{id}/update','Merchant\ProfileServicesController@update_service')->name('sp_m_update');
 
     Route::get('/profile_form','Merchant\ProfileController@profile_form')
     ->name('profile_form');
@@ -390,7 +397,7 @@ Route::prefix('account')->middleware('auth')->group(function () {
 
 // location
 Route::prefix('administrator/tph.dashboard')->group(function () { 
-    Route::get('ml/country/{id}', 'Admin\LocationController@index')->name('locations');
+    Route::get('ml/location/{id}', 'Admin\LocationController@index')->name('locations');
     Route::post('ml/country/deleted/{id}', 'Admin\LocationController@deleted_country')->name('delete_country');
 });
 

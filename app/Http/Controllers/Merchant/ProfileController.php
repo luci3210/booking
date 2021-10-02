@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Merchant;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Other\PlanContoller;
-use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\MerchantProfileController;
 
 use App\Model\Merchant\Profile;
 use App\Model\Merchant\HotelModel;
@@ -12,6 +13,8 @@ use App\Model\Merchant\MerchantAddress;
 use App\Model\Merchant\MerchantContact;
 use App\Model\Merchant\MerchantPermit;
 use App\Model\ProfileUsersModel;
+use App\Model\ProfileServiceModel;
+
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 
@@ -22,15 +25,48 @@ use Illuminate\Support\Facades\Auth;
 class ProfileController extends Controller
 {
 	private $myplan;
-    private $services;
+    // private $services;
+    private $identity;
 
-	public function __construct(PlanContoller $myplan, ServicesController $services) {
+	public function __construct(PlanContoller $myplan, ServiceController $services, MerchantProfileController $identity) {
 
 		$this->middleware('auth:web');
 
         $this->myplan = $myplan;
-		$this->theServices = $services;
+        // $this->theServices = $services;
+        $this->getIdentity = $identity;
 	}
+
+    public function index() {
+
+        $profile = $this->profile_check();
+        $profile_details = $this->profile_details();
+        
+        $profile_contact = $this->contact_check();
+        $profile_contact_details = $this->contact_details();
+        
+        $profile_address = $this->address_check();
+        $profile_address_details = $this->address_details();
+
+        $profile_permit = $this->permit_check();
+        $profile_permit_details = $this->permit_details();
+
+        $verify_check = $this->verify_check();
+        $service_profile = $this->profile_service();
+
+
+        return view('merchant_dashboard.profile.index',compact(['service_profile','profile_details','profile_address','profile_address_details','profile_contact','profile_contact_details','profile_permit','profile_permit_details','verify_check']));
+    }
+
+    protected function profile_service() {
+
+        return Profile::join('profile_services','profile_services.ps_profile_id','profiles.id')
+            ->join('products','products.id','profile_services.ps_service_id')
+            ->where( function($query) {
+            $query->from('profiles')->where('profiles.id',$this->getIdentity->getAuthUser()->profile);
+        })->select('profile_services.ps_id','profile_services.ps_profile_id','profile_services.ps_name','profile_services.ps_address','products.name','products.icon_id')->get();
+
+    }
 
     public function profile_user_check() {
 
@@ -57,7 +93,16 @@ class ProfileController extends Controller
 
 	public function profile_details() {
 
-		return Profile::where('user_id',Auth::user()->id)->get()->first();
+		//return Profile::where('user_id',Auth::user()->id)->get()->first();
+        return Profile::join('products','products.id','profiles.type')
+
+            ->where(function($query) {
+
+                $query->from('profiles')
+                ->where('profiles.id',$this->getIdentity->getAuthUser()->profile);
+
+            })->get()->first();
+
 	}
 
     public function address_check() {
@@ -90,30 +135,13 @@ class ProfileController extends Controller
         return redirect('merchant/profile/profile');
     }
 
-public function index() {
 
-    	$profile = $this->profile_check();
-    	$profile_details = $this->profile_details();
-        
-        $profile_contact = $this->contact_check();
-        $profile_contact_details = $this->contact_details();
-    	
-        $profile_address = $this->address_check();
-        $profile_address_details = $this->address_details();
-
-        $profile_permit = $this->permit_check();
-        $profile_permit_details = $this->permit_details();
-
-        $verify_check = $this->verify_check();
-
-    	return view('merchant_dashboard.profile.index',compact(['profile_details','profile_address','profile_address_details','profile_contact','profile_contact_details','profile_permit','profile_permit_details','verify_check']));
-    }
 
 protected function profile_form() {
 
     	$profile = $this->profile_check();
     	$profile_details = $this->profile_details();
-        $services = $this->theServices->getServices();
+       // $services = $this->theServices->getServices();
 
     	return view('merchant_dashboard.profile.profile',compact(['profile','profile_details','services']));
     }

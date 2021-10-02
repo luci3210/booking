@@ -30,7 +30,7 @@
       <i class="fas fa-times bg-red"></i>
       <div class="timeline-item">
         
-        <h3 class="timeline-header">Profile</h3>
+        <h3 class="timeline-header"><i class="far fa-building"></i> Profile</h3>
 
         <div class="timeline-body">
           Please update your merchant identity.
@@ -46,7 +46,7 @@
       <i class="fas fa-check bg-green"></i>
       <div class="timeline-item">
         
-        <h3 class="timeline-header">Profile</h3>
+        <h3 class="timeline-header"><i class="far fa-building"></i> Profile</h3>
 
         <div class="timeline-body">
 
@@ -63,15 +63,23 @@
   <p>
     <b>About : </b>{{ $profile_details->about }}
   </p>
+  
   <p  style="margin-top:-10px;">
     <b>Email : </b>{{ $profile_details->email }}
   </p>
+  
   <p  style="margin-top:-10px;">
     <b>Tel/Phone No : </b>{{ $profile_details->telno }}
   </p>
+  
   <p  style="margin-top:-10px;">
     <b>Website  : </b>{{ $profile_details->website }}
   </p>
+
+  <p  style="margin-top:-10px;">
+    <b>Services  : </b>{{ $profile_details->website }}
+  </p>
+
 </div>
 
 
@@ -86,134 +94,77 @@
 
 
 
-@if(empty($profile_contact->prof_id))
 
-  <div>
-    <i class="fas fa-times bg-red"></i>
-    <div class="timeline-item">
-      
-      <h3 class="timeline-header">Contact</h3>
 
-      <div class="timeline-body">
-        Add at least one(1) contact person
-      </div>
-      <div class="timeline-footer">
-        <a class="btn btn-primary btn-sm" href="{{ route('profile_contact_form') }}"><i class="fas fa-plus-circle"></i>  Add</a>
-      </div>
-    </div>
+
+<!-- ---------------------------- services ------------------------------ -->
+<div>
+<i class="fas fa-check bg-green"></i>
+<div class="timeline-item">
+  
+  <h3 class="timeline-header"><i class="far fa-object-ungroup"></i> Services</h3>
+
+  <div class="timeline-body">
+  
+  <select class="custom-select mt-2" name="services" id="select_service">
+        <option value="0" disabled="true" selected="true">-Select Services-</option>
+      @forelse($select_active_services as $services)
+        <option value="{{ route('sp_select',$services->id) }}">{{ old('services',$services->name) }}</option>
+      @empty
+        <option value="">Selection is not available</option>
+      @endforelse
+  </select>
+
+
+
+  <table class="table table-bordered table-sm table-hover mt-4">
+    <thead>                  
+      <tr class="table-primary text-center">
+        <th style="width: 10px">#</th>
+        <th>Service</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th style="width: 40px" class="text-center">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      @forelse($service_profile as $services)
+      <tr style="font-size:14px;">
+        <td>{{ $loop->index + 1 }}</td>
+        <td><i class="fas {{$services->icon_id }}"></i> {{ $services->name }}</td>
+        <td>{{ $services->ps_name }} / {{$services->ps_profile_id }}</td>
+        <td>{{ $services->ps_address }}</td>
+        <td style="width:130px;" class="text-center">
+
+          <div class="btn-group btn-group-sm" role="group" aria-label="...">
+            
+          <a class="btn btn-danger btn-sm" href="{{ route('sp_m_edit',$services->ps_id) }}">
+            Edit
+          </a>
+
+          <a class="btn btn-primary btn-sm" href="">
+             View
+          </a>
+
+          </div>
+        </td>
+        @empty
+        <td colspan="5" class="text-center">
+          <p class="mt-2"><i class="fas fa-database"></i> No services found.</p>
+        </td>
+      </tr>
+      @endforelse
+    </tbody>
+  </table>
+
   </div>
 
-@else
-
-  <div>
-    <i class="fas fa-check bg-green"></i>
-    <div class="timeline-item">
-      
-      <h3 class="timeline-header">Contact</h3>
-
-      <div class="timeline-body">
-          <table class="table table-bordered table-sm">
-                  <thead>                  
-                    <tr>
-                      <th style="width: 10px">#</th>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Contact No</th>
-                      <th style="width: 40px" class="text-center">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @foreach($profile_contact_details as $contacts)
-                    <tr>
-                      <td>{{ $loop->index + 1 }}</td>
-                      <td>{{ $contacts->prof_id }} {{ $contacts->lname }}</td>
-                      <td>{{ $contacts->email }}</td>
-                      <td>{{ $contacts->phonno }}</td>
-                      <td style="width:130px;" class="text-center">
-                        <div class="btn-group">
-                        <a class="btn btn-primary btn-xs" href="{{ route('profile_contact_edit',$contacts->id) }}"><i class="fas fa-pencil-alt"></i> Edit</a>
-                        
-
-                        <a href="" onclick="if(confirm('Are sure, you want to delete this plan?'))event.preventDefault(); document.getElementById('delete-{{ $contacts->id }}').submit();" class="btn btn-danger btn-xs"><i class="fas fa-trash-alt"></i> Delete</a>
-                  <form id="delete-{{ $contacts->id }}" method="get" action="{{route('profile_contact_delete',$contacts->id )}}" style="display: none;">
-                  @csrf
-                </form>
-                      </div>
-                      </td>
-                    </tr>
-                    @endforeach
-                  </tbody>
-                </table>
-      </div>
-      <div class="timeline-footer">
-        <a class="btn btn-primary btn-sm" href="{{ route('profile_contact_form') }}"><i class="fas fa-plus-circle"></i>  Add</a>
-      </div>
-    </div>
+  <div class="timeline-footer">
   </div>
+</div>
+</div>
 
-@endif
-
-
-
-@if(empty($profile_address->prof_id))
-  <div>
-    <i class="fas fa-times bg-red"></i>
-    <div class="timeline-item">
-      
-      <h3 class="timeline-header">Address</h3>
-
-      <div class="timeline-body">
-        Add at least one(1) address
-      </div>
-      <div class="timeline-footer">
-        <a href="{{ route('profile_address_form') }}" class="btn btn-primary btn-sm"><i class="fas fa-plus-circle"></i> Add</a>
-      </div>
-    </div>
-  </div>
-@else 
-  <div>
-    <i class="fas fa-check bg-green"></i>
-    <div class="timeline-item">
-      
-      <h3 class="timeline-header">Address</h3>
-
-      <div class="timeline-body">
-        <table class="table table-bordered">
-                  <thead>                  
-                    <tr>
-                      <th style="width: 10px">#</th>
-                      <th>Address</th>
-                      <th style="width: 40px" class="text-center">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @foreach($profile_address_details as $addresses)
-                    <tr>
-                      <td>{{ $loop->index + 1 }}</td>
-                      <td>{{ $addresses->address }}</td>
-                      <td style="width:130px;" class="text-center">
-                        <div class="btn-group">
-                        <a class="btn btn-primary btn-xs" href="{{ route('profile_address_edit',$addresses->id) }}"><i class="fas fa-pencil-alt"></i> Edit</a>
-                        
-
-                        <a href="" onclick="if(confirm('Are sure, you want to delete this plan?'))event.preventDefault(); document.getElementById('delete-{{ $addresses->id }}').submit();" class="btn btn-danger btn-xs"><i class="fas fa-trash-alt"></i> Delete</a>
-                  <form id="delete-{{ $addresses->id }}" method="get" action="{{route('address_delete',$addresses->id )}}" style="display: none;">
-                  @csrf
-                </form>
-                      </div>
-                      </td>
-                    </tr>
-                    @endforeach
-                  </tbody>
-                </table>
-      </div>
-      <div class="timeline-footer">
-        <a class="btn btn-primary btn-sm" href="{{ route('profile_address_form') }}"><i class="fas fa-plus-circle"></i> Add</a>
-      </div>
-    </div>
-  </div>
-@endif
-
+<!-- -------------------------------------------------------------------- -->
 
 
 @if(empty($profile_permit->prof_id))
@@ -316,4 +267,38 @@ Upload Business Permit
 </div>
 </section>
 
+@endsection
+@section('merchantjs')
+ <script src=
+"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+    </script>
+      
+    <script type="text/javascript">
+        $(document).ready(()=>{
+            $("#select option[value=3]").attr('selected', 'selected');
+        });  
+    </script>
+
+<script type="text/javascript">
+  $(function() {
+
+      $('#select_service').on('change',function() {
+
+          const selected = $(this).val();
+
+            if(selected) {
+
+                window.location = selected;
+
+            }
+            else {
+
+              return false;
+
+            }
+
+      });
+
+  });
+</script>
 @endsection
