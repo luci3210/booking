@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProfileServicesTable extends Migration
+class CreatePsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -18,7 +18,7 @@ class CreateProfileServicesTable extends Migration
             $table->unsignedBigInteger('ps_profile_id');
             $table->foreign('ps_profile_id')->references('id')->on('profiles');   
             $table->unsignedBigInteger('ps_service_id');                                   
-            $table->foreign('ps_service_id')->references('id')->on('products');                                      
+            $table->foreign('ps_service_id')->references('id')->on('products');                   
             $table->string('ps_name',100);
             $table->text('ps_description');
             $table->text('ps_address');
@@ -29,8 +29,12 @@ class CreateProfileServicesTable extends Migration
             $table->text('ps_roles_desc');
             $table->text('ps_attraction');
             $table->text('ps_cancelaton_ref');
-            $table->timestamp('ps_created_at');
-            $table->timestamp('ps_updated_at');
+            $table->text('ps_check_in_out');
+            $table->tinyInteger('ps_temp');
+            $table->decimal('ps_lat',12,9)->nullable();
+            $table->decimal('ps_lng',12,9)->nullable();
+            $table->timestamp('ps_created');
+            $table->timestamp('ps_updated');
         });
     }
 

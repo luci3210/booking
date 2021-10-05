@@ -5,6 +5,7 @@ namespace App\Providers\service;
 use App\Model\Admin\ProductModel;
 use App\Model\Admin\LocationModel;
 use App\Model\Admin\DestinationModel;
+use App\Model\Admin\LocationCountyModel;
 use App\Model\Merchant\ProfileModel;
 use App\Model\Merchant\UserModel;
 use Illuminate\Support\Facades\Auth;
@@ -62,5 +63,15 @@ public function boot()
             );
         });
 
+
+        View::composer('*', function ($view) {
+            $view->with('select_country', 
+
+                LocationCountyModel::where(function($query) {
+                    $query->from('location_country')->where('temp_status',1);
+                })->orderBy('country')->get()
+            );
+        });
+        
     }
 }

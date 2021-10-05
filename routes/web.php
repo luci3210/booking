@@ -115,17 +115,23 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'tourismo/'],
         Route::get('/merchant','Merchant\ProfileController@redi')->name('merchant_redi');
 });
 
+
+
+#service profile---
+Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant.dashboard/profile/s/service/'], function() {
+
+    Route::get('/create/{id}','Merchant\ProfileServicesController@index')->name('sp_select');
+    Route::post('/created/{id}','Merchant\ProfileServicesController@create_service')->name('sp_m_create');
+    Route::get('/{id}/edit','Merchant\ProfileServicesController@edit_service')->name('sp_m_edit');
+    Route::post('/{id}/update','Merchant\ProfileServicesController@update_service')->name('sp_m_update');
+    Route::get('/{id}/details','Merchant\ProfileServicesController@request_details')->name('sp_m_details');
+
+});
+
 Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant/profile'], function() {
         
     #profile---
-    Route::get('/profile','Merchant\ProfileController@index')
-    ->name('profile_index');
-
-    #service profile---
-    Route::get('/selected/services/{id}','Merchant\ProfileServicesController@index')->name('sp_select');
-    Route::post('/selected/service/create/{id}','Merchant\ProfileServicesController@create_service')->name('sp_m_create');
-    Route::get('/selected/service/{id}/edit','Merchant\ProfileServicesController@edit_service')->name('sp_m_edit');
-    Route::post('/selected/service/{id}/update','Merchant\ProfileServicesController@update_service')->name('sp_m_update');
+    Route::get('/profile','Merchant\ProfileController@index')->name('profile_index');
 
     Route::get('/profile_form','Merchant\ProfileController@profile_form')
     ->name('profile_form');

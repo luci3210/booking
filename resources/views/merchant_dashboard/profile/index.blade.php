@@ -2,6 +2,45 @@
 
 @section('content')
 
+<!-- -------------------------------- modal -------------------------------- -->
+<div class="modal fade" id="charge_modal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title" id="charge_name">Validate Account</h4><br>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+<ul class="list-unstyled">
+<li><b>Reference No. :</b> <span id="psid"></span></li>
+<!-- <li><b>Merchant Name :</b> <span id="merchant"></span></li>
+<li><b>Request By. :</b> <span id="fname"></span> <span id="mname"></span> <span id="lname"></span></li>
+<li><b>Amount Bal. :</b> Php <span id="amount_bal"></span></li>
+<li><b>Amount w/draw :</b> <span id="amount_req"></span></li>
+<li><b>Request Date :</b> <span id="req_date"></span></li>
+
+<li><b>Bank Account Details</b>
+  <ul>
+    <li><span id="bank_name"></span></li>
+    <li><span id="bank_account_name"></span></li>
+    <li><span id="bank_account_no"></span></li>
+  </ul>
+</li> -->
+</ul>
+
+
+    </div>
+
+
+
+  </div>
+</div>
+</div>
+<!-- ------------------------------ end modal ------------------------- -->
+
 <section class="content">
   <div class="container-fluid">
 <div class="row">
@@ -116,10 +155,9 @@
   </select>
 
 
-
   <table class="table table-bordered table-sm table-hover mt-4">
     <thead>                  
-      <tr class="table-primary text-center">
+      <tr class="table-default text-center">
         <th style="width: 10px">#</th>
         <th>Service</th>
         <th>Name</th>
@@ -138,12 +176,11 @@
 
           <div class="btn-group btn-group-sm" role="group" aria-label="...">
             
-          <a class="btn btn-danger btn-sm" href="{{ route('sp_m_edit',$services->ps_id) }}">
+          <a class="btn btn-default btn-sm active" href="{{ route('sp_m_edit',$services->ps_id) }}">
             Edit
-          </a>
-
-          <a class="btn btn-primary btn-sm" href="">
-             View
+          </a> 
+          <a class="btn btn-default btn-sm" href="">
+             Post
           </a>
 
           </div>
@@ -280,6 +317,8 @@ Upload Business Permit
     </script>
 
 <script type="text/javascript">
+  
+// --------------- load services ---------------
   $(function() {
 
       $('#select_service').on('change',function() {
@@ -300,5 +339,37 @@ Upload Business Permit
       });
 
   });
+
+
+// ------------------- load modal --------------------
+
+$(document).ready(function () {
+
+$('body').on('click', '#target_btn', function (event) {
+
+    event.preventDefault();
+    var id = $(this).data('ps_id');
+
+    $.get('merchant/profile/profile/' + id + '/details', function (data) {
+
+        $('#psid').text(data.data.psid);
+        // $('#viwid').val(data.data.iw_id);
+        // $('#merchant').text(data.data.company);
+        // $('#fname').text(data.data.fname);
+        // $('#lname').text(data.data.lname);
+        // $('#mname').text(data.data.mname);
+        // $('#amount_bal').text(data.data.iw_withdraw_balane);
+        // $('#amount_req').text(data.data.iw_withdraw_amount);
+        // $('#req_date').text(data.data.iw_created_at);
+        // $('#bank_name').text(data.data.bank);
+        // $('#bank_account_name').text(data.data.account_name);
+        // $('#bank_account_no').text(data.data.account_number);
+        $('#charge_modal').modal('show');
+     
+       })
+  });
+
+});
+
 </script>
 @endsection

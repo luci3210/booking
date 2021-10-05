@@ -63,7 +63,14 @@
       {{ $errors->has('country') ?  $errors->first('country') : '' }}
     </small>
   </label>
-<input type="text" name="country" value="{{ old('country',$data->ps_country) }}" class="form-control" placeholder="Country">
+  <select class="custom-select" name="country" id="countryid">
+    <option value="" disabled="true" selected="-Select country-">-Select country-</option>
+      @forelse($select_country as $countries)
+        <option value="{{ $countries->id }}">{{ $countries->country }}</option>
+      @empty
+        <option value="" disabled="true">Country list not available </option>
+      @endforelse
+      </select>
 </div>
 
 <div class="form-group col-4">
@@ -73,7 +80,9 @@
       {{ $errors->has('provice') ?  $errors->first('provice') : '' }}
     </small>
   </label>
-<input type="text" name="provice" value="{{ old('provice',$data->ps_district) }}" class="form-control" placeholder="Province">
+  <select class="custom-select" name="provice" id="districtid">
+    <option value="0" disabled="true" selected="true">-Select Province-</option>
+  </select>
 </div>
 
 <div class="form-group col-4">
@@ -83,7 +92,9 @@
       {{ $errors->has('city') ?  $errors->first('city') : '' }}
     </small>
   </label>
-<input type="text" name="city" value="{{ old('City',$data->ps_city) }}" class="form-control" placeholder="city">
+<select class="custom-select" name="city" id="cityid">
+    <option value="0" disabled="true" selected="true">-Select Place-</option>
+  </select>
 </div>
 
 </div>
@@ -98,7 +109,7 @@
       {{ $errors->has('facilities') ?  $errors->first('facilities') : '' }}
     </small>
   </label>
-<textarea class="form-control" name="facilities" rows="3" placeholder="Most Popular Facilities">
+<textarea class="form-control" name="facilities" rows="3" id="facilities-textarea"placeholder="Most Popular Facilities">
   {{ old('facilities',$data->ps_facilities) }}
 </textarea>
 </div>
@@ -110,7 +121,7 @@
       {{ $errors->has('cico') ?  $errors->first('cico') : '' }}
     </small>
   </label>
-<textarea class="form-control" name="cico" rows="3" placeholder="Check In - Check Out Policy">{{ old('cico',$data->ps_check_in_out) }}</textarea>
+<textarea class="form-control" name="cico" rows="3" id="cico-textarea" placeholder="Check In - Check Out Policy">{{ old('cico',$data->ps_check_in_out) }}</textarea>
 </div>
 
 
@@ -122,7 +133,7 @@
       {{ $errors->has('extra') ?  $errors->first('extra') : '' }}
     </small>
   </label>
-<textarea class="form-control" name="extra" rows="3" placeholder="Children & Extra Bed Policy and Other">{{ old('extra',$data->ps_roles_desc) }}</textarea>
+<textarea class="form-control" name="extra" rows="3" id="extra-textarea" placeholder="Children & Extra Bed Policy and Other">{{ old('extra',$data->ps_roles_desc) }}</textarea>
 </div>
 
 <div class="form-group col-6">
@@ -132,7 +143,7 @@
       {{ $errors->has('attraction') ?  $errors->first('attraction') : '' }}
     </small>
   </label>
-<textarea class="form-control" name="attraction" rows="3" placeholder="Attraction">{{ old('attraction',$data->ps_attraction) }}</textarea>
+<textarea class="form-control" name="attraction" rows="3" id="attraction-textarea" placeholder="Attraction">{{ old('attraction',$data->ps_attraction) }}</textarea>
 </div>
 
 </div>
@@ -145,7 +156,21 @@
       {{ $errors->has('cpp') ?  $errors->first('cpp') : '' }}
     </small>
   </label>
-<textarea class="form-control" name="cpp" rows="2" placeholder="Cancellation/Prepayment Policy">{{ old('cpp',$data->ps_cancelaton_ref) }}</textarea>
+<textarea class="form-control" name="cpp" rows="2" id="cpp-textarea" placeholder="Cancellation/Prepayment Policy">{{ old('cpp',$data->ps_cancelaton_ref) }}</textarea>
+</div>
+
+
+<div class="form-group">
+  <label>
+    Status Service
+    <small class="text-danger has-error">
+    </small>
+  </label>
+<select class="custom-select" name="status" id="cityid">
+    <option value="" disabled="true" selected="true">-Select staus -</option>
+    <option value="1" selected="true">Enabled</option>
+    <option value="5" >Disable</option>
+  </select>
 </div>
 
 
@@ -170,11 +195,132 @@
 @endsection
 
 @section('merchantjs')
+<script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <script type="text/javascript">
 
 $('.selectservices').select2( {
   allowClear:true
 });
+
+
+
+$(document).ready(function () {
+      
+$('#countryid').on('change', function () {
+
+        let id = $(this).val();
+        
+        $('#districtid').empty();
+        $('#districtid').append(`<option value="0" disabled selected>Searching . . .</option>`);
+        $.ajax( {
+           type: 'GET',
+           url: '/merchant/location/district/select/' + id,
+           
+            success: function (response) {
+            var response = JSON.parse(response);
+            console.log(response);   
+            
+            $('#districtid').empty();
+      
+            $('#districtid').append(`<option value="0" disabled selected>-Select Provice-</option>`);
+            response.forEach(element => {
+            $('#districtid').append(`<option value="${element['id']}">${element['district']}</option>`);
+          });
+      
+      }
+  });
+});
+
+
+
+$('#districtid').on('change', function () {
+
+        let id = $(this).val();
+        
+        $('#cityid').empty();
+        $('#cityid').append(`<option value="0" disabled selected>Searching . . .</option>`);
+        $.ajax( {
+           type: 'GET',
+           url: '/merchant/location/city/select/' + id,
+           
+            success: function (response) {
+            var response = JSON.parse(response);
+            console.log(response);   
+            
+            $('#cityid').empty();
+      
+            $('#cityid').append(`<option value="0" disabled selected>-Select Region-</option>`);
+            response.forEach(element => {
+            $('#cityid').append(`<option value="${element['id']}">${element['city']}</option>`);
+          });
+      
+      }
+  });
+});
+
+
+$('#cityid').on('change', function () {
+
+        let id = $(this).val();
+        
+        $('#municipalityid').empty();
+        $('#municipalityid').append(`<option value="0" disabled selected>Searching . . .</option>`);
+        $.ajax( {
+           type: 'GET',
+           url: '/merchant/location/municipality/select/' + id,
+           
+            success: function (response) {
+            var response = JSON.parse(response);
+            console.log(response);   
+            
+            $('#municipalityid').empty();
+      
+            $('#municipalityid').append(`<option value="0" disabled selected>-Select Region-</option>`);
+            response.forEach(element => {
+            $('#municipalityid').append(`<option value="${element['id']}">${element['municipality']}</option>`);
+          });
+      
+      }
+  });
+});
+
+});
+
 </script>
+
+<script>
+
+    ClassicEditor
+        .create( document.querySelector('#facilities-textarea') )
+        .catch( error => {
+            console.error( error );
+        } );
+
+    ClassicEditor
+        .create( document.querySelector('#cico-textarea') )
+        .catch( error => {
+            console.error( error );
+        } );
+
+    ClassicEditor
+        .create( document.querySelector('#extra-textarea') )
+        .catch( error => {
+            console.error( error );
+        } );
+
+    ClassicEditor
+        .create( document.querySelector('#attraction-textarea') )
+        .catch( error => {
+            console.error( error );
+        } );
+
+    ClassicEditor
+      .create( document.querySelector('#cpp-textarea') )
+      .catch( error => {
+          console.error( error );
+      } );
+
+</script>
+
 @endsection()

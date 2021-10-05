@@ -3,22 +3,13 @@
 namespace App\Http\Controllers\Merchant;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Other\PlanContoller;
-use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\MerchantProfileController;
 
-use App\Model\Merchant\Profile;
-use App\Model\Merchant\HotelModel;
-use App\Model\Merchant\MerchantAddress;
-use App\Model\Merchant\MerchantContact;
-use App\Model\Merchant\MerchantPermit;
-use App\Model\ProfileUsersModel;
 use App\Model\ProfileServiceModel;
 use App\Model\ServiceModel;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 
-use App\Http\Requests\Merchant\UpdateProfile;
 use App\Http\Requests\Merchant\PostServiceProfile;
 
 use Illuminate\Support\Facades\Auth;
@@ -29,13 +20,19 @@ class ProfileServicesController extends Controller
 
 	public function __construct(MerchantProfileController $identity) {
 
-		//$this->middleware('auth:web');	
-
 		$this->getIdentity = $identity;
 
 	}
 
-	protected function index($id) {
+protected function index($id) {
+
+		if(!$this->getIdentity->getAuthUser()->profile) {
+
+			return $this->getIdentity->getAuthUser();
+		}
+
+
+		try {
 
 		$data = ServiceModel::where(function ($query) use($id) {
 			$query->from('products')
@@ -43,10 +40,21 @@ class ProfileServicesController extends Controller
 		})->select('id','name','description','icon_id')->firstOrFail();
 
 		return view('merchant_dashboard.profile.profile_services',compact('data'));
+
+		} catch(\Exception $e) {
+
+			return view('errors.merchant.web.pageNotfound');
+		}
 	}
 
 protected function create_service(PostServiceProfile $request, $id)
 	{
+		if(!$this->getIdentity->getAuthUser()->profile) {
+
+			return $this->getIdentity->getAuthUser();
+
+		}
+
 		try {
 			ProfileServiceModel::firstOrCreate(
 			[
@@ -63,11 +71,12 @@ protected function create_service(PostServiceProfile $request, $id)
 							'ps_roles_desc'=>$request->extra,
 								'ps_attraction'=>$request->attraction,
 									'ps_cancelaton_ref'=>$request->cpp,
+									'ps_temp'=>1,
 				'ps_created_at'=>now()
 			]
 		);
 
-		return redirect()->back()->withSuccess('Profile service, Successfully added.');
+		return redirect('merchant/profile/profile')->withSuccess('Profile service, Successfully added.');
 
 		} catch(\Exception $e) {
 		
@@ -79,15 +88,37 @@ protected function create_service(PostServiceProfile $request, $id)
 
 protected function edit_service($id) {
 
+	if(!$this->getIdentity->getAuthUser()->profile) {
+
+			return $this->getIdentity->getAuthUser();
+
+		}
+
+	try {
+
 	$data = ProfileServiceModel::where(function ($query) use($id) {
 		$query->from('profile_services')
 			->where('ps_id',$id);
 	})->firstOrFail();
+	
 	return view('merchant_dashboard.profile.profile_service_edit',compact('data'));
 
+	} catch(\Exception $e) {
+
+		return view('errors.merchant.web.pageNotfound');
+	}
 }
 
 protected function update_service(PostServiceProfile $request, $id) {
+
+	if(!$this->getIdentity->getAuthUser()->profile) {
+
+			return $this->getIdentity->getAuthUser();
+
+		}
+
+	
+	try {
 
 	ProfileServiceModel::where(function ($query) use($id,$request) {
 
@@ -104,9 +135,18 @@ protected function update_service(PostServiceProfile $request, $id) {
 							'ps_roles_desc'=>$request->extra,
 								'ps_attraction'=>$request->attraction,
 									'ps_cancelaton_ref'=>$request->cpp,
+										'ps_temp'=>$request->status,
 				'ps_updated_at'=>now()]
 		);
 	});
+
+	return redirect('merchant/profile/profile')->withSuccess('Profile service, Successfully updated.');
+	
+	} catch(\Exception $e) {
+
+		return view('errors.merchant.web.pageNotfound');
+
+	}
 }
 
 }

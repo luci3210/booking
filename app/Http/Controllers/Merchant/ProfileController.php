@@ -63,7 +63,7 @@ class ProfileController extends Controller
         return Profile::join('profile_services','profile_services.ps_profile_id','profiles.id')
             ->join('products','products.id','profile_services.ps_service_id')
             ->where( function($query) {
-            $query->from('profiles')->where('profiles.id',$this->getIdentity->getAuthUser()->profile);
+            $query->from('profiles')->where([['profiles.id',$this->getIdentity->getAuthUser()->profile],['profile_services.ps_temp',1]]);
         })->select('profile_services.ps_id','profile_services.ps_profile_id','profile_services.ps_name','profile_services.ps_address','products.name','products.icon_id')->get();
 
     }

@@ -19,21 +19,66 @@ public function __construct() {
 
 public function getAuthUser() {
 
-    $authUser = ProfileModel::join('profile_users','profiles.id','profile_users.up_profile_id')
+    try {
+    
+     return ProfileModel::join('profile_users','profiles.id','profile_users.up_profile_id')
 
         ->where(function($query) {
 
             $query->from('profile_users')->where([['profile_users.up_user_id',Auth::user()->id],['profile_users.pu_temp',1]]);
             
         })->select('profile_users.up_profile_id as profile','profile_users.up_user_id')->firstOrFail();
+    
+    }
 
-    if(!$authUser) {
+    catch(\Exception $e)
 
-        abort(403, 'Unauthorized action.');
+    {
 
-    } else {
+        if(Auth::check()) {
 
-        return $authUser;
+            return abort(404, 'Page not found.');
+            // return view('errors.merchant.web.pageNotAuthorized');
+
+        } else {
+
+            return abort(404, 'Page not found.');
+        }
+
+
+    }
+
+}
+
+
+public function getProfilesVerify() {
+
+    try {
+    
+     return ProfileModel::join('merchant_verify','profiles.id','merchant_verify.prof_id')
+
+        ->where(function($query) {
+
+            $query->from('profile_users')->where([['profile_users.up_user_id',Auth::user()->id],['profile_users.pu_temp',1]]);
+            
+        })->select('profile_users.up_profile_id as profile','profile_users.up_user_id')->firstOrFail();
+    
+    }
+
+    catch(\Exception $e)
+
+    {
+
+        if(Auth::check()) {
+
+            return abort(404, 'Page not found.');
+            // return view('errors.merchant.web.pageNotAuthorized');
+
+        } else {
+
+            return abort(404, 'Page not found.');
+        }
+
 
     }
 

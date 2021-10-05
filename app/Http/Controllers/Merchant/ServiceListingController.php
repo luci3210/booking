@@ -32,14 +32,14 @@ class ServiceListingController extends Controller
 {
 
     private $profile;
-    private $prof;
+    private $identity;
 
 
-    public function __construct(ProfileController $profile, MerchantProfileController $prof) {
+    public function __construct(ProfileController $profile, MerchantProfileController $identity) {
 
-        $this->middleware('auth:web');
+        // $this->middleware('auth:web');
         $this->profile = $profile;
-        $this->getProfile = $prof;
+        $this->getProfile = $identity;
     }
 
 
@@ -129,6 +129,13 @@ protected function verify() {
         }
     }
 
+protected function create_post($desc) {
+
+
+
+}
+
+
 public function service_create_post($desc) {
 
 $data = MerchantVerifyModel::join('profiles','profiles.id','merchant_verify.prof_id')
@@ -156,9 +163,13 @@ $data = MerchantVerifyModel::join('profiles','profiles.id','merchant_verify.prof
 
             return view('merchant_dashboard.service.create_form_exlusive',compact('address','service_name','room_facilities','building_facilities','packages_facilities','country','verify'));
 
+        } elseif($desc == 'hotel_and_resort') {
+
+            return view('merchant_dashboard.service.form_create_hotel',compact('address','service_name','room_facilities','building_facilities','packages_facilities','country','verify'));   
         } else {
 
-            return view('merchant_dashboard.service.create_form',compact('address','service_name','room_facilities','building_facilities','packages_facilities','country','verify'));   
+            return view('merchant_dashboard.service.create_form',compact('address','service_name','room_facilities','building_facilities','packages_facilities','country','verify'));
+
         }
 
      }  elseif (count($data) >= 2) {
@@ -333,7 +344,6 @@ $data = MerchantVerifyModel::join('profiles','profiles.id','merchant_verify.prof
     }
 
     public function country() {
-
     return LocationCountyModel::where('temp_status',1)->orderBy('country')->get();
     }
 

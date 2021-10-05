@@ -11,7 +11,7 @@ class Jobs
     {
         if($request->user() === null) {
 
-            return abort(403, 'Unauthorized action.'); 
+            return abort(404, 'Page not found.'); 
         }
 
         $doAction = $request->route()->getAction();
@@ -23,6 +23,6 @@ class Jobs
             return $next($request);
         }
 
-         return abort(403, 'Unauthorized action.'); 
+         return abort(404, 'Page not found.'); 
     }
 }

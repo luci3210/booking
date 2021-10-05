@@ -50,10 +50,9 @@ class PostServiceProfile extends FormRequest
             'city.required'=>'City/Municipality is required',
             'facilities.required'=>'Facilities name is required',
             'cico.required'=>'Check In - Check Out Policy is required',
-            'extra.required'=>'Children & Extra Bed Policy and Other is required',
+            'extra.required'=>'Policy and Other is required',
             'attraction.required'=>'Hotel attraction is required',
             'cpp.required'=>'Cancellation/Payment Policy is required'
-
         ];
 
     }

@@ -48,7 +48,7 @@
                 
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                     <i class="fas fa-user-shield"></i>
-                    <span class="d-none d-md-inline">{{ Auth::user()->name }} <i class="fas fa-sort-down"></i></span>
+                    <span class="d-none d-md-inline">{{-- Auth::user()->name --}} <i class="fas fa-sort-down"></i></span>
                 </a>
 
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
@@ -56,8 +56,8 @@
                     <li class="user-header bg-primary">
                         <i class="fas fa-user-shield"></i>
                         <p>
-                            {{ Auth::user()->name }}
-                            <small>Member since {{ Auth::user()->created_at->format('M. Y') }}</small>
+                            {{-- Auth::user()->name --}}
+                            <small>Member since {{-- Auth::user()->created_at->format('M. Y') --}}</small>
                         </p>
                     </li>
                     <!-- Menu Footer-->
