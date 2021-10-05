@@ -61,10 +61,12 @@ protected function create_service(PostServiceProfile $request, $id)
 				'ps_profile_id'=>$this->getIdentity->getAuthUser()->profile,
 					'ps_service_id'=>$id,
 						'ps_name'=>$request->hotel_name,
-							'ps_description'=>$request->hotel_name,
-								'ps_address'=>$request->address,
-									'ps_country'=>$request->country,
-										'ps_district'=>$request->provice,
+							'ps_description'=>$request->description,
+								'ps_lat'=>$request->lat,
+									'ps_lng'=>$request->long,
+										'ps_address'=>$request->address,
+											'ps_country'=>$request->country,
+												'ps_district'=>$request->provice,
 				'ps_city'=>$request->city,
 					'ps_facilities'=>$request->facilities,
 						'ps_check_in_out'=>$request->cico,
@@ -72,7 +74,7 @@ protected function create_service(PostServiceProfile $request, $id)
 								'ps_attraction'=>$request->attraction,
 									'ps_cancelaton_ref'=>$request->cpp,
 									'ps_temp'=>1,
-				'ps_created_at'=>now()
+				'ps_created'=>now()
 			]
 		);
 
@@ -125,7 +127,9 @@ protected function update_service(PostServiceProfile $request, $id) {
 		$query->from('profile_services')->where([['ps_id',$id],['ps_profile_id',$this->getIdentity->getAuthUser()->profile]])
 			->update(
 				['ps_name'=>$request->hotel_name,
-							'ps_description'=>$request->hotel_name,
+					'ps_description'=>$request->description,
+						'ps_lat'=>$request->lat,
+							'ps_lng'=>$request->long,
 								'ps_address'=>$request->address,
 									'ps_country'=>$request->country,
 										'ps_district'=>$request->provice,
@@ -136,7 +140,7 @@ protected function update_service(PostServiceProfile $request, $id) {
 								'ps_attraction'=>$request->attraction,
 									'ps_cancelaton_ref'=>$request->cpp,
 										'ps_temp'=>$request->status,
-				'ps_updated_at'=>now()]
+				'ps_updated'=>now()]
 		);
 	});
 

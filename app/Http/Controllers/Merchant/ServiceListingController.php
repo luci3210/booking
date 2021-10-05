@@ -131,7 +131,12 @@ protected function verify() {
 
 protected function create_post($desc) {
 
+    if(!$this->getIdentity->getAuthUser()->profile) {
 
+            return $this->getIdentity->getAuthUser();
+        }
+
+    
 
 }
 

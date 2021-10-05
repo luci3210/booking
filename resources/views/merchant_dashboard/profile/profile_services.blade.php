@@ -39,7 +39,7 @@
       {{ $errors->has('description') ?  $errors->first('description') : '' }}
     </small>
   </label>
-<textarea class="form-control" name="description" rows="2" placeholder="Description">{{ old('description') }}</textarea>
+<textarea class="form-control" name="description" rows="2" placeholder="description">{{ old('description') }}</textarea>
 </div>
 
 
@@ -51,6 +51,32 @@
     </small>
   </label>
 <textarea class="form-control" name="address" rows="1" placeholder="Address">{{ old('address') }}</textarea>
+</div>
+
+
+<div class="row">
+  
+<div class="form-group col-6">
+  <label>
+    <span class="text-danger">*</span>  Latitude 
+    <small class="text-danger has-error">
+      {{ $errors->has('lat') ?  $errors->first('lat') : '' }}
+    </small>
+  </label>
+  <input type="text" name="lat" class="form-control" placeholder="Latitude">
+</div>
+
+
+<div class="form-group col-6">
+  <label>
+    <span class="text-danger">*</span>  Longitude 
+    <small class="text-danger has-error">
+      {{ $errors->has('long') ?  $errors->first('long') : '' }}
+    </small>
+  </label>
+  <input type="text" name="long" class="form-control" placeholder="Longitude">
+</div>
+
 </div>
 
 

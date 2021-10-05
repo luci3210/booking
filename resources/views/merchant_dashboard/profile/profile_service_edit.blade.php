@@ -55,6 +55,32 @@
 
 
 <div class="row">
+  
+<div class="form-group col-6">
+  <label>
+    <span class="text-danger">*</span>  Latitude 
+    <small class="text-danger has-error">
+      {{ $errors->has('lat') ?  $errors->first('lat') : '' }}
+    </small>
+  </label>
+  <input type="text" name="lat" class="form-control" value="{{ old('lat',$data->ps_lat ) }}" placeholder="Latitude">
+</div>
+
+
+<div class="form-group col-6">
+  <label>
+    <span class="text-danger">*</span>  Longitude 
+    <small class="text-danger has-error">
+      {{ $errors->has('long') ?  $errors->first('long') : '' }}
+    </small>
+  </label>
+  <input type="text" name="long" class="form-control" value="{{ old('long',$data->ps_lng ) }}" placeholder="Longitude">
+</div>
+
+</div>
+
+
+<div class="row">
 
 <div class="form-group col-4">
   <label>

@@ -27,6 +27,8 @@ class PostServiceProfile extends FormRequest
             'hotel_name'=>'required',
             'description'=>'required',
             'address'=>'required',
+            'lat'=>'required',
+            'long'=>'required',
             'country'=>'required',
             'provice'=>'required',
             'city'=>'required',
@@ -41,10 +43,11 @@ class PostServiceProfile extends FormRequest
     public function messages() {
 
         return [
-
             'hotel_name.required'=>'Hotel name is required',
             'description.required'=>'Hotel description is required',
             'address.required'=>'Hotel address is required',
+            'lat.required'=>'Latitude is required',
+            'long.required'=>'Longitude is required',
             'country.required'=>'Country is required',
             'provice.required'=>'Province is required',
             'city.required'=>'City/Municipality is required',
