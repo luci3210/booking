@@ -17,59 +17,83 @@
 
 <div class="col-md-3">
 
-            <!-- Profile Image -->
-            <div class="card card-primary card-outline">
-              <div class="card-body box-profile">
-                <div class="text-center">
-                  <img class="img-fluid" src="/image/cover/2021/{{ $service_post->cover == '' ? 'default.png' : $service_post->cover }}" alt="Cover Preview" style="border-radius: 6px;">
-                </div><br>
+<div class="card card-primary card-outline">
+  <div class="card-body box-profile">
+    <div class="text-center">
+      <img class="img-fluid" src="/image/cover/2021/{{ $service_post->cover == '' ? 'default.png' : $service_post->cover }}" alt="Cover Preview" style="border-radius: 6px;">
+    </div><br>
 
-                <div class="custom-file input-group input-group-sm mb-3">
-      <input type="file" class="custom-file-input input-group input-group-sm" name="cover_pic" id="cover_pic">
-      <label class="custom-file-label" for="customFile">Upload Cover</label>
+  <div class="custom-file input-group input-group-sm mb-3">
+    <input type="file" class="custom-file-input input-group input-group-sm" name="cover_pic" id="cover_pic">
+    <label class="custom-file-label" for="customFile">Upload Cover</label>
+  </div>
+
+      
+      <strong><i class="fas fa-book mr-1"></i> Education</strong>
+
+      <p class="text-muted">
+        B.S. in Computer Science from the University of Tennessee at Knoxville
+      </p>
+
+      <hr>
+
+      <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
+
+      <p class="text-muted">Malibu, California</p>
+
+      <hr>
+
+      <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
+
+      <p class="text-muted">
+        <span class="tag tag-danger">UI Design</span>
+        <span class="tag tag-success">Coding</span>
+        <span class="tag tag-info">Javascript</span>
+        <span class="tag tag-warning">PHP</span>
+        <span class="tag tag-primary">Node.js</span>
+      </p>
+
+      <hr>
+
+      <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
+
+      <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+
     </div>
-
-                
-                <strong><i class="fas fa-book mr-1"></i> Education</strong>
-
-                <p class="text-muted">
-                  B.S. in Computer Science from the University of Tennessee at Knoxville
-                </p>
-
-                <hr>
-
-                <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
-
-                <p class="text-muted">Malibu, California</p>
-
-                <hr>
-
-                <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
-
-                <p class="text-muted">
-                  <span class="tag tag-danger">UI Design</span>
-                  <span class="tag tag-success">Coding</span>
-                  <span class="tag tag-info">Javascript</span>
-                  <span class="tag tag-warning">PHP</span>
-                  <span class="tag tag-primary">Node.js</span>
-                </p>
-
-                <hr>
-
-                <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
-
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
-        
+  </div>
+</div>
 
 
+<div class="col-md-9">
+  <div class="card">
+    <div class="card-header p-2">
+      <ul class="nav nav-pills">
+        <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Activity</a></li>
+        <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a></li>
+        <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
+      </ul>
+    </div>
+<div class="card-body">
 
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-
+<div class="post">
  
+
+@csrf
+          <div class="file-loading">
+              <input id="file-1" type="file" name="file" multiple class="file" data-min-file-count="2">
           </div>
+
+
+</div>
+
+
+  <!-- /.tab-content -->
+</div><!-- /.card-body -->
+            </div>
+            <!-- /.nav-tabs-custom -->
+          </div>
+
+
 
 
 </div>
@@ -216,11 +240,7 @@
 
 
 
-          @csrf
-          <div class="file-loading">
-              <input id="file-1" type="file" name="file" multiple class="file" data-min-file-count="2">
-          </div>
-
+          
 
     </div>
         
