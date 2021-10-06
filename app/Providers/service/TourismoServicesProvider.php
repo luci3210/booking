@@ -8,6 +8,9 @@ use App\Model\Admin\DestinationModel;
 use App\Model\Admin\LocationCountyModel;
 use App\Model\Merchant\ProfileModel;
 use App\Model\Merchant\UserModel;
+use App\Model\Admin\RoomFaciliModel;
+
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -69,7 +72,17 @@ public function boot()
 
                 LocationCountyModel::where(function($query) {
                     $query->from('location_country')->where('temp_status',1);
-                })->orderBy('country')->get()
+                })->orderBy('country','asc')->get()
+            );
+        });
+
+
+        View::composer('*', function ($view) {
+            $view->with('room_amenities', 
+
+                RoomFaciliModel::where(function($query) {
+                    $query->from('room_facilities')->where('temp_status',1);
+                })->orderBy('name','asc')->get()
             );
         });
         

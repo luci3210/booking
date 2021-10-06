@@ -10,17 +10,89 @@
 @section('content')
 
 <section class="content">
-      <div class="container-fluid">
+  <div class="container-fluid">
+
+<div class="row">
+
+
+<div class="col-md-3">
+
+            <!-- Profile Image -->
+            <div class="card card-primary card-outline">
+              <div class="card-body box-profile">
+                <div class="text-center">
+                  <img class="img-fluid" src="/image/cover/2021/{{ $service_post->cover == '' ? 'default.png' : $service_post->cover }}" alt="Cover Preview" style="border-radius: 6px;">
+                </div><br>
+
+                <div class="custom-file input-group input-group-sm mb-3">
+      <input type="file" class="custom-file-input input-group input-group-sm" name="cover_pic" id="cover_pic">
+      <label class="custom-file-label" for="customFile">Upload Cover</label>
+    </div>
+
+                
+                <strong><i class="fas fa-book mr-1"></i> Education</strong>
+
+                <p class="text-muted">
+                  B.S. in Computer Science from the University of Tennessee at Knoxville
+                </p>
+
+                <hr>
+
+                <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
+
+                <p class="text-muted">Malibu, California</p>
+
+                <hr>
+
+                <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
+
+                <p class="text-muted">
+                  <span class="tag tag-danger">UI Design</span>
+                  <span class="tag tag-success">Coding</span>
+                  <span class="tag tag-info">Javascript</span>
+                  <span class="tag tag-warning">PHP</span>
+                  <span class="tag tag-primary">Node.js</span>
+                </p>
+
+                <hr>
+
+                <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
+
+                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+        
+
+
+
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+ 
+          </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
 
 <div class="row">
   <div class="col-12">
     <div class="card">
       
       <div class="card-header">
-        <h3 class="card-title">
-          <i class="fas fa-box-open"></i> Service » {{ $service_name->name }} » Upload 
+          Service » {{ $service_name->name }} » Upload 
             <a href="{{ route('service_listing_create_post',$service_name->description) }}" class="py-0"></a>
-        </h3>
+
       </div>
 
 <div class="card-body">
@@ -28,13 +100,13 @@
 
 <div class="row d-flex align-items-stretch">
 
-<div class="col-12 col-sm-4">
+<div class="col-12 col-sm-2">
   <div class="card card-primary card-outline card-outline-tabs">
   
     <div class="card-body">
       
 <div class="text-center">
-  <img src="/image/cover/2021/{{ $service_post->cover == '' ? 'default.png' : $service_post->cover }}" alt="" class="cover_preview" style="width:190px; height: 200px;">
+  <img src="/image/cover/2021/{{ $service_post->cover == '' ? 'default.png' : $service_post->cover }}" alt="" class="cover_preview" style="width:100px; height: 110px;">
 </div><br>
 
 <div class="card-footer">
@@ -52,7 +124,7 @@
   </div>
 </div>
 
-<div class="col-12 col-sm-8">
+<div class="col-12 col-sm-10">
   <div class="card card-primary card-outline card-outline-tabs">
     <div class="card-body">
       

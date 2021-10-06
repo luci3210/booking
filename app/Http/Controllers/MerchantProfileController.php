@@ -38,7 +38,7 @@ public function getAuthUser() {
         if(Auth::check()) {
 
             return abort(404, 'Page not found.');
-            // return view('errors.merchant.web.pageNotAuthorized');
+            //return view('errors.merchant.web.pageNotAuthorized');
 
         } else {
 
@@ -71,8 +71,8 @@ public function getProfilesVerify() {
 
         if(Auth::check()) {
 
-            return abort(404, 'Page not found.');
-            // return view('errors.merchant.web.pageNotAuthorized');
+            //return abort(404, 'Page not found.');
+            return view('errors.merchant.web.pageNotAuthorized');
 
         } else {
 

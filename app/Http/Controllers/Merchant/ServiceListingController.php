@@ -17,6 +17,8 @@ use App\Model\Merchant\TourModel;
 use App\Model\Merchant\TourPhoModel;
 use App\Model\MerchantVerifyModel;
 use App\Model\Merchant\MerchantAddress;
+use App\Model\ProfileServiceModel;
+
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Merchant\ProfileController;
@@ -37,9 +39,8 @@ class ServiceListingController extends Controller
 
     public function __construct(ProfileController $profile, MerchantProfileController $identity) {
 
-        // $this->middleware('auth:web');
         $this->profile = $profile;
-        $this->getProfile = $identity;
+        $this->getIdentity = $identity;
     }
 
 
@@ -53,7 +54,7 @@ class ServiceListingController extends Controller
 
 
         return TourModel::where('service_id',$this->desc_name($desc)->id)
-            ->where('profid',$this->getProfile->getAuthUser()->profile)->get();    
+            ->where('profid',$this->getIdentity->getAuthUser()->profile)->get();    
         
     }
 
@@ -129,16 +130,117 @@ protected function verify() {
         }
     }
 
-protected function create_post($desc) {
+protected function create_service($desc) {
 
     if(!$this->getIdentity->getAuthUser()->profile) {
 
             return $this->getIdentity->getAuthUser();
         }
 
-    
+    $service_name = $this->desc_name($desc);
 
+    switch ($desc) {
+     
+        case 'hotel_and_resort':
+            
+            $hotel = ProfileServiceModel::where(function($query) {
+
+                $query->from('profile_services')
+
+                    ->where('profile_services.ps_profile_id',$this->getIdentity->getAuthUser()->profile);
+
+            })->select('profile_services.ps_name','profile_services.ps_id','profile_services.ps_address')
+
+                ->orderBy('profile_services.ps_name','asc')->get();
+
+            return view('merchant_dashboard.service.form_create_hotel',compact('hotel','service_name'));
+
+            break;
+
+        case 'tour_operator':
+     
+                dd('others');
+                break;
+
+        default:
+            
+            return view('errors.merchant.web.pageNotfound');
+            break;
+    }
 }
+
+protected function service_save_hotel(MerchantPostHotel $request, $id) {
+
+    if(!$this->getIdentity->getAuthUser()->profile) {
+
+            return $this->getIdentity->getAuthUser();
+        }
+
+    try {
+
+    $getLastData = TourModel::firstOrCreate([
+        'tour_name' => $request->room_name,
+        'price' => $request->price,
+        'nonight' => $request->no_night,
+        'noguest' => $request->no_guest,
+        'qty' => $request->quantity,
+        'roomdesc' => $request->room_description,
+        'roomsize' => $request->room_size,
+        'viewdeck' => $request->views,
+        'nobed' => $request->number_bed,
+        'room_facilities' => implode(',', $request->room_facilities),
+        'serviceid' => $request->hotel,
+        'profid' => $this->getIdentity->getAuthUser()->profile,
+        'service_id' => $id,
+        'temp_status' => 2
+      ]);
+
+    $lastId = $getLastData->id;
+    $lastService = $getLastData->service_id;
+
+    $serviceName = ProductModel::where('id',$lastService)->get()->first();
+
+    return Redirect('merchant.dashboard/service/'.$lastId.'/upload_photos/'.$serviceName->description.'')->withSuccess('Successfully save., Please continue adding photos.');
+    
+    } catch(\Exception $e) {
+
+        return view('errors.merchant.web.pageNotfound');
+
+    }
+  }  
+
+protected function service_update_photos($id,$desc) {
+
+    if(!$this->getIdentity->getAuthUser()->profile) {
+
+            return $this->getIdentity->getAuthUser();
+        }
+
+    $service_name = $this->desc_name($desc);
+    $service_post = $this->get_post($id);
+
+    return view('merchant_dashboard.service.create_update_photos',compact(['service_name','service_post']));   
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 public function service_create_post($desc) {
@@ -170,7 +272,15 @@ $data = MerchantVerifyModel::join('profiles','profiles.id','merchant_verify.prof
 
         } elseif($desc == 'hotel_and_resort') {
 
-            return view('merchant_dashboard.service.form_create_hotel',compact('address','service_name','room_facilities','building_facilities','packages_facilities','country','verify'));   
+            $hotel = ProfileServiceModel::where(function($query) {
+                $query->from('profile_services')
+                    ->where('profile_services.ps_profile_id',$this->getIdentity->getAuthUser()->profile);
+            })->select('profile_services.ps_name','profile_services.ps_id','profile_services.ps_address')
+                ->orderBy('profile_services.ps_name','asc')
+                    ->get();
+
+
+            return view('merchant_dashboard.service.form_create_hotel',compact('address','service_name','room_facilities','building_facilities','packages_facilities','country','verify','hotel'));   
         } else {
 
             return view('merchant_dashboard.service.create_form',compact('address','service_name','room_facilities','building_facilities','packages_facilities','country','verify'));
@@ -267,54 +377,6 @@ $data = MerchantVerifyModel::join('profiles','profiles.id','merchant_verify.prof
 
     }
 
-    public function service_save_hotel(MerchantPostHotel $request, $id) {
-
-        $getLastData = TourModel::firstOrCreate([
-            'tour_name' => $request->room_name,
-            'price' => $request->price,
-            'nonight' => $request->no_night,
-            'noguest' => $request->no_guest,
-            'qty' => $request->quantity,
-
-            'roomdesc' => $request->room_description,
-
-            'roomsize' => $request->room_size,
-            'viewdeck' => $request->views,
-            'nobed' => $request->number_bed,
-
-            'room_facilities' => implode(',', $request->room_facilities),
-            'building_facilities' => implode(',', $request->buiding_facilities),
-            'booking_package' => implode(',', $request->booking_package),
-
-            'serviceid' => $request->address,
-            'country' => $request->country,
-            'district' => $request->province,
-            'city' => $request->place,
-            'lat' => $request->lat,
-            'lng' => $request->long,
-            'profid' => $this->profile->profile_check()->id,
-            'service_id' => $id,
-            'temp_status' => 2
-          ]);
-
-        $lastId = $getLastData->id;
-        $lastService = $getLastData->service_id;
-
-        $serviceName = ProductModel::where('id',$lastService)->get()->first();
-
-        return Redirect('merchant.dashboard/service/'.$lastId.'/upload_photos/'.$serviceName->description.'')->withSuccess('Successfully submit, Please continue adding photos.');
-
-    }
-
-
-    public function service_update_photos($id,$desc) {
-
-        $service_name = $this->desc_name($desc);
-        $service_post = $this->get_post($id);
-
-        return view('merchant_dashboard.service.create_update_photos',compact(['service_name','service_post']));   
-
-    }
 
     public function get_post($id) {
 
@@ -333,10 +395,13 @@ $data = MerchantVerifyModel::join('profiles','profiles.id','merchant_verify.prof
         return response()->json(['uploaded' => '/image/tour/2021'.$new_image_name]);
     }
 
+
+////////// remove
     public function room_facilities() {
 
         return RoomFaciliModel::where('temp_status',1)->orderBy('name')->distinct()->get();
     }
+////////////
 
     public function building_facilities() {
 

@@ -5,12 +5,7 @@
 <section class="content">
       <div class="container-fluid">
 
-@if($service_name->name == 'Hotel')
   <form action="{{ route('service_listing_save_hotel',$service_name->id) }}" method="post">
-@else
-  <form action="{{ route('service_listing_save_post',$service_name->id) }}" method="post">
-@endif
-
 
   @csrf
 <div class="row">
@@ -18,15 +13,30 @@
     <div class="card">
       
       <div class="card-header">
-        <h3 class="card-title">
-          <i class="fas fa-box-open"></i> Service » {{ $service_name->name }} » 
+          Service » {{ $service_name->name }} » 
             <a href="{{ route('service_listing_create_post',$service_name->description) }}" class="py-0">Create Post</a>
-        </h3>
+        
       </div>
 
     <div class="card-body">
         
-@if($service_name->name == 'Hotel')
+<div class="form-group">
+  <label>
+    <span class="text-danger">*</span> Select Hotel
+      <small class="text-danger has-error">
+          {{ $errors->has('hotel') ?  $errors->first('hotel') : '' }}
+      </small>
+  </label>
+  <select class="custom-select" name="hotel" id="hotel">
+    <option value="" disabled="true" selected="-Select country-">-Select Hotel-</option>
+      @forelse($hotel as $hotels)
+        <option value="{{ $hotels->ps_id }}" {{ old('hotel') == $hotels->ps_id ? 'selected':'' }}>{{ $hotels->ps_name }} - Address: {{ $hotels->ps_address }}</option>
+      @empty
+        <option value="" disabled="true">Hotel list not available </option>
+      @endforelse
+      </select>
+</div>
+
 
 <div class="form-group">
   <label>
@@ -35,7 +45,7 @@
           {{ $errors->has('room_name') ?  $errors->first('room_name') : '' }}
       </small>
   </label>
-  <input type="text" name="room_name" value="" class="form-control" placeholder="Room Name">
+  <input type="text" name="room_name" value="{{ old('room_name') }}" class="form-control" placeholder="Room Name">
 </div>
 
 <div class="form-group">
@@ -45,71 +55,73 @@
       {{ $errors->has('room_description') ?  $errors->first('room_description') : '' }}
     </small>
   </label>
-  <textarea name="room_description" class="form-control" rows="2" placeholder="Room Description ..."></textarea>
+  <textarea name="room_description" class="form-control" rows="2" id="description-textarea" placeholder="Room Description ...">{{ old('room_description') }}</textarea>
 </div>
 
-
-
-@else 
 
 <div class="form-group">
   <label>
-    <span class="text-danger">*</span> Tour Package Name
-    <small class="text-danger has-error">
-        {{ $errors->has('tour_package_name') ?  $errors->first('tour_package_name') : '' }}
-    </small>
+    <span class="text-danger">*</span> Room Amenities
+    <small class="text-danger has-error">{{ $errors->has('room_facilities') ?  $errors->first('room_facilities') : '' }}</small>
   </label>
-  <input type="text" name="tour_package_name" value="" class="form-control" placeholder="Tour Package">
+  <select class="custom-select facilities" name="room_facilities[]" multiple="multiple">
+      <option value="" disabled="true">-Select Room Facilities-</option>
+        @foreach($room_amenities as $list)
+      <option value="{{ $list->name }}">{{ $list->name }}</option>
+        @endforeach
+  </select>
 </div>
 
-@endif
+<div  style="padding:5px 0px 5px;">
+<hr>
 
 <div class="row">
-  <div class="form-group col-3">
+  <div class="form-group col-6">
     <label>
       <span class="text-danger">*</span> Price (Php)
       <small class="text-danger has-error">
         {{ $errors->has('price') ?  $errors->first('price') : '' }}
       </small>
     </label>
-  <input type="text" name="price" value="" id="currency-field" data-type="currency" class="form-control" placeholder="Price" data-rule="minlen:5">
+  <input type="text" name="price" value="{{ old('price') }}" id="currency-field" data-type="currency" class="form-control" placeholder="Price" data-rule="minlen:5">
   </div>
 
 
-<div class="form-group col-3">
+<div class="form-group col-6">
   <label>
     <span class="text-danger">*</span> No. of Night
       <small class="text-danger has-error">
         {{ $errors->has('no_night') ?  $errors->first('no_night') : '' }}
       </small>
   </label>
-<input type="text" name="no_night" value="" class="form-control" placeholder="Number of Night">
+<input type="text" name="no_night" value="{{ old('no_night') }}" class="form-control" placeholder="Number of Night">
+</div>
 </div>
 
 
-<div class="form-group col-3">
+<div class="row">
+<div class="form-group col-6">
   <label>
     <span class="text-danger">*</span> No. of Guest (Max)
     <small class="text-danger has-error">
       {{ $errors->has('no_guest') ?  $errors->first('no_guest') : '' }}
     </small>
   </label>
-<input type="text" name="no_guest" value="" class="form-control" placeholder="Number of Guest">
+<input type="text" name="no_guest" value="{{ old('no_guest') }}" class="form-control" placeholder="Number of Guest">
 </div>
 
 
-<div class="form-group col-3">
+<div class="form-group col-6">
   <label>
     <span class="text-danger">*</span> Quantity (Inventory)
     <small class="text-danger has-error">
       {{ $errors->has('quantity') ?  $errors->first('quantity') : '' }}
     </small>
   </label>
-<input type="text" name="quantity" value="" class="form-control" placeholder="Quantity">
+<input type="text" name="quantity" value="{{ old('quantity') }}" class="form-control" placeholder="Quantity">
 </div>
 </div>
 
-@if($service_name->name == 'Hotel')
 
 <div class="row">
   
@@ -120,7 +132,7 @@
         {{ $errors->has('room_size') ?  $errors->first('room_size') : '' }}
       </small>
     </label>
-  <input type="text" name="room_size" value=""  class="form-control" placeholder="Room Size">
+  <input type="text" name="room_size" value="{{ old('room_size') }}"  class="form-control" placeholder="Room Size">
   </div>
 
 
@@ -132,9 +144,9 @@
   <select class="custom-select" name="views">
       <option value="" selected="selected" disabled="true">-Select View-</option>
         
-      <option value="City View">City View</option>
-      <option value="Forest View">Forest View</option>
-      <option value="Seaside View">Seaside View</option>
+      <option value="City View" {{ old('views') == 'City View' ? 'selected':'' }}>City View</option>
+      <option value="Forest View" {{ old('views') == 'Forest View' ? 'selected':'' }}>Forest View</option>
+      <option value="Seaside View" {{ old('views') == 'Seaside View' ? 'selected':'' }}>Seaside View</option>
 
   </select>
 </div>
@@ -146,266 +158,11 @@
       {{ $errors->has('number_bed') ?  $errors->first('number_bed') : '' }}
     </small>
   </label>
-<input type="text" name="number_bed" value="" class="form-control" placeholder="Number of Bed">
+<input type="text" name="number_bed" value="{{ old('number_bed') }}" class="form-control" placeholder="Number of Bed">
 </div>
 </div>
 
-@else
-
-<div class="form-group">
-  <label>
-    <span class="text-danger">*</span> Tour Package Description
-    <small class="text-danger has-error">
-      {{ $errors->has('tour_package_desc') ?  $errors->first('tour_package_desc') : '' }}
-    </small>
-  </label>
-  <textarea name="tour_package_desc" class="form-control" rows="3" placeholder="Tour Package Description ..."></textarea>
 </div>
-
-
-<div class="form-group">
-  <label>
-    <span class="text-danger">*</span> What to expect
-    <small class="text-danger has-error">
-      {{ $errors->has('what_expect') ?  $errors->first('what_expect') : '' }}
-    </small>
-  </label>
-  <textarea name="what_expect" class="form-control" rows="3" placeholder="What to expect ...."></textarea>
-</div>
-
-<div class="form-group">
-  <label>
-    <span class="text-danger">*</span> Cancelation and Refund Policy
-    <small class="text-danger has-error">
-      {{ $errors->has('cancelation') ?  $errors->first('cancelation') : '' }}
-    </small>
-  </label>
-  <textarea name="cancelation" class="form-control" rows="3" placeholder="Cancelation and Refund Policy"></textarea>
-</div>
-
-@endif
-
-
-<div  style="padding:5px 0px 5px;">
-<hr>
-<strong><i class="fas fa-list-ul"></i> Inclusion</strong>
-</div>
-
-@if($service_name->name == 'Hotel')
-
-<div class="form-group">
-  <label>
-    <span class="text-danger">*</span> Room Facilities
-    <small class="text-danger has-error">{{ $errors->has('room_facilities') ?  $errors->first('room_facilities') : '' }}</small>
-  </label>
-  <select class="custom-select facilities" name="room_facilities[]" multiple="multiple">
-      <option value="" disabled="true">-Select Room Facilities-</option>
-        @foreach($room_facilities as $list)
-      <option value="{{ $list->name }}">{{ $list->name }}</option>
-        @endforeach
-  </select>
-</div>
-
-
-<div class="form-group">
-  <label>
-    <span class="text-danger">*</span> Building Facilities
-    <small class="text-danger has-error">{{ $errors->has('buiding_facilities') ?  $errors->first('buiding_facilities') : '' }}</small>
-  </label>
-  <select class="custom-select facilities" name="buiding_facilities[]" multiple="multiple">
-      <option value="" disabled="true">-Select Building Facilities-</option>
-        @foreach($building_facilities as $list)
-      <option value="{{ $list->name }}">{{ $list->name }}</option>
-        @endforeach
-  </select>
-</div>
-
-
-<div class="form-group">
-  <label>
-    <span class="text-danger">*</span> Booking Packages
-    <small class="text-danger has-error">{{ $errors->has('booking_package') ?  $errors->first('booking_package') : '' }}</small>
-  </label>
-  <select class="custom-select facilities" name="booking_package[]" multiple="multiple">
-      <option value="" disabled="true">-Select Package-</option>
-        @foreach($packages_facilities as $list)
-      <option value="{{ $list->name }}">{{ $list->name }}</option>
-        @endforeach
-  </select>
-</div>
-
-@else
-
-<div class="form-group">
-  <label>
-    <span class="text-danger">*</span> Facilities
-    <small class="text-danger has-error">{{ $errors->has('facilities') ?  $errors->first('facilities') : '' }}</small>
-  </label>
-  <select class="custom-select facilities" name="facilities[]" multiple="multiple">
-      <option value="" disabled="true">-Select Facilities-</option>
-        @foreach($building_facilities as $list)
-      <option value="{{ $list->name }}">{{ $list->name }}</option>
-        @endforeach
-  </select>
-</div>
-
-<div class="form-group">
-  <label>
-    <span class="text-danger">*</span> Packages
-    <small class="text-danger has-error">{{ $errors->has('package') ?  $errors->first('package') : '' }}</small>
-  </label>
-  <select class="custom-select facilities" name="package[]" multiple="multiple">
-      <option value="" disabled="true">-Select Package-</option>
-        @foreach($packages_facilities as $list)
-      <option value="{{ $list->name }}">{{ $list->name }}</option>
-        @endforeach
-  </select>
-</div>
-
-
-@endif
-
-<div  style="padding:5px 0px 5px;">
-<hr>
-<strong> <i class="fas fa-map-marked-alt"></i> Location and Address</strong>
-</div>
-
-
-@if($service_name->name == 'Hotel')
-
-<div class="form-group">
-  <label>
-    <span class="text-danger">*</span> Address
-    <small class="text-danger has-error">{{ $errors->has('address') ?  $errors->first('address') : '' }}</small>
-  </label>
-  <select class="custom-select" name="address">
-      <option value="" disabled="true">-Select address-</option>
-        @foreach($address as $list)
-      <option value="{{ $list->id }}">{{ $list->address }}</option>
-        @endforeach
-  </select>
-</div>
-
-
-<div class="row">
-  
-<div class="form-group col-6">
-  <label>
-    <span class="text-danger">*</span> Latitude
-    <small class="text-danger has-error">
-      {{ $errors->has('lat') ?  $errors->first('lat') : '' }}
-    </small>
-  </label>
-<input type="text" name="lat" value=""  class="form-control" placeholder="Latitude">
-</div>
-
-
-<div class="form-group col-6">
-  <label>
-    <span class="text-danger">*</span> Longitude
-    <small class="text-danger has-error">
-      {{ $errors->has('long') ?  $errors->first('long') : '' }}
-    </small>
-  </label>
-<input type="text" name="long" value=""  class="form-control" placeholder="Longitude">
-</div>
-</div>
-
-
-@else
-
-<div class="form-group">
-  <label>
-    <span class="text-danger">*</span> Address
-    <small class="text-danger has-error">
-      {{ $errors->has('address') ?  $errors->first('address') : '' }}
-    </small>
-  </label>
-  <textarea name="address" class="form-control" rows="2" placeholder="Address...."></textarea>
-</div>
-
-<div class="row">
-  
-<div class="form-group col-6">
-  <label>
-    <span class="text-danger">*</span> Latitude
-    <small class="text-danger has-error">
-      {{ $errors->has('lat') ?  $errors->first('lat') : '' }}
-    </small>
-  </label>
-<input type="text" name="lat" value=""  class="form-control" placeholder="Latitude">
-</div>
-
-
-<div class="form-group col-6">
-  <label>
-    <span class="text-danger">*</span> Longitude
-    <small class="text-danger has-error">
-      {{ $errors->has('long') ?  $errors->first('long') : '' }}
-    </small>
-  </label>
-<input type="text" name="long" value=""  class="form-control" placeholder="Longitude">
-</div>
-</div>
-
-@endif
-
-<div class="row">
-
-<div class="col-md-4 form-group">
-  <label><span class="text-danger">*</span> Country
-  <small class="text-danger has-error">
-    {{ $errors->has('country') ?  $errors->first('country') : '' }}
-  </small> 
-  </label>
-  <select class="custom-select" name="country" id="countryid">
-    <option value="" disabled="true" selected="-Select country-">-Select country-</option>
-    @foreach($country as $list)
-    <option value="{{ $list->id }}">{{ $list->country }}</option>
-    @endforeach
-  </select>
-</div>
-
-
-<div class="col-md-4 form-group">
-  <label>
-    <span class="text-danger">*</span> Province 
-    <small class="text-danger has-error">
-      {{ $errors->has('province') ?  $errors->first('province') : '' }}
-    </small>
-  </label>
-    <select class="custom-select" name="province" id="districtid">
-    <option value="0" disabled="true" selected="true">-Select Province-</option>
-  </select>
-</div>
-
-<div class="col-md-4 form-group">
-  <label><span class="text-danger">*</span> Place
-    <small class="text-danger has-error">
-      {{ $errors->has('place') ?  $errors->first('place') : '' }}
-    </small>
-  </label>
-  <select class="custom-select" name="place" id="cityid">
-    <option value="0" disabled="true" selected="true">-Select Place-</option>
-  </select>
-  <div class="validate"></div>
-</div>
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -414,7 +171,7 @@
 </div>
         
 <div class="card-footer">
-  <button type="submit" class="btn btn-info"><i class="fas fa-save"></i> Submit</button>
+  <button type="submit" class="btn btn-info">Continue <i class="fas fa-chevron-circle-right"></i></button>
 </div>
 
 
@@ -444,6 +201,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" type="text/javascript"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
+
 <script type="text/javascript">
 
 $('.facilities').select2( {
@@ -620,6 +379,12 @@ function formatCurrency(input, blur) {
   caret_pos = updated_len - original_len + caret_pos;
   input[0].setSelectionRange(caret_pos, caret_pos);
 }
+
+    ClassicEditor
+        .create( document.querySelector('#description-textarea') )
+        .catch( error => {
+            console.error( error );
+        } );
 
 </script>
 @endsection

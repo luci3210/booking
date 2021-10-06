@@ -11,7 +11,7 @@
       <div class="card-header">
         <h3 class="card-title">
           <i class="fas fa-box-open"></i> {{ $service_name->name }} » 
-          <a href="{{ route('service_listing_create_post',$service_name->description) }}" class="py-0">Create Post</a>
+          <a href="{{ route('m_create_post',$service_name->description) }}" class="py-0">Create Post</a>
         </h3>
       </div>
 

@@ -196,6 +196,13 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant.das
         Route::get('/{destination}/create_post','Merchant\ServiceListingController@service_create_post')
         ->name('service_listing_create_post');
 
+
+        
+        Route::get('/{destination}/create_service_post','Merchant\ServiceListingController@create_service')
+        ->name('m_create_post');
+
+
+
         Route::post('create_post/{id}','Merchant\ServiceListingController@service_save_post')
         ->name('service_listing_save_post');
 
