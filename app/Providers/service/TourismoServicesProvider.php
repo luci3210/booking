@@ -89,14 +89,14 @@ public function boot()
         });
 
 
-        View::composer('*', function ($view) {
-            $view->with('profile', 
+        // View::composer('*', function ($view) {
+        //     $view->with('profile', 
 
-                Profile::where(function($query) {
-                $query->from('profiles')->where('profiles.user_id',Auth::user()->id);
-            })->first()
-            );
-        });
+        //         Profile::where(function($query) {
+        //         $query->from('profiles')->where('profiles.user_id',Auth::user()->id);
+        //     })->first()
+        //     );
+        // });
         
     }
 }

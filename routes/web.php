@@ -134,12 +134,12 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant.das
 Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant/profile'], function() {
         
     #profile---
-    Route::get('/profile/{account_id}/','Merchant\ProfileController@index')->name('profile_index');
+    Route::get('/profile/','Merchant\ProfileController@index')->name('profile_index');
 
-    Route::get('/update_profile/{account_id}','Merchant\ProfileController@profile_form')
+    Route::get('/update_profile','Merchant\ProfileController@profile_form')
     ->name('profile_form');
 
-    Route::post('/profile_create/{id}/{account_id}','Merchant\ProfileController@profile_create')
+    Route::post('/profile_create/{id}','Merchant\ProfileController@profile_create')
     ->name('m_profile_create');  
 
 

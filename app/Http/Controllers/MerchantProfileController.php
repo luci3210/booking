@@ -85,13 +85,13 @@ public function getProfilesVerify() {
 
 }
 
-public function getHasProfile($account_id) {
+public function getHasProfile() {
 
     try {
 
-       return Profile::where(function($query) use($account_id) {
+       return Profile::where(function($query) {
                 $query->from('profiles')
-                    ->where([['profiles.account_id',$account_id],['profiles.user_id',Auth::user()->id],['profiles.company','']]);
+                    ->where([['profiles.user_id',Auth::user()->id],['profiles.company','']]);
             })->first();
     } 
 

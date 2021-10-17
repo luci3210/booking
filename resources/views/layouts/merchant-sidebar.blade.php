@@ -9,14 +9,14 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-    <a href="{{ route('profile_index',$profile->account_id) }}" class="nav-link active">
+    <a href="{{-- route('profile_index',$profile->account_id) --}}" class="nav-link active">
         <i class="nav-icon fas fa-home"></i>
         <p>Merchant Account</p>
     </a>
 </li>
 
 <li class="nav-item">
-    <a href="{{ route('profile_index',$profile->account_id) }}" class="nav-link">
+    <a href="{{-- route('profile_index',$profile->account_id) --}}" class="nav-link">
       <i class="nav-icon far fa-address-card aria-hidden="true""></i>
           <p>
         Profile
