@@ -28,7 +28,7 @@ class ProfileController extends Controller
     // private $services;
     private $identity;
 
-	public function __construct(PlanContoller $myplan, ServiceController $services, MerchantProfileController $identity) {
+public function __construct(PlanContoller $myplan, ServiceController $services, MerchantProfileController $identity) {
 
 		$this->middleware('auth:web');
 
@@ -37,26 +37,197 @@ class ProfileController extends Controller
         $this->getIdentity = $identity;
 	}
 
-    public function index() {
+public function index($account_id) {
 
-        $profile = $this->profile_check();
-        $profile_details = $this->profile_details();
-        
-        $profile_contact = $this->contact_check();
-        $profile_contact_details = $this->contact_details();
-        
-        $profile_address = $this->address_check();
-        $profile_address_details = $this->address_details();
+    if($this->getIdentity->getHasProfile($account_id)) {
 
-        $profile_permit = $this->permit_check();
-        $profile_permit_details = $this->permit_details();
+        return view('errors.merchant.web.pageNotAuthorized');
+    }
 
-        $verify_check = $this->verify_check();
-        $service_profile = $this->profile_service();
+
+    if(!$this->getIdentity->getAuthUser()->profile) {
+
+        return $this->getIdentity->getAuthUser();
+    }
+
+    try {
 
 
         return view('merchant_dashboard.profile.index',compact(['service_profile','profile_details','profile_address','profile_address_details','profile_contact','profile_contact_details','profile_permit','profile_permit_details','verify_check']));
+
+        // $profile = $this->profile_check();
+        // $profile_details = $this->profile_details();
+        
+        // $profile_contact = $this->contact_check();
+        // $profile_contact_details = $this->contact_details();
+        
+        // $profile_address = $this->address_check();
+        // $profile_address_details = $this->address_details();
+
+        // $profile_permit = $this->permit_check();
+        // $profile_permit_details = $this->permit_details();
+
+        // $verify_check = $this->verify_check();
+        // $service_profile = $this->profile_service();
+
+
+        // return view('merchant_dashboard.profile.index',compact(['service_profile','profile_details','profile_address','profile_address_details','profile_contact','profile_contact_details','profile_permit','profile_permit_details','verify_check']));
+
+
+        } catch(\Exception $e) {
+
+
+        return view('errors.merchant.web.pageNotfound');
+
     }
+
+    }
+
+protected function profile_form($account_id) {
+
+    if($this->getIdentity->getHasProfile($account_id)) {
+
+        $data = $this->getIdentity->getHasProfile($account_id);
+        return view('merchant_dashboard.profile.profile_new',compact('data'));
+    }
+
+    if(!$this->getIdentity->getAuthUser()->profile) {
+
+        return $this->getIdentity->getAuthUser();
+    }
+
+    try {
+
+
+        } catch(\Exception $e) {
+
+
+        return view('errors.merchant.web.pageNotfound');
+
+    }
+
+    
+
+       //  $profile = $this->profile_check();
+       //  $profile_details = $this->profile_details();
+       // //$services = $this->theServices->getServices();
+
+     //   return view('merchant_dashboard.profile.profile',compact(['profile','profile_details','services']));
+    }
+
+protected function profile_create(UpdateProfile $request, $id, $account_id) {
+
+    Profile::where([['id',$id],['account_id',$account_id]])->update(['company' => $request->company,
+            'address'       => $request->address,
+            'about'         => $request->about,
+            'email'         => $request->email,
+            'telno'         => $request->telno,
+            'website'       => $request->website]); 
+
+    ProfileUsersModel::firstOrCreate(['up_profile_id' => $id,
+            'up_user_id' => Auth::user()->id,
+                'up_role_id' => 1,
+                    'pu_temp' => 1,
+                        'pu_created_at' => now()]);
+
+    return redirect('merchant/profile/profile/'.$account_id.'')->withSuccess('Profile successfully updated.');
+
+}
+
+protected function profile_form_update(UpdateProfile $request, $id) {
+
+    if($this->profile_user_check('up_profile_id')) { 
+
+    Profile::where('id',$id)->update(['company' => $request->company,
+            'address'       => $request->address,
+            'about'         => $request->about,
+            'email'         => $request->email,
+            'telno'         => $request->telno,
+            'website'       => $request->website]);  
+
+    return redirect()->back()->withSuccess('Profile successfully updated.');
+
+    } 
+
+    else 
+    
+    {
+
+    Profile::where('id',$id)->update(['company' => $request->company,
+            'address'       => $request->address,
+            'about'         => $request->about,
+            'email'         => $request->email,
+            'telno'         => $request->telno,
+            'website'       => $request->website]); 
+
+    ProfileUsersModel::firstOrCreate(['up_profile_id' => $id,
+            'up_user_id' => Auth::user()->id,
+                'up_role_id' => 1,
+                    'pu_temp' => 1,
+                        'pu_created_at' => now()]);
+
+    return redirect('merchant/profile/profile')->withSuccess('Profile successfully updated.');
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     protected function profile_service() {
 
@@ -137,52 +308,7 @@ class ProfileController extends Controller
 
 
 
-protected function profile_form() {
 
-    	$profile = $this->profile_check();
-    	$profile_details = $this->profile_details();
-       // $services = $this->theServices->getServices();
-
-    	return view('merchant_dashboard.profile.profile',compact(['profile','profile_details','services']));
-    }
-
-
-protected function profile_form_update(UpdateProfile $request, $id) {
-
-    if($this->profile_user_check('up_profile_id')) { 
-
-    Profile::where('id',$id)->update(['company' => $request->company,
-            'address'       => $request->address,
-            'about'         => $request->about,
-            'email'         => $request->email,
-            'telno'         => $request->telno,
-            'type' => implode(',',$request->services),
-            'website'       => $request->website]);  
-
-    return redirect()->back()->withSuccess('Profile successfully updated.');
-
-    } 
-
-    else 
-    
-    {
-
-    Profile::where('id',$id)->update(['company' => $request->company,
-            'address'       => $request->address,
-            'about'         => $request->about,
-            'email'         => $request->email,
-            'telno'         => $request->telno,
-            'website'       => $request->website]); 
-
-    ProfileUsersModel::firstOrCreate(['up_profile_id' => $id,
-            'up_user_id' => Auth::user()->id,
-                'up_role_id' => 1,
-                    'pu_temp' => 1,
-                        'pu_created_at' => now()]);
-
-    return redirect('merchant/profile/profile')->withSuccess('Profile successfully updated.');
-    }
-}
 
 
 public function merchant_permit(Request $request) {

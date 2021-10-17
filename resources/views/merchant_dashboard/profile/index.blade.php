@@ -71,11 +71,13 @@
         
         <h3 class="timeline-header"><i class="far fa-building"></i> Profile</h3>
 
-        <div class="timeline-body">
-          Please update your merchant identity.
+        <div class="timeline-body text-center">
+          <p class="mt-4"><i class="fas fa-database"></i> No Profile yet, Please update.</p>
         </div>
+
+
         <div class="timeline-footer">
-          <a class="btn btn-danger btn-sm" href="{{ route('profile_form') }}"><i class="fas fa-pen-square"></i> Update</a>
+          <a class="btn btn-block btn-info" href="{{ route('profile_form') }}"> Update</a>
         </div>
       </div>
   </div>
@@ -266,7 +268,6 @@ Upload Business Permit
 @endforeach()
 <br>
 <br>
-
 
 <form action="{{ route('merchant_permit_submit') }}" method="post" role="form" id="valid-form" class="form-border" enctype="multipart/form-data">
   @csrf

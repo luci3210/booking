@@ -128,13 +128,21 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant.das
 
 });
 
+
+
+// profile---
 Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant/profile'], function() {
         
     #profile---
-    Route::get('/profile','Merchant\ProfileController@index')->name('profile_index');
+    Route::get('/profile/{account_id}/','Merchant\ProfileController@index')->name('profile_index');
 
-    Route::get('/profile_form','Merchant\ProfileController@profile_form')
+    Route::get('/update_profile/{account_id}','Merchant\ProfileController@profile_form')
     ->name('profile_form');
+
+    Route::post('/profile_create/{id}/{account_id}','Merchant\ProfileController@profile_create')
+    ->name('m_profile_create');  
+
+
 
     Route::post('/profile','Merchant\ProfileController@profile_form_submit')
     ->name('profile_submit');
@@ -179,8 +187,37 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant/pro
 Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant.dashboard/service'], function() {
         
         #post services and exclusive
-        Route::get('/{destination}/','Merchant\ServiceListingController@index')
+    Route::get('/{destination}/','Merchant\ServiceListingController@index')
         ->name('service_listing');
+
+    Route::post('/{id}/delete_post','Merchant\ServiceListingController@delete_post')
+        ->name('m_delete_post');
+
+    Route::post('/merchant/service/upload_photos/{id}', 'Merchant\ServiceListingController@upload_service_photos')
+        ->name('m_upload_service_photos');
+
+    Route::get('/merchant/upload_cover_photos/{id}/{upload_id}/', 'Merchant\ServiceListingController@upload_service_cover')
+        ->name('m_upload_service_cover');
+
+    Route::get('/{service_name}/edit_content/{content_id}/', 'Merchant\ServiceListingController@edit_content_post')
+        ->name('m_edit_hotel_content');
+
+    Route::post('update_content/{content_id}/', 'Merchant\ServiceListingController@update_content_post')
+        ->name('m_update_hotel_content');
+
+    Route::get('/hotel_and_resort/edit_cover/{cover_id}/', 'Merchant\ServiceListingController@edit_cover_post')
+        ->name('m_edit_cover_post');
+
+    Route::post('create_post_hotel/{id}','Merchant\ServiceListingController@service_save_hotel')
+        ->name('service_listing_save_hotel');
+
+    Route::get('/{destination}/create_service_post','Merchant\ServiceListingController@create_service')
+        ->name('m_create_post');
+
+     Route::get('/{id}/upload_photos/{description}','Merchant\ServiceListingController@service_update_photos')
+        ->name('m_act_upload_photos');
+
+
 
         
 
@@ -190,7 +227,7 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant.das
         Route::get('{destination}/{id}/create_cover/','Merchant\ServiceListingController@create_cover')
         ->name('add_cover');
 
-        Route::post('upload_cover/{id}','Merchant\ServiceListingController@upload_cover')
+        Route::post('upload_cover/{id}/{upload_id}/','Merchant\ServiceListingController@upload_cover')
         ->name('upload-cover');
 
         Route::get('/{destination}/create_post','Merchant\ServiceListingController@service_create_post')
@@ -198,25 +235,30 @@ Route::group(['middleware'=>'jobs','jobs'=>['merchant'], 'prefix'=>'merchant.das
 
 
         
-        Route::get('/{destination}/create_service_post','Merchant\ServiceListingController@create_service')
-        ->name('m_create_post');
+        
 
 
 
         Route::post('create_post/{id}','Merchant\ServiceListingController@service_save_post')
         ->name('service_listing_save_post');
 
-        Route::get('/{id}/upload_photos/{description}','Merchant\ServiceListingController@service_update_photos')
-        ->name('act_upload_photos');
+       
 
-        Route::post('/merchant/service/upload_photos/{id}', 'Merchant\ServiceListingController@service_upload_photos')
+
+
+
+
+
+
+
+
+        Route::post('/merchant/service/upload_service_photos/{id}', 'Merchant\ServiceListingController@service_upload_photos')
         ->name('service_upload_photos');
 
         Route::post('/editor_upload_photos', 'Merchant\ServiceListingController@editor_upload_photo')
         ->name('editor_upload_photo');
 
-        Route::post('create_post_hotel/{id}','Merchant\ServiceListingController@service_save_hotel')
-        ->name('service_listing_save_hotel');
+
 
         Route::post('exlusive_save_post/{id}','Merchant\ServiceListingController@exlusive_create_post')
         ->name('exlusive_save_post');

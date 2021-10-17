@@ -8,27 +8,37 @@
 
 <div class="row">
   <div class="col-12">
+  <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#"><i class="nav-icon fas fa-home"></i></a></li>
+    <li class="breadcrumb-item"><a href="#">Profile</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit Profile</li>
+  </ol>
+  </nav>
+  </div>
+</div>
 
-    <div class="card">
+
+
+<div class="row">
+  <div class="col-12">
+
+    <div class="card mt-3">
     
-      <div class="card-header">
-        <h3 class="card-title">Profile Update</h3>
-      </div>
 
-
-<form action="{{ route('profile_update',$profile_details->id) }}" method="post" role="form" id="valid-form">
+<form action="{{-- route('profile_update',$profile_details->id) --}}" method="post" role="form" id="valid-form">
   @csrf
 
 <div class="card-body"> 
 
 <div class="form-group">
   <label>
-  <span class="text-danger">*</span> Merchant Name
+  <span class="text-danger">*</span> Name
     <small class="text-danger has-error">
       {{ $errors->has('company') ?  $errors->first('company') : '' }}
     </small>
   </label>
-<input type="text" name="company" value="{{ old('company',$profile_details->company) }}" class="form-control"placeholder="Merchant Name">
+<input type="text" name="company" value="{{ old('company') }}" class="form-control"placeholder="Merchant Name">
 </div>
       
 
@@ -39,7 +49,7 @@
       {{ $errors->has('address') ?  $errors->first('address') : '' }}
     </small>
   </label>
-<textarea class="form-control" name="address" rows="1" placeholder="Address">{{ $profile_details->address }}</textarea>
+<textarea class="form-control" name="address" rows="1" placeholder="Address"></textarea>
 </div>
 
 
@@ -50,7 +60,7 @@
       {{ $errors->has('about') ?  $errors->first('about') : '' }}
     </small>
   </label>
-<textarea class="form-control" name="about" rows="3" placeholder="About">{{ $profile_details->about }}</textarea>
+<textarea class="form-control" name="about" rows="3" placeholder="About"></textarea>
 </div>
 
 
@@ -63,7 +73,7 @@
       {{ $errors->has('email') ?  $errors->first('email') : '' }}
     </small>
   </label>
-<input type="text" name="email" value="{{ old('email',$profile_details->email) }}" class="form-control" placeholder="E-mail">
+<input type="text" name="email" value="{{ old('email') }}" class="form-control" placeholder="E-mail">
 </div>
 
 <div class="form-group col-4">
@@ -73,7 +83,7 @@
       {{ $errors->has('telno') ?  $errors->first('telno') : '' }}
     </small>
   </label>
-<input type="text" name="telno" value="{{ old('telno',$profile_details->telno) }}" class="form-control" placeholder="Telephone No. / Mobile No">
+<input type="text" name="telno" value="{{ old('telno') }}" class="form-control" placeholder="Telephone No. / Mobile No">
 </div>
 
 <div class="form-group col-4">
@@ -83,13 +93,13 @@
       {{ $errors->has('website') ?  $errors->first('website') : '' }}
     </small>
   </label>
-<input type="text" name="website" value="{{ old('website',$profile_details->website) }}" class="form-control" placeholder="Website">
+<input type="text" name="website" value="{{ old('website') }}" class="form-control" placeholder="Website">
 </div>
 
 </div>
 
 
-<div class="form-group">
+<!-- <div class="form-group">
   <label>
     <span class="text-danger">*</span> Services
     <small class="text-danger has-error">{{ $errors->has('services') ?  $errors->first('services') : '' }}</small>
@@ -100,7 +110,7 @@
       <option value="{{ $list->id }}">{{ old('services',$list->name) }}</option>
         @endforeach
   </select>
-</div>
+</div> -->
 
         
 </div>

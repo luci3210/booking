@@ -46,7 +46,7 @@
               <td>{{ $post->qty }}</td>
               <td>public</td>
               <td class="text-center">
-                <div class="btn-group btn-group-sm">
+                <div class="btn-group" role="group" aria-label="Basic example">
                   <a href="{{ route('act_upload_photos',[$post->id,$service_name->description]) }}" class="btn btn-info">
                     Edit
                   </a>

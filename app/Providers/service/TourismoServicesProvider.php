@@ -9,6 +9,8 @@ use App\Model\Admin\LocationCountyModel;
 use App\Model\Merchant\ProfileModel;
 use App\Model\Merchant\UserModel;
 use App\Model\Admin\RoomFaciliModel;
+use App\Model\Merchant\Profile;
+
 
 
 use Illuminate\Support\Facades\Auth;
@@ -83,6 +85,16 @@ public function boot()
                 RoomFaciliModel::where(function($query) {
                     $query->from('room_facilities')->where('temp_status',1);
                 })->orderBy('name','asc')->get()
+            );
+        });
+
+
+        View::composer('*', function ($view) {
+            $view->with('profile', 
+
+                Profile::where(function($query) {
+                $query->from('profiles')->where('profiles.user_id',Auth::user()->id);
+            })->first()
             );
         });
         

@@ -28,6 +28,19 @@
         .card-title{
             font-weight: bold;
         }
+         .breadcrumb {
+    margin-bottom: 0;
+    background-color:#6C3483;
+    }
+    .breadcrumb  .breadcrumb-item {
+      color: #BB8FCE;
+    }
+    .breadcrumb a{
+      color: #fff;
+    }
+    .breadcrumb a:hover {
+     color: #BB8FCE; 
+    }
     </style>
 
 </head>

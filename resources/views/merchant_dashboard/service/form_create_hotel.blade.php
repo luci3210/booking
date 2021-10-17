@@ -1,23 +1,45 @@
 @extends('layouts.merchant-app')
-
+@section('third_party_stylesheets')
+<style>
+    .breadcrumb {
+    margin-bottom: 0;
+    background-color:#6C3483;
+    }
+    .breadcrumb  .breadcrumb-item {
+      color: #BB8FCE;
+    }
+    .breadcrumb a{
+      color: #fff;
+    }
+    .breadcrumb a:hover {
+     color: #BB8FCE; 
+    }
+</style>
+@endsection
 @section('content')
 
 <section class="content">
-      <div class="container-fluid">
+  <div class="container-fluid">
+
+  <div class="row">
+    <div class="col-12">
+    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#"><i class="nav-icon fas fa-home"></i></a></li>
+      <li class="breadcrumb-item"><a href="#">Post Service</a></li>
+      <li class="breadcrumb-item"><a href="{{ route('service_listing',$service_name->description) }}">Hotel</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Create Post</li>
+    </ol>
+    </nav>
+    </div>
+  </div>
 
   <form action="{{ route('service_listing_save_hotel',$service_name->id) }}" method="post">
 
   @csrf
 <div class="row">
   <div class="col-12">
-    <div class="card">
-      
-      <div class="card-header">
-          Service » {{ $service_name->name }} » 
-            <a href="{{ route('service_listing_create_post',$service_name->description) }}" class="py-0">Create Post</a>
-        
-      </div>
-
+    <div class="card mt-3">
     <div class="card-body">
         
 <div class="form-group">

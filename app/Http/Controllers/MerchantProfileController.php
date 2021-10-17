@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\Model\Merchant\ProfileModel;
+use App\Model\Merchant\Profile;
 
 
 class MerchantProfileController extends Controller
@@ -37,8 +38,8 @@ public function getAuthUser() {
 
         if(Auth::check()) {
 
-            return abort(404, 'Page not found.');
-            //return view('errors.merchant.web.pageNotAuthorized');
+            //return abort(404, 'Page not found.');
+            return view('errors.merchant.web.pageNotAuthorized');
 
         } else {
 
@@ -82,6 +83,32 @@ public function getProfilesVerify() {
 
     }
 
+}
+
+public function getHasProfile($account_id) {
+
+    try {
+
+       return Profile::where(function($query) use($account_id) {
+                $query->from('profiles')
+                    ->where([['profiles.account_id',$account_id],['profiles.user_id',Auth::user()->id],['profiles.company','']]);
+            })->first();
+    } 
+
+    catch(\Exception $e) 
+
+    {
+
+         if(Auth::check()) {
+
+            return view('errors.merchant.web.pageNotAuthorized');
+
+        } else {
+
+            return abort(404, 'Page not found.');
+        }
+
+    }
 }
 
 }

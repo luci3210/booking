@@ -29,7 +29,7 @@ class UpdateProfile extends FormRequest
             'address'=> 'required',
             'about'=> 'required',
             'email'=> 'required',
-            'services'=> 'required',
+            // 'services'=> 'required',
             // 'email'=> 'required|unique:profiles,email',
             'telno'=> 'required',
             'website'=> 'required'
@@ -43,7 +43,7 @@ class UpdateProfile extends FormRequest
             'address.required' => 'Merchant address is required',
             'about.required' => 'About merchant is required',
             'email.required' => 'Email address is required',
-            'services.required' => 'Services is required',
+            // 'services.required' => 'Services is required',
             // 'email.unique' => 'Email address is already registered',
             'telno.required' => 'Tel No./Phone No is required',
             'website.required' => 'Website is required, if you dont have, please add "None"'
